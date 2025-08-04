@@ -31,12 +31,12 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2025-07-31 12:00:16+0000\n"
+"PO-Revision-Date: 2025-08-04 12:00:19+0000\n"
 "X-POT-Import-Date: 2024-07-09 05:10:19+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: de\n"
-"X-Generator: MediaWiki 1.45.0-alpha; Translate 2025-03-15\n"
+"X-Generator: MediaWiki 1.45.0-alpha; Translate 2025-07-31\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Project-Id-Version: Ajapaik Web app\n"
 "Report-Msgid-Bugs-To: translatewiki.net\n"
@@ -1389,7 +1389,7 @@ msgstr "Punkte für die Kuratierung"
 
 #: ajapaik/ajapaik/templates/curator/curator.html:33
 msgid "You can start geotagging the new content here"
-msgstr ""
+msgstr "Sie können hier mit der Geotagging-Vergabe der neuen Inhalte beginnen"
 
 #: ajapaik/ajapaik/templates/curator/curator.html:37
 msgid "Tell your friends on Facebook"

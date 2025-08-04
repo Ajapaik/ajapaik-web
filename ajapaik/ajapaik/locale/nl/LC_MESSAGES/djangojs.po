@@ -1,7 +1,11 @@
-# Translation of Ajapaik Web app - JavaScript to Piedmontese (Piemontèis)
+# Translation of Ajapaik Web app - JavaScript to Dutch (Nederlands)
 # Exported from translatewiki.net
 #
-# Author: Borichèt
+# Author: ABPMAB
+# Author: Aranka
+# Author: Mainframe98
+# Author: Nickthijssen1994
+# Author: Siebrand
 # --
 # This file is part of the Ajapaik Project
 # This file is distributed under the same license as the Ajapaik package.
@@ -9,168 +13,164 @@
 msgid ""
 msgstr ""
 ""
-"Project-Id-Version: Ajapaik Web app - JavaScript\n"
-"Report-Msgid-Bugs-To: translatewiki.net\n"
-"POT-Creation-Date: 2019-08-04 17:16+0300\n"
 "PO-Revision-Date: 2025-08-04 12:00:21+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: pms\n"
-"MIME-Version: 1.0\n"
+"X-POT-Import-Date: 2021-10-10 16:30:23+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2021-10-10 16:30:23+0000\n"
+"Language: nl\n"
+"Project-Id-Version: Ajapaik Web app - JavaScript\n"
+"Report-Msgid-Bugs-To: translatewiki.net\n"
+"X-Translation-Project: translatewiki.net <https://translatewiki.net>\n"
 "X-Generator: MediaWiki 1.45.0-alpha; Translate 2025-07-31\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Translation-Project: translatewiki.net <https://translatewiki.net>\n"
 
 #: ajapaik/ajapaik/static/js/ajp-core.js:392
 msgid "User denied the request for Geolocation."
-msgstr "L'utent a l'ha arfudà l'arcesta ëd geolocalisassion."
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-core.js:398
 msgid "Location information is unavailable."
-msgstr "L'anformassion an sla posission a l'é nen disponìbil."
+msgstr "Locatie-informatie is niet beschikbaar."
 
 #: ajapaik/ajapaik/static/js/ajp-core.js:401
 msgid "The request to get user location timed out."
-msgstr "L'arcesta për oten-e la localisassion a l'è scadùa."
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-core.js:404
 msgid "An unknown error occurred."
-msgstr "A-i é staje n'eror dësconossù."
+msgstr "Er is een onbekende fout opgetreden."
 
 #: ajapaik/ajapaik/static/js/ajp-core.js:878
 #: ajapaik/ajapaik/static/js/ajp-core.js:894
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:106
 msgid "System error"
-msgstr "Eror ëd sistema"
+msgstr "Systeemfout"
 
 #: ajapaik/ajapaik/static/js/ajp-core.js:1024
 #: ajapaik/ajapaik/static/js/ajp-core.js:1069
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:77
 msgid "Not selected"
-msgstr "Nen selessionà"
+msgstr "Niet geselecteerd"
 
 #: ajapaik/ajapaik/static/js/ajp-core.js:1601
 msgid "Go to my location"
-msgstr "Andé a mia posission"
+msgstr "Ga naar mijn locatie"
 
 #: ajapaik/ajapaik/static/js/ajp-core.js:1613
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:438
 msgid "Close"
-msgstr "Saré"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-core.js:1765
 msgid "Pick the shooting location!"
-msgstr "Arcuperé la localisassion ëd la fòto!"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-core.js:1775
 #: ajapaik/ajapaik/static/js/ajp-core.js:1827
 msgid "Geotagged by this many users"
-msgstr "Localisà da tuti costi utent"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-core.js:1808
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:15
 msgid "Confirm correct location"
-msgstr "Confirmé la localisassion giusta"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-core.js:1819
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:104
 msgid "Submit your own location"
-msgstr "Mandé soa localisassion"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-core.js:1846
 msgid "You"
-msgstr "Chiel"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-core.js:1850
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:395
 msgid "Anonymous user"
-msgstr "Utent anònim"
+msgstr "Anonieme gebruiker"
 
 #: ajapaik/ajapaik/static/js/ajp-core.js:1852
 msgid "Anonymous users"
-msgstr "Utent anònim"
+msgstr "Anonieme gebruikers"
 
 #: ajapaik/ajapaik/static/js/ajp-core.js:1916
 msgid "Current location"
-msgstr "Posission atual"
+msgstr "Huidige locatie"
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:193
 msgid "Between approximately %(from)s and approximately %(to)s"
-msgstr "Antra %(from)s e %(to)s anviron"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:199
 msgid "Between approximately %(from)s and %(to)s"
-msgstr "Antra anviron %(from)s e %(to)s"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:205
 msgid "Between %(from)s and approximately %(to)s"
-msgstr "Antra %(from)s e anviron %(to)s"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:211
 msgid "Between %(from)s and %(to)s"
-msgstr "Antra %(from)s e %(to)s"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:219
 msgid "After approximately %(from)s"
-msgstr "Apress anviron %(from)s"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:224
 msgid "After %(from)s"
-msgstr "Apress %(from)s"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:231
 msgid "Before approximately %(to)s"
-msgstr "Prima ëd %(to)s anviron"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:236
 msgid "Before %(to)s"
-msgstr "Prima ëd %(to)s"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:245
 msgid "Approximately %(date)s"
-msgstr "Anviron %(date)s"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:269
 msgid "Invalid input, see help text."
-msgstr "Imission nen bon-a, vëdde ël test d'agiut."
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:314
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:364
 msgid "Server received invalid data."
-msgstr "Ël servent a l'ha arseivù dij dàit nen bon."
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:398
 msgid "MUIS"
-msgstr "MUIS"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:399
 msgid "Confirm dating"
-msgstr "Confirmé la dàita"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:406
 msgid "Confirming a dating earned you %(points)s points."
-msgstr "La confirmassion ëd na dàita a l'ha faje vagné %(points)s pont."
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:411
 msgid "Submitting a dating earned you %(points)s points."
-msgstr "An mandand na datassion, a l'ha vagnà %(points)s pont."
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:417
 msgid "Thanks!"
-msgstr "Mersì!"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:427
 msgid "YYYY.MM.DD"
-msgstr "AAAA.MM.DD"
+msgstr "JJJJ.MM.DD"
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:437
 #: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:155
 #: ajapaik/ajapaik/static/js/constants.js:60
 msgid "Cancel"
-msgstr "Anulé"
+msgstr "Annuleren"
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:446
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:105
@@ -178,1032 +178,1032 @@ msgstr "Anulé"
 #: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:166
 #: ajapaik/ajapaik/static/js/constants.js:62
 msgid "Submit"
-msgstr "Mandé"
+msgstr "Indienen"
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:454
 msgid "Comment your dating"
-msgstr "Comenté soa datassion"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:463
 msgid "Use YYYY.MM.DD format (MM.DD not obligatory)"
-msgstr "Dovré ël formà AAAA.MM.DD (MM.DD opsionaj)"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:463
 msgid "1878 | 1902.02"
-msgstr "1878 | 1902.02"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:463
 msgid "Mark date ranges or before/after with either \"-\" or \"..\""
-msgstr "Marché j'antërvaj ëd dàita o anans/apress con «-» o «..»"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:463
 msgid "1910-1920 | 1978.05.20..1978.06.27 | -1920 | 1935.."
-msgstr "1910-1920 | 1978.05.20..1978.06.27 | -1920 | 1935.."
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:463
 msgid "Approximate date in brackets"
-msgstr "Dàita aprossimativa antra parèntes"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:463
 msgid "(1944) | (1940.05)..1941.08.21)"
-msgstr "(1944) | (1940.05)..1941.08.21)"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:473
 msgid "You're anonymous"
-msgstr "A l'é anònim"
+msgstr "U bent anoniem"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:5
 msgid "Add this picture to album (not the whole set)"
-msgstr "Gionté costa fòto a l'àlbom (nen tut l'ansem)"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:6
 #: ajapaik/ajapaik/static/js/ajp-selection.js:185
 msgid "Aerial"
-msgstr "Aéreo"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:7
 msgid "Album details"
-msgstr "Detaj ëd l'àlbom"
+msgstr "Albumdetails"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:8
 msgid "Album has <em>%(photoCount)s</em> pictures"
-msgstr "L'àlbom a l'ha <em>%(photoCount)s</em> plance"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:9
 msgid "Approximate address"
-msgstr "Adrëssa aprossimativa"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:10
 msgid "Are you sure you want to create an album with less than 5 photos? We recommend to create albums with at least 10 or more pictures."
-msgstr "É-lo sigur ëd vorèj creé n'àlbom con men che 5 fòto? Noi i arcomandoma ëd creé dj'àlbom con almanch 10 fòto."
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:11
 msgid "Author"
-msgstr "Autor"
+msgstr "Auteur"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:12
 msgid "Categorize scene"
-msgstr "Categorisé la sena"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:13
 msgid "Comments in album"
-msgstr "Coment ant l'àlbom"
+msgstr "Opemrkingen in album"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:14
 msgid "Comments"
-msgstr "Coment"
+msgstr "Opmerkingen"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:16
 #: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:152
 msgid "Confirm"
-msgstr "Confirmé"
+msgstr "Bevestigen"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:17
 msgid "Could not copy link to clipboard"
-msgstr "Impossìbil copié la liura an sla taulëtta"
+msgstr "Link kon niet naar klembord worden gekopieerd"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:18
 msgid "Date"
-msgstr "Dàita"
+msgstr "Datum"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:19
 msgid "Description"
-msgstr "Descrission"
+msgstr "Beschrijving"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:20
 #: ajapaik/ajapaik/static/js/ajp-selection.js:212
 msgid "Edit"
-msgstr "Modifiché"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:21
 msgid "Exterior"
-msgstr "Esterior"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:22
 msgid "Failed to send your feedback, sorry."
-msgstr "Falì a mandé sò sugeriment, an dëspias."
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:23
 msgid "Flip"
-msgstr "Volté"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:24
 msgid "Geotag pictures in album"
-msgstr "Tichëtte da na mira geogràfica le plance a cost àlbom-sì"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:25
 #: ajapaik/ajapaik/static/js/ajp-selection.js:185
 msgid "Ground"
-msgstr "Teren"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:26
 msgid "Picture is of high quality"
-msgstr "Plance d'àuta qualità"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:27
 msgid "Picture has location and view direction info"
-msgstr "La fòto a l'ha n'anformassion ëd pòst e ëd diression ëd vista"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:28
 msgid "Picture has no location info"
-msgstr "La fòto a l'ha gnun-e anformassion ëd localisassion"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:29
 msgid "Picture has only location, no view direction"
-msgstr "La fòto a l'ha mach la posission, pa ëd diression ëd vista"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:30
 msgid "Picture has rephotos"
-msgstr "La fòto a l'ha d'arprodussion fotogràfiche"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:31
 msgid "Picture has similar photos"
-msgstr "A-i é dle fòto ch'a smijo a costa plancia"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:32
 msgid "Institution"
-msgstr "Anstitussion"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:33
 msgid "Interior"
-msgstr "Anterior"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:34
 msgid "Invert colors"
-msgstr "Anvertì ij color"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:35
 msgid "Invert"
-msgstr "Anvertì"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:36
 msgid "Licence"
-msgstr "Licensa"
+msgstr "Licentie"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:37
 msgid "Link copied to clipboard"
-msgstr "Liura copià an sla taulëtta"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:38
 msgid "Mark stereophoto"
-msgstr "Marché coma stereofòto"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:39
 msgid "No aerial pictures were found in this album"
-msgstr "Gnun-e fòto aéree a son ëstàite trovà an cost àlbom"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:40
 msgid "No aerial pictures were found"
-msgstr "Gnun-e fòto aéree a son ëstàite trovà"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:41
 msgid "No exterior views were found in this album"
-msgstr "Gnun-e viste a l'esterior a son ëstàite trovà an cost àlbom"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:42
 msgid "No exterior views were found"
-msgstr "Gnun-e viste a l'esterior a son ëstàite trovà"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:43
 msgid "No high-quality pictures were found"
-msgstr "As son trovasse gnun-e plance d'àuta qualità"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:44
 msgid "No high-quality pictures were found in this album"
-msgstr "As son trovasse gnun-e plance d'àuta qualità an cost àlbom"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:45
 msgid "No interior views were found in this album"
-msgstr "Gnun-e viste a l'anterior a son ëstàite trovà an cost àlbom"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:46
 msgid "No interior views were found"
-msgstr "Gnun-e viste a l'anterior a son ëstàite trovà"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:47
 msgid "No pictures in landscape format were found"
-msgstr "Gnun-e plance ant ël formà ambient a son ëstàite trovà"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:48
 msgid "No pictures in landscape format were found in this album"
-msgstr "Gnun-a plance ant ël formà ambient a son ëstàite trovà an cost àlbom-sì"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:49
 msgid "No pictures in panoramic format were found"
-msgstr "Gnun-e plance ant ël formà panoràmich a son ëstàite trovà"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:50
 msgid "No pictures in panoramic format were found in this album"
-msgstr "Gnun-e plance ant ël formà panoràmich a son ëstàite trovà an cost àlbom-sì"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:51
 msgid "No pictures from the ground level were found in this album"
-msgstr "Gnun-e fòto pijà al livel dël teren a son ëstàite trovà an cost àlbom"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:52
 msgid "No pictures from the ground level were found"
-msgstr "Gnun-e fòto pijà al livel dël teren a son ëstàite trovà"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:53
 msgid "No pictures were found in this album"
-msgstr "Gnun-e plance a son ëstàite trovà an cost àlbom"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:54
 msgid "No pictures were found with the selected filters in this album"
-msgstr "Gnun-é fòto a son ëstàite trovà con ij filtr selessionà an cost àlbom"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:55
 msgid "No pictures were found with the selected filters"
-msgstr "Gnun-é fòto a son ëstàite trovà con ij filtr selessionà"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:56
 msgid "No pictures were found"
-msgstr "Gnun-e plance a son ëstàite trovà"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:57
 msgid "No pictures which have 0 geotags were found in this album"
-msgstr "Gnun-e plance con 0 tichëtte geogràfiche a son ëstàite trovà an cost àlbom"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:58
 msgid "No pictures which have 0 geotags were found"
-msgstr "Gnun-e plance con 0 tichëtte geogràfiche a son ëstàite trovà"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:59
 msgid "No pictures with back sides were found in this album"
-msgstr "Gnun-e fòto con dle face darera a son ëstàite trovà an cost àlbom"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:60
 msgid "No pictures with back sides were found"
-msgstr "Gnun-e fòto con dle face darera a son ëstàite trovà"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:61
 msgid "No pictures with marked faces were found in this album"
-msgstr "Gnun-e fòto con dle face marcà a son ëstàite trovà an cost àlbom"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:62
 msgid "No pictures with marked faces were found"
-msgstr "Gnun-e fòto con dle face marcà a son ëstàite trovà"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:63
 msgid "No pictures in portrait format were found"
-msgstr "Gnun-e plance ant ël formà ritrat a son ëstàite trovà"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:64
 msgid "No pictures in portrait format were found in this album"
-msgstr "Gnun-e plance ant ël formà ritrat a son ëstàite trovà an cost àlbom-sì"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:65
 msgid "No raised viewpoint pictures were found in this album"
-msgstr "Gnun-e fòto da 'n pont ëd vista riaussà a son ëstàite trovà an cost àlbom"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:66
 msgid "No raised viewpoint pictures were found"
-msgstr "Gnun-e fòto da 'n pont ëd vista riaussà a son ëstàite trovà"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:67
 msgid "No results found for: %(query)s in this album"
-msgstr "Gnun arzultà trovà an cost àlbom për: %(query)s"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:68
 msgid "No results found for: %(query)s in this album\nYou could also try to edit filters applied to your search"
-msgstr "Gnun arzultà trovà an cost àlbom për: %(query)s\nA peul ëdcò prové a modifiché ij filtr aplicà a soa arserca"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:69
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:249
 msgid "No results found for: %(query)s"
-msgstr "Gnun arzultà trovà për: %(query)s"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:70
 msgid "No results found for: %(query)s\nYou could also try to edit filters applied to your search"
-msgstr "Gnun arzultà trovà për: %(query)s\nA peul ëdcò prové a modifiché ij filtr aplicà a soa arserca"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:71
 msgid "No pictures in square format were found"
-msgstr "Gnun-e plance ant ël formà quadrà a son ëstàite trovà"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:72
 msgid "No pictures in square format were found in this album"
-msgstr "Gnun-e plance ant ël formà quadrà a son ëstàite trovà an cost àlbom-sì"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:73
 msgid "No rephotos were found"
-msgstr "nun-e arprodussion fotogràfiche trovà"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:74
 msgid "No rephotos were found in this album"
-msgstr "Gnun-e arprodussion fotogràfiche a son ëstàite trovà an cost àlbom"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:75
 msgid "No liked pictures were found"
-msgstr "Gnun-e plance con d'aprovassion trovà"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:76
 msgid "No liked pictures were found in this album"
-msgstr "Gnun-a plance con d'aprovassion a son ëstàite trovà an cost àlbom"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:78
 msgid "Number"
-msgstr "Nùmer"
+msgstr "Nummer"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:79
 msgid "Picture added to album by:"
-msgstr "Plancia giontà a l'àlbom da:"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:80
 msgid "Picture already in album(s)"
-msgstr "Fòto già ant j'àlbom"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:81
 msgid "Picture has location data attached"
-msgstr "La plancia a conten dij dàit ëd localisassion"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:82
 msgid "Picture is already in Ajapaik. You can still add it to your album, no curation points awarded"
-msgstr "A fòto a-i é già su Ajapaik. A peul istess giontela a sò àlbom, ma gnun pont ëd supervision a sarà assignà"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:83
 msgid "Picture set has no annotations"
-msgstr "L'ansem ëd plance a l'ha gnun-e anotassion"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:84
 msgid "Picture set has no comments"
-msgstr "L'ansem ëd plance a l'ha gnun coment"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:85
 msgid "Picture set has no datings"
-msgstr "L'ansem ëd plance a l'ha gnun-a daitassion"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:86
 msgid "Picture set has no geotags"
-msgstr "L'ansem ëd fòto a l'ha gnun-e geolocalisassion"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:87
 msgid "Picture set has no likes"
-msgstr "L'ansem ëd plance a l'ha gnun-e aprovassion"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:88
 msgid "Picture set has no rephotos"
-msgstr "L'ansem ëd plance a l'ha gnun-e arprodussion fotogràfiche"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:89
 msgid "Picture set has no transcriptions"
-msgstr "L'ansem ëd plance a l'ha gnun-e transcrission"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:90
 msgid "Picture set has no views"
-msgstr "L'ansem ëd fòto a l'ha gnun-e viste"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:91
 msgid "Pictures geotagged"
-msgstr "Fòto geolocalisà"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:92
 msgid "Pictures in album"
-msgstr "Fòto ant l'àlbom"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:93
 msgid "Points"
-msgstr "Pont"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:94
 #: ajapaik/ajapaik/static/js/ajp-selection.js:185
 msgid "Raised"
-msgstr "Riaussà"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:95
 msgid "Remove from selection"
-msgstr "Gavé da la selession"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:96
 msgid "Rephotos in album"
-msgstr "Arprodussion fotogràfiche ant l'àlbom"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:97
 msgid "Rotate"
-msgstr "Roté"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:98
 msgid "Show pictures on map"
-msgstr "Smon-e le fòto an sla carta"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:99
 msgid "Similar photos in album"
-msgstr "Fòto smijante an l'àlbom"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:100
 msgid "Size"
-msgstr "Taja"
+msgstr "Grootte"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:101
 #: ajapaik/ajapaik/static/js/ajp-selection.js:93
 msgid "Something went wrong, please check your connection. If the issue persists please contact us on Tawk.to"
-msgstr "Chheicòs a l'é andàit mal, për piasì ch'a contròla soa conession. Si ël problema a përsist, për piasì ch'an contata su Tawk.to"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:102
 msgid "Source ID"
-msgstr "ID ëd la sorgiss"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:103
 msgid "Source"
-msgstr "Sorgiss"
+msgstr "Bron"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:107
 msgid "Thank you! Bad rectangle deleted."
-msgstr "Mersì! Retangol ësbalià eliminà."
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:108
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:524
 msgid "Thank you!"
-msgstr "Mersì!"
+msgstr "Bedankt!"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:109
 msgid "This album contains a film"
-msgstr "S'àlbom-sì a conten un filmà"
+msgstr "Dit album bevat een film"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:110
 msgid "Title"
-msgstr "Tìtol"
+msgstr "Titel"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:111
 msgid "URL"
-msgstr "URL"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:112
 msgid "Unidentified boy"
-msgstr "Fieul nen identificà"
+msgstr "Ongeïdentificeerde jongen"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:113
 msgid "Unidentified girl"
-msgstr "Fija nen identificà"
+msgstr "Ongeïdentificeerd meisje"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:114
 msgid "Unidentified child"
-msgstr "Masnà nen identificà"
+msgstr "Ongeïdentificeerd kind"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:115
 msgid "Unidentified adult man"
-msgstr "Òm grand nen identificà"
+msgstr "Ongeïdentificeerde volwassen man"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:116
 msgid "Unidentified adult woman"
-msgstr "Fomna granda nen identificà"
+msgstr "Ongeïdentificeerde volwassen vrouw"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:117
 msgid "Unidentified adult person"
-msgstr "Përson-a granda nen identificà"
+msgstr "Ongeïdentificeerde volwassen persoon"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:118
 msgid "Unidentified elderly man"
-msgstr "Òm vej nen identificà"
+msgstr "Ongeïdentificeerde bejaarde man"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:119
 msgid "Unidentified elderly woman"
-msgstr "Fomna veja nen identificà"
+msgstr "Ongeïdentificeerde bejaarde vrouw"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:120
 msgid "Unidentified elderly person"
-msgstr "Përson-a veja nen identificà"
+msgstr "Ongeïdentificeerde bejaarde"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:121
 msgid "Unidentified man"
-msgstr "Òm nen identificà"
+msgstr "Ongeïdentificeerde man"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:122
 msgid "Unidentified woman"
-msgstr "Fomna nen identificà"
+msgstr "Ongeïdentificeerde vrouw"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:123
 msgid "Unidentified person"
-msgstr "Përson-a nen identificà"
+msgstr "Ongeïdentificeerd persoon"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:124
 msgid "Unknown author"
-msgstr "Autor dësconossù"
+msgstr "Onbekende auteur"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:125
 msgid "You have opened the map with the album filter off, to turn it on, please tick the box next to album name"
-msgstr "A l'ha duvertà la carta con ël filtr ëd n'àlbom dëstiss, për anvischelo ch'a marca la casela davzin al nòm ëd l'àlbom"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:126
 msgid "You have opened the map with the album filter on, to turn it off, please untick the box next to album name"
-msgstr "A l'ha duvertà la carta con ël filtr ëd n'àlbom anvisch, për dëstisselo për piasì ch'a gava la marca a la casela davzin al nòm ëd l'àlbom"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:127
 msgid "photos"
-msgstr "fòto"
+msgstr "foto's"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:100
 msgid "Ordering"
-msgstr "Órdin"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:105
 msgid "earliest"
-msgstr "ël pi vej"
+msgstr "vroegste"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:107
 msgid "latest"
-msgstr "ël pi recent"
+msgstr "laatste"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:112
 msgid "least"
-msgstr "ël men"
+msgstr "minst"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:114
 msgid "most"
-msgstr "ël pi"
+msgstr "meeste"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:119
 msgid "Pictures furthest from you"
-msgstr "Fòto pi leugne da chiel"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:121
 msgid "Pictures closest to you"
-msgstr "Fòto pi davzin-e a chiel"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:126
 msgid "commented"
-msgstr "comentà"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:129
 msgid "rephotographed"
-msgstr "torna fotografà"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:132
 msgid "added"
-msgstr "giontà"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:135
 msgid "geotagged"
-msgstr "geolocalisà"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:138
 msgid "liked"
-msgstr "a l'ha marcà ch'a-j pias"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:141
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:144
 msgid "categorized"
-msgstr "categorisà"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:147
 msgid "dated"
-msgstr "daità"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:150
 msgid "transcribed"
-msgstr "trascrit"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:153
 msgid "annotated"
-msgstr "anotà"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:156
 msgid "viewed"
-msgstr "vist"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:163
 msgid "pictures"
-msgstr "fòto"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:167
 msgid "By reverse timestamp"
-msgstr "An órdin cronològich anvertì"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:169
 msgid "By timestamp"
-msgstr "Da na mira cronològica"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:173
 msgid "Pictures from the map"
-msgstr "Fòto da la carta"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:254
 msgid "Did you mean to search from:"
-msgstr "Vorij-lo sërché da:"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:255
 msgid "all pictures"
-msgstr "tute le fòto"
+msgstr "alle afbeeldingen"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:283
 msgid "Albums"
-msgstr "Àlbom"
+msgstr "Albums"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:290
 msgid "My favorites"
-msgstr "Ij mè preferì"
+msgstr "Mijn favorieten"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:294
 msgid "My rephotos"
-msgstr "Mie arprodussion fotogràfiche"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:296
 msgid "Rephotos by %(user)s"
-msgstr "Arprodussion fotogràfiche ëd %(user)s"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:301
 msgid "All pictures"
-msgstr "Tute le fòto"
+msgstr "Alle afbeeldingen"
 
 #: ajapaik/ajapaik/static/js/ajp-game.js:182
 msgid "You've seen all the pictures in this album, we are now showing you random photos."
-msgstr "A l'ha vist tute le fòto dë st'àlbom, adess i-j mostroma dle fòto a l'ancàpit."
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-game.js:184
 msgid "You have seen all the pictures from this album."
-msgstr "A l'ha vist tute le fòto dë st'àlbom-sì."
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:379
 msgid "You're anonymous."
-msgstr "A l'é anònim."
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:380
 msgid " You can now log in with your e-mail."
-msgstr "A peul rintré ant ëd sistema con soa adrëssa ëd pòsta eletrònica."
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:467
 msgid "Toggle map center lock"
-msgstr "Cangé ël luchèt ëd sènter ëd la carta"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:495
 msgid "Approximate"
-msgstr "Aprossimassion"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:502
 msgid "Vantage point"
-msgstr "Pont d'osservassion"
+msgstr "Uitkijkpunt"
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:509
 #: ajapaik/ajapaik/static/js/constants.js:75
 msgid "Object"
-msgstr "Oget"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:516
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:765
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:908
 msgid "Grab and drag the MAP so that the marker is where the photographer was standing."
-msgstr "Ambranché e tiré la CARTA an manera che ël marcheur a sia andoa a-i era ël fotògraf."
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:517
 msgid "Search box"
-msgstr "Casela d'arserca"
+msgstr "Zoekvak"
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:673
 msgid "Median suggestion"
-msgstr "Sugeriment median"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:685
 msgid "Your suggestion"
-msgstr "Sò sugeriment"
+msgstr "Uw suggestie"
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:700
 msgid "How much has the depicted location changed?"
-msgstr "Ëd vàire a l'é stàita modificà la posission arpresentà?"
+msgstr "Hoeveel is de afgebeelde locatie veranderd?"
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:701
 msgid "Continue"
-msgstr "Continué"
+msgstr "Doorgaan"
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:703
 msgid "a little"
-msgstr "un pò"
+msgstr "een beetje"
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:704
 msgid "a lot"
-msgstr "un baron"
+msgstr "veel"
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:903
 msgid "Click the green button to save both the location and the direction of the view. Click on the map to unlock the direction, drag map to correct the location."
-msgstr "Sgnaché an sël boton verd për argistré sia la posission che la diression ëd la vista. Sgnaché an sla carta për dësbloché la diression, tiré la carta për corege la posission."
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:906
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:915
 msgid "Click on the map to lock the direction of the view or click yellow button to save only the location."
-msgstr "Sgnaché an sla carta për bloché la diression ëd la vista o sgnaché an sël boton giàun për argistré mach la posission."
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:913
 msgid "Click the green button to save both the location and the direction of the view. Click on the map to unlock the direction, drag MARKER to correct the location."
-msgstr "Sgnaché an sël boton verd për argistré sia la posission che la diression ëd vista. Sgnaché an sla carta për dësbloché la diression, tiré ël MARCHEUR për corege la posission."
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:917
 msgid "Now you can drag the MARKER where the photographer was standing and the MAP separately."
-msgstr "Adess a peul tiré ël MARCHEUR ambelelà andoa as trovava ël fotògraf e la CARTA separataman."
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:921
 msgid "Drag the map so that the circle covers the approximate location, click save when ready."
-msgstr "Tiré la carta ëd fasson che ël sercc a coata la posission aprossimativa, ch'a gnaca su argistré cand a l'é pront."
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:923
 msgid "Drag the map so that the marker is on top of the object you see on the picture, click save when ready."
-msgstr "Tiré la carta ëd fasson che ël marcheur a sia an àut ëd l'oget ch'a s-ciàira an sla fòto, sgnaché su argistré cand a l'é pront."
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:1069
 msgid "Points awarded"
-msgstr "Pont assignà"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:1071
 msgid "Picture flip feedback"
-msgstr "Sugeriment su coma volté le plance"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-juks-gmaps.js:50
 msgid "Historic maps"
-msgstr "Carte stòriche"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-map.js:708
 msgid "Remove album filter"
-msgstr "Gavé ël filtr ëd j'àlbom"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-map.js:711
 msgid "Pictures only in album: %(albumName)s are shown in the sidebar"
-msgstr "Mach le fòto ëd l'àlbom: %(albumName)s a son ësmonùe ant la bara lateral"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-map.js:726
 msgid "Apply album filter"
-msgstr "Apliché ël fìlter ëd j'àlbom"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-map.js:728
 msgid "All pictures are shown in the sidebar"
-msgstr "Tute le plance a son ësmonùe ant la bara lateral"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-selection.js:82
 #, javascript-format
 msgid "You have gained %s point"
 msgid_plural "You have gained %s points"
-msgstr[0] "A l'ha vagnà %s pont"
-msgstr[1] "A l'ha vagnà %s pont"
+msgstr[0] ""
+msgstr[1] ""
 
 #: ajapaik/ajapaik/static/js/ajp-selection.js:88
 msgid "Your suggestion has been changed"
-msgstr "Sò sugeriment a l'é stàit modificà"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:103
 msgid "Transcribed by:"
-msgstr "Trascrivù da:"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:152
 msgid "This transcription is correct"
-msgstr "Costa trascrission a va bin"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:165
 msgid "What is written on the picture?"
-msgstr "Lòn ch'a-i é scrit an sla plancia?"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:178
 msgid "You're anonymous, please login to add transcriptions"
-msgstr "A l'é anònim, për piasì ch'a rintra ant ël sistema për gionté dle trascrission"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:180
 msgid "Login"
-msgstr "Rintré ant ël sistema"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/annotations/popovers/annotation.popover.new.js:119
 msgid "Select age group (optional)"
-msgstr "Selessioné na partìa d'età (opsional)"
+msgstr "Selecteer een leeftijdsgroep (optioneel)"
 
 #: ajapaik/ajapaik/static/js/annotations/popovers/annotation.popover.new.js:146
 msgid "Select gender (optional)"
-msgstr "Selessioné ël sess (opsional)"
+msgstr "Selecteer geslacht (optioneel)"
 
 #: ajapaik/ajapaik/static/js/annotations/popovers/face-annotation.popover.edit.js:93
 msgid "Change age group"
-msgstr "Modifiché la partìa d'età"
+msgstr "Leeftijdsgroep wijzigen"
 
 #: ajapaik/ajapaik/static/js/annotations/popovers/face-annotation.popover.edit.js:120
 msgid "Change gender"
-msgstr "Modifiché ël sess"
+msgstr "Geslacht wijzigen"
 
 #: ajapaik/ajapaik/static/js/constants.js:45
 msgid "Click (don't drag) to start drawing the annotation. Click again to finish drawing."
-msgstr "Sgnaché (nen tiré) për ancaminé a dissegné la nòta. Sgnaché torna për finì ëd dissegné."
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/constants.js:48
 msgid "Object is required"
-msgstr "L'oget a l'é obligatòri"
+msgstr "Object is vereist"
 
 #: ajapaik/ajapaik/static/js/constants.js:51
 msgid "optional"
-msgstr "facoltativ"
+msgstr "optioneel"
 
 #: ajapaik/ajapaik/static/js/constants.js:52
 msgid "Unidentified"
-msgstr "Nen identificà"
+msgstr "Ongeïdentificeerd"
 
 #: ajapaik/ajapaik/static/js/constants.js:53
 msgid "Male"
-msgstr "Mas-cc"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/constants.js:54
 msgid "Female"
-msgstr "Fumela"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/constants.js:55
 msgid "Child"
-msgstr "Masnà"
+msgstr "Kind"
 
 #: ajapaik/ajapaik/static/js/constants.js:56
 msgid "Elderly"
-msgstr "Vej"
+msgstr "Oudere"
 
 #: ajapaik/ajapaik/static/js/constants.js:57
 msgid "Adult"
-msgstr "Grand"
+msgstr "Volwassene"
 
 #: ajapaik/ajapaik/static/js/constants.js:61
 msgid "Delete"
-msgstr "Dëscancelé"
+msgstr "Verwijderen"
 
 #: ajapaik/ajapaik/static/js/constants.js:66
 msgid "What is displayed"
-msgstr "Lòn ch'a l'é smonù"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/constants.js:67
 msgid "Edit face annotation"
-msgstr "Modifiché l'anotassion an facia"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/constants.js:68
 msgid "Edit object annotation"
-msgstr "Modifiché l'anotassion ëd l'oget"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/constants.js:69
 msgid "Add feedback"
-msgstr "Gionté un sugeriment"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/constants.js:72
 msgid "Change person name"
-msgstr "Cangé ël nòm ëd la përson-a"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/constants.js:73
 msgid "Change object class"
-msgstr "Cangé la classa d'oget"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/constants.js:74
 msgid "Face"
-msgstr "Cera"
+msgstr "Gezicht"
 
 #: ajapaik/ajapaik/static/js/constants.js:79
 msgid "Failed to load object annotation classes"
-msgstr "Falì a carié le classe d'anotassion d'oget"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/constants.js:80
 msgid "Failed to load annotations"
-msgstr "Falì a carié j'anotassion"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/constants.js:81
 msgid "Successfully added object annotation"
-msgstr "Anotassion dl'oget giontà con sucess"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/constants.js:82
 msgid "Unable to save object annotation"
-msgstr "Impossìbil argistré l'anotassion ëd l'oget"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/constants.js:83
 msgid "Successfully updated object annotation"
-msgstr "Anotassion dl'oget agiornà con sucess"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/constants.js:84
 msgid "Unable to update object annotation"
-msgstr "Impossìbil agiorné l'anotassion ëd l'oget"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/constants.js:85
 msgid "Successfully added object annotation feedback"
-msgstr "Sugeriment an sl'anotassion ëd l'oget giontà për da bin"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/constants.js:86
 msgid "Failed to add object annotation feedback"
-msgstr "Falì a gionté ël sugeriment an sj'anotassion ëd l'oget"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/constants.js:87
 msgid "Successfully removed object annotation"
-msgstr "Anotassion ëd l'oget gavà për da bin"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/constants.js:88
 msgid "Unable to remove object annotation"
-msgstr "Impossìbil gavé l'anotassion ëd l'oget"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/constants.js:89
 msgid "Successfully added face annotation"
-msgstr "Giontà për da bin l'anotassion an sla cera"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/constants.js:90
 msgid "Unable to save face annotation"
-msgstr "Falì a argistré l'anotassion an sla cera"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/constants.js:91
 msgid "Successfully edited face annotation"
-msgstr "Anotassion ëd la cera modificà për da bin"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/constants.js:92
 msgid "Failed to save face annotation edit"
-msgstr "Falì a argistré la modìfica dj'anotassion ëd la cera"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/constants.js:93
 msgid "Successfully removed face annotation"
-msgstr "Anotassion ëd la cera gavà për da bin"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/constants.js:94
 msgid "Failed to remove face annotation"
-msgstr "Falì a gavé j'anotassion ëd la cera"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/constants.js:98
 msgid "Find object"
-msgstr "Trové n'oget"
+msgstr "Vind object"
 
 #: ajapaik/ajapaik/static/js/constants.js:99
 #: ajapaik/ajapaik/static/js/constants.js:106
 msgid "Searching"
-msgstr "Arserca"
+msgstr "Zoeken"
 
 #: ajapaik/ajapaik/static/js/constants.js:100
 msgid "Search for object"
-msgstr "Arserca d'oget"
+msgstr "Zoek naar object"
 
 #: ajapaik/ajapaik/static/js/constants.js:101
 #: ajapaik/ajapaik/static/js/constants.js:108
 msgid "Need 2 characters"
-msgstr "A-i é damanca ëd 2 caràter"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/constants.js:102
 #: ajapaik/ajapaik/static/js/constants.js:109
 msgid "No results found"
-msgstr "Gnun arzultà trovà"
+msgstr "Geen resultaten gevonden"
 
 #: ajapaik/ajapaik/static/js/constants.js:105
 msgid "Find existing person"
-msgstr "Trové na përson-a esistenta"
+msgstr "Bestaande persoon vinden"
 
 #: ajapaik/ajapaik/static/js/constants.js:107
 msgid "Enter person name"
-msgstr "Buté ël nòm ëd na përson-a"
+msgstr "Voer de naam van de persoon in"
 
 #: ajapaik/ajapaik/static/js/constants.js:110
 #: ajapaik/ajapaik/static/js/constants.js:113
 msgid "Add new person"
-msgstr "Gionté na neuva përson-a"
+msgstr "Nieuwe persoon toevoegen"
 
 #: ajapaik/ajapaik/static/js/constants.js:114
 msgid "Specify person name"
-msgstr "Precisé un nòm ëd përson-a"
+msgstr "Geef de naam van de persoon op"
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:107
 msgid "Modify existing annotations, click on an annotation to start"
-msgstr "Modifiché j'anotassion esistente, ch'a sgnaca ansima a n'anotassion për ancaminé"
+msgstr "Wijzig bestaande aantekeningen, klik op een aantekening om te starten"
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:109
 msgid "Tag a face"
-msgstr "Tichëtté na cera"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:121
 msgid "Draw a face annotation and add person's name"
-msgstr "Dissegné n'anotassion ëd cera e gionté ël nòm ëd na përson-a"
+msgstr "Teken een gezichtsaantekening en voeg de naam van de persoon toe"
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:123
 msgid "Draw and tag a face"
-msgstr "Dissegné e marché na cera"
+msgstr "Teken en label een gezicht"
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:134
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:136
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:217
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:219
 msgid "Open album"
-msgstr "Duverté l'àlbom"
+msgstr "Open album"
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:147
 msgid "Tag <em>%(personName)s</em>"
-msgstr "Marché <em>%(personName)s</em>"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:180
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:306
 msgid "Annotation was added by %(profileLink)s"
-msgstr "L'anotassion a l'é stàita giontà da %(profileLink)s"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:182
 msgid "Automatically detected face"
-msgstr "Moro trovà an automàtich"
+msgstr "Automatisch gedetecteerde gezichten"
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:191
 msgid "%(photoCount)s picture"
 msgid_plural "%(photoCount)s pictures"
-msgstr[0] "%(photoCount)s plancia"
-msgstr[1] "%(photoCount)s plance"
+msgstr[0] ""
+msgstr[1] ""
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:201
 msgid "Tag a face annotation with person's name"
-msgstr "Marché n'anotassion ëd moro con ël nòm ëd na përson-a"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:203
 msgid "Identify person"
-msgstr "Identifiché na përson-a"
+msgstr "Identificeer persoon"
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:203
 msgid "Edit person annotation"
-msgstr "Modifiché l'anotassion ëd na përson-a"
+msgstr "Wijzig persoons aantekening"
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:308
 msgid "Automatically detected object"
-msgstr "Oget trovà an automàtich"
+msgstr ""
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:311
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:313
 msgid "View object on Wikidata"
-msgstr "Vëdde l'oget su Wikidata"
+msgstr "Geef object weer op Wikidata"
 

@@ -1,6 +1,7 @@
 # Translation of Ajapaik Web app to Dutch (Nederlands)
 # Exported from translatewiki.net
 #
+# Author: ABPMAB
 # Author: BaRaN6161 TURK
 # Author: Danieldegroot2
 # Author: Dvhassel
@@ -18,12 +19,12 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2025-07-21 12:00:18+0000\n"
+"PO-Revision-Date: 2025-08-04 12:00:22+0000\n"
 "X-POT-Import-Date: 2024-07-09 05:10:19+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: nl\n"
-"X-Generator: MediaWiki 1.45.0-alpha; Translate 2025-03-15\n"
+"X-Generator: MediaWiki 1.45.0-alpha; Translate 2025-07-31\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Project-Id-Version: Ajapaik Web app\n"
 "Report-Msgid-Bugs-To: translatewiki.net\n"
@@ -358,7 +359,7 @@ msgstr "Wikidata ID"
 
 #: ajapaik/ajapaik/models.py:290
 msgid "Name original language"
-msgstr ""
+msgstr "Naam oorspronkelijke taal"
 
 #: ajapaik/ajapaik/models.py:551
 msgid "Image"
@@ -366,7 +367,7 @@ msgstr "Afbeelding"
 
 #: ajapaik/ajapaik/models.py:565 ajapaik/ajapaik/models.py:2113
 msgid "Title"
-msgstr ""
+msgstr "Titel"
 
 #: ajapaik/ajapaik/models.py:567
 msgid "MUIS title"
@@ -596,11 +597,11 @@ msgstr "Jaar"
 
 #: ajapaik/ajapaik/models.py:1924
 msgid "Decade"
-msgstr ""
+msgstr "Decennium"
 
 #: ajapaik/ajapaik/models.py:1925
 msgid "Century"
-msgstr ""
+msgstr "Eeuw"
 
 #: ajapaik/ajapaik/templates/404.html:5 ajapaik/ajapaik/templates/404.html:11
 #: ajapaik/ajapaik/templates/user/settings/user_settings.html:5
@@ -1109,7 +1110,7 @@ msgstr "Opslaan"
 
 #: ajapaik/ajapaik/templates/common/frontpage.html:30
 msgid "Authentication"
-msgstr ""
+msgstr "Authenticatie"
 
 #: ajapaik/ajapaik/templates/common/game.html:26
 msgid "Game modal photo"
@@ -1194,12 +1195,12 @@ msgstr ""
 #: ajapaik/ajapaik/templates/core/_header.html:39
 #: ajapaik/ajapaik/templates/info/_info_modal_content.html:111
 msgid "Show on map"
-msgstr ""
+msgstr "Toon op kaart"
 
 #: ajapaik/ajapaik/templates/core/_header.html:44
 #: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:6
 msgid "Categorize faces"
-msgstr ""
+msgstr "Gezichten categoriseren"
 
 #: ajapaik/ajapaik/templates/core/_header.html:48
 msgid "Add pictures"
@@ -1223,17 +1224,17 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/core/_header.html:83
 msgid "Profile and leaderboard"
-msgstr ""
+msgstr "Profiel en ranglijst"
 
 #: ajapaik/ajapaik/templates/core/_header.html:91 ajapaik/ajapaik/views.py:1998
 #: ajapaik/ajapaik/views.py:2014 ajapaik/ajapaik/views.py:2049
 msgid "Leaderboard"
-msgstr ""
+msgstr "Ranglijst"
 
 #: ajapaik/ajapaik/templates/core/_header.html:102
 #: ajapaik/ajapaik/templates/rephoto_upload/_rephoto_upload_modal_content.html:9
 msgid "You are logged in as"
-msgstr ""
+msgstr "U bent ingelogd als"
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:17
 msgid "Gallery of old historic photos from the album"
@@ -1474,7 +1475,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/curator/curator_search_controls.html:90
 msgid "Wikimedia Commons"
-msgstr ""
+msgstr "Wikimedia Commons"
 
 #: ajapaik/ajapaik/templates/curator/curator_search_controls.html:95
 msgid "Europeana"
@@ -1503,7 +1504,7 @@ msgstr "Vriendelijke groet"
 
 #: ajapaik/ajapaik/templates/django_comments_xtd/reply.html:10
 msgid "Reply to"
-msgstr ""
+msgstr "Antwoord op"
 
 #: ajapaik/ajapaik/templates/donate/_donate_details.html:3
 msgid "Your donation confirms the importance of Ajapaik"
@@ -1793,11 +1794,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/filtering/_ordering_tutorial_modal.html:8
 msgid "How to sort"
-msgstr ""
+msgstr "Hoe te sorteren"
 
 #: ajapaik/ajapaik/templates/filtering/_ordering_tutorial_modal.html:14
 msgid "From this group"
-msgstr ""
+msgstr "Van deze groep"
 
 #: ajapaik/ajapaik/templates/filtering/_ordering_tutorial_modal.html:50
 msgid "Choose 2 parameters"
@@ -1967,11 +1968,11 @@ msgstr[1] ""
 
 #: ajapaik/ajapaik/templates/info/_info_modal_content.html:65
 msgid "Some nearby albums"
-msgstr ""
+msgstr "Enkele albums in de buurt"
 
 #: ajapaik/ajapaik/templates/info/_info_modal_content.html:113
 msgid "Back to map"
-msgstr ""
+msgstr "Terug naar de kaart"
 
 #: ajapaik/ajapaik/templates/leaderboard/_block_leaderboard.html:12
 msgid "Recent activity leaderboard"
@@ -1989,12 +1990,12 @@ msgstr "Leaderboard aller tijden"
 #: ajapaik/ajapaik/templates/leaderboard/_leaderboard_positions.html:9
 #: ajapaik/ajapaik/templates/user/_user_picture.html:4
 msgid "User Facebook photo"
-msgstr ""
+msgstr "Facebookfoto van gebruiker"
 
 #: ajapaik/ajapaik/templates/leaderboard/_leaderboard_positions.html:11
 #: ajapaik/ajapaik/templates/user/_user_picture.html:6
 msgid "User Google photo"
-msgstr ""
+msgstr "Google-foto van gebruiker"
 
 #: ajapaik/ajapaik/templates/leaderboard/leaderboard.html:19
 msgid "Back home"
@@ -2002,7 +2003,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/muis-import.html:12
 msgid "Import"
-msgstr ""
+msgstr "Importeren"
 
 #: ajapaik/ajapaik/templates/muis-import.html:12
 msgid "Blacklist"
@@ -2018,7 +2019,7 @@ msgstr[1] ""
 #: ajapaik/ajapaik/templates/photo/_photo_comments_and_labels.html:19
 #: ajapaik/ajapaik/templates/photo/selection/photo_selection.html:16
 msgid "Add to album"
-msgstr ""
+msgstr "Toevoegen aan album"
 
 #: ajapaik/ajapaik/templates/photo/_photo_comments_and_labels.html:28
 msgid "Picture belongs to collection"
@@ -2028,26 +2029,26 @@ msgstr[1] "Afbeelding behoort tot collecties:"
 
 #: ajapaik/ajapaik/templates/photo/_photo_description_container.html:6
 msgid "Approximate address"
-msgstr ""
+msgstr "Adres bij benadering"
 
 #: ajapaik/ajapaik/templates/photo/_photo_modal.html:46
 #: ajapaik/ajapaik/templates/photo/photoview.html:69
 msgid "See the other side of photo"
-msgstr ""
+msgstr "Zie de andere kant van de foto"
 
 #: ajapaik/ajapaik/templates/photo/_photo_modal.html:81
 #: ajapaik/ajapaik/templates/photo/_photo_modal.html:82
 #: ajapaik/ajapaik/templates/photo/photoview.html:137
 #: ajapaik/ajapaik/templates/photo/photoview.html:138
 msgid "similar photo"
-msgstr ""
+msgstr "vergelijkbare foto"
 
 #: ajapaik/ajapaik/templates/photo/_photo_modal.html:84
 #: ajapaik/ajapaik/templates/photo/_photo_modal.html:85
 #: ajapaik/ajapaik/templates/photo/photoview.html:140
 #: ajapaik/ajapaik/templates/photo/photoview.html:141
 msgid "duplicate photo"
-msgstr ""
+msgstr "dubbele foto"
 
 #: ajapaik/ajapaik/templates/photo/_rephoto_description_container.html:37
 msgid "Date taken"
@@ -2064,11 +2065,11 @@ msgstr ""
 #: ajapaik/ajapaik/templates/photo/selection/photo_selection.html:22
 #: ajapaik/ajapaik/templates/photo/selection/photo_selection.html:110
 msgid "Mark as similar or duplicates"
-msgstr ""
+msgstr "Markeren als vergelijkbaar of duplicaat"
 
 #: ajapaik/ajapaik/templates/photo/selection/photo_selection.html:29
 msgid "Add categories to picture(s)"
-msgstr ""
+msgstr "Categorieën toevoegen aan foto('s)"
 
 #: ajapaik/ajapaik/templates/photo/selection/photo_selection.html:33
 msgid "Flip, rotate and invert picture(s)"
@@ -2110,7 +2111,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/rephoto_upload/_rephoto_upload_modal_content.html:26
 msgid "Select file..."
-msgstr ""
+msgstr "Selecteer bestand..."
 
 #: ajapaik/ajapaik/templates/rephoto_upload/_rephoto_upload_modal_content.html:36
 msgid "Make a contemporary rephoto from the very same place where the historic picture was taken and upload it. Uploaded rephotograph will be attributed to you under the"
@@ -2118,24 +2119,24 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/rephoto_upload/_rephoto_upload_modal_content.html:37
 msgid "licence"
-msgstr ""
+msgstr "Licentie"
 
 #: ajapaik/ajapaik/templates/rephoto_upload/_rephoto_upload_modal_content.html:56
 msgid "Abort"
-msgstr ""
+msgstr "Afbreken"
 
 #: ajapaik/ajapaik/templates/rephoto_upload/_rephoto_upload_modal_content.html:76
 msgid "Select new file..."
-msgstr ""
+msgstr "Selecteer nieuw bestand..."
 
 #: ajapaik/ajapaik/templates/rephoto_upload/_rephoto_upload_modal_content.html:106
 msgid "File upload failed."
-msgstr ""
+msgstr "De bestandsupload is mislukt."
 
 #: ajapaik/ajapaik/templates/rephoto_upload/_rephoto_upload_settings_modal.html:6
 #: ajapaik/ajapaik/templates/user/settings/_user_settings_modal.html:6
 msgid "Welcome back"
-msgstr ""
+msgstr "Welkom terug"
 
 #: ajapaik/ajapaik/templates/rephoto_upload/_rephoto_upload_settings_modal.html:9
 msgid "Please specify whether you would like to upload your rephotos to Wikimedia Commons as well."
@@ -2165,7 +2166,7 @@ msgstr ""
 #: ajapaik/ajapaik_face_recognition/models.py:32
 #: ajapaik/ajapaik_face_recognition/models.py:192
 msgid "User"
-msgstr ""
+msgstr "Gebruiker"
 
 #: ajapaik/ajapaik/templates/socialaccount/connections_content.html:38
 msgid "You currently have no social network accounts connected to this account."
@@ -2305,7 +2306,7 @@ msgstr[1] ""
 
 #: ajapaik/ajapaik/templates/user/_current_user_info.html:77
 msgid "View your"
-msgstr ""
+msgstr "Bekijk uw"
 
 #: ajapaik/ajapaik/templates/user/_current_user_info.html:82
 msgid "rephotos"
@@ -2313,11 +2314,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/user/_current_user_info.html:87
 msgid "favorite pictures"
-msgstr ""
+msgstr "favoriete foto's"
 
 #: ajapaik/ajapaik/templates/user/_user_card.html:8
 msgid "This account is connected to:"
-msgstr ""
+msgstr "Dit account is verbonden met:"
 
 #: ajapaik/ajapaik/templates/user/_user_card.html:15
 msgid "This account is not connected to any other"
@@ -2452,11 +2453,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/video/_video_modal.html:27
 msgid "You're anonymous. You can now log in with your e-mail."
-msgstr ""
+msgstr "U bent anoniem. U kunt nu inloggen met uw e-mailadres."
 
 #: ajapaik/ajapaik/views.py:526
 msgid "Non-authenticated user"
-msgstr ""
+msgstr "Niet-geverifieerde gebruiker"
 
 #: ajapaik/ajapaik/views.py:664
 msgid "Geotagging game"
@@ -2531,7 +2532,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/views.py:3389
 msgid "Album created"
-msgstr ""
+msgstr "Album aangemaakt"
 
 #: ajapaik/ajapaik/views.py:3463
 msgid "Sorry but we fail to post your comment."
@@ -2539,19 +2540,19 @@ msgstr ""
 
 #: ajapaik/ajapaik/views.py:3705
 msgid "Change password"
-msgstr ""
+msgstr "Wachtwoord wijzigen"
 
 #: ajapaik/ajapaik/views.py:3709
 msgid "Change display name"
-msgstr ""
+msgstr "Weergavenaam wijzigen"
 
 #: ajapaik/ajapaik/views.py:3711
 msgid "Newsletter and language settings"
-msgstr ""
+msgstr "Nieuwsbrief- en taalinstellingen"
 
 #: ajapaik/ajapaik/views.py:3719
 msgid "Merge another Ajapaik account with current one"
-msgstr ""
+msgstr "Voeg een ander Ajapaik-account samen met het huidige account"
 
 #: ajapaik/ajapaik/views.py:3802
 msgid "KulKa logo"
@@ -2583,7 +2584,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/views.py:3845
 msgid "Wikimedia Finland"
-msgstr ""
+msgstr "Wikimedia Finland"
 
 #: ajapaik/ajapaik_face_recognition/forms.py:19
 msgid "Person name"
@@ -2591,15 +2592,15 @@ msgstr ""
 
 #: ajapaik/ajapaik_face_recognition/forms.py:20
 msgid "Date of birth"
-msgstr ""
+msgstr "Geboortedatum"
 
 #: ajapaik/ajapaik_face_recognition/forms.py:22
 msgid "Is public figure"
-msgstr ""
+msgstr "Is een publiek figuur"
 
 #: ajapaik/ajapaik_face_recognition/forms.py:26
 msgid "Firstname Lastname"
-msgstr ""
+msgstr "Voornaam Achternaam"
 
 #: ajapaik/ajapaik_face_recognition/forms.py:29
 msgid "Additional remarks about the person (other names etc)"
@@ -2608,27 +2609,27 @@ msgstr ""
 #: ajapaik/ajapaik_face_recognition/models.py:14
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:72
 msgid "Child"
-msgstr ""
+msgstr "Kind"
 
 #: ajapaik/ajapaik_face_recognition/models.py:15
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:75
 msgid "Adult"
-msgstr ""
+msgstr "Volwassene"
 
 #: ajapaik/ajapaik_face_recognition/models.py:16
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:78
 msgid "Elderly"
-msgstr ""
+msgstr "Oudere"
 
 #: ajapaik/ajapaik_face_recognition/models.py:17
 #: ajapaik/ajapaik_face_recognition/models.py:24
 msgid "Unknown"
-msgstr ""
+msgstr "Onbekend"
 
 #: ajapaik/ajapaik_face_recognition/models.py:18
 #: ajapaik/ajapaik_face_recognition/models.py:25
 msgid "Not Applicable"
-msgstr ""
+msgstr "Niet van toepassing"
 
 #: ajapaik/ajapaik_face_recognition/models.py:33
 #: ajapaik/ajapaik_face_recognition/models.py:193
@@ -2674,7 +2675,7 @@ msgstr ""
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:65
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:89
 msgid "Info"
-msgstr ""
+msgstr "Informatie"
 
 #: ajapaik/ajapaik_face_recognition/templates/add_subject.html:10
 msgid "Create a new person record"
@@ -2683,69 +2684,69 @@ msgstr ""
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:59
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:83
 msgid "Not sure"
-msgstr ""
+msgstr "Niet zeker"
 
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:95
 msgid "Skip"
-msgstr ""
+msgstr "Overslaan"
 
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:99
 msgid "Currently the gender is"
-msgstr ""
+msgstr "Momenteel is het geslacht"
 
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:101
 msgid "Currently the age is"
-msgstr ""
+msgstr "Momenteel is de leeftijd"
 
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data_empty.html:10
 msgid "No data here, please come back later"
-msgstr ""
+msgstr "Geen gegevens hier, kom alstublieft later terug."
 
 #: ajapaik/settings/default.py:73
 msgid "Estonian"
-msgstr ""
+msgstr "Estisch"
 
 #: ajapaik/settings/default.py:74
 msgid "Latvian"
-msgstr ""
+msgstr "Lets"
 
 #: ajapaik/settings/default.py:75
 msgid "Lithuanian"
-msgstr ""
+msgstr "Litouws"
 
 #: ajapaik/settings/default.py:76
 msgid "English"
-msgstr ""
+msgstr "Engels"
 
 #: ajapaik/settings/default.py:77
 msgid "Finnish"
-msgstr ""
+msgstr "Fins"
 
 #: ajapaik/settings/default.py:78
 msgid "Swedish"
-msgstr ""
+msgstr "Zweeds"
 
 #: ajapaik/settings/default.py:79
 msgid "Russian"
-msgstr ""
+msgstr "Russisch"
 
 #: ajapaik/settings/default.py:80
 msgid "French"
-msgstr ""
+msgstr "Frans"
 
 #: ajapaik/utils.py:153
 msgid "You have already submitted this suggestion"
-msgstr ""
+msgstr "U heeft deze suggestie al ingediend"
 
 #: ajapaik/utils.py:154
 msgid "Your suggestion has been changed"
-msgstr ""
+msgstr "Uw suggestie is gewijzigd"
 
 #: ajapaik/utils.py:155
 msgid "Your suggestion has been saved"
-msgstr ""
+msgstr "Uw suggestie is opgeslagen"
 
 #: ajapaik/utils.py:159
 msgid "You must specify a new value when making a suggestion"
-msgstr ""
+msgstr "U moet een nieuwe waarde opgeven wanneer u een suggestie doet"
 
