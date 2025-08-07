@@ -31,7 +31,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2025-08-04 12:00:19+0000\n"
+"PO-Revision-Date: 2025-08-07 12:00:14+0000\n"
 "X-POT-Import-Date: 2024-07-09 05:10:19+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1541,7 +1541,7 @@ msgstr "Ajapaik ist eine Open-Source-Crowdsourcing-Plattform für gemeinnützige
 
 #: ajapaik/ajapaik/templates/donate/_donate_details.html:14
 msgid "Over the years Ajapaik has received public grant funding but we don’t have permanent funding that would enable us to keep the platform technically up to date or even more – enhance its usability, add new features."
-msgstr "Im Laufe der Jahre hat Ajapaik öffentliche Zuschüsse erhalten, aber wir verfügen nicht über eine dauerhafte Finanzierung, die es uns ermöglichen würde, die Plattform technisch auf dem neuesten Stand zu halten oder – noch mehr – ihre Benutzerfreundlichkeit zu verbessern und neue Funktionen hinzuzufügen."
+msgstr "Im Laufe der Jahre hat Ajapaik öffentliche Zuschüsse erhalten, aber wir verfügen nicht über eine dauerhafte Finanzierung, die es uns ermöglichen würde, die Plattform technisch auf dem neuesten Stand zu halten oder gar ihre Benutzerfreundlichkeit zu verbessern und neue Funktionen hinzuzufügen."
 
 #: ajapaik/ajapaik/templates/donate/_donate_details.html:15
 msgid "Your donation is of big help and confirms that Ajapaik is needed. If possible consider setting up a standing payment."
