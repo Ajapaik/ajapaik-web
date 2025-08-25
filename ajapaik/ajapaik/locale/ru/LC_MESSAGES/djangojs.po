@@ -3,6 +3,7 @@
 #
 # Author: Alexander Yukal
 # Author: Dirruw'o
+# Author: Dolbaeb
 # Author: Firapinch
 # Author: Iniquity
 # Author: Kareyac
@@ -25,7 +26,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik Web app - JavaScript\n"
 "Report-Msgid-Bugs-To: translatewiki.net\n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2025-08-04 12:00:22+0000\n"
+"PO-Revision-Date: 2025-08-25 12:00:31+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/ru/)\n"
 "Language: ru\n"
@@ -241,7 +242,7 @@ msgstr "Детали альбома"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:8
 msgid "Album has <em>%(photoCount)s</em> pictures"
-msgstr ""
+msgstr "Данный содержит <em>%(photoCount)s</em> картинок"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:9
 msgid "Approximate address"
@@ -257,7 +258,7 @@ msgstr "Автор"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:12
 msgid "Categorize scene"
-msgstr ""
+msgstr "Категоризуйте сцену"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:13
 msgid "Comments in album"
@@ -274,7 +275,7 @@ msgstr "Подтвердить"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:17
 msgid "Could not copy link to clipboard"
-msgstr ""
+msgstr "Не удалось скопировать ссылку в буфер обмена"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:18
 msgid "Date"
@@ -291,7 +292,7 @@ msgstr "Редактировать"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:21
 msgid "Exterior"
-msgstr ""
+msgstr "Внешний вид"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:22
 msgid "Failed to send your feedback, sorry."
@@ -308,11 +309,11 @@ msgstr "Фото с геотегами в альбоме"
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:25
 #: ajapaik/ajapaik/static/js/ajp-selection.js:185
 msgid "Ground"
-msgstr ""
+msgstr "Земля?"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:26
 msgid "Picture is of high quality"
-msgstr ""
+msgstr "Изображение высокого качества."
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:27
 msgid "Picture has location and view direction info"
@@ -348,7 +349,7 @@ msgstr "Инвертировать цвета"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:35
 msgid "Invert"
-msgstr ""
+msgstr "Инвертировать"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:36
 msgid "Licence"
@@ -364,156 +365,156 @@ msgstr "Отметить стереофото"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:39
 msgid "No aerial pictures were found in this album"
-msgstr ""
+msgstr "В этом альбоме не найдено ни одного аэрофотоснимка."
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:40
 msgid "No aerial pictures were found"
-msgstr ""
+msgstr "Аэрофотоснимков не обнаружено."
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:41
 msgid "No exterior views were found in this album"
-msgstr ""
+msgstr "В этом альбоме не найдено ни одного внешнего вида? Какой контекст тут? Write me back, I need to know the context to make the right translation, or else this will sound like a 2004 prompt translation"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:42
 msgid "No exterior views were found"
-msgstr ""
+msgstr "Внешние виды не найдены."
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:43
 msgid "No high-quality pictures were found"
-msgstr ""
+msgstr "Не удалось найти фотографии высокого качества."
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:44
 msgid "No high-quality pictures were found in this album"
-msgstr ""
+msgstr "В этом альбоме ни одного высококачественного изображения не найдено."
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:45
 msgid "No interior views were found in this album"
-msgstr ""
+msgstr "В этом альбоме не найдено ни одной фотографии внутреннего вида."
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:46
 msgid "No interior views were found"
-msgstr ""
+msgstr "Изображении внешних видов не найдены."
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:47
 msgid "No pictures in landscape format were found"
-msgstr ""
+msgstr "Ни одного изображения в альбомном формате не найдено."
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:48
 msgid "No pictures in landscape format were found in this album"
-msgstr ""
+msgstr "В этом альбоме не найдено ни одного изображения в альбомном формате."
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:49
 msgid "No pictures in panoramic format were found"
-msgstr ""
+msgstr "Изображении в панорамном формате не найдены."
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:50
 msgid "No pictures in panoramic format were found in this album"
-msgstr ""
+msgstr "В этом альбоме не найдено ни одного изображения в панорамном формате."
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:51
 msgid "No pictures from the ground level were found in this album"
-msgstr ""
+msgstr "В этом альбоме не найдено ни одного изображения с уровня земли."
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:52
 msgid "No pictures from the ground level were found"
-msgstr ""
+msgstr "Изобоажении с уровня земли не обнаружено."
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:53
 msgid "No pictures were found in this album"
-msgstr ""
+msgstr "Ни одного изображения в этом альбоме не найдено."
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:54
 msgid "No pictures were found with the selected filters in this album"
-msgstr ""
+msgstr "Никаких изображении с выбранными фильтрами в этом альбоме не найдено."
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:55
 msgid "No pictures were found with the selected filters"
-msgstr ""
+msgstr "Никаких изображении с выбранными фильтрами не найдено."
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:56
 msgid "No pictures were found"
-msgstr ""
+msgstr "Изображения не найдеы"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:57
 msgid "No pictures which have 0 geotags were found in this album"
-msgstr ""
+msgstr "Фотографий с отсутствующим геотегом не было найдено в этом альбоме."
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:58
 msgid "No pictures which have 0 geotags were found"
-msgstr ""
+msgstr "Фотографий с отсутствующим геотегом не было найдено"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:59
 msgid "No pictures with back sides were found in this album"
-msgstr ""
+msgstr "В этом альбоме ни одного изображения с обратными сторонами не найдено."
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:60
 msgid "No pictures with back sides were found"
-msgstr ""
+msgstr "Ни одного изображения с обратными сторонами не найдено."
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:61
 msgid "No pictures with marked faces were found in this album"
-msgstr ""
+msgstr "Изображения с маркированными лицами не были найдены в этом альбоме."
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:62
 msgid "No pictures with marked faces were found"
-msgstr ""
+msgstr "Изображения с маркированными лицами не были найдены."
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:63
 msgid "No pictures in portrait format were found"
-msgstr ""
+msgstr "Фотографий в формате портрета не найдено."
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:64
 msgid "No pictures in portrait format were found in this album"
-msgstr ""
+msgstr "Фотографий в формате портрета не найдено в этом альбоме."
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:65
 msgid "No raised viewpoint pictures were found in this album"
-msgstr ""
+msgstr "В этом альбоме изображений с высокой точки зрения не найдено."
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:66
 msgid "No raised viewpoint pictures were found"
-msgstr ""
+msgstr "Изображений с высокой точки зрения не найдено."
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:67
 msgid "No results found for: %(query)s in this album"
-msgstr ""
+msgstr "Результаты по запросу %(query)s в этом альбоме не найдены."
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:68
 msgid "No results found for: %(query)s in this album\nYou could also try to edit filters applied to your search"
-msgstr ""
+msgstr "Результаты по запросу %(query)s в этом альбоме не найдены.\nВы также можете попробовать изменить фильтры, применяемые к вашему поиску."
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:69
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:249
 msgid "No results found for: %(query)s"
-msgstr ""
+msgstr "Результаты по запросу: %(query)s не найдены."
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:70
 msgid "No results found for: %(query)s\nYou could also try to edit filters applied to your search"
-msgstr ""
+msgstr "Результаты по запросу: %(query)s не найдены.\nВы также можете попробовать изменить фильтры, которые вы применили к поиску."
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:71
 msgid "No pictures in square format were found"
-msgstr ""
+msgstr "Изображения в квадратном формате не найдены."
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:72
 msgid "No pictures in square format were found in this album"
-msgstr ""
+msgstr "В этом альбоме не найдено ни одного изображения в квадратном формате."
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:73
 msgid "No rephotos were found"
-msgstr ""
+msgstr "Перефотографий не найдено."
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:74
 msgid "No rephotos were found in this album"
-msgstr ""
+msgstr "Ни одной перефотографии не было найднно в этом альбоме."
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:75
 msgid "No liked pictures were found"
-msgstr ""
+msgstr "Понравившиеся изображения не найдены."
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:76
 msgid "No liked pictures were found in this album"
-msgstr ""
+msgstr "Понравившиеся изображения не найдены в этом альбоме."
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:78
 msgid "Number"
@@ -521,7 +522,7 @@ msgstr "Число"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:79
 msgid "Picture added to album by:"
-msgstr ""
+msgstr "Изображение добавлено в альбом пользователем:"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:80
 msgid "Picture already in album(s)"
@@ -537,35 +538,35 @@ msgstr "Картинка уже в Ajapaik. Вы все ещё можете до
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:83
 msgid "Picture set has no annotations"
-msgstr ""
+msgstr "Набор изображений не имеет аннотаций."
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:84
 msgid "Picture set has no comments"
-msgstr ""
+msgstr "У набора изображений нет комментариев."
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:85
 msgid "Picture set has no datings"
-msgstr ""
+msgstr "Набор изображений не имеет датировок."
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:86
 msgid "Picture set has no geotags"
-msgstr ""
+msgstr "Набор изображений не имеет геотегов."
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:87
 msgid "Picture set has no likes"
-msgstr ""
+msgstr "У набора изображений нет лайков."
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:88
 msgid "Picture set has no rephotos"
-msgstr ""
+msgstr "В наборе изображении нет перефотографий"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:89
 msgid "Picture set has no transcriptions"
-msgstr ""
+msgstr "Набор изображений не имеет транскрипций"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:90
 msgid "Picture set has no views"
-msgstr ""
+msgstr "У набора изображении нет просмотров"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:91
 msgid "Pictures geotagged"
@@ -582,7 +583,7 @@ msgstr "Очков"
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:94
 #: ajapaik/ajapaik/static/js/ajp-selection.js:185
 msgid "Raised"
-msgstr ""
+msgstr "С возвышения"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:95
 msgid "Remove from selection"
@@ -602,7 +603,7 @@ msgstr "Показать снимки на карте"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:99
 msgid "Similar photos in album"
-msgstr ""
+msgstr "Похожие изображения в альбоме"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:100
 msgid "Size"
@@ -644,51 +645,51 @@ msgstr "URL"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:112
 msgid "Unidentified boy"
-msgstr ""
+msgstr "Неопознанный мальчик"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:113
 msgid "Unidentified girl"
-msgstr ""
+msgstr "Неопознанная девочка"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:114
 msgid "Unidentified child"
-msgstr ""
+msgstr "Неопознанный ребенок"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:115
 msgid "Unidentified adult man"
-msgstr ""
+msgstr "Неопознанный взрослый мужчина"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:116
 msgid "Unidentified adult woman"
-msgstr ""
+msgstr "Неопознанная взрослая женщина"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:117
 msgid "Unidentified adult person"
-msgstr ""
+msgstr "Неопознанный взрослое лицо"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:118
 msgid "Unidentified elderly man"
-msgstr ""
+msgstr "Неопознанный пожилой мужчина"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:119
 msgid "Unidentified elderly woman"
-msgstr ""
+msgstr "Неопознанная пожилая женщина"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:120
 msgid "Unidentified elderly person"
-msgstr ""
+msgstr "Неопознанный пожилое лицо"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:121
 msgid "Unidentified man"
-msgstr ""
+msgstr "Неопознанный мужчина"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:122
 msgid "Unidentified woman"
-msgstr ""
+msgstr "Неопознанная женщина"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:123
 msgid "Unidentified person"
-msgstr ""
+msgstr "Неопознанное лицо"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:124
 msgid "Unknown author"
@@ -696,11 +697,11 @@ msgstr "Неизвестный автор"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:125
 msgid "You have opened the map with the album filter off, to turn it on, please tick the box next to album name"
-msgstr ""
+msgstr "Вы открыли карту с отключенным фильтром альбомов. Чтобы включить фильтр альбомов, поставьте галочку рядом с названием альбома."
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:126
 msgid "You have opened the map with the album filter on, to turn it off, please untick the box next to album name"
-msgstr ""
+msgstr "Вы открыли карту с включенным фильтром альбомов. Чтобы выключить фильтр альбомов, уберите галочку рядом с названием альбома."
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:127
 msgid "photos"
@@ -708,19 +709,19 @@ msgstr "снимки"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:100
 msgid "Ordering"
-msgstr ""
+msgstr "Заказываю"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:105
 msgid "earliest"
-msgstr ""
+msgstr "самый ранний"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:107
 msgid "latest"
-msgstr ""
+msgstr "Самый последний"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:112
 msgid "least"
-msgstr ""
+msgstr "наименее"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:114
 msgid "most"
@@ -793,7 +794,7 @@ msgstr "Фотографии с карты"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:254
 msgid "Did you mean to search from:"
-msgstr ""
+msgstr "Вы имели в виду поиск из:"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:255
 msgid "all pictures"
@@ -864,11 +865,11 @@ msgstr "Поиск"
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:673
 msgid "Median suggestion"
-msgstr ""
+msgstr "Средний показатель"
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:685
 msgid "Your suggestion"
-msgstr ""
+msgstr "Ваше предложение"
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:700
 msgid "How much has the depicted location changed?"
@@ -917,7 +918,7 @@ msgstr "Очков начислено"
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:1071
 msgid "Picture flip feedback"
-msgstr ""
+msgstr "Обратная связь при перевороте изображения WARNING!"
 
 #: ajapaik/ajapaik/static/js/ajp-juks-gmaps.js:50
 msgid "Historic maps"
@@ -929,7 +930,7 @@ msgstr "Удалить фильтр с альбома"
 
 #: ajapaik/ajapaik/static/js/ajp-map.js:711
 msgid "Pictures only in album: %(albumName)s are shown in the sidebar"
-msgstr ""
+msgstr "Изображения только в альбоме: %(albumName)s отображаются в боковой панели."
 
 #: ajapaik/ajapaik/static/js/ajp-map.js:726
 msgid "Apply album filter"
@@ -937,7 +938,7 @@ msgstr "Применить фильтр альбомов"
 
 #: ajapaik/ajapaik/static/js/ajp-map.js:728
 msgid "All pictures are shown in the sidebar"
-msgstr ""
+msgstr "Все изображения показаны в боковой панели."
 
 #: ajapaik/ajapaik/static/js/ajp-selection.js:82
 #, javascript-format
@@ -949,7 +950,7 @@ msgstr[2] "Вы получили %s очков"
 
 #: ajapaik/ajapaik/static/js/ajp-selection.js:88
 msgid "Your suggestion has been changed"
-msgstr ""
+msgstr "Ваше предложение было изменено."
 
 #: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:103
 msgid "Transcribed by:"
@@ -973,11 +974,11 @@ msgstr "Войти"
 
 #: ajapaik/ajapaik/static/js/annotations/popovers/annotation.popover.new.js:119
 msgid "Select age group (optional)"
-msgstr ""
+msgstr "Выберите возрастную группу (необязательно)"
 
 #: ajapaik/ajapaik/static/js/annotations/popovers/annotation.popover.new.js:146
 msgid "Select gender (optional)"
-msgstr ""
+msgstr "Выберите пол (необязательно)"
 
 #: ajapaik/ajapaik/static/js/annotations/popovers/face-annotation.popover.edit.js:93
 msgid "Change age group"
@@ -997,11 +998,11 @@ msgstr "Требуется объект"
 
 #: ajapaik/ajapaik/static/js/constants.js:51
 msgid "optional"
-msgstr ""
+msgstr "необязательно"
 
 #: ajapaik/ajapaik/static/js/constants.js:52
 msgid "Unidentified"
-msgstr ""
+msgstr "Неопознанный"
 
 #: ajapaik/ajapaik/static/js/constants.js:53
 msgid "Male"
@@ -1097,11 +1098,11 @@ msgstr "Невозможно удалить примечание объекта"
 
 #: ajapaik/ajapaik/static/js/constants.js:89
 msgid "Successfully added face annotation"
-msgstr ""
+msgstr "Успешно добавлено аннотацию лица."
 
 #: ajapaik/ajapaik/static/js/constants.js:90
 msgid "Unable to save face annotation"
-msgstr ""
+msgstr "Не удалось сохранить аннотацию лица"
 
 #: ajapaik/ajapaik/static/js/constants.js:91
 msgid "Successfully edited face annotation"
@@ -1161,7 +1162,7 @@ msgstr "Уточните имя персоны"
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:107
 msgid "Modify existing annotations, click on an annotation to start"
-msgstr ""
+msgstr "Чтобы изменить существующие аннотации, нажмите на аннотацию чтобы начать"
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:109
 msgid "Tag a face"
@@ -1169,11 +1170,11 @@ msgstr "Отметьте лицо"
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:121
 msgid "Draw a face annotation and add person's name"
-msgstr ""
+msgstr "Нарисуйте аннотацию к лицу и добавьте имя человека."
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:123
 msgid "Draw and tag a face"
-msgstr ""
+msgstr "Нарисуйте и отметьте лицо"
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:134
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:136
@@ -1184,42 +1185,43 @@ msgstr "Открыть альбом"
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:147
 msgid "Tag <em>%(personName)s</em>"
-msgstr ""
+msgstr "Отметьте <em>%(personName)s</em>"
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:180
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:306
 msgid "Annotation was added by %(profileLink)s"
-msgstr ""
+msgstr "Аннотация добавлена %(profileLink)s"
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:182
 msgid "Automatically detected face"
-msgstr ""
+msgstr "Автоматически обнаруженно лицо"
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:191
+#, fuzzy
 msgid "%(photoCount)s picture"
 msgid_plural "%(photoCount)s pictures"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%(photoCount)s изображение"
+msgstr[1] "%(photoCount)s изображении"
 msgstr[2] ""
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:201
 msgid "Tag a face annotation with person's name"
-msgstr ""
+msgstr "Отметьте аннотацию лица именем человека"
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:203
 msgid "Identify person"
-msgstr ""
+msgstr "Определите личность"
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:203
 msgid "Edit person annotation"
-msgstr ""
+msgstr "Редактировать аннотацию личности"
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:308
 msgid "Automatically detected object"
-msgstr ""
+msgstr "Автоматически обнаружен объект"
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:311
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:313
 msgid "View object on Wikidata"
-msgstr ""
+msgstr "Просмотреть объект на Wikidata"
 
