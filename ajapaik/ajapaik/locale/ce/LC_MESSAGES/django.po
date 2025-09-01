@@ -11,7 +11,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2025-08-04 12:00:19+0000\n"
+"PO-Revision-Date: 2025-09-01 12:00:17+0000\n"
 "X-POT-Import-Date: 2024-07-09 05:10:19+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -299,7 +299,7 @@ msgstr "Хӏан-хӏа"
 
 #: ajapaik/ajapaik/forms.py:508
 msgid "Please specify your prefered language"
-msgstr "Мотт харжа"
+msgstr "Дехар до, хьайна оьшу мотт харжа"
 
 #: ajapaik/ajapaik/forms.py:510
 msgid "Please specify whether you would like to receive the newsletter"
@@ -1205,7 +1205,7 @@ msgstr "Карара харжам"
 
 #: ajapaik/ajapaik/templates/core/_header.html:62
 msgid "Choose language"
-msgstr "Харжа мотт"
+msgstr "Мотт харжа"
 
 #: ajapaik/ajapaik/templates/core/_header.html:74
 msgid "About Ajapaik"
