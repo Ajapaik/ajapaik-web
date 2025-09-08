@@ -27,7 +27,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: translatewiki.net\n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2025-08-04 12:00:20+0000\n"
+"PO-Revision-Date: 2025-09-08 12:00:12+0000\n"
 "Language: fr\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1352,7 +1352,7 @@ msgstr "Tri"
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:519
 msgid "This website uses cookies to ensure you get the best experience on our website"
-msgstr "Ce site web utilise des cookies pour vous assurer la meilleure expérience sur notre site web"
+msgstr "Ce site Web utilise des témoins (''cookies'') pour vous assurer la meilleure expérience"
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:520
 msgid "Got it!"

@@ -18,7 +18,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: translatewiki.net\n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2025-08-04 12:00:20+0000\n"
+"PO-Revision-Date: 2025-09-08 12:00:12+0000\n"
 "Language: ko\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -77,7 +77,7 @@ msgstr ""
 #: ajapaik/ajapaik/static/js/ajp-core.js:1808
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:15
 msgid "Confirm correct location"
-msgstr ""
+msgstr "정확한 위치 확인"
 
 #: ajapaik/ajapaik/static/js/ajp-core.js:1819
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:104
@@ -103,40 +103,39 @@ msgstr "현재 위치"
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:193
 msgid "Between approximately %(from)s and approximately %(to)s"
-msgstr ""
+msgstr "약 %(from)s와(과) %(to)s의 사이"
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:199
 msgid "Between approximately %(from)s and %(to)s"
-msgstr ""
+msgstr "약 %(from)s와(과) %(to)s의 사이"
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:205
 msgid "Between %(from)s and approximately %(to)s"
-msgstr ""
+msgstr "%(from)s에서 약 %(to)s 사이"
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:211
 msgid "Between %(from)s and %(to)s"
-msgstr ""
+msgstr "%(from)s와(과) %(to)s 사이"
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:219
 msgid "After approximately %(from)s"
-msgstr ""
+msgstr "약 %(from)s 이후"
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:224
 msgid "After %(from)s"
-msgstr ""
+msgstr "%(from)s 이후"
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:231
 msgid "Before approximately %(to)s"
-msgstr ""
+msgstr "약 %(to)s 이전"
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:236
 msgid "Before %(to)s"
-msgstr ""
+msgstr "%(to)s 이전"
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:245
-#, fuzzy
 msgid "Approximately %(date)s"
-msgstr "약 %(date)"
+msgstr "약 %(date)s"
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:269
 msgid "Invalid input, see help text."
@@ -199,7 +198,7 @@ msgstr "1878 | 1902.02"
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:463
 msgid "Mark date ranges or before/after with either \"-\" or \"..\""
-msgstr ""
+msgstr "날짜 범위 또는 이전/이후를 \"-\" 또는 \"..\"로 표시합니다."
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:463
 msgid "1910-1920 | 1978.05.20..1978.06.27 | -1920 | 1935.."
@@ -252,7 +251,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:13
 msgid "Comments in album"
-msgstr ""
+msgstr "앨범에 대한 의견"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:14
 msgid "Comments"
@@ -261,7 +260,7 @@ msgstr "의견"
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:16
 #: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:152
 msgid "Confirm"
-msgstr ""
+msgstr "확인"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:17
 msgid "Could not copy link to clipboard"
@@ -286,7 +285,7 @@ msgstr "외부"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:22
 msgid "Failed to send your feedback, sorry."
-msgstr ""
+msgstr "피드백을 보낼 수 없습니다. 죄송합니다."
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:23
 msgid "Flip"
@@ -512,11 +511,11 @@ msgstr "번호"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:79
 msgid "Picture added to album by:"
-msgstr ""
+msgstr "앨범에 추가한 사진"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:80
 msgid "Picture already in album(s)"
-msgstr ""
+msgstr "앨범에 이미 사진이 있습니다"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:81
 msgid "Picture has location data attached"
@@ -568,7 +567,7 @@ msgstr "앨범 내 사진"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:93
 msgid "Points"
-msgstr ""
+msgstr "점"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:94
 #: ajapaik/ajapaik/static/js/ajp-selection.js:185
@@ -606,7 +605,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:102
 msgid "Source ID"
-msgstr ""
+msgstr "출처 ID"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:103
 msgid "Source"
@@ -623,7 +622,7 @@ msgstr "감사합니다!"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:109
 msgid "This album contains a film"
-msgstr ""
+msgstr "이 앨범에는 영화가 있습니다"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:110
 msgid "Title"
@@ -635,51 +634,51 @@ msgstr "URL"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:112
 msgid "Unidentified boy"
-msgstr ""
+msgstr "신원 미상의 소년"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:113
 msgid "Unidentified girl"
-msgstr ""
+msgstr "신원 미상의 소녀"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:114
 msgid "Unidentified child"
-msgstr ""
+msgstr "신원 미상의 아동"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:115
 msgid "Unidentified adult man"
-msgstr ""
+msgstr "신원 미상의 성인 남성"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:116
 msgid "Unidentified adult woman"
-msgstr ""
+msgstr "신원 미상의 성인 여성"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:117
 msgid "Unidentified adult person"
-msgstr ""
+msgstr "신원 미상의 성인"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:118
 msgid "Unidentified elderly man"
-msgstr ""
+msgstr "신원 미상의 노인 남성"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:119
 msgid "Unidentified elderly woman"
-msgstr ""
+msgstr "신원 미상의 노인 여성"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:120
 msgid "Unidentified elderly person"
-msgstr ""
+msgstr "신원 미상의 노인"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:121
 msgid "Unidentified man"
-msgstr ""
+msgstr "신원 미상의 남성"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:122
 msgid "Unidentified woman"
-msgstr ""
+msgstr "신원 미상의 여성"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:123
 msgid "Unidentified person"
-msgstr ""
+msgstr "신원 미상의 사람"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:124
 msgid "Unknown author"
@@ -695,7 +694,7 @@ msgstr "당신은 앨범 필터를 켠 상태에서 지도를 열었습니다. �
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:127
 msgid "photos"
-msgstr ""
+msgstr "사진"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:100
 msgid "Ordering"
@@ -707,15 +706,15 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:107
 msgid "latest"
-msgstr ""
+msgstr "최신"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:112
 msgid "least"
-msgstr ""
+msgstr "최소"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:114
 msgid "most"
-msgstr ""
+msgstr "최다"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:119
 msgid "Pictures furthest from you"
@@ -735,7 +734,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:132
 msgid "added"
-msgstr ""
+msgstr "추가됨"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:135
 msgid "geotagged"
@@ -748,7 +747,7 @@ msgstr "좋아함"
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:141
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:144
 msgid "categorized"
-msgstr ""
+msgstr "분류됨"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:147
 msgid "dated"
@@ -942,11 +941,11 @@ msgstr "내 제안이 변경되었습니다"
 
 #: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:103
 msgid "Transcribed by:"
-msgstr ""
+msgstr "전시자:"
 
 #: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:152
 msgid "This transcription is correct"
-msgstr ""
+msgstr "이 사본은 정확합니다"
 
 #: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:165
 msgid "What is written on the picture?"
@@ -962,7 +961,7 @@ msgstr "로그인"
 
 #: ajapaik/ajapaik/static/js/annotations/popovers/annotation.popover.new.js:119
 msgid "Select age group (optional)"
-msgstr ""
+msgstr "연령대 선택 (선택 사항)"
 
 #: ajapaik/ajapaik/static/js/annotations/popovers/annotation.popover.new.js:146
 msgid "Select gender (optional)"
@@ -970,7 +969,7 @@ msgstr "성별 선택 (선택사항)"
 
 #: ajapaik/ajapaik/static/js/annotations/popovers/face-annotation.popover.edit.js:93
 msgid "Change age group"
-msgstr ""
+msgstr "연령대 변경"
 
 #: ajapaik/ajapaik/static/js/annotations/popovers/face-annotation.popover.edit.js:120
 msgid "Change gender"
@@ -982,15 +981,15 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/constants.js:48
 msgid "Object is required"
-msgstr ""
+msgstr "객체가 필요합니다"
 
 #: ajapaik/ajapaik/static/js/constants.js:51
 msgid "optional"
-msgstr ""
+msgstr "선택 사항"
 
 #: ajapaik/ajapaik/static/js/constants.js:52
 msgid "Unidentified"
-msgstr ""
+msgstr "신원 미상"
 
 #: ajapaik/ajapaik/static/js/constants.js:53
 msgid "Male"
@@ -1002,7 +1001,7 @@ msgstr "여성"
 
 #: ajapaik/ajapaik/static/js/constants.js:55
 msgid "Child"
-msgstr ""
+msgstr "아동"
 
 #: ajapaik/ajapaik/static/js/constants.js:56
 msgid "Elderly"
@@ -1169,7 +1168,7 @@ msgstr ""
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:217
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:219
 msgid "Open album"
-msgstr ""
+msgstr "앨범 열기"
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:147
 msgid "Tag <em>%(personName)s</em>"
@@ -1208,5 +1207,5 @@ msgstr "자동으로 물체 감지됨"
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:311
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:313
 msgid "View object on Wikidata"
-msgstr ""
+msgstr "위키데이터에서 객체 보기"
 
