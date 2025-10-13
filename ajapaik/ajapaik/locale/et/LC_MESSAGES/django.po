@@ -1,6 +1,7 @@
 # Translation of Ajapaik Web app to Estonian (eesti)
 # Exported from translatewiki.net
 #
+# Author: August MF
 # Author: H2kks
 # Author: Jrttrw
 # Author: Nuclear
@@ -15,7 +16,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik Web app\n"
 "Report-Msgid-Bugs-To: translatewiki.net\n"
 "POT-Creation-Date: 2020-12-01 06:13+0200\n"
-"PO-Revision-Date: 2025-08-04 12:00:20+0000\n"
+"PO-Revision-Date: 2025-10-13 12:00:22+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Estonian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/et/)\n"
 "Language: et\n"
@@ -420,7 +421,7 @@ msgstr "Kirjeldus algkeeles"
 
 #: ajapaik/ajapaik/models.py:662
 msgid "Hide image from being accessed outside of Admin"
-msgstr ""
+msgstr "Peida pilt väljaspool Admini juurdepääsu eest"
 
 #: ajapaik/ajapaik/models.py:1339 ajapaik/ajapaik/models.py:1430
 msgid "Different"
