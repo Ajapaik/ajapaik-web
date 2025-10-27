@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik Web app\n"
 "Report-Msgid-Bugs-To: translatewiki.net\n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2025-09-08 12:00:13+0000\n"
+"PO-Revision-Date: 2025-10-27 12:00:32+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: lb\n"
@@ -913,7 +913,7 @@ msgstr "Hutt Dir Äert Passwuert vergiess? Gitt Är E-Mail-Adress hei drënner a
 
 #: ajapaik/ajapaik/templates/account/password_reset.html:19
 msgid "Reset My Password"
-msgstr "Mäi Passwuert zrécksetzen"
+msgstr "Mäi Passwuert zerécksetzen"
 
 #: ajapaik/ajapaik/templates/account/password_reset.html:22
 msgid "Please contact us if you have any trouble resetting your password."
