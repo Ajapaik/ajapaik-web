@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 #
 # Author: 1233qwer1234qwer4
+# Author: Ameisenigel
 # Author: Anna7321
 # Author: Brettchenweber
 # Author: DraconicDark
@@ -31,7 +32,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2025-10-30 12:00:24+0000\n"
+"PO-Revision-Date: 2025-11-17 12:00:22+0000\n"
 "X-POT-Import-Date: 2024-07-09 05:10:19+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -335,7 +336,7 @@ msgstr "Bitte gib an, ob du deine Refotos auch auf Wikimedia Commons hochladen m
 
 #: ajapaik/ajapaik/forms.py:537
 msgid "Please specify what would you like your display name to be"
-msgstr "Bitte spezifizieren Sie, was Sie als Anzeigenamen haben möchten."
+msgstr "Bitte spezifiziere, was du als Anzeigenamen haben möchtest."
 
 #: ajapaik/ajapaik/forms.py:556
 msgid "Email address"
