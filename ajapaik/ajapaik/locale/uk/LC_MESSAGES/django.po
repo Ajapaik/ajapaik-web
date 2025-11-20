@@ -3,6 +3,7 @@
 #
 # Author: DDPAT
 # Author: Ice bulldog
+# Author: Movses
 # Author: Shirayuki
 # Author: Ата
 # --
@@ -12,7 +13,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2025-10-30 12:00:32+0000\n"
+"PO-Revision-Date: 2025-11-20 12:00:27+0000\n"
 "X-POT-Import-Date: 2024-07-09 05:10:19+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -416,7 +417,7 @@ msgstr "Опис мови оригіналу"
 
 #: ajapaik/ajapaik/models.py:662
 msgid "Hide image from being accessed outside of Admin"
-msgstr ""
+msgstr "Приховати зображення всім, окрім адміністратора"
 
 #: ajapaik/ajapaik/models.py:1339 ajapaik/ajapaik/models.py:1430
 msgid "Different"
@@ -590,11 +591,11 @@ msgstr "Рік"
 
 #: ajapaik/ajapaik/models.py:1924
 msgid "Decade"
-msgstr ""
+msgstr "Десятиліття"
 
 #: ajapaik/ajapaik/models.py:1925
 msgid "Century"
-msgstr ""
+msgstr "Століття"
 
 #: ajapaik/ajapaik/templates/404.html:5 ajapaik/ajapaik/templates/404.html:11
 #: ajapaik/ajapaik/templates/user/settings/user_settings.html:5
@@ -917,7 +918,6 @@ msgid "Please contact us if you have any trouble resetting your password."
 msgstr "Будь ласка, зв'яжіться з нами, якщо у вас виникнуть проблеми зі скиданням пароля."
 
 #: ajapaik/ajapaik/templates/account/password_reset_done.html:15
-#, fuzzy
 msgid "We have emailed you. Please contact us if you do not receive it within a few\n minutes."
 msgstr "Ми надіслали Вам електронне повідомлення. Будь ласка, зв'яжіться з нами, якщо ви не отримаєте його протягом кількох хвилин."
 
@@ -1146,12 +1146,12 @@ msgstr "Естонське Суспільство Фотографічної С�
 #: ajapaik/ajapaik/templates/core/_footer.html:24
 #: ajapaik/ajapaik_face_recognition/templates/_footer.html:24
 msgid "Privacy policy"
-msgstr ""
+msgstr "Політика конфіденційності"
 
 #: ajapaik/ajapaik/templates/core/_footer.html:29
 #: ajapaik/ajapaik_face_recognition/templates/_footer.html:29
 msgid "Terms and conditions"
-msgstr ""
+msgstr "Умови та положення"
 
 #: ajapaik/ajapaik/templates/core/_footer.html:39
 #: ajapaik/ajapaik_face_recognition/templates/_footer.html:39
