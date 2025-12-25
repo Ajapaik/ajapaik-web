@@ -7,6 +7,7 @@
 # Author: Champ0999
 # Author: CloeRiva
 # Author: EditGio
+# Author: GseSro
 # Author: JackLantern
 # --
 # This file is part of the Ajapaik Project
@@ -15,7 +16,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2025-10-30 12:00:28+0000\n"
+"PO-Revision-Date: 2025-12-25 12:00:18+0000\n"
 "X-POT-Import-Date: 2024-07-09 05:10:19+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -72,11 +73,11 @@ msgstr "Per favore effettuare l'accesso"
 
 #: ajapaik/ajapaik/api.py:90
 msgid "Rephoto upload settings have been saved"
-msgstr ""
+msgstr "Le impostazioni di caricamento della rifotografia sono state salvate"
 
 #: ajapaik/ajapaik/api.py:91
 msgid "Required parameter, token is missing"
-msgstr ""
+msgstr "Parametro richiesto, il token è mancante"
 
 #: ajapaik/ajapaik/api.py:92
 msgid "This transcription already exists, previous transcription was upvoted, thank you!"
@@ -92,7 +93,7 @@ msgstr "Feedback sulla trascrizione aggiunto, grazie!"
 
 #: ajapaik/ajapaik/api.py:95
 msgid "User display name has been saved"
-msgstr ""
+msgstr "Il nome visualizzato dell'utente è stato salvato"
 
 #: ajapaik/ajapaik/api.py:96
 msgid "User settings have been saved"
@@ -128,20 +129,20 @@ msgstr "Nessun album trovato"
 
 #: ajapaik/ajapaik/delfi.py:20
 msgid "Bounding box must be set"
-msgstr ""
+msgstr "Il riquadro di delimitazione deve essere impostato"
 
 #: ajapaik/ajapaik/delfi.py:23
 msgid "Bounding box must have 4 comma-separated members"
-msgstr ""
+msgstr "Il riquadro di delimitazione deve avere 4 elementi separati da virgole"
 
 #: ajapaik/ajapaik/delfi.py:28
 msgid "Bounding box values must be numbers"
-msgstr ""
+msgstr "I valori del riquadro di delimitazione devono essere numeri"
 
 #: ajapaik/ajapaik/forms.py:18
 #| msgid "Bad Token"
 msgid "!!FUZZY!!Bad Token"
-msgstr ""
+msgstr "Token non valido"
 
 #: ajapaik/ajapaik/forms.py:24
 #: ajapaik/ajapaik/templates/socialaccount/connections_content.html:24
@@ -169,7 +170,7 @@ msgstr "Conferma della password"
 #: ajapaik/ajapaik/forms.py:114 ajapaik/ajapaik/forms.py:195
 #: ajapaik/ajapaik/forms.py:217
 msgid "Choose area"
-msgstr ""
+msgstr "Scegli l'area"
 
 #: ajapaik/ajapaik/forms.py:120 ajapaik/ajapaik/forms.py:194
 #: ajapaik/ajapaik/forms.py:208 ajapaik/ajapaik/forms.py:216
@@ -183,11 +184,11 @@ msgstr "Scegli foto"
 
 #: ajapaik/ajapaik/forms.py:258
 msgid "Choose parent album"
-msgstr ""
+msgstr "Scegli l'album genitore"
 
 #: ajapaik/ajapaik/forms.py:428
 msgid "Picture file"
-msgstr ""
+msgstr "File immagine"
 
 #: ajapaik/ajapaik/forms.py:429 ajapaik/ajapaik/forms.py:482
 #: ajapaik/ajapaik/models.py:260 ajapaik/ajapaik/models.py:566
@@ -206,11 +207,11 @@ msgstr "Autore"
 
 #: ajapaik/ajapaik/forms.py:432
 msgid "Licence or status of copyright"
-msgstr ""
+msgstr "Licenza o stato del copyright"
 
 #: ajapaik/ajapaik/forms.py:435
 msgid "Accepted formats are .png or .jpg files"
-msgstr ""
+msgstr "I formati accettati sono i file .png o .jpg"
 
 #: ajapaik/ajapaik/forms.py:436
 msgid "Add a short description of the picture"
@@ -222,7 +223,7 @@ msgstr "Autore dell'immagine (fotografo, artista)"
 
 #: ajapaik/ajapaik/forms.py:439
 msgid "Please select a licence to let other people know if and how they can reuse the material you upload.\n\nIf you are the author, you can choose the licence (we recommend using open Creative Commons licences). If someone else created the work, you need to use the same licence and rights holder that it currently has.\n\nCurrently we are also accepting content with unclear copyright status, please choose ‘Copyright not evaluated’ then."
-msgstr ""
+msgstr "Seleziona una licenza per far sapere agli altri se e come possono riutilizzare il materiale che carichi.\n\nSe sei l'autore, puoi scegliere la licenza (ti consigliamo di usare le licenze aperte Creative Commons). Se l'opera è stata creata da qualcun altro, devi utilizzare la stessa licenza e lo stesso titolare dei diritti che ha attualmente.\n\nAttualmente accettiamo anche contenuti con uno stato di copyright non chiaro, in tal caso scegli \"Copyright non valutato\"."
 
 #: ajapaik/ajapaik/forms.py:447
 msgid "Description of the picture"
@@ -242,28 +243,28 @@ msgstr "Descrizione mancante"
 
 #: ajapaik/ajapaik/forms.py:458
 msgid "Missing licence"
-msgstr ""
+msgstr "Missing licence"
 
 #: ajapaik/ajapaik/forms.py:472
 msgid "Parent album"
-msgstr ""
+msgstr "Album genitore"
 
 #: ajapaik/ajapaik/forms.py:475
 #: ajapaik/ajapaik/templates/curator/curator.html:144
 msgid "Location"
-msgstr ""
+msgstr "Posizione"
 
 #: ajapaik/ajapaik/forms.py:476
 msgid "If this album is tied to a certain location, specify here"
-msgstr ""
+msgstr "Se questo album è legato a una posizione specifica, specificala qui"
 
 #: ajapaik/ajapaik/forms.py:479
 msgid "Album type"
-msgstr ""
+msgstr "Tipo di album"
 
 #: ajapaik/ajapaik/forms.py:480
 msgid "Anything else"
-msgstr ""
+msgstr "Qualcos'altro"
 
 #: ajapaik/ajapaik/forms.py:480
 msgid "Person"
@@ -279,11 +280,11 @@ msgstr "Nome"
 
 #: ajapaik/ajapaik/forms.py:483 ajapaik/ajapaik/models.py:264
 msgid "Is public"
-msgstr ""
+msgstr "È pubblico"
 
 #: ajapaik/ajapaik/forms.py:484 ajapaik/ajapaik/models.py:265
 msgid "Is open"
-msgstr ""
+msgstr "Aperto"
 
 #: ajapaik/ajapaik/forms.py:497
 msgid "My preferred language is"
@@ -303,23 +304,23 @@ msgstr "No"
 
 #: ajapaik/ajapaik/forms.py:508
 msgid "Please specify your prefered language"
-msgstr ""
+msgstr "Specifica la lingua preferita"
 
 #: ajapaik/ajapaik/forms.py:510
 msgid "Please specify whether you would like to receive the newsletter"
-msgstr ""
+msgstr "Specifica se desideri ricevere la newsletter"
 
 #: ajapaik/ajapaik/forms.py:518
 msgid "I wish to to upload my rephotos to Wikimedia Commons"
-msgstr ""
+msgstr "Desidero caricare le mie rifotografie su Wikimedia Commons"
 
 #: ajapaik/ajapaik/forms.py:528
 msgid "Please specify whether you would like your rephotos to be uploaded to Wikimedia Commons as well"
-msgstr ""
+msgstr "Specifica se desideri caricare le tue rifotografie anche su Wikimedia Commons"
 
 #: ajapaik/ajapaik/forms.py:537
 msgid "Please specify what would you like your display name to be"
-msgstr ""
+msgstr "Specifica il nome che vuoi visualizzare"
 
 #: ajapaik/ajapaik/forms.py:556
 msgid "Email address"
@@ -327,7 +328,7 @@ msgstr "Indirizzo email"
 
 #: ajapaik/ajapaik/forms.py:561
 msgid "Comment box supports Markdown\n\nParagraphs\nAdd two new lines to start a new paragraph.\n\nBold\n**Geotagging** is the first task on Ajapaik.\n\nItalic\nNext come *rephotography* and *dating*.\n\nLinks\nJoin the discussion on [Ajapaiklejad FB group](https://www.facebook.com/groups/ajapaiklejad).\n\nImages\n![Ajapaik is gift for EV100](https://ajapaik.ee/static/images/ev100.png)"
-msgstr ""
+msgstr "La casella dei commenti supporta il Markdown\n\nParagrafi\nAggiungi due righe vuote per iniziare un nuovo paragrafo.\n\nGrassetto\nIl **Geotagging** è il primo compito su Ajapaik.\n\nCorsivo\nPoi vengono la *rifotografia* e la *datazione*.\n\nLink\nPartecipa alla discussione sul [gruppo FB Ajapaiklejad](https://www.facebook.com/groups/ajapaiklejad).\n\nImmagini\n![Ajapaik è un ergalo per EV100](https://ajapaik.ee/static/images/ev100.png)"
 
 #: ajapaik/ajapaik/forms.py:596
 msgid "Nothing to change."
@@ -351,11 +352,11 @@ msgstr "Sesso"
 
 #: ajapaik/ajapaik/models.py:283
 msgid "Wikidata identifier"
-msgstr ""
+msgstr "Identificativo Wikidata"
 
 #: ajapaik/ajapaik/models.py:290
 msgid "Name original language"
-msgstr ""
+msgstr "Nome lingua originale"
 
 #: ajapaik/ajapaik/models.py:551
 msgid "Image"
@@ -367,23 +368,23 @@ msgstr "Titolo"
 
 #: ajapaik/ajapaik/models.py:567
 msgid "MUIS title"
-msgstr ""
+msgstr "Titolo MUIS"
 
 #: ajapaik/ajapaik/models.py:568
 msgid "MUIS comment"
-msgstr ""
+msgstr "Commento MUIS"
 
 #: ajapaik/ajapaik/models.py:569
 msgid "MUIS event description set note"
-msgstr ""
+msgstr "Nota al set di descrizione dell'evento MUIS"
 
 #: ajapaik/ajapaik/models.py:570
 msgid "MUIS text on object"
-msgstr ""
+msgstr "Testo sull'oggetto MUIS"
 
 #: ajapaik/ajapaik/models.py:571
 msgid "MUIS legends and descriptions"
-msgstr ""
+msgstr "Didascalie e descrizioni MUIS"
 
 #: ajapaik/ajapaik/models.py:649 ajapaik/ajapaik/models.py:2065
 msgid "Interior"
@@ -403,15 +404,15 @@ msgstr "Suolo"
 
 #: ajapaik/ajapaik/models.py:656 ajapaik/ajapaik/models.py:2076
 msgid "Raised"
-msgstr ""
+msgstr "Sollevata"
 
 #: ajapaik/ajapaik/models.py:657 ajapaik/ajapaik/models.py:2077
 msgid "Aerial"
-msgstr ""
+msgstr "Aerea"
 
 #: ajapaik/ajapaik/models.py:659 ajapaik/ajapaik/models.py:2079
 msgid "Viewpoint elevation"
-msgstr ""
+msgstr "Quota del punto di vista"
 
 #: ajapaik/ajapaik/models.py:661
 msgid "Description original language"
@@ -419,7 +420,7 @@ msgstr "Descrizione lingua originale"
 
 #: ajapaik/ajapaik/models.py:662
 msgid "Hide image from being accessed outside of Admin"
-msgstr ""
+msgstr "Nascondi immagine per l'accesso esterno ad Admin"
 
 #: ajapaik/ajapaik/models.py:1339 ajapaik/ajapaik/models.py:1430
 msgid "Different"
@@ -431,40 +432,40 @@ msgstr "Simile"
 
 #: ajapaik/ajapaik/models.py:1341 ajapaik/ajapaik/models.py:1432
 msgid "Duplicate"
-msgstr ""
+msgstr "Duplicato"
 
 #: ajapaik/ajapaik/models.py:1495
 msgid "Geotag"
-msgstr ""
+msgstr "Etichetta geografica"
 
 #: ajapaik/ajapaik/models.py:1496 ajapaik/ajapaik/models.py:1579
 #: ajapaik/ajapaik/templates/_comments.html:11
 msgid "Rephoto"
-msgstr ""
+msgstr "Rifotografia"
 
 #: ajapaik/ajapaik/models.py:1497
 msgid "Photo upload"
-msgstr ""
+msgstr "Caricamento foto"
 
 #: ajapaik/ajapaik/models.py:1498
 msgid "Photo curation"
-msgstr ""
+msgstr "Selezione fotografica"
 
 #: ajapaik/ajapaik/models.py:1499
 msgid "Photo re-curation"
-msgstr ""
+msgstr "Rielaborazione foto"
 
 #: ajapaik/ajapaik/models.py:1500
 msgid "Dating"
-msgstr ""
+msgstr "Datazione"
 
 #: ajapaik/ajapaik/models.py:1501
 msgid "Dating confirmation"
-msgstr ""
+msgstr "Conferma datazione"
 
 #: ajapaik/ajapaik/models.py:1502
 msgid "Film still"
-msgstr ""
+msgstr "Fotogramma di scena"
 
 #: ajapaik/ajapaik/models.py:1503
 msgid "Annotation"
@@ -472,15 +473,15 @@ msgstr "Annotazione"
 
 #: ajapaik/ajapaik/models.py:1504
 msgid "Confirm subject"
-msgstr ""
+msgstr "Conferma soggetto"
 
 #: ajapaik/ajapaik/models.py:1505
 msgid "Confirm Image similarity"
-msgstr ""
+msgstr "Conferma somiglianza immagini"
 
 #: ajapaik/ajapaik/models.py:1506 ajapaik/ajapaik/models.py:1507
 msgid "Suggestion subject age"
-msgstr ""
+msgstr "Suggerimento età soggetto"
 
 #: ajapaik/ajapaik/models.py:1508 ajapaik/ajapaik/templates/_toolbox.html:92
 msgid "Transcribe"
@@ -488,23 +489,23 @@ msgstr "Trascrivi"
 
 #: ajapaik/ajapaik/models.py:1509
 msgid "Categorize scene"
-msgstr ""
+msgstr "Categorizza scena"
 
 #: ajapaik/ajapaik/models.py:1510
 msgid "Add viewpoint elevation"
-msgstr ""
+msgstr "Aggiungi elevazione punto di vista"
 
 #: ajapaik/ajapaik/models.py:1511
 msgid "Flip photo"
-msgstr ""
+msgstr "Capovolgi foto"
 
 #: ajapaik/ajapaik/models.py:1512
 msgid "Invert photo"
-msgstr ""
+msgstr "Inverti foto"
 
 #: ajapaik/ajapaik/models.py:1513
 msgid "Rotate photo"
-msgstr ""
+msgstr "Ruota foto"
 
 #: ajapaik/ajapaik/models.py:1564
 msgid "Map"
@@ -512,7 +513,7 @@ msgstr "Mappa"
 
 #: ajapaik/ajapaik/models.py:1565
 msgid "EXIF"
-msgstr ""
+msgstr "Dati EXIF"
 
 #: ajapaik/ajapaik/models.py:1566
 msgid "GPS"
@@ -528,7 +529,7 @@ msgstr "StreetView"
 
 #: ajapaik/ajapaik/models.py:1569
 msgid "Source geotag"
-msgstr ""
+msgstr "Geotag sorgente"
 
 #: ajapaik/ajapaik/models.py:1570
 msgid "Android app"
@@ -536,11 +537,11 @@ msgstr "app Android"
 
 #: ajapaik/ajapaik/models.py:1574
 msgid "Game"
-msgstr ""
+msgstr "Gioco"
 
 #: ajapaik/ajapaik/models.py:1575
 msgid "Map view"
-msgstr ""
+msgstr "Visualizzazione mappa"
 
 #: ajapaik/ajapaik/models.py:1576
 msgid "Gallery"
@@ -556,11 +557,11 @@ msgstr "Fonte"
 
 #: ajapaik/ajapaik/models.py:1583
 msgid "Google map"
-msgstr ""
+msgstr "Google Maps"
 
 #: ajapaik/ajapaik/models.py:1584
 msgid "Google satellite"
-msgstr ""
+msgstr "Google Satellite"
 
 #: ajapaik/ajapaik/models.py:1585
 msgid "OpenStreetMap"
@@ -572,7 +573,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/models.py:1587
 msgid "No map"
-msgstr ""
+msgstr "Nessuna mappa"
 
 #: ajapaik/ajapaik/models.py:1729 ajapaik/ajapaik/models.py:1731
 #: ajapaik/ajapaik/templates/comments/list.html:17
@@ -593,11 +594,11 @@ msgstr "Anno"
 
 #: ajapaik/ajapaik/models.py:1924
 msgid "Decade"
-msgstr ""
+msgstr "Decennio"
 
 #: ajapaik/ajapaik/models.py:1925
 msgid "Century"
-msgstr ""
+msgstr "Secolo"
 
 #: ajapaik/ajapaik/templates/404.html:5 ajapaik/ajapaik/templates/404.html:11
 #: ajapaik/ajapaik/templates/user/settings/user_settings.html:5
