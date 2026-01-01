@@ -22,6 +22,7 @@
 # Author: Reverse88
 # Author: Rodney Araujo
 # Author: SpikeShroom
+# Author: Tecbs
 # Author: ZealousBlaze
 # --
 # This file is part of the Ajapaik Project
@@ -30,7 +31,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2025-10-30 12:00:26+0000\n"
+"PO-Revision-Date: 2026-01-01 12:00:16+0000\n"
 "X-POT-Import-Date: 2024-07-09 05:10:19+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -155,9 +156,8 @@ msgstr "Los valores del cuadro delimitador deben ser números"
 
 #: ajapaik/ajapaik/forms.py:18
 #| msgid "Bad Token"
-#, fuzzy
 msgid "!!FUZZY!!Bad Token"
-msgstr "Token malo"
+msgstr "Token incorrecto"
 
 #: ajapaik/ajapaik/forms.py:24
 #: ajapaik/ajapaik/templates/socialaccount/connections_content.html:24
