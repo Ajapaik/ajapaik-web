@@ -6,6 +6,7 @@
 # Author: Haxpett
 # Author: Jopparn
 # Author: Sabelöga
+# Author: Stefan2255
 # Author: WikiPhoenix
 # Author: YuliaVo
 # Author: Zache
@@ -19,7 +20,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik Web app\n"
 "Report-Msgid-Bugs-To: translatewiki.net\n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2025-10-30 12:00:31+0000\n"
+"PO-Revision-Date: 2026-01-05 12:00:24+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Swedish (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/sv/)\n"
 "Language: sv\n"
@@ -925,7 +926,6 @@ msgid "Please contact us if you have any trouble resetting your password."
 msgstr "Kontakta oss om du har problem med att återställa ditt lösenord."
 
 #: ajapaik/ajapaik/templates/account/password_reset_done.html:15
-#, fuzzy
 msgid "We have emailed you. Please contact us if you do not receive it within a few\n minutes."
 msgstr "Vi har skickat dig ett meddelande. Kontakta oss om den inte kommit fram inom några minuter."
 
