@@ -19,7 +19,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: translatewiki.net\n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2025-10-30 12:00:28+0000\n"
+"PO-Revision-Date: 2026-01-12 12:00:17+0000\n"
 "Language: ko\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -186,7 +186,7 @@ msgstr "사진 선택"
 
 #: ajapaik/ajapaik/forms.py:258
 msgid "Choose parent album"
-msgstr ""
+msgstr "상위 앨범 선택"
 
 #: ajapaik/ajapaik/forms.py:428
 msgid "Picture file"
@@ -270,7 +270,7 @@ msgstr "기타"
 
 #: ajapaik/ajapaik/forms.py:480
 msgid "Person"
-msgstr "사람"
+msgstr "인물"
 
 #: ajapaik/ajapaik/forms.py:481 ajapaik/ajapaik/models.py:258
 #: ajapaik/ajapaik/templates/curator/curator.html:79
@@ -290,7 +290,7 @@ msgstr "개방 여부"
 
 #: ajapaik/ajapaik/forms.py:497
 msgid "My preferred language is"
-msgstr ""
+msgstr "내가 선호하는 언어는"
 
 #: ajapaik/ajapaik/forms.py:498
 msgid "I wish to receive the newsletter"
@@ -596,11 +596,11 @@ msgstr "연도"
 
 #: ajapaik/ajapaik/models.py:1924
 msgid "Decade"
-msgstr ""
+msgstr "십년"
 
 #: ajapaik/ajapaik/models.py:1925
 msgid "Century"
-msgstr ""
+msgstr "세기"
 
 #: ajapaik/ajapaik/templates/404.html:5 ajapaik/ajapaik/templates/404.html:11
 #: ajapaik/ajapaik/templates/user/settings/user_settings.html:5
@@ -1113,7 +1113,7 @@ msgstr "인증"
 
 #: ajapaik/ajapaik/templates/common/game.html:26
 msgid "Game modal photo"
-msgstr ""
+msgstr "게임 모드 사진"
 
 #: ajapaik/ajapaik/templates/common/game.html:50
 msgid "Show description"
@@ -1179,7 +1179,7 @@ msgstr "앨범 선택"
 
 #: ajapaik/ajapaik/templates/core/_header.html:16
 msgid "Search photos"
-msgstr ""
+msgstr "사진 검색"
 
 #: ajapaik/ajapaik/templates/core/_header.html:19
 msgid "Show in grid"
@@ -1280,29 +1280,29 @@ msgstr ""
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:50
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:73
 msgid "historic,pictures,old,photos"
-msgstr ""
+msgstr "역사적,사진,낡은"
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:54
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:56
 msgid "historic,pictures,old,photos,map,geotagged,location"
-msgstr ""
+msgstr "역사적,사진,낡은,지도,지오태깅,위치"
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:60
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:62
 msgid "historic,pictures,old,photos,crowd-sourced,geotagging,game"
-msgstr ""
+msgstr "역사적,사진,낡은,크라우드소싱,지오태깅,게임"
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:66
 msgid "historic,picture,old,photo,before,after"
-msgstr ""
+msgstr "역사적,사진,낡은,전,후"
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:68
 msgid "historic,picture,old,photo"
-msgstr ""
+msgstr "역사적,사진,낡은"
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:71
 msgid "search,museum,old,photos,pictures,historic"
-msgstr ""
+msgstr "검색,박물관,낡은,사진,역사적"
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:91
 #, python-format
@@ -1610,7 +1610,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:24
 msgid "people"
-msgstr ""
+msgstr "인물"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:27
 msgid "back sides of pictures"
@@ -1667,7 +1667,7 @@ msgstr "필터 없음"
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:68
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:99
 msgid "Show person albums"
-msgstr ""
+msgstr "인물 앨범 표시"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:69
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:100
@@ -1680,7 +1680,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:86
 msgid "Show film albums"
-msgstr ""
+msgstr "영화 앨범 표시"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:108
 msgid "Show pictures with back sides"
