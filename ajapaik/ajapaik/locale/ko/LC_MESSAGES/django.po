@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 #
 # Author: A Retired User
+# Author: Bisang
 # Author: Songhee
 # Author: Suleiman the Magnificent Television
 # Author: Underbaaar
@@ -19,7 +20,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: translatewiki.net\n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2026-01-12 12:00:17+0000\n"
+"PO-Revision-Date: 2026-01-29 12:00:19+0000\n"
 "Language: ko\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -270,7 +271,7 @@ msgstr "기타"
 
 #: ajapaik/ajapaik/forms.py:480
 msgid "Person"
-msgstr "인물"
+msgstr "개인"
 
 #: ajapaik/ajapaik/forms.py:481 ajapaik/ajapaik/models.py:258
 #: ajapaik/ajapaik/templates/curator/curator.html:79
@@ -596,7 +597,7 @@ msgstr "연도"
 
 #: ajapaik/ajapaik/models.py:1924
 msgid "Decade"
-msgstr "십년"
+msgstr "10년"
 
 #: ajapaik/ajapaik/models.py:1925
 msgid "Century"
@@ -1610,7 +1611,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:24
 msgid "people"
-msgstr "인물"
+msgstr "사람"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:27
 msgid "back sides of pictures"

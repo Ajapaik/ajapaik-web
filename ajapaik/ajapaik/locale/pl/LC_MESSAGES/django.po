@@ -6,6 +6,7 @@
 # Author: Rail
 # Author: Railfail536
 # Author: WaldiSt
+# Author: Woytecr
 # --
 # This file is part of the Ajapaik Project
 # This file is distributed under the same license as the Ajapaik package.
@@ -13,7 +14,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2025-10-30 12:00:30+0000\n"
+"PO-Revision-Date: 2026-01-29 12:00:20+0000\n"
 "X-POT-Import-Date: 2024-07-09 05:10:19+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1167,7 +1168,7 @@ msgstr "Pomóż nam"
 
 #: ajapaik/ajapaik/templates/core/_header.html:4
 msgid "Back to homepage"
-msgstr "Wróż do strony głównej"
+msgstr "Wróć do strony głównej"
 
 #: ajapaik/ajapaik/templates/core/_header.html:13
 msgid "Search album"
@@ -1976,7 +1977,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/info/_info_modal_content.html:113
 msgid "Back to map"
-msgstr "Wróż do mapy"
+msgstr "Wróć do mapy"
 
 #: ajapaik/ajapaik/templates/leaderboard/_block_leaderboard.html:12
 msgid "Recent activity leaderboard"
