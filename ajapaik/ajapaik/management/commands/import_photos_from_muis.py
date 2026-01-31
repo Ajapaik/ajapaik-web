@@ -128,25 +128,30 @@ class Command(BaseCommand):
                         continue
 
                     img_data = requests.get(image_url).content
-                    image_id = external_id.split(':')[-1]
-                    file_name = f'{set_name}_{image_id}.{image_extension}'
-                    file_name = file_name.replace(':', '_')
-                    path = f'{settings.MEDIA_ROOT}/uploads/{file_name}'
-                    with open(path, 'wb') as handler:
-                        handler.write(img_data)
+
                     photo = Photo(
-                        image=path,
                         source_key=identifier,
                         source_url=source_url,
                         external_id=external_id,
                         source=source
                     )
+                    # We save first to get the Ajapaik ID
+                    photo.light_save()
+
+                    image_id = external_id.split(':')[-1]
+                    # Sanitize identifier (workID) for filename
+                    clean_identifier = "".join([c for c in identifier if c.isalnum() or c in ('.', '_', '-') or c == ' ']).strip()
+                    clean_identifier = clean_identifier.replace(' ', '_').replace(':', '_')
+                    
+                    file_name = f'{photo.id}_{clean_identifier}.{image_extension}'
+                    path = f'{settings.MEDIA_ROOT}/uploads/{file_name}'
+                    with open(path, 'wb') as handler:
+                        handler.write(img_data)
+
+                    photo.image = f'uploads/{file_name}'
                     dt = datetime.utcnow()
                     photo.muis_update_time = dt.replace(tzinfo=timezone.utc).isoformat()
                     photo.light_save()
-
-                    photo = Photo.objects.get(id=photo.id)
-                    photo.image.name = f'uploads/{file_name}'
 
                     title_find = rec.find(f'{title_wrap}lido:titleSet/lido:appellationValue', ns)
                     title = title_find.text \

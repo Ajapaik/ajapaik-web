@@ -2452,8 +2452,12 @@ def curator_photo_upload_handler(request):
                                 rotated=upload_form.cleaned_data['rotated']
                             )
                             new_photo.save()
+                            clean_source_key = "".join([c for c in source_key if c.isalnum() or c in ('.', '_', '-') or c == ' ']).strip()
+                            clean_source_key = clean_source_key.replace(' ', '_').replace(':', '_')
+                            filename = f"{new_photo.id}_{clean_source_key}.jpg"
+
                             if upload_form.cleaned_data['collections'] == 'DIGAR':
-                                new_photo.image = f'uploads/DIGAR_{str(new_photo.source_key).split(":")[1]}_1.jpg'
+                                new_photo.image = f'uploads/{new_photo.id}_DIGAR_{str(new_photo.source_key).split(":")[1]}_1.jpg'
                             else:
                                 # Enable plain http and broken SSL
                                 ssl._create_default_https_context = ssl._create_unverified_context
@@ -2465,10 +2469,10 @@ def curator_photo_upload_handler(request):
                                 img_response = opener.open(upload_form.cleaned_data['imageUrl'])
                                 if 'ETERA' in new_photo.source.description:
                                     img = ContentFile(img_response.read())
-                                    new_photo.image_no_watermark.save('etera.jpg', img)
+                                    new_photo.image_no_watermark.save(filename, img)
                                     new_photo.watermark()
                                 else:
-                                    new_photo.image.save('muis.jpg', ContentFile(img_response.read()))
+                                    new_photo.image.save(filename, ContentFile(img_response.read()))
                             if new_photo.invert:
                                 photo_path = f'{settings.MEDIA_ROOT}/{str(new_photo.image)}'
                                 img = Image.open(photo_path)
