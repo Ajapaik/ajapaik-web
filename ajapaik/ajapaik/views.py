@@ -2326,13 +2326,24 @@ def curator_photo_upload_handler(request):
             context['album_id'] = general_albums[0].pk
         else:
             context['album_id'] = None
-        default_album = Album(
-            name=f'{str(profile.id)}-{str(timezone.now())}',
-            atype=Album.AUTO,
-            profile=profile,
-            is_public=False,
-        )
-        default_album.save()
+        auto_album_id = request.POST.get('autoAlbumId')
+        default_album = None
+        if auto_album_id:
+            try:
+                default_album = Album.objects.get(pk=auto_album_id, profile=profile, atype=Album.AUTO)
+            except ObjectDoesNotExist:
+                pass
+
+        if default_album is None:
+            default_album = Album(
+                name=f'{str(profile.id)}-{str(timezone.now())}',
+                atype=Album.AUTO,
+                profile=profile,
+                is_public=False,
+            )
+            default_album.save()
+
+        context['auto_album_id'] = default_album.pk
         # 15 => unknown copyright
         unknown_licence = Licence.objects.get(pk=15)
         flickr_licence = Licence.objects.filter(url='https://www.flickr.com/commons/usage/').first()

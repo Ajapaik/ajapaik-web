@@ -10,51 +10,39 @@ from ajapaik.ajapaik.models import Photo, AlbumPhoto, Album
 
 class FotisDriver(object):
     def __init__(self):
-        self.search_url = 'https://www.ra.ee/fotis/api/index.php/v1/photo' \
-                          '?filter[or][][reference_code][like]=%s' \
-                          '&filter[or][][content][like]=%s' \
-                          '&filter[or][][author][like]=%s' \
-                          '&filter[or][][location][like]=%s' \
-                          '&filter[or][][person][like]=%s' \
-                          '&page=%s'
+        # Base URLs for broad search and specific reference code search
+        self.broad_search_url = 'https://www.ra.ee/fotis/api/index.php/v1/photo' \
+                                '?filter[or][][reference_code][like]=%s' \
+                                '&filter[or][][content][like]=%s' \
+                                '&filter[or][][author][like]=%s' \
+                                '&filter[or][][location][like]=%s' \
+                                '&filter[or][][person][like]=%s' \
+                                '&page=%s'
+        self.ref_search_url = 'https://www.ra.ee/fotis/api/index.php/v1/photo' \
+                              '?filter[reference_code][like]=%s' \
+                              '&page=%s'
 
-    def search(self, cleaned_data, max_results=200):
-        fotis_multiplier = max_results / 20.0
-        results = []
-        response_headers = {}
-        photo_external_ids = []
+    def search(self, cleaned_data, max_results=20):
+        # We process one page at a time to avoid server-side timeouts
+        # The frontend will now handle multi-page fetching
+        query = cleaned_data['fullSearch']
+        page = cleaned_data.get('driverPage', 1)
 
-        while len(results) < max_results:
-            previous_page = int(response_headers.get('X-Pagination-Current-Page', 0))
+        if cleaned_data.get('referenceCodeOnly'):
+            url = self.ref_search_url % (query, page)
+        else:
+            url = self.broad_search_url % (query, query, query, query, query, page)
 
-            if previous_page and previous_page >= int(response_headers.get('X-Pagination-Page-Count')):
-                break
+        response = get(url)
+        response_headers = response.headers
+        results = loads(response.text)
 
-            new_page = previous_page + 1 if previous_page else cleaned_data['driverPage'] if cleaned_data[
-                                                                                                 'driverPage'] < 2 else \
-                (cleaned_data['driverPage'] * int(fotis_multiplier)) - (int(fotis_multiplier) - 1)
-            response = get(self.search_url % (cleaned_data['fullSearch'], cleaned_data['fullSearch'],
-                                              cleaned_data['fullSearch'], cleaned_data['fullSearch'],
-                                              cleaned_data['fullSearch'],
-                                              new_page), )
-            response_headers = response.headers
-            page_results = loads(response.text)
-
-            filtered_results = []
-            for result in page_results:
-                result_id = result.get('id')
-                if result_id and result_id not in photo_external_ids:
-                    filtered_results.append(result)
-                    photo_external_ids.append(result["id"])
-
-            results += filtered_results
-
-        # We've hacked FOTIS to make more queries instead of 1, thus we adjust page numbers accordingly
+        # Ensure we always return a dictionary consistent with expected structure
         return {
-            'records': results[:max_results],
-            'pageSize': 200,
-            'page': math.ceil(int(response_headers['X-Pagination-Current-Page']) / fotis_multiplier),
-            'pageCount': math.ceil(int(response_headers.get('X-Pagination-Page-Count')) / fotis_multiplier)
+            'records': results,
+            'pageSize': 20,
+            'page': int(response_headers.get('X-Pagination-Current-Page', page)),
+            'pageCount': int(response_headers.get('X-Pagination-Page-Count', 1))
         }
 
     def transform_response(self, response, remove_existing=False, fotis_page=1):

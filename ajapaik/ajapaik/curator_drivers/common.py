@@ -21,6 +21,7 @@ class CuratorSearchForm(Form):
     useCommons = BooleanField(initial=False, required=False)
     useEuropeana = BooleanField(initial=False, required=False)
     useFotis = BooleanField(initial=False, required=False)
+    referenceCodeOnly = BooleanField(initial=False, required=False)
     # Also used for Finna and Fotis
     driverPage = IntegerField(initial=1, required=False)
     filterExisting = BooleanField(initial=True, required=False)

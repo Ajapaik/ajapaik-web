@@ -2,786 +2,807 @@
 {% load i18n compress static %}
 
 {% block header %}
-    {% include "core/_header.html" %}
+{% include "core/_header.html" %}
 {% endblock %}
 
 {% block specific_css %}
-    {% compress css %}
-        <link rel="stylesheet" href="{% static "libs/autocomplete/css/autocomplete.css" %}">
-    {% endcompress %}
+{% compress css %}
+<link rel="stylesheet" href="{% static " libs/autocomplete/css/autocomplete.css" %}">
+{% endcompress %}
 {% endblock %}
 
 {% block layout %}
-    <div class="container{% if not request.user.profile.is_legit %} pb-3 w-50{% endif %}" id="ajp-curator-container">
-        {% if request.user.profile.is_legit %}
-            {% include "album/_album_creation_modal.html" %}
-            <div class="modal fade" id="ajp-curator-feedback-modal">
-                <div class="modal-dialog modal-lg">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h4 class="modal-title">{% trans "Thank you!" %}</h4>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <p>{% trans "Your photos have now been added to Ajapaik and can be interacted with as usual." %}</p>
+<div class="container{% if not request.user.profile.is_legit %} pb-3 w-50{% endif %}" id="ajp-curator-container">
+    {% if request.user.profile.is_legit %}
+    {% include "album/_album_creation_modal.html" %}
+    <div class="modal fade" id="ajp-curator-feedback-modal">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">{% trans "Thank you!" %}</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>{% trans "Your photos have now been added to Ajapaik and can be interacted with as usual." %}</p>
 
-                            <p>{% trans "Points awarded for curating" %}: <span
-                                    id="ajp-curator-points-awarded"></span></p>
+                    <p>{% trans "Points awarded for curating" %}: <span id="ajp-curator-points-awarded"></span></p>
 
-                            <p>{% trans "You can start geotagging the new content here" %}: <a target="_blank"
-                                                                                                id="ajp-curator-album-play-link"></a>
-                            </p>
+                    <p>{% trans "You can start geotagging the new content here" %}: <a target="_blank"
+                            id="ajp-curator-album-play-link"></a>
+                    </p>
 
-                            <p>{% trans "Tell your friends on Facebook" %}:</p>
+                    <p>{% trans "Tell your friends on Facebook" %}:</p>
 
-                            <p id="ajp-curator-share-button-container"></p>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                                {% trans "Close" %}
-                            </button>
-                        </div>
-                    </div>
+                    <p id="ajp-curator-share-button-container"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                        {% trans "Close" %}
+                    </button>
                 </div>
             </div>
-            <div id="ajp-curator-search-results-container">
-                <div id="ajp-curator-search-results-list"></div>
-                <button type="button" class="btn btn-primary btn-block mt-2 ajp-curator-load-more">
-                    {% trans "Load more" %}
-                </button>
-            </div>
-            <div class="row" id="ajp-curator-selection"></div>
-            <div id="ajp-curator-my-albums" class="container"></div>
-            <div class="modal fade" id="ajp-curator-edit-my-album-modal">
-                <form class="modal-dialog modal-lg">
-                    <div class="modal-content mt-5">
-                        <div class="modal-header">
-                            <h4 class="modal-title">{% trans "Edit your album" %}</h4>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="row">
-                                <div class="col-12 d-none" id="ajp-curator-edit-album-error">
-                                    <div class="alert alert-danger" role="alert">
-                                                    <span class="glyphicon glyphicon-exclamation-sign"
-                                                          aria-hidden="true"></span>
-                                        <span id="ajp-curator-edit-album-error-message">{% trans "Error" %}</span>
-                                    </div>
-                                </div>
+        </div>
+    </div>
+    <div id="ajp-curator-search-results-container">
+        <div id="ajp-curator-search-results-list"></div>
+        <button type="button" class="btn btn-primary btn-block mt-2 ajp-curator-load-more">
+            {% trans "Load more" %}
+        </button>
+    </div>
+    <div class="row" id="ajp-curator-selection"></div>
+    <div id="ajp-curator-my-albums" class="container"></div>
+    <div class="modal fade" id="ajp-curator-edit-my-album-modal">
+        <form class="modal-dialog modal-lg">
+            <div class="modal-content mt-5">
+                <div class="modal-header">
+                    <h4 class="modal-title">{% trans "Edit your album" %}</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-12 d-none" id="ajp-curator-edit-album-error">
+                            <div class="alert alert-danger" role="alert">
+                                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                                <span id="ajp-curator-edit-album-error-message">{% trans "Error" %}</span>
                             </div>
-                            <div class="row pt-3">
-                                <div class="col-12">
-                                                <span class="input-group-addon">
-                                                    <label for="ajp-curator-change-album-name">{% trans "Name" %}</label>
-                                                </span>
-                                    <input class="form-control" type="text"
-                                           id="ajp-curator-change-album-name">
-                                </div>
-                            </div>
-                            <div class="row pt-3">
-                                <div class="col-12">
-                                                <span class="input-group-addon">
-                                                    <label
-                                                        for="ajp-curator-change-album-description">{% trans "Description" %}</label>
-                                                </span>
-                                    <textarea class="form-control"
-                                              id="ajp-curator-change-album-description"></textarea>
-                                </div>
-                            </div>
-                            <div class="row pt-3">
-                                <div class="col-12">
-                                                <span class="input-group-addon">
-                                                    <input type="checkbox" id="ajp-curator-change-album-open">
-                                                </span>
-                                    {% trans "Open album (anyone can add pictures)" %}
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-12">
-                                                <span class="input-group-addon">
-                                                    <input type="checkbox" id="ajp-curator-change-album-public">
-                                                </span>
-                                    {% trans "Visible (shown in selection)" %}
-                                </div>
-                            </div>
-                            <div class="row pt-3">
-                                <div class="col-12">
-                                    <div class="form-group"><label for="id-albums">{% trans "Subalbum of" %}</label>
-                                        <span id="id-parent-album-wrapper" class="modern-style autocomplete-light-widget"
-                                              data-widget-bootstrap="normal" data-widget-maximum-values="1" data-widget-ready="1">
-                                                        <span id="id-parent-album-deck" class="deck" style="display: inline;">
-                                                        </span>
-                                                        <input type="text" name="albums-autocomplete"
-                                                               id="id-parent-album-autocomplete" value=""
-                                                               class="form-control autocomplete vTextField"
-                                                               data-autocomplete-choice-selector="[data-value]"
-                                                               data-autocomplete-url="/autocomplete/parent-album-autocomplete/"
-                                                               placeholder="{% trans "Search for an album" %}" title="" required=""
-                                                               autocomplete="off" style="display: block;" autofocus>
-                                                        <select style="display:none"
-                                                                class="value-select"
-                                                                name="albums"
-                                                                id="id-parent-album">
-                                                        </select>
-                                                        <span style="display:none" class="remove">ˣ</span>
-                                                        <span style="display:none" class="choice-template">
-                                                            <span class="choice prepend-remove append-option-html">
-                                                            </span>
-                                                        </span>
-                                                    </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <br>
-
-                            <div class="row pt-1">
-                                <div class="col-12">
-                                    <span class="input-group-addon">
-                                        <label for="ajp-curator-change-area-name">{% trans "Location" %}</label> ({% trans "Add the location if all pictures in the album are from the same area" %})
-                                    </span>
-                                    <input class="form-control" type="text"
-                                           id="ajp-curator-change-area-name">
-                                    <input type="hidden" id="ajp-curator-change-area-name-hidden">
-                                </div>
-                            </div>
-                            <input type="hidden" id="ajp-curator-change-album-id">
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                                {% trans "Close" %}
-                            </button>
-                            <button type="button" class="btn btn-success"
-                                    id="ajp-curator-confirm-album-edit-button">
-                                {% trans "Save" %}
-                            </button>
                         </div>
                     </div>
-                </form>
+                    <div class="row pt-3">
+                        <div class="col-12">
+                            <span class="input-group-addon">
+                                <label for="ajp-curator-change-album-name">{% trans "Name" %}</label>
+                            </span>
+                            <input class="form-control" type="text" id="ajp-curator-change-album-name">
+                        </div>
+                    </div>
+                    <div class="row pt-3">
+                        <div class="col-12">
+                            <span class="input-group-addon">
+                                <label for="ajp-curator-change-album-description">{% trans "Description" %}</label>
+                            </span>
+                            <textarea class="form-control" id="ajp-curator-change-album-description"></textarea>
+                        </div>
+                    </div>
+                    <div class="row pt-3">
+                        <div class="col-12">
+                            <span class="input-group-addon">
+                                <input type="checkbox" id="ajp-curator-change-album-open">
+                            </span>
+                            {% trans "Open album (anyone can add pictures)" %}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <span class="input-group-addon">
+                                <input type="checkbox" id="ajp-curator-change-album-public">
+                            </span>
+                            {% trans "Visible (shown in selection)" %}
+                        </div>
+                    </div>
+                    <div class="row pt-3">
+                        <div class="col-12">
+                            <div class="form-group"><label for="id-albums">{% trans "Subalbum of" %}</label>
+                                <span id="id-parent-album-wrapper" class="modern-style autocomplete-light-widget"
+                                    data-widget-bootstrap="normal" data-widget-maximum-values="1" data-widget-ready="1">
+                                    <span id="id-parent-album-deck" class="deck" style="display: inline;">
+                                    </span>
+                                    <input type="text" name="albums-autocomplete" id="id-parent-album-autocomplete"
+                                        value="" class="form-control autocomplete vTextField"
+                                        data-autocomplete-choice-selector="[data-value]"
+                                        data-autocomplete-url="/autocomplete/parent-album-autocomplete/"
+                                        placeholder="{% trans " Search for an album" %}" title="" required=""
+                                        autocomplete="off" style="display: block;" autofocus>
+                                    <select style="display:none" class="value-select" name="albums"
+                                        id="id-parent-album">
+                                    </select>
+                                    <span style="display:none" class="remove">ˣ</span>
+                                    <span style="display:none" class="choice-template">
+                                        <span class="choice prepend-remove append-option-html">
+                                        </span>
+                                    </span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+
+                    <div class="row pt-1">
+                        <div class="col-12">
+                            <span class="input-group-addon">
+                                <label for="ajp-curator-change-area-name">{% trans "Location" %}</label> ({% trans "Add
+                                the location if all pictures in the album are from the same area" %})
+                            </span>
+                            <input class="form-control" type="text" id="ajp-curator-change-area-name">
+                            <input type="hidden" id="ajp-curator-change-area-name-hidden">
+                        </div>
+                    </div>
+                    <input type="hidden" id="ajp-curator-change-album-id">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                        {% trans "Close" %}
+                    </button>
+                    <button type="button" class="btn btn-success" id="ajp-curator-confirm-album-edit-button">
+                        {% trans "Save" %}
+                    </button>
+                </div>
             </div>
-        {% else %}
-            {% include "authentication/_login.html" with type="curator" %}
-        {% endif %}
+        </form>
     </div>
+    {% else %}
+    {% include "authentication/_login.html" with type="curator" %}
+    {% endif %}
+</div>
 {% endblock layout %}
 {% block footer %}
-    {% include "core/_footer.html" %}
+{% include "core/_footer.html" %}
 {% endblock %}
 {% block specific_js %}
-    <script>
-        function base64Encode(str) {
-            const CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
-            let out = "", i = 0, len = str.length, c1, c2, c3;
-            while (i < len) {
-                c1 = str.charCodeAt(i++) & 0xff;
-                if (i === len) {
-                    out += CHARS.charAt(c1 >> 2);
-                    out += CHARS.charAt((c1 & 0x3) << 4);
-                    out += "==";
-                    break;
-                }
-                c2 = str.charCodeAt(i++);
-                if (i === len) {
-                    out += CHARS.charAt(c1 >> 2);
-                    out += CHARS.charAt(((c1 & 0x3) << 4) | ((c2 & 0xF0) >> 4));
-                    out += CHARS.charAt((c2 & 0xF) << 2);
-                    out += "=";
-                    break;
-                }
-                c3 = str.charCodeAt(i++);
+<script>
+    function base64Encode(str) {
+        const CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+        let out = "", i = 0, len = str.length, c1, c2, c3;
+        while (i < len) {
+            c1 = str.charCodeAt(i++) & 0xff;
+            if (i === len) {
+                out += CHARS.charAt(c1 >> 2);
+                out += CHARS.charAt((c1 & 0x3) << 4);
+                out += "==";
+                break;
+            }
+            c2 = str.charCodeAt(i++);
+            if (i === len) {
                 out += CHARS.charAt(c1 >> 2);
                 out += CHARS.charAt(((c1 & 0x3) << 4) | ((c2 & 0xF0) >> 4));
-                out += CHARS.charAt(((c2 & 0xF) << 2) | ((c3 & 0xC0) >> 6));
-                out += CHARS.charAt(c3 & 0x3F);
+                out += CHARS.charAt((c2 & 0xF) << 2);
+                out += "=";
+                break;
             }
-            return out;
+            c3 = str.charCodeAt(i++);
+            out += CHARS.charAt(c1 >> 2);
+            out += CHARS.charAt(((c1 & 0x3) << 4) | ((c2 & 0xF0) >> 4));
+            out += CHARS.charAt(((c2 & 0xF) << 2) | ((c3 & 0xC0) >> 6));
+            out += CHARS.charAt(c3 & 0x3F);
         }
-        $(function () {
-            'use strict';
-            let ETERASession,
-                gameUrl = "{% url 'game' %}",
-                resultCount = 0,
-                url = "{% url 'curator_search' %}",
-                start = 200,
-                resultIds = [],
-                fullResultSet = {},
-                driverPage = 1,
-                selectionDiv = $('#ajp-curator-selection'),
-                resultDiv = $('#ajp-curator-search-results-list'),
-                changeAreaLat,
-                changeAreaLng;
-            window.selectedResults = {};
-            window.singleSelection = false;
-            $(document).ready(function () {
-                $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-                    if ($(e.target).attr('href') === '#ajp-curator-selection-tab') {
-                        buildSelectionDiv();
-                        $('#ajp-curator-my-albums').hide();
-                        $('#ajp-curator-search-results-container').hide();
-                        $('#ajp-curator-selection').show();
-                        const ETERAResults = $('.ajp-curator-ETERA-result');
-                        if (ETERAResults.length > 0) {
-                            $.ajaxSetup({
-                                beforeSend: function (xhr) {
-                                    xhr.setRequestHeader('Authorization', 'Bearer ' + ETERASession);
+        return out;
+    }
+    $(function () {
+        'use strict';
+        let ETERASession,
+            gameUrl = "{% url 'game' %}",
+            resultCount = 0,
+            url = "{% url 'curator_search' %}",
+            start = 200,
+            resultIds = [],
+            fullResultSet = {},
+            driverPage = 1,
+            selectionDiv = $('#ajp-curator-selection'),
+            resultDiv = $('#ajp-curator-search-results-list'),
+            changeAreaLat,
+            changeAreaLng,
+            automateFetch = false;
+        window.selectedResults = {};
+        window.singleSelection = false;
+        $(document).ready(function () {
+            $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+                if ($(e.target).attr('href') === '#ajp-curator-selection-tab') {
+                    buildSelectionDiv();
+                    $('#ajp-curator-my-albums').hide();
+                    $('#ajp-curator-search-results-container').hide();
+                    $('#ajp-curator-selection').show();
+                    const ETERAResults = $('.ajp-curator-ETERA-result');
+                    if (ETERAResults.length > 0) {
+                        $.ajaxSetup({
+                            beforeSend: function (xhr) {
+                                xhr.setRequestHeader('Authorization', 'Bearer ' + ETERASession);
+                            }
+                        });
+                        $.each(ETERAResults, function (idx, item) {
+                            item = $(item);
+                            $.ajax({
+                                url: item.attr('data-src'),
+                                type: "GET",
+                                mimeType: 'text/plain; charset=x-user-defined',
+                                success: function (response) {
+                                    item.attr('src', 'data:image/jpeg;base64,' + base64Encode(response))
                                 }
                             });
-                            $.each(ETERAResults, function (idx, item) {
-                                item = $(item);
-                                $.ajax({
-                                    url: item.attr('data-src'),
-                                    type: "GET",
-                                    mimeType: 'text/plain; charset=x-user-defined',
-                                    success: function (response) {
-                                        item.attr('src', 'data:image/jpeg;base64,' + base64Encode(response))
-                                    }
-                                });
-                            });
-                        }
-                    } else if ($(e.target).attr('href') === '#ajp-curator-results-tab') {
-                        $('#ajp-curator-my-albums').hide();
-                        $('#ajp-curator-search-results-container').show();
-                        $('#ajp-curator-selection').hide();
-                    } else if ($(e.target).attr('href') === '#ajp-curator-my-albums-tab') {
-                        $('#ajp-curator-my-albums').show();
-                        $('#ajp-curator-search-results-container').hide();
-                        $('#ajp-curator-selection').hide();
+                        });
                     }
+                } else if ($(e.target).attr('href') === '#ajp-curator-results-tab') {
+                    $('#ajp-curator-my-albums').hide();
+                    $('#ajp-curator-search-results-container').show();
+                    $('#ajp-curator-selection').hide();
+                } else if ($(e.target).attr('href') === '#ajp-curator-my-albums-tab') {
+                    $('#ajp-curator-my-albums').show();
+                    $('#ajp-curator-search-results-container').hide();
+                    $('#ajp-curator-selection').hide();
+                }
+            });
+            const changeInput = document.getElementById('ajp-curator-change-area-name');
+            if (changeInput) {
+                const changeOptions = {};
+                const changeAutocomplete = new window.google.maps.places.Autocomplete(changeInput, changeOptions);
+                window.google.maps.event.addListener(changeAutocomplete, 'place_changed', function () {
+                    const place = changeAutocomplete.getPlace();
+                    $('#ajp-curator-change-area-name-d-none').val(place.name);
+                    changeAreaLat = place.geometry.location.lat();
+                    changeAreaLng = place.geometry.location.lng();
+                    window._gaq.push(['_trackEvent', 'Curator', 'Change autocomplete place changed']);
                 });
-                const changeInput = document.getElementById('ajp-curator-change-area-name');
-                if (changeInput) {
-                    const changeOptions = {};
-                    const changeAutocomplete = new window.google.maps.places.Autocomplete(changeInput, changeOptions);
-                    window.google.maps.event.addListener(changeAutocomplete, 'place_changed', function () {
-                        const place = changeAutocomplete.getPlace();
-                        $('#ajp-curator-change-area-name-d-none').val(place.name);
-                        changeAreaLat = place.geometry.location.lat();
-                        changeAreaLng = place.geometry.location.lng();
-                        window._gaq.push(['_trackEvent', 'Curator', 'Change autocomplete place changed']);
-                    });
+            }
+            loadMyAlbums();
+            $('.ajp-navbar').autoHidingNavbar();
+        });
+        $('#ajp-curator-full-search').on('keypress', function (e) {
+            if (e.keyCode === 13) {
+                $('#ajp-curator-search-button').click();
+            }
+        });
+        const createResultElement = function (item) {
+            fullResultSet[item.id] = item;
+            resultDiv.append(tmpl('ajp-curator-result-template', item));
+        };
+        const buildSelectionDiv = function () {
+            selectionDiv.empty();
+            for (const key in window.selectedResults) {
+                if (window.selectedResults.hasOwnProperty(key)) {
+                    const currentItem = window.selectedResults[key];
+                    selectionDiv.append(tmpl('ajp-curator-selection-template', currentItem));
                 }
-                loadMyAlbums();
-                $('.ajp-navbar').autoHidingNavbar();
-            });
-            $('#ajp-curator-full-search').on('keypress', function (e) {
-                if (e.keyCode === 13) {
-                    $('#ajp-curator-search-button').click();
-                }
-            });
-            const createResultElement = function (item) {
-                fullResultSet[item.id] = item;
-                resultDiv.append(tmpl('ajp-curator-result-template', item));
-            };
-            const buildSelectionDiv = function () {
-                selectionDiv.empty();
-                for (const key in window.selectedResults) {
-                    if (window.selectedResults.hasOwnProperty(key)) {
-                        const currentItem = window.selectedResults[key];
-                        selectionDiv.append(tmpl('ajp-curator-selection-template', currentItem));
+            }
+        };
+        const loadMyAlbums = function () {
+            $.ajax({
+                type: "POST",
+                url: "{% url 'curator_my_album_list' %}",
+                data: {
+                    csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
+                },
+                success: function (response) {
+                    const targetDiv = $('#ajp-curator-my-albums'),
+                        responseLength = response.length;
+                    targetDiv.empty();
+                    $('#ajp-curator-my-albums-size').html(responseLength);
+                    for (let i = 0; i < responseLength; i += 1) {
+                        response[i].link = '/?album=' + response[i].id;
+                        targetDiv.append(tmpl('ajp-curator-my-album-template', response[i]));
                     }
+                    window._gaq.push(['_trackEvent', 'Curator', 'My albums success']);
+                },
+                error: function () {
+                    window._gaq.push(['_trackEvent', 'Curator', 'My albums error']);
                 }
-            };
-            const loadMyAlbums = function () {
-                $.ajax({
-                    type: "POST",
-                    url: "{% url 'curator_my_album_list' %}",
-                    data: {
-                        csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
-                    },
-                    success: function (response) {
-                        const targetDiv = $('#ajp-curator-my-albums'),
-                                responseLength = response.length;
-                        targetDiv.empty();
-                        $('#ajp-curator-my-albums-size').html(responseLength);
-                        for (let i = 0; i < responseLength; i += 1) {
-                            response[i].link = '/?album=' + response[i].id;
-                            targetDiv.append(tmpl('ajp-curator-my-album-template', response[i]));
+            });
+        };
+        $(document).on('click', '.ajp-curator-load-more', function () {
+            $('#ajp-loading-overlay').show();
+            driverPage += 1;
+            const slice = resultIds.slice(start, start + 200),
+                filterValue = $('#ajp-curator-search-filter-existing').prop('checked'),
+                useMUIS = $('#ajp-curator-search-use-muis').prop('checked'),
+                useMKA = $('#ajp-curator-search-use-mka').prop('checked'),
+                useETERA = $('#ajp-curator-search-use-etera').prop('checked'),
+                useFlickr = $('#ajp-curator-search-use-flickr').prop('checked'),
+                useFinna = $('#ajp-curator-search-use-finna').prop('checked'),
+                useCommons = $('#ajp-curator-search-use-commons').prop('checked'),
+                useEuropeana = $('#ajp-curator-search-use-europeana').prop('checked'),
+                useDIGAR = $('#ajp-curator-search-use-digar').prop('checked'),
+                useUTLIB = $('#ajp-curator-search-use-utlib').prop('checked'),
+                useFotis = $('#ajp-curator-search-use-fotis').prop('checked');
+            start += 200;
+            $.ajax({
+                type: "POST",
+                url: url,
+                traditional: true,
+                data: {
+                    fullSearch: $('#ajp-curator-full-search').val(),
+                    ids: slice,
+                    filterExisting: filterValue,
+                    useMUIS: useMUIS,
+                    useMKA: useMKA,
+                    useETERA: useETERA,
+                    useDIGAR: useDIGAR,
+                    useFlickr: useFlickr,
+                    useFinna: useFinna,
+                    useCommons: useCommons,
+                    useEuropeana: useEuropeana,
+                    useUTLIB: useUTLIB,
+                    useFotis: useFotis,
+                    referenceCodeOnly: $('#ajp-curator-search-reference-code-only').prop('checked'),
+                    driverPage: driverPage,
+                    csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
+                },
+                success: function (msg) {
+                    if (resultCount > start || (msg.result.page < msg.result.pages)) {
+                        $('.ajp-curator-load-more').show();
+                        $('#ajp-curator-load-more-row').show();
+                        if (automateFetch) {
+                            $('.ajp-curator-load-more').click();
                         }
-                        window._gaq.push(['_trackEvent', 'Curator', 'My albums success']);
-                    },
-                    error: function () {
-                        window._gaq.push(['_trackEvent', 'Curator', 'My albums error']);
+                    } else {
+                        $('.ajp-curator-load-more').hide();
+                        $('#ajp-curator-load-more-row').hide();
+                        automateFetch = false;
                     }
-                });
-            };
-            $(document).on('click', '.ajp-curator-load-more', function () {
-                $('#ajp-loading-overlay').show();
-                driverPage += 1;
-                const slice = resultIds.slice(start, start + 200),
-                    filterValue = $('#ajp-curator-search-filter-existing').prop('checked'),
-                    useMUIS = $('#ajp-curator-search-use-muis').prop('checked'),
-                    useMKA = $('#ajp-curator-search-use-mka').prop('checked'),
-                    useETERA = $('#ajp-curator-search-use-etera').prop('checked'),
-                    useFlickr = $('#ajp-curator-search-use-flickr').prop('checked'),
-                    useFinna = $('#ajp-curator-search-use-finna').prop('checked'),
-                    useCommons = $('#ajp-curator-search-use-commons').prop('checked'),
-                    useEuropeana = $('#ajp-curator-search-use-europeana').prop('checked'),
-                    useDIGAR = $('#ajp-curator-search-use-digar').prop('checked'),
-                    useUTLIB = $('#ajp-curator-search-use-utlib').prop('checked'),
-                    useFotis = $('#ajp-curator-search-use-fotis').prop('checked');
-                start += 200;
-                $.ajax({
-                    type: "POST",
-                    url: url,
-                    traditional: true,
-                    data: {
-                        fullSearch: $('#ajp-curator-full-search').val(),
-                        ids: slice,
-                        filterExisting: filterValue,
-                        useMUIS: useMUIS,
-                        useMKA: useMKA,
-                        useETERA: useETERA,
-                        useDIGAR: useDIGAR,
-                        useFlickr: useFlickr,
-                        useFinna: useFinna,
-                        useCommons: useCommons,
-                        useEuropeana: useEuropeana,
-                        useUTLIB: useUTLIB,
-                        useFotis: useFotis,
-                        driverPage: driverPage,
-                        csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
-                    },
-                    success: function (msg) {
-                        if (resultCount > start || (msg.result.page < msg.result.pages)) {
-                            $('.ajp-curator-load-more').show();
-                            $('#ajp-curator-load-more-row').show();
-                        } else {
-                            $('.ajp-curator-load-more').hide();
-                            $('#ajp-curator-load-more-row').hide();
-                        }
-                        const counter = $('#ajp-curator-result-count'),
-                            prev = parseInt(counter.html(), 10);
-                        if (msg.result.firstRecordViews) {
-                            counter.html(prev + msg.result.firstRecordViews.length);
-                            for (let i = 0, l = msg.result.firstRecordViews.length; i < l; i += 1) {
-                                const item = msg.result.firstRecordViews[i];
-                                createResultElement(item);
-                            }
-                        }
-                        $('#ajp-loading-overlay').hide();
-                        window._gaq.push(['_trackEvent', 'Curator', 'More results success']);
-                    },
-                    error: function () {
-                        $('#ajp-loading-overlay').hide();
-                        window._gaq.push(['_trackEvent', 'Curator', 'More results error']);
-                    }
-                });
-            });
-            $('#ajp-curator-search-use-etera').change(function () {
-                const $this = $(this);
-                if ($this.is(':checked')) {
-                    $('#ajp-curator-search-use-digar').prop('checked', false);
-                    $('#ajp-curator-search-use-muis').prop('checked', false);
-                    $('#ajp-curator-search-use-mka').prop('checked', false);
-                    $('#ajp-curator-search-use-flickr').prop('checked', false);
-                    $('#ajp-curator-search-use-finna').prop('checked', false);
-                    $('#ajp-curator-search-use-utlib').prop('checked', false);
-                }
-            });
-            $('#ajp-curator-search-use-muis').change(function () {
-                const $this = $(this);
-                if ($this.is(':checked')) {
-                    $('#ajp-curator-search-use-etera').prop('checked', false);
-                }
-            });
-            $('#ajp-curator-search-use-digar').change(function () {
-                const $this = $(this);
-                if ($this.is(':checked')) {
-                    $('#ajp-curator-search-use-etera').prop('checked', false);
-                }
-            });
-            $('#ajp-curator-search-use-utlib').change(function () {
-                const $this = $(this);
-                if ($this.is(':checked')) {
-                    $('#ajp-curator-search-use-etera').prop('checked', false);
-                }
-            });
-            $('#ajp-curator-search-use-mka').change(function () {
-                const $this = $(this);
-                if ($this.is(':checked')) {
-                    $('#ajp-curator-search-use-etera').prop('checked', false);
-                }
-            });
-            $('#ajp-curator-search-use-flickr').change(function () {
-                const $this = $(this);
-                if ($this.is(':checked')) {
-                    $('#ajp-curator-search-use-etera').prop('checked', false);
-                }
-            });
-            $('#ajp-curator-search-use-finna').change(function () {
-                const $this = $(this);
-                if ($this.is(':checked')) {
-                    $('#ajp-curator-search-use-etera').prop('checked', false);
-                }
-            });
-            $(document).on('click', '#ajp-curator-search-button', function () {
-                driverPage = 1;
-                $('#ajp-loading-overlay').show();
-                $('.ajp-curator-feedback-alert').hide();
-                $('#ajp-curator-search-results-list').empty();
-                const filterValue = $('#ajp-curator-search-filter-existing').prop('checked'),
-                        useMUIS = $('#ajp-curator-search-use-muis').prop('checked'),
-                        useMKA = $('#ajp-curator-search-use-mka').prop('checked'),
-                        useETERA = $('#ajp-curator-search-use-etera').prop('checked'),
-                        useFlickr = $('#ajp-curator-search-use-flickr').prop('checked'),
-                        useFinna = $('#ajp-curator-search-use-finna').prop('checked'),
-                        useCommons = $('#ajp-curator-search-use-commons').prop('checked'),
-                        useEuropeana = $('#ajp-curator-search-use-europeana').prop('checked'),
-                        useDIGAR = $('#ajp-curator-search-use-digar').prop('checked'),
-                        useUTLIB = $('#ajp-curator-search-use-utlib').prop('checked'),
-                        useFotis = $('#ajp-curator-search-use-fotis').prop('checked');
-                if (useETERA && !ETERASession) {
-                    $.ajax({
-                        url: "http://www.etera.ee/api/app/config",
-                        type: "GET",
-                        success: function (response) {
-                            ETERASession = response.user.session;
-                        }
-                    });
-                }
-                $.ajax({
-                    type: "POST",
-                    url: url,
-                    data: {
-                        // testing: true,
-                        fullSearch: $('#ajp-curator-full-search').val(),
-                        filterExisting: filterValue,
-                        useMUIS: useMUIS,
-                        useMKA: useMKA,
-                        useETERA: useETERA,
-                        useDIGAR: useDIGAR,
-                        useFlickr: useFlickr,
-                        useFinna: useFinna,
-                        useCommons: useCommons,
-                        useEuropeana: useEuropeana,
-                        useUTLIB: useUTLIB,
-                        useFotis: useFotis,
-                        driverPage: driverPage,
-                        csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
-                    },
-                    success: function (msg) {
-                        $('#ajp-loading-overlay').hide();
-                        if (msg.result === undefined) {
-                            return;
-                        }
-                        if (msg.result.ids) {
-                            resultIds = msg.result.ids;
-                            resultCount = resultIds.length;
-                        } else {
-                            resultCount = 0;
-                        }
-                        $('#ajp-curator-result-count').html(msg.result.firstRecordViews.length);
-                        if (resultCount > 200 || (msg.result.page < msg.result.pages)) {
-                            $('.ajp-curator-load-more').show();
-                            $('#ajp-curator-load-more-row').show();
-                        } else {
-                            $('.ajp-curator-load-more').hide();
-                            $('#ajp-curator-load-more-row').hide();
-                        }
+                    const counter = $('#ajp-curator-result-count'),
+                        prev = parseInt(counter.html(), 10);
+                    if (msg.result.firstRecordViews) {
+                        counter.html(prev + msg.result.firstRecordViews.length);
                         for (let i = 0, l = msg.result.firstRecordViews.length; i < l; i += 1) {
                             const item = msg.result.firstRecordViews[i];
                             createResultElement(item);
                         }
-                        window._gaq.push(['_trackEvent', 'Curator', 'Search success']);
-                    },
-                    error: function () {
-                        $('#ajp-loading-overlay').hide();
-                        window._gaq.push(['_trackEvent', 'Curator', 'Search error']);
                     }
-                });
-            });
-            $(document).on('click', '.ajp-result-item', function () {
-                const $this = $(this),
-                        target = fullResultSet[$this.data('id')];
-                if (window.selectedResults[$this.data('id')]) {
-                    delete window.selectedResults[$this.data('id')];
-                    $this.removeClass('ajp-curator-selected-image');
-                    $('#ajp-curator-selection-size').html(Object.keys(window.selectedResults).length);
-                } else {
-                    window.selectedResults[$this.data('id')] = target;
-                    $this.addClass('ajp-curator-selected-image');
-                    $('#ajp-curator-selection-size').html(Object.keys(window.selectedResults).length);
+                    $('#ajp-loading-overlay').hide();
+                    window._gaq.push(['_trackEvent', 'Curator', 'More results success']);
+                },
+                error: function () {
+                    $('#ajp-loading-overlay').hide();
+                    window._gaq.push(['_trackEvent', 'Curator', 'More results error']);
                 }
             });
-            $(document).on('click', '#ajp-curator-clear-selection', function () {
-                window.selectedResults = {};
-                buildSelectionDiv();
-                $('#ajp-curator-selection-size').html(Object.keys(window.selectedResults).length);
-                $('.ajp-result-item').removeClass('ajp-curator-selected-image');
-                window._gaq.push(['_trackEvent', 'Curator', 'Clear selection']);
-            });
-            window.escapeRegExp = function (string) {
-                return string.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
-            };
-            window.replaceAll = function (string, find, replace) {
-                return string.replace(new RegExp(window.escapeRegExp(find), 'g'), replace);
-            };
-            window.photoPermalink = "{% url 'photo' 0 %}";
-            window.photoPermalink = window.photoPermalink.replace('0/', '');
-            window.formatId = function (id) {
-                id = '' + id;
-                id = window.replaceAll(id, ':', '');
-                id = window.replaceAll(id, '.', '');
-                id = id.replace(/[!"#$%&'()*+,.\/:;<=>?@[\\\]^`{|}~]/g, "")
-
-                return id;
-            };
-            window.escapeSlash = function (id) {
-                id = replaceAll(id, '/', '\\/');
-
-                return id;
-            };
-            window.imageLoaded = function (id) {
-                const targetContainer = $('#ajp-curator-selection-item-' + window.escapeSlash(window.formatId(id))),
-                    targetImage = targetContainer.find('img')[0];
-                if (targetImage) {
-                    targetContainer.find('.ajp-curator-selection-image-size').html(targetImage.naturalWidth + 'x' + targetImage.naturalHeight);
-                }
-            };
-            window.imageFailedToLoad = function (id) {
-                const targetContainer = $('#ajp-curator-selection-item-' + window.escapeSlash(window.formatId(id)));
-                delete window.selectedResults[id];
-                targetContainer.remove();
-            };
-            const toggleButtonActive = function ($this) {
-                if ($this.hasClass('active')) {
-                    $this.removeClass('active');
-                } else {
-                    $this.addClass('active');
-                }
-            };
-            $(document).on('click', '.ajp-curator-invert-colors-button', function () {
-                const $this = $(this),
-                        targetSelector = '#ajp-curator-selection-item-' + window.escapeSlash(window.formatId($this[0].dataset.id)),
-                        target = $($(targetSelector).find('img')[0]);
-                toggleButtonActive($this);
-                if (target.hasClass('ajp-photo-inverted')) {
-                    target.removeClass('ajp-photo-inverted');
-                    window.selectedResults[$this[0].dataset.id].invert = false;
-                } else {
-                    target.addClass('ajp-photo-inverted');
-                    window.selectedResults[$this[0].dataset.id].invert = true;
-                }
-                window._gaq.push(['_trackEvent', 'Curator', 'Invert colors']);
-            });
-            $(document).on('click', '.ajp-curator-flip-button', function () {
-                const $this = $(this),
-                        targetSelector = '#ajp-curator-selection-item-' + window.escapeSlash(window.formatId($this[0].dataset.id)),
-                        target = $($(targetSelector).find('img')[0]);
-                toggleButtonActive($this);
-                if (target.hasClass('ajp-photo-flipped')) {
-                    target.removeClass('ajp-photo-flipped');
-                    if (target.hasClass('rotate90-flipped')) {
-                        target.removeClass('rotate90-flipped').addClass('rotate90');
-                    } else if (target.hasClass('rotate180-flipped')) {
-                        target.removeClass('rotate180-flipped').addClass('rotate180');
-                    } else if (target.hasClass('rotate270-flipped')) {
-                        target.removeClass('rotate270-flipped').addClass('rotate270');
-                    }
-                    window.selectedResults[$this[0].dataset.id].flip = false;
-                } else {
-                    target.addClass('ajp-photo-flipped');
-                    if (target.hasClass('rotate90')) {
-                        target.removeClass('rotate90').addClass('rotate90-flipped');
-                    } else if (target.hasClass('rotate180')) {
-                        target.removeClass('rotate180').addClass('rotate180-flipped');
-                    } else if (target.hasClass('rotate270')) {
-                        target.removeClass('rotate270').addClass('rotate270-flipped');
-                    }
-                    window.selectedResults[$this[0].dataset.id].flip = true;
-                }
-                window._gaq.push(['_trackEvent', 'Curator', 'Flip']);
-            });
-            $(document).on('click', '.ajp-curator-stereo-button', function () {
-                const $this = $(this);
-                window.selectedResults[$this[0].dataset.id].stereo = !$this.hasClass('active');
-                toggleButtonActive($this);
-                window._gaq.push(['_trackEvent', 'Curator', 'Stereo']);
-            });
-            $(document).on('click', '.ajp-curator-rotate-button', function () {
-                const $this = $(this),
-                        targetSelectionItem = $('#ajp-curator-selection-item-' + window.escapeSlash(window.formatId($this[0].dataset.id))),
-                        targetImage = targetSelectionItem.find('img'),
-                        arrayItem = window.selectedResults[$this[0].dataset.id];
-                if (!arrayItem.rotated) {
-                    arrayItem.rotated = 90;
-                    if (arrayItem.flip) {
-                        targetImage.addClass('rotate90-flipped');
-                    } else {
-                        targetImage.addClass('rotate90');
-                    }
-                } else {
-                    arrayItem.rotated += 90;
-                    let classToAdd = null;
-                    if (arrayItem.rotated === 360) {
-                        arrayItem.rotated = 0;
-                    } else {
-                        classToAdd = 'rotate' + arrayItem.rotated;
-                        if (arrayItem.flip) {
-                            classToAdd += '-flipped';
-                        }
-                    }
-                    targetImage.removeClass('rotate90').removeClass('rotate180')
-                            .removeClass('rotate270').removeClass('rotate90-flipped').removeClass('rotate180-flipped').removeClass('rotate270-flipped');
-                    if (classToAdd) {
-                        targetImage.addClass(classToAdd);
-                        arrayItem.classToAdd = classToAdd;
-                    }
-                }
-                window._gaq.push(['_trackEvent', 'Curator', 'Rotate']);
-            });
-            $(document).on('click', '.ajp-curator-delete-button', function () {
-                const targetId = $(this)[0].dataset.id,
-                    targetResultItem = $('#ajp-result-item-' + window.escapeSlash(window.formatId(targetId))),
-                    targetSelectionItem = $('#ajp-curator-selection-item-' + window.escapeSlash(window.formatId(targetId)));
-                if (window.selectedResults[targetId]) {
-                    delete window.selectedResults[targetId];
-                    targetSelectionItem.remove();
-                    targetResultItem.removeClass('ajp-curator-selected-image');
-                    $('#ajp-curator-selection-size').html(Object.keys(window.selectedResults).length)
-                } else {
-                    window.selectedResults[$(this)[0].dataset.id] = fullResultSet[targetId];
-                    targetResultItem.addClass('ajp-curator-selected-image');
-                    $('#ajp-curator-selection-size').html(Object.keys(window.selectedResults).length)
-                }
-                window._gaq.push(['_trackEvent', 'Curator', 'Delete']);
-            });
-            $(document).on('click', '#ajp-curator-submit-selection', function () {
-                $('#ajp-curator-upload-error').hide();
-                // TODO: Album area selection
-                $('#ajp-curator-add-area-name').val(null);
-                $('#ajp-curator-add-area-name-d-none').val(null);
-                window.areaLat = null;
-                window.areaLng = null;
-                $('#ajp-choose-albums-modal').modal('show');
-                window._gaq.push(['_trackEvent', 'Curator', 'Submit selection']);
-                setTimeout(() => { $('#id-albums-autocomplete').focus(); }, 500);
-            });
-            $(document).on('click', '.ajp-curator-submit-single', function () {
-                window._gaq.push(['_trackEvent', 'Curator', 'Submit single']);
-                const id = $(this).data('id');
-                window.singleSelection = {};
-                window.singleSelection[id] = fullResultSet[id];
-                $('#ajp-curator-submit-selection').click();
-            });
-            $(document).on('click', '#ajp-curator-select-all', function () {
-                $('img.ajp-result-item:not(.ajp-curator-selected-image)').click();
-                window._gaq.push(['_trackEvent', 'Curator', 'Select all']);
-            });
-            $(document).on('click', '.ajp-curator-edit-album-button', function () {
-                const targetId = $(this)[0].dataset.id;
+        });
+        $('#ajp-curator-search-use-etera').change(function () {
+            const $this = $(this);
+            if ($this.is(':checked')) {
+                $('#ajp-curator-search-use-digar').prop('checked', false);
+                $('#ajp-curator-search-use-muis').prop('checked', false);
+                $('#ajp-curator-search-use-mka').prop('checked', false);
+                $('#ajp-curator-search-use-flickr').prop('checked', false);
+                $('#ajp-curator-search-use-finna').prop('checked', false);
+                $('#ajp-curator-search-use-utlib').prop('checked', false);
+            }
+        });
+        $('#ajp-curator-search-use-muis').change(function () {
+            const $this = $(this);
+            if ($this.is(':checked')) {
+                $('#ajp-curator-search-use-etera').prop('checked', false);
+            }
+        });
+        $('#ajp-curator-search-use-digar').change(function () {
+            const $this = $(this);
+            if ($this.is(':checked')) {
+                $('#ajp-curator-search-use-etera').prop('checked', false);
+            }
+        });
+        $('#ajp-curator-search-use-utlib').change(function () {
+            const $this = $(this);
+            if ($this.is(':checked')) {
+                $('#ajp-curator-search-use-etera').prop('checked', false);
+            }
+        });
+        $('#ajp-curator-search-use-mka').change(function () {
+            const $this = $(this);
+            if ($this.is(':checked')) {
+                $('#ajp-curator-search-use-etera').prop('checked', false);
+            }
+        });
+        $('#ajp-curator-search-use-flickr').change(function () {
+            const $this = $(this);
+            if ($this.is(':checked')) {
+                $('#ajp-curator-search-use-etera').prop('checked', false);
+            }
+        });
+        $('#ajp-curator-search-use-finna').change(function () {
+            const $this = $(this);
+            if ($this.is(':checked')) {
+                $('#ajp-curator-search-use-etera').prop('checked', false);
+            }
+        });
+        $(document).on('click', '#ajp-curator-search-button', function () {
+            driverPage = 1;
+            $('#ajp-loading-overlay').show();
+            $('.ajp-curator-feedback-alert').hide();
+            $('#ajp-curator-search-results-list').empty();
+            const filterValue = $('#ajp-curator-search-filter-existing').prop('checked'),
+                useMUIS = $('#ajp-curator-search-use-muis').prop('checked'),
+                useMKA = $('#ajp-curator-search-use-mka').prop('checked'),
+                useETERA = $('#ajp-curator-search-use-etera').prop('checked'),
+                useFlickr = $('#ajp-curator-search-use-flickr').prop('checked'),
+                useFinna = $('#ajp-curator-search-use-finna').prop('checked'),
+                useCommons = $('#ajp-curator-search-use-commons').prop('checked'),
+                useEuropeana = $('#ajp-curator-search-use-europeana').prop('checked'),
+                useDIGAR = $('#ajp-curator-search-use-digar').prop('checked'),
+                useUTLIB = $('#ajp-curator-search-use-utlib').prop('checked'),
+                useFotis = $('#ajp-curator-search-use-fotis').prop('checked');
+            if (useETERA && !ETERASession) {
                 $.ajax({
-                    type: "POST",
-                    url: "{% url 'curator_get_album_info' %}",
-                    data: {
-                        albumId: targetId,
-                        csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
-                    },
+                    url: "http://www.etera.ee/api/app/config",
+                    type: "GET",
                     success: function (response) {
-                        $('#id-parent-album-deck > span.hilight').remove();
-                        window.loadPossibleParentAlbums(response.subalbum_of__id, targetId, '#ajp-curator-edit-form-change-album-parent');
-                        $('#ajp-curator-change-album-name').val(response.name);
-                        $('#ajp-curator-change-album-description').val(response.description);
-                        $('#ajp-curator-change-album-id').val(response.id);
-                        $('#ajp-curator-change-album-open').prop('checked', response.open);
-                        $('#ajp-curator-change-album-public').prop('checked', response.is_public);
-                        $('#ajp-curator-edit-my-album-modal').modal('show');
-                        if (response.parent_album_id && response.parent_album_name) {
-                            $('#id-parent-album-deck').prepend('<span data-value="' + response.parent_album_id + '" class="hilight"><span style="display: inline-block;" class="remove">ˣ</span>' + response.parent_album_name + '</span></span>')
-                            $('#id-parent-album-autocomplete').css('display', 'none');
-                        }
-                        else {
-                            $('#id-parent-album-autocomplete').css('display', 'block');
-                            $('#id-parent-album-autocomplete').attr('disabled', false);
-                        }
-                        window._gaq.push(['_trackEvent', 'Curator', 'Load edit form success']);
-                    },
-                    error: function () {
-                        window._gaq.push(['_trackEvent', 'Curator', 'Load edit form error']);
+                        ETERASession = response.user.session;
                     }
                 });
-            });
-            // TODO: This is basically REST API functionality, no need for custom Django stuff, come to think of it,
-            // there's a lot of manual JSON serialization etc. going on everywhere in this codebase...
-            $(document).on('click', '#ajp-curator-confirm-album-edit-button', function () {
-                const targetId = $('#ajp-curator-change-album-id').val();
-                let parentAlbumId = $('#id-parent-album-deck > span').data('value');
-                $('#ajp-curator-edit-album-error').removeClass('d-block').addClass('d-none');
-                $.ajax({
-                    type: "POST",
-                    url: "{% url 'curator_update_my_album' %}",
-                    data: {
-                        album_id: targetId,
-                        name: $('#ajp-curator-change-album-name').val(),
-                        description: $('#ajp-curator-change-album-description').val(),
-                        open: $('#ajp-curator-change-album-open').prop('checked'),
-                        is_public: $('#ajp-curator-change-album-public').prop('checked'),
-                        parent_album_id: parentAlbumId ?? null,
-                        areaLat: changeAreaLat,
-                        areaLng: changeAreaLng,
-                        csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
-                    },
-                    success: function () {
-                        $('#ajp-curator-edit-album-error').removeClass('d-block').addClass('d-none');
-                        $('#ajp-curator-edit-my-album-modal').modal('hide');
-                        changeAreaLat = null;
-                        changeAreaLng = null;
-                        $('#ajp-curator-change-area-name').val(null);
-                        loadMyAlbums();
-                        window._gaq.push(['_trackEvent', 'Curator', 'Edit success']);
-                    },
-                    error: function () {
-                        $('#ajp-curator-edit-album-error').removeClass('d-none').addClass('d-block');
-                        window._gaq.push(['_trackEvent', 'Curator', 'Edit error']);
+            }
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: {
+                    // testing: true,
+                    fullSearch: $('#ajp-curator-full-search').val(),
+                    filterExisting: filterValue,
+                    useMUIS: useMUIS,
+                    useMKA: useMKA,
+                    useETERA: useETERA,
+                    useDIGAR: useDIGAR,
+                    useFlickr: useFlickr,
+                    useFinna: useFinna,
+                    useCommons: useCommons,
+                    useEuropeana: useEuropeana,
+                    useUTLIB: useUTLIB,
+                    useFotis: useFotis,
+                    referenceCodeOnly: $('#ajp-curator-search-reference-code-only').prop('checked'),
+                    driverPage: driverPage,
+                    csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
+                },
+                success: function (msg) {
+                    $('#ajp-loading-overlay').hide();
+                    if (msg.result === undefined) {
+                        return;
                     }
-                });
-            });
-            $(document).on('click', '#ajp-curator-confirm-album-selection-button', function () {
-                const albums = $('#id-albums').val();
-                let selection = JSON.stringify(window.selectedResults);
-                if (window.singleSelection) {
-                    selection = JSON.stringify(window.singleSelection);
-                    window.singleSelection = false;
+                    if (msg.result.ids) {
+                        resultIds = msg.result.ids;
+                        resultCount = resultIds.length;
+                    } else {
+                        resultCount = 0;
+                    }
+                    $('#ajp-curator-result-count').html(msg.result.firstRecordViews.length);
+                    if (resultCount > 200 || (msg.result.page < msg.result.pages)) {
+                        $('.ajp-curator-load-more').show();
+                        $('#ajp-curator-load-more-row').show();
+                        if (automateFetch) {
+                            $('.ajp-curator-load-more').click();
+                        }
+                    } else {
+                        $('.ajp-curator-load-more').hide();
+                        $('#ajp-curator-load-more-row').hide();
+                        automateFetch = false;
+                    }
+                    for (let i = 0, l = msg.result.firstRecordViews.length; i < l; i += 1) {
+                        const item = msg.result.firstRecordViews[i];
+                        createResultElement(item);
+                    }
+                    window._gaq.push(['_trackEvent', 'Curator', 'Search success']);
+                },
+                error: function () {
+                    $('#ajp-loading-overlay').hide();
+                    window._gaq.push(['_trackEvent', 'Curator', 'Search error']);
                 }
-                $('#ajp-loading-overlay').show();
+            });
+        });
+        $(document).on('click', '.ajp-result-item', function () {
+            const $this = $(this),
+                target = fullResultSet[$this.data('id')];
+            if (window.selectedResults[$this.data('id')]) {
+                delete window.selectedResults[$this.data('id')];
+                $this.removeClass('ajp-curator-selected-image');
+                $('#ajp-curator-selection-size').html(Object.keys(window.selectedResults).length);
+            } else {
+                window.selectedResults[$this.data('id')] = target;
+                $this.addClass('ajp-curator-selected-image');
+                $('#ajp-curator-selection-size').html(Object.keys(window.selectedResults).length);
+            }
+        });
+        $(document).on('click', '#ajp-curator-clear-selection', function () {
+            window.selectedResults = {};
+            buildSelectionDiv();
+            $('#ajp-curator-selection-size').html(Object.keys(window.selectedResults).length);
+            $('.ajp-result-item').removeClass('ajp-curator-selected-image');
+            window._gaq.push(['_trackEvent', 'Curator', 'Clear selection']);
+        });
+        window.escapeRegExp = function (string) {
+            return string.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
+        };
+        window.replaceAll = function (string, find, replace) {
+            return string.replace(new RegExp(window.escapeRegExp(find), 'g'), replace);
+        };
+        window.photoPermalink = "{% url 'photo' 0 %}";
+        window.photoPermalink = window.photoPermalink.replace('0/', '');
+        window.formatId = function (id) {
+            id = '' + id;
+            id = window.replaceAll(id, ':', '');
+            id = window.replaceAll(id, '.', '');
+            id = id.replace(/[!"#$%&'()*+,.\/:;<=>?@[\\\]^`{|}~]/g, "")
+
+            return id;
+        };
+        window.escapeSlash = function (id) {
+            id = replaceAll(id, '/', '\\/');
+
+            return id;
+        };
+        window.imageLoaded = function (id) {
+            const targetContainer = $('#ajp-curator-selection-item-' + window.escapeSlash(window.formatId(id))),
+                targetImage = targetContainer.find('img')[0];
+            if (targetImage) {
+                targetContainer.find('.ajp-curator-selection-image-size').html(targetImage.naturalWidth + 'x' + targetImage.naturalHeight);
+            }
+        };
+        window.imageFailedToLoad = function (id) {
+            const targetContainer = $('#ajp-curator-selection-item-' + window.escapeSlash(window.formatId(id)));
+            delete window.selectedResults[id];
+            targetContainer.remove();
+        };
+        const toggleButtonActive = function ($this) {
+            if ($this.hasClass('active')) {
+                $this.removeClass('active');
+            } else {
+                $this.addClass('active');
+            }
+        };
+        $(document).on('click', '.ajp-curator-invert-colors-button', function () {
+            const $this = $(this),
+                targetSelector = '#ajp-curator-selection-item-' + window.escapeSlash(window.formatId($this[0].dataset.id)),
+                target = $($(targetSelector).find('img')[0]);
+            toggleButtonActive($this);
+            if (target.hasClass('ajp-photo-inverted')) {
+                target.removeClass('ajp-photo-inverted');
+                window.selectedResults[$this[0].dataset.id].invert = false;
+            } else {
+                target.addClass('ajp-photo-inverted');
+                window.selectedResults[$this[0].dataset.id].invert = true;
+            }
+            window._gaq.push(['_trackEvent', 'Curator', 'Invert colors']);
+        });
+        $(document).on('click', '.ajp-curator-flip-button', function () {
+            const $this = $(this),
+                targetSelector = '#ajp-curator-selection-item-' + window.escapeSlash(window.formatId($this[0].dataset.id)),
+                target = $($(targetSelector).find('img')[0]);
+            toggleButtonActive($this);
+            if (target.hasClass('ajp-photo-flipped')) {
+                target.removeClass('ajp-photo-flipped');
+                if (target.hasClass('rotate90-flipped')) {
+                    target.removeClass('rotate90-flipped').addClass('rotate90');
+                } else if (target.hasClass('rotate180-flipped')) {
+                    target.removeClass('rotate180-flipped').addClass('rotate180');
+                } else if (target.hasClass('rotate270-flipped')) {
+                    target.removeClass('rotate270-flipped').addClass('rotate270');
+                }
+                window.selectedResults[$this[0].dataset.id].flip = false;
+            } else {
+                target.addClass('ajp-photo-flipped');
+                if (target.hasClass('rotate90')) {
+                    target.removeClass('rotate90').addClass('rotate90-flipped');
+                } else if (target.hasClass('rotate180')) {
+                    target.removeClass('rotate180').addClass('rotate180-flipped');
+                } else if (target.hasClass('rotate270')) {
+                    target.removeClass('rotate270').addClass('rotate270-flipped');
+                }
+                window.selectedResults[$this[0].dataset.id].flip = true;
+            }
+            window._gaq.push(['_trackEvent', 'Curator', 'Flip']);
+        });
+        $(document).on('click', '.ajp-curator-stereo-button', function () {
+            const $this = $(this);
+            window.selectedResults[$this[0].dataset.id].stereo = !$this.hasClass('active');
+            toggleButtonActive($this);
+            window._gaq.push(['_trackEvent', 'Curator', 'Stereo']);
+        });
+        $(document).on('click', '.ajp-curator-rotate-button', function () {
+            const $this = $(this),
+                targetSelectionItem = $('#ajp-curator-selection-item-' + window.escapeSlash(window.formatId($this[0].dataset.id))),
+                targetImage = targetSelectionItem.find('img'),
+                arrayItem = window.selectedResults[$this[0].dataset.id];
+            if (!arrayItem.rotated) {
+                arrayItem.rotated = 90;
+                if (arrayItem.flip) {
+                    targetImage.addClass('rotate90-flipped');
+                } else {
+                    targetImage.addClass('rotate90');
+                }
+            } else {
+                arrayItem.rotated += 90;
+                let classToAdd = null;
+                if (arrayItem.rotated === 360) {
+                    arrayItem.rotated = 0;
+                } else {
+                    classToAdd = 'rotate' + arrayItem.rotated;
+                    if (arrayItem.flip) {
+                        classToAdd += '-flipped';
+                    }
+                }
+                targetImage.removeClass('rotate90').removeClass('rotate180')
+                    .removeClass('rotate270').removeClass('rotate90-flipped').removeClass('rotate180-flipped').removeClass('rotate270-flipped');
+                if (classToAdd) {
+                    targetImage.addClass(classToAdd);
+                    arrayItem.classToAdd = classToAdd;
+                }
+            }
+            window._gaq.push(['_trackEvent', 'Curator', 'Rotate']);
+        });
+        $(document).on('click', '.ajp-curator-delete-button', function () {
+            const targetId = $(this)[0].dataset.id,
+                targetResultItem = $('#ajp-result-item-' + window.escapeSlash(window.formatId(targetId))),
+                targetSelectionItem = $('#ajp-curator-selection-item-' + window.escapeSlash(window.formatId(targetId)));
+            if (window.selectedResults[targetId]) {
+                delete window.selectedResults[targetId];
+                targetSelectionItem.remove();
+                targetResultItem.removeClass('ajp-curator-selected-image');
+                $('#ajp-curator-selection-size').html(Object.keys(window.selectedResults).length)
+            } else {
+                window.selectedResults[$(this)[0].dataset.id] = fullResultSet[targetId];
+                targetResultItem.addClass('ajp-curator-selected-image');
+                $('#ajp-curator-selection-size').html(Object.keys(window.selectedResults).length)
+            }
+            window._gaq.push(['_trackEvent', 'Curator', 'Delete']);
+        });
+        $(document).on('click', '#ajp-curator-submit-selection', function () {
+            $('#ajp-curator-upload-error').hide();
+            // TODO: Album area selection
+            $('#ajp-curator-add-area-name').val(null);
+            $('#ajp-curator-add-area-name-d-none').val(null);
+            window.areaLat = null;
+            window.areaLng = null;
+            $('#ajp-choose-albums-modal').modal('show');
+            window._gaq.push(['_trackEvent', 'Curator', 'Submit selection']);
+            setTimeout(() => { $('#id-albums-autocomplete').focus(); }, 500);
+        });
+        $(document).on('click', '.ajp-curator-submit-single', function () {
+            window._gaq.push(['_trackEvent', 'Curator', 'Submit single']);
+            const id = $(this).data('id');
+            window.singleSelection = {};
+            window.singleSelection[id] = fullResultSet[id];
+            $('#ajp-curator-submit-selection').click();
+        });
+        $(document).on('click', '#ajp-curator-select-all', function () {
+            $('img.ajp-result-item:not(.ajp-curator-selected-image)').click();
+            window._gaq.push(['_trackEvent', 'Curator', 'Select all']);
+        });
+        $(document).on('click', '.ajp-curator-edit-album-button', function () {
+            const targetId = $(this)[0].dataset.id;
+            $.ajax({
+                type: "POST",
+                url: "{% url 'curator_get_album_info' %}",
+                data: {
+                    albumId: targetId,
+                    csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
+                },
+                success: function (response) {
+                    $('#id-parent-album-deck > span.hilight').remove();
+                    window.loadPossibleParentAlbums(response.subalbum_of__id, targetId, '#ajp-curator-edit-form-change-album-parent');
+                    $('#ajp-curator-change-album-name').val(response.name);
+                    $('#ajp-curator-change-album-description').val(response.description);
+                    $('#ajp-curator-change-album-id').val(response.id);
+                    $('#ajp-curator-change-album-open').prop('checked', response.open);
+                    $('#ajp-curator-change-album-public').prop('checked', response.is_public);
+                    $('#ajp-curator-edit-my-album-modal').modal('show');
+                    if (response.parent_album_id && response.parent_album_name) {
+                        $('#id-parent-album-deck').prepend('<span data-value="' + response.parent_album_id + '" class="hilight"><span style="display: inline-block;" class="remove">ˣ</span>' + response.parent_album_name + '</span></span>')
+                        $('#id-parent-album-autocomplete').css('display', 'none');
+                    }
+                    else {
+                        $('#id-parent-album-autocomplete').css('display', 'block');
+                        $('#id-parent-album-autocomplete').attr('disabled', false);
+                    }
+                    window._gaq.push(['_trackEvent', 'Curator', 'Load edit form success']);
+                },
+                error: function () {
+                    window._gaq.push(['_trackEvent', 'Curator', 'Load edit form error']);
+                }
+            });
+        });
+        // TODO: This is basically REST API functionality, no need for custom Django stuff, come to think of it,
+        // there's a lot of manual JSON serialization etc. going on everywhere in this codebase...
+        $(document).on('click', '#ajp-curator-confirm-album-edit-button', function () {
+            const targetId = $('#ajp-curator-change-album-id').val();
+            let parentAlbumId = $('#id-parent-album-deck > span').data('value');
+            $('#ajp-curator-edit-album-error').removeClass('d-block').addClass('d-none');
+            $.ajax({
+                type: "POST",
+                url: "{% url 'curator_update_my_album' %}",
+                data: {
+                    album_id: targetId,
+                    name: $('#ajp-curator-change-album-name').val(),
+                    description: $('#ajp-curator-change-album-description').val(),
+                    open: $('#ajp-curator-change-album-open').prop('checked'),
+                    is_public: $('#ajp-curator-change-album-public').prop('checked'),
+                    parent_album_id: parentAlbumId ?? null,
+                    areaLat: changeAreaLat,
+                    areaLng: changeAreaLng,
+                    csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
+                },
+                success: function () {
+                    $('#ajp-curator-edit-album-error').removeClass('d-block').addClass('d-none');
+                    $('#ajp-curator-edit-my-album-modal').modal('hide');
+                    changeAreaLat = null;
+                    changeAreaLng = null;
+                    $('#ajp-curator-change-area-name').val(null);
+                    loadMyAlbums();
+                    window._gaq.push(['_trackEvent', 'Curator', 'Edit success']);
+                },
+                error: function () {
+                    $('#ajp-curator-edit-album-error').removeClass('d-none').addClass('d-block');
+                    window._gaq.push(['_trackEvent', 'Curator', 'Edit error']);
+                }
+            });
+        });
+        $(document).on('click', '#ajp-curator-confirm-album-selection-button', function () {
+            const albums = $('#id-albums').val();
+            let selection = window.selectedResults;
+            if (window.singleSelection) {
+                selection = window.singleSelection;
+                window.singleSelection = false;
+            }
+            $('#ajp-loading-overlay').show();
+
+            const keys = Object.keys(selection);
+            let currentAutoAlbumId = null;
+            let pointsAwarded = 0;
+
+            const processOne = function (index) {
+                if (index >= keys.length) {
+                    $('#ajp-loading-overlay').hide();
+                    window.updateLeaderboard();
+                    $('#ajp-choose-albums-modal').modal('hide');
+                    const albumPlayLink = gameUrl + '?album=' + currentAutoAlbumId,
+                        feedbackModalDiv = $('#ajp-curator-feedback-modal');
+                    $('#ajp-curator-album-play-link').html(albumPlayLink).prop('href', albumPlayLink);
+                    $('#ajp-curator-points-awarded').html(pointsAwarded);
+                    $('#ajp-curator-add-album-name').val(null);
+                    $('#ajp-curator-add-album-description').val(null);
+                    $('#ajp-curator-add-area-name-d-none').val(null);
+                    $('#ajp-curator-create-new-album-checkbox').val(false);
+                    feedbackModalDiv.modal('show').on('shown.bs.modal', function () {
+                        $($(this).find('#ajp-curator-share-button-container')).empty().append(tmpl('ajp-curator-share-set-button', { gameLink: albumPlayLink }));
+                        window.FB.XFBML.parse();
+                    });
+                    window._gaq.push(['_trackEvent', 'Curator', 'Upload success']);
+                    return;
+                }
+
+                const key = keys[index];
+                const singlePhotoSelection = {};
+                singlePhotoSelection[key] = selection[key];
+
                 $.ajax({
                     type: "POST",
                     url: "{% url 'curator_photo_upload_handler' %}",
                     data: {
-                        selection: selection,
+                        selection: JSON.stringify(singlePhotoSelection),
                         albums: albums,
                         eteraToken: ETERASession,
+                        autoAlbumId: currentAutoAlbumId,
                         csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
                     },
                     success: function (response) {
-                        $('#ajp-loading-overlay').hide();
                         if (response.error) {
                             $('#ajp-curator-upload-error').show();
                             $('#ajp-curator-upload-error-message').html(response.error);
                         } else {
-                            window.updateLeaderboard();
-                            $('#ajp-curator-upload-error').hide();
-                            $('#ajp-curator-upload-error-message').html(window.gettext('System error'));
-                            $('#ajp-choose-albums-modal').modal('hide');
-                            const albumPlayLink = gameUrl + '?album=' + response.album_id,
-                                    feedbackModalDiv = $('#ajp-curator-feedback-modal');
-                            $('#ajp-curator-album-play-link').html(albumPlayLink).prop('href', albumPlayLink);
-                            $('#ajp-curator-points-awarded').html(response.total_points_for_curating);
-                            $('#ajp-curator-add-album-name').val(null);
-                            $('#ajp-curator-add-album-description').val(null);
-                            $('#ajp-curator-add-area-name-d-none').val(null);
-                            $('#ajp-curator-create-new-album-checkbox').val(false);
-                            feedbackModalDiv.modal('show').on('shown.bs.modal', function () {
-                                $($(this).find('#ajp-curator-share-button-container')).empty().append(tmpl('ajp-curator-share-set-button', {gameLink: albumPlayLink}));
-                                window.FB.XFBML.parse();
-                            });
-                            for (const key in response.photos) {
-                                if (response.photos.hasOwnProperty(key)) {
-                                    const targetDiv = $($('#ajp-curator-selection-item-' + window.escapeSlash(window.formatId(key))).find('.ajp-curator-selection-feedback-row')[0]),
-                                            item = response.photos[key];
+                            if (response.auto_album_id) {
+                                currentAutoAlbumId = response.auto_album_id;
+                            }
+                            pointsAwarded += (response.total_points_for_curating || 0);
+
+                            for (const k in response.photos) {
+                                if (response.photos.hasOwnProperty(k)) {
+                                    const targetDiv = $($('#ajp-curator-selection-item-' + window.escapeSlash(window.formatId(k))).find('.ajp-curator-selection-feedback-row')[0]),
+                                        item = response.photos[k];
                                     if (item.error) {
                                         $(targetDiv.find('.alert-danger')[0]).html(item.error).show();
                                     } else {
@@ -793,25 +814,30 @@
                                 }
                             }
                         }
-                        window._gaq.push(['_trackEvent', 'Curator', 'Upload success']);
+                        processOne(index + 1);
                     },
                     error: function () {
-                        $('#ajp-loading-overlay').hide();
-                        $('#ajp-curator-upload-error').show();
-                        window._gaq.push(['_trackEvent', 'Curator', 'Upload error']);
-                    },
-
+                        const targetDiv = $($('#ajp-curator-selection-item-' + window.escapeSlash(window.formatId(key))).find('.ajp-curator-selection-feedback-row')[0]);
+                        $(targetDiv.find('.alert-danger')[0]).html(window.gettext('System error')).show();
+                        processOne(index + 1);
+                    }
                 });
+            };
 
-            });
+            processOne(0);
         });
-    </script>
-    {% include "js_templates/curator_album_selection_option_template.html" %}
-    {% include "js_templates/curator_album_selection_separator_template.html" %}
-    {% include "js_templates/curator_selection_template.html" %}
-    {% compress js %}
-        <script src="{% static "js/autocomplete.js" %}"></script>
-        <script src="{% static "libs/autocomplete/js/autocomplete-user-upload-add-album.js" %}"></script>
-        <script src="{% static "libs/autocomplete/js/autocomplete-user-upload-search-album.js" %}"></script>
-    {% endcompress %}
+        $(document).on('click', '#ajp-curator-fetch-all', function () {
+            automateFetch = true;
+            $('#ajp-curator-search-button').click();
+        });
+    });
+</script>
+{% include "js_templates/curator_album_selection_option_template.html" %}
+{% include "js_templates/curator_album_selection_separator_template.html" %}
+{% include "js_templates/curator_selection_template.html" %}
+{% compress js %}
+<script src="{% static " js/autocomplete.js" %}"></script>
+<script src="{% static " libs/autocomplete/js/autocomplete-user-upload-add-album.js" %}"></script>
+<script src="{% static " libs/autocomplete/js/autocomplete-user-upload-search-album.js" %}"></script>
+{% endcompress %}
 {% endblock %}
