@@ -8,6 +8,7 @@
 # Author: Winston Sung
 # Author: 予弦
 # Author: 列维劳德
+# Author: 捍粵者
 # Author: 神樂坂秀吉
 # --
 # This file is part of the Ajapaik Project
@@ -16,15 +17,17 @@
 msgid ""
 msgstr ""
 ""
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: translatewiki.net\n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2023-03-16 12:00:25+0000\n"
+"PO-Revision-Date: 2025-10-30 12:00:29+0000\n"
 "Language: zh-Hant\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-POT-Import-Date: 2021-10-10 16:30:23+0000\n"
-"X-Generator: MediaWiki 1.41.0-alpha; Translate 2023-01-24\n"
+"X-Generator: MediaWiki 1.46.0-alpha; Translate 2025-07-31\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"Project-Id-Version: Ajapaik Web app - JavaScript\n"
+"X-Translation-Project: translatewiki.net <https://translatewiki.net>\n"
 
 #: ajapaik/ajapaik/static/js/ajp-core.js:392
 msgid "User denied the request for Geolocation."
@@ -308,7 +311,7 @@ msgstr "照片含有位置與檢視方向資訊"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:28
 msgid "Picture has no location info"
-msgstr "照片中含有位置資訊"
+msgstr "照片沒有位置資訊"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:29
 msgid "Picture has only location, no view direction"
@@ -801,7 +804,7 @@ msgstr "我的翻拍照片"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:296
 msgid "Rephotos by %(user)s"
-msgstr "翻拍照片由 %(user)s 做出"
+msgstr "照片由%(user)s翻拍"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:301
 msgid "All pictures"
@@ -833,7 +836,7 @@ msgstr "大約"
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:502
 msgid "Vantage point"
-msgstr "制高點"
+msgstr "有利位置"
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:509
 #: ajapaik/ajapaik/static/js/constants.js:75
@@ -889,7 +892,7 @@ msgstr "單擊綠色按鈕以保存視圖的位置和方向。單擊地圖解鎖
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:917
 msgid "Now you can drag the MARKER where the photographer was standing and the MAP separately."
-msgstr "現在您可以分別拖拉攝影者所站的標記與地圖。"
+msgstr "現在您可以分別拖拉攝影者所站的位置標記與地圖。"
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:921
 msgid "Drag the map so that the circle covers the approximate location, click save when ready."
@@ -963,7 +966,7 @@ msgstr "選擇年齡段（可選）"
 
 #: ajapaik/ajapaik/static/js/annotations/popovers/annotation.popover.new.js:146
 msgid "Select gender (optional)"
-msgstr "選擇性別（可選）"
+msgstr "請選取性別（非必填）"
 
 #: ajapaik/ajapaik/static/js/annotations/popovers/face-annotation.popover.edit.js:93
 msgid "Change age group"
@@ -983,7 +986,7 @@ msgstr "需要對象"
 
 #: ajapaik/ajapaik/static/js/constants.js:51
 msgid "optional"
-msgstr "可選"
+msgstr "非必填"
 
 #: ajapaik/ajapaik/static/js/constants.js:52
 msgid "Unidentified"
@@ -1027,7 +1030,7 @@ msgstr "編輯對象註解"
 
 #: ajapaik/ajapaik/static/js/constants.js:69
 msgid "Add feedback"
-msgstr "添加意見回饋"
+msgstr "新增意見回饋"
 
 #: ajapaik/ajapaik/static/js/constants.js:72
 msgid "Change person name"
@@ -1155,11 +1158,11 @@ msgstr "標記面孔"
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:121
 msgid "Draw a face annotation and add person's name"
-msgstr "拖动面部注释并添加人名"
+msgstr "拖拉面孔註解並添加人名"
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:123
 msgid "Draw and tag a face"
-msgstr "拖动并标记一张脸"
+msgstr "拖拉並標記一張面孔"
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:134
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:136
@@ -1200,7 +1203,7 @@ msgstr "編輯人物註釋"
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:308
 msgid "Automatically detected object"
-msgstr "自動刪除對象"
+msgstr "自動檢測到的對象"
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:311
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:313

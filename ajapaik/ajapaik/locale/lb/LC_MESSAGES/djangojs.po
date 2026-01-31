@@ -10,15 +10,17 @@
 msgid ""
 msgstr ""
 ""
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: translatewiki.net\n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2023-03-16 12:00:24+0000\n"
+"PO-Revision-Date: 2025-10-30 12:00:26+0000\n"
 "Language: lb\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-POT-Import-Date: 2021-10-10 16:30:23+0000\n"
-"X-Generator: MediaWiki 1.41.0-alpha; Translate 2023-01-24\n"
+"X-Generator: MediaWiki 1.46.0-alpha; Translate 2025-07-31\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Project-Id-Version: Ajapaik Web app - JavaScript\n"
+"X-Translation-Project: translatewiki.net <https://translatewiki.net>\n"
 
 #: ajapaik/ajapaik/static/js/ajp-core.js:392
 msgid "User denied the request for Geolocation."
@@ -302,7 +304,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:28
 msgid "Picture has no location info"
-msgstr "D'Bild huet keng Informatioun iwwer eng Plaz"
+msgstr "D'Bild huet keng Informatiounen iwwer eng Plaz"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:29
 msgid "Picture has only location, no view direction"

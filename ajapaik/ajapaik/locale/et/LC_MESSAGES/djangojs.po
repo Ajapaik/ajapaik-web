@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 #
 # Author: H2kks
+# Author: Jrttrw
 # Author: Puik
 # --
 # This file is part of the Ajapaik Project
@@ -10,10 +11,10 @@
 msgid ""
 msgstr ""
 ""
-"Project-Id-Version: Ajapaik\n"
-"Report-Msgid-Bugs-To: \n"
+"Project-Id-Version: Ajapaik Web app - JavaScript\n"
+"Report-Msgid-Bugs-To: translatewiki.net\n"
 "POT-Creation-Date: 2021-05-14 02:27+0300\n"
-"PO-Revision-Date: 2023-03-16 12:00:23+0000\n"
+"PO-Revision-Date: 2025-10-30 12:00:24+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Estonian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/et/)\n"
 "Language: et\n"
@@ -21,9 +22,10 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: MediaWiki 1.41.0-alpha; Translate 2023-01-24\n"
+"X-Generator: MediaWiki 1.46.0-alpha; Translate 2025-07-31\n"
 "X-Translated-Using: django-rosetta 0.7.4\n"
 "X-POT-Import-Date: 2021-10-10 16:30:23+0000\n"
+"X-Translation-Project: translatewiki.net <https://translatewiki.net>\n"
 
 #: ajapaik/ajapaik/static/js/ajp-core.js:392
 msgid "User denied the request for Geolocation."
@@ -299,32 +301,27 @@ msgstr "Maapinnalt"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:26
 msgid "Picture is of high quality"
-msgstr ""
+msgstr "Pilt on kõrge kvaliteediga"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:27
-#, fuzzy
 msgid "Picture has location and view direction info"
 msgstr "Pildil on asukoha ja vaate suuna info"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:28
-#, fuzzy
 msgid "Picture has no location info"
 msgstr "Pildil pole asukohainfot"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:29
-#, fuzzy
 msgid "Picture has only location, no view direction"
-msgstr "Pildil on ainult asukoht, aga puudub vaate suund"
+msgstr "Pildil on ainult asukoha info, aga puudub vaate suund"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:30
-#, fuzzy
 msgid "Picture has rephotos"
 msgstr "Pildist on ülepildistusi"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:31
-#, fuzzy
 msgid "Picture has similar photos"
-msgstr "Pildil on sarnaseid pilte"
+msgstr "Pildil on sarnaseid fotosid"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:32
 msgid "Institution"
@@ -372,11 +369,11 @@ msgstr "Välisvaateid ei leitud"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:43
 msgid "No high-quality pictures were found"
-msgstr ""
+msgstr "Kõrgekvaliteedilisi pilte ei leidunud"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:44
 msgid "No high-quality pictures were found in this album"
-msgstr ""
+msgstr "Selles albumist ei leidunud kõrgekvaliteedilisi pilte"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:45
 msgid "No interior views were found in this album"
@@ -388,19 +385,19 @@ msgstr "Sisevaateid ei leitud"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:47
 msgid "No pictures in landscape format were found"
-msgstr "Rõhtsaid pilte ei leitud"
+msgstr "Rõhtsaid pilte ei leidunud"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:48
 msgid "No pictures in landscape format were found in this album"
-msgstr "Sellest albumist rõhtsaid pilte ei leitud"
+msgstr "Selles albumis ei leidunud rõhtsaid pilte"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:49
 msgid "No pictures in panoramic format were found"
-msgstr "Panoraamseid pilte ei leitud"
+msgstr "Panoraampilte ei leitud"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:50
 msgid "No pictures in panoramic format were found in this album"
-msgstr "Sellest albumist panoraamseid pilte ei leitud"
+msgstr "Selles albumis ei leidunud panoraampilte"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:51
 msgid "No pictures from the ground level were found in this album"
@@ -452,11 +449,11 @@ msgstr "Märgendatud nägudega pilte ei leitud"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:63
 msgid "No pictures in portrait format were found"
-msgstr "Püstiseid pilte ei leitud"
+msgstr "Püstiseid pilte ei leidunud"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:64
 msgid "No pictures in portrait format were found in this album"
-msgstr "Sellest albumist ei leitud püstiseid pilte"
+msgstr "Selles albumis ei leidunud püstiseid pilte"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:65
 msgid "No raised viewpoint pictures were found in this album"
@@ -485,27 +482,27 @@ msgstr "Otsing %(query)s ei andnud tulemusi\nVõite proovida muuta oma otsingule
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:71
 msgid "No pictures in square format were found"
-msgstr "Ruudukujulisi pilte ei leitud"
+msgstr "Ruudukujulisi pilte ei leidunud"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:72
 msgid "No pictures in square format were found in this album"
-msgstr "Selles albumis ruudukujulisi pilte ei leitud"
+msgstr "Selles albumis ei leidunud ruudukujulisi pilte"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:73
 msgid "No rephotos were found"
-msgstr ""
+msgstr "Ühtegi ülepildistust ei leidunud"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:74
 msgid "No rephotos were found in this album"
-msgstr ""
+msgstr "Selles albumis ei leidunud ühtegi ülepildistust"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:75
 msgid "No liked pictures were found"
-msgstr ""
+msgstr "Lemmikuks märgitud pilte ei leidunud"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:76
 msgid "No liked pictures were found in this album"
-msgstr ""
+msgstr "Selles albumis ei leidunud lemmikuks märgitud pilte"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:78
 msgid "Number"
@@ -513,7 +510,7 @@ msgstr "Kogunumber"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:79
 msgid "Picture added to album by:"
-msgstr ""
+msgstr "Pildi lisas albumisse:"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:80
 msgid "Picture already in album(s)"
@@ -582,7 +579,7 @@ msgstr "Eemalda valikust"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:96
 msgid "Rephotos in album"
-msgstr "Refotot albumis"
+msgstr "Ülepildistusi albumis"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:97
 msgid "Rotate"
@@ -624,7 +621,7 @@ msgstr "Aitäh!"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:109
 msgid "This album contains a film"
-msgstr "See filmi album"
+msgstr "See album sisaldab filmi"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:110
 msgid "Title"
@@ -655,7 +652,6 @@ msgid "Unidentified adult woman"
 msgstr "Tuvastamata täiskasvanud naine"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:117
-#, fuzzy
 msgid "Unidentified adult person"
 msgstr "Tuvastamata täiskasvanu"
 
@@ -786,7 +782,7 @@ msgstr "Kaardiakna pildid"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:254
 msgid "Did you mean to search from:"
-msgstr "Soovite ehk otsida hoopis:"
+msgstr "Soovid ehk otsida hoopis:"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:255
 msgid "all pictures"
@@ -802,11 +798,11 @@ msgstr "Minu lemmikud"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:294
 msgid "My rephotos"
-msgstr "Minu refotod"
+msgstr "Minu ülepildistused"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:296
 msgid "Rephotos by %(user)s"
-msgstr "%(user)s refotod"
+msgstr "Kasutaja %(user)s ülepildistused"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:301
 msgid "All pictures"
@@ -952,7 +948,6 @@ msgid "This transcription is correct"
 msgstr "Transkriptsioon on õige"
 
 #: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:165
-#, fuzzy
 msgid "What is written on the picture?"
 msgstr "Mis on pildil kirjas?"
 
@@ -1176,7 +1171,6 @@ msgid "Open album"
 msgstr "Ava album"
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:147
-#, fuzzy
 msgid "Tag <em>%(personName)s</em>"
 msgstr "Märgenda <em>%(personName)s</em>"
 
@@ -1190,7 +1184,6 @@ msgid "Automatically detected face"
 msgstr "Automaatselt tuvastatud nägu"
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:191
-#, fuzzy
 msgid "%(photoCount)s picture"
 msgid_plural "%(photoCount)s pictures"
 msgstr[0] "%(photoCount)s pilt"

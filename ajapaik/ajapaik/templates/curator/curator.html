@@ -252,7 +252,7 @@
                     $('#ajp-curator-change-area-name-d-none').val(place.name);
                     changeAreaLat = place.geometry.location.lat();
                     changeAreaLng = place.geometry.location.lng();
-                    window._gaq.push(['_trackEvent', 'Curator', 'Change autocomplete place changed']);
+                    window.gtag('event', 'change_autocomplete_place_changed', { 'category': 'Curator' });
                 });
             }
             loadMyAlbums();
@@ -292,10 +292,10 @@
                         response[i].link = '/?album=' + response[i].id;
                         targetDiv.append(tmpl('ajp-curator-my-album-template', response[i]));
                     }
-                    window._gaq.push(['_trackEvent', 'Curator', 'My albums success']);
+                    window.gtag('event', 'load_my_albums_success', { 'category': 'Curator' });
                 },
                 error: function () {
-                    window._gaq.push(['_trackEvent', 'Curator', 'My albums error']);
+                    window.gtag('event', 'load_my_albums_error', { 'category': 'Curator' });
                 }
             });
         };
@@ -359,11 +359,11 @@
                         }
                     }
                     $('#ajp-loading-overlay').hide();
-                    window._gaq.push(['_trackEvent', 'Curator', 'More results success']);
+                    window.gtag('event', 'load_more_results_success', { 'category': 'Curator' });
                 },
                 error: function () {
                     $('#ajp-loading-overlay').hide();
-                    window._gaq.push(['_trackEvent', 'Curator', 'More results error']);
+                    window.gtag('event', 'load_more_results_error', { 'category': 'Curator' });
                 }
             });
         });
@@ -487,33 +487,33 @@
                         const item = msg.result.firstRecordViews[i];
                         createResultElement(item);
                     }
-                    window._gaq.push(['_trackEvent', 'Curator', 'Search success']);
+                    window.gtag('event', 'search_success', { 'category': 'Curator' });
                 },
                 error: function () {
                     $('#ajp-loading-overlay').hide();
-                    window._gaq.push(['_trackEvent', 'Curator', 'Search error']);
+                    window.gtag('event', 'search_error', { 'category': 'Curator' });
                 }
             });
         });
         $(document).on('click', '.ajp-result-item', function () {
-            const $this = $(this),
-                target = fullResultSet[$this.data('id')];
-            if (window.selectedResults[$this.data('id')]) {
-                delete window.selectedResults[$this.data('id')];
-                $this.removeClass('ajp-curator-selected-image');
-                $('#ajp-curator-selection-size').html(Object.keys(window.selectedResults).length);
+            const photo = $(this).data();
+            const target = fullResultSet[photo.id];
+            if (window.selectedResults[photo.id]) {
+                delete window.selectedResults[photo.id];
+                $(this).removeClass('ajp-curator-selected-image');
             } else {
-                window.selectedResults[$this.data('id')] = target;
-                $this.addClass('ajp-curator-selected-image');
-                $('#ajp-curator-selection-size').html(Object.keys(window.selectedResults).length);
+                window.selectedResults[photo.id] = target;
+                $(this).addClass('ajp-curator-selected-image');
             }
+            window.gtag('event', window.selectedResults[photo.id] ? 'add_photo_to_selection' : 'remove_photo_from_selection', { 'category': 'Curator', 'source_id': target.identifier, 'title': target.title });
+            $('#ajp-curator-selection-size').html(Object.keys(window.selectedResults).length)
         });
         $(document).on('click', '#ajp-curator-clear-selection', function () {
             window.selectedResults = {};
             buildSelectionDiv();
             $('#ajp-curator-selection-size').html(Object.keys(window.selectedResults).length);
             $('.ajp-result-item').removeClass('ajp-curator-selected-image');
-            window._gaq.push(['_trackEvent', 'Curator', 'Clear selection']);
+            window.gtag('event', 'clear_photo_selection', { 'category': 'Curator' });
         });
         window.escapeRegExp = function (string) {
             return string.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
@@ -548,11 +548,11 @@
             delete window.selectedResults[id];
             targetContainer.remove();
         };
-        const toggleButtonActive = function ($this) {
-            if ($this.hasClass('active')) {
-                $this.removeClass('active');
+        const toggleButtonActive = function (button) {
+            if (button.hasClass('active')) {
+                button.removeClass('active');
             } else {
-                $this.addClass('active');
+                button.addClass('active');
             }
         };
         $(document).on('click', '.ajp-curator-invert-colors-button', function () {
@@ -562,12 +562,13 @@
             toggleButtonActive($this);
             if (target.hasClass('ajp-photo-inverted')) {
                 target.removeClass('ajp-photo-inverted');
+                window.gtag('event', 'remove_photo_invert', { 'category': 'Curator' });
                 window.selectedResults[$this[0].dataset.id].invert = false;
             } else {
                 target.addClass('ajp-photo-inverted');
+                window.gtag('event', 'invert_photo', { 'category': 'Curator' });
                 window.selectedResults[$this[0].dataset.id].invert = true;
             }
-            window._gaq.push(['_trackEvent', 'Curator', 'Invert colors']);
         });
         $(document).on('click', '.ajp-curator-flip-button', function () {
             const $this = $(this),
@@ -584,6 +585,7 @@
                     target.removeClass('rotate270-flipped').addClass('rotate270');
                 }
                 window.selectedResults[$this[0].dataset.id].flip = false;
+                window.gtag('event', 'unflip_photo', { 'category': 'Curator' });
             } else {
                 target.addClass('ajp-photo-flipped');
                 if (target.hasClass('rotate90')) {
@@ -594,14 +596,14 @@
                     target.removeClass('rotate270').addClass('rotate270-flipped');
                 }
                 window.selectedResults[$this[0].dataset.id].flip = true;
+                window.gtag('event', 'flip_photo', { 'category': 'Curator' });
             }
-            window._gaq.push(['_trackEvent', 'Curator', 'Flip']);
         });
         $(document).on('click', '.ajp-curator-stereo-button', function () {
             const $this = $(this);
             window.selectedResults[$this[0].dataset.id].stereo = !$this.hasClass('active');
+            window.gtag('event', !$this.hasClass('active') ? 'make_photo_stereo' : 'remove_photo_stereo', { 'category': 'Curator' });
             toggleButtonActive($this);
-            window._gaq.push(['_trackEvent', 'Curator', 'Stereo']);
         });
         $(document).on('click', '.ajp-curator-rotate-button', function () {
             const $this = $(this),
@@ -633,23 +635,21 @@
                     arrayItem.classToAdd = classToAdd;
                 }
             }
-            window._gaq.push(['_trackEvent', 'Curator', 'Rotate']);
+            window.gtag('event', 'rotate_photo', { 'category': 'Curator', 'rotation': arrayItem.rotated });
         });
         $(document).on('click', '.ajp-curator-delete-button', function () {
-            const targetId = $(this)[0].dataset.id,
+            const selectedPhoto = $(this)[0].dataset;
+            const targetId = selectedPhoto.id,
                 targetResultItem = $('#ajp-result-item-' + window.escapeSlash(window.formatId(targetId))),
                 targetSelectionItem = $('#ajp-curator-selection-item-' + window.escapeSlash(window.formatId(targetId)));
             if (window.selectedResults[targetId]) {
                 delete window.selectedResults[targetId];
                 targetSelectionItem.remove();
                 targetResultItem.removeClass('ajp-curator-selected-image');
-                $('#ajp-curator-selection-size').html(Object.keys(window.selectedResults).length)
-            } else {
-                window.selectedResults[$(this)[0].dataset.id] = fullResultSet[targetId];
-                targetResultItem.addClass('ajp-curator-selected-image');
-                $('#ajp-curator-selection-size').html(Object.keys(window.selectedResults).length)
             }
-            window._gaq.push(['_trackEvent', 'Curator', 'Delete']);
+            $('#ajp-curator-selection-size').html(Object.keys(window.selectedResults).length)
+            const target = fullResultSet[targetId];
+            window.gtag('event', 'remove_photo_from_selection', { 'category': 'Curator', 'source_id': target.identifyingNumber, 'title': target.title });
         });
         $(document).on('click', '#ajp-curator-submit-selection', function () {
             $('#ajp-curator-upload-error').hide();
@@ -659,11 +659,11 @@
             window.areaLat = null;
             window.areaLng = null;
             $('#ajp-choose-albums-modal').modal('show');
-            window._gaq.push(['_trackEvent', 'Curator', 'Submit selection']);
+            window.gtag('event', 'submit_selection', { 'category': 'Curator' });
             setTimeout(() => { $('#id-albums-autocomplete').focus(); }, 500);
         });
         $(document).on('click', '.ajp-curator-submit-single', function () {
-            window._gaq.push(['_trackEvent', 'Curator', 'Submit single']);
+            window.gtag('event', 'submit_single', { 'category': 'Curator' });
             const id = $(this).data('id');
             window.singleSelection = {};
             window.singleSelection[id] = fullResultSet[id];
@@ -671,7 +671,7 @@
         });
         $(document).on('click', '#ajp-curator-select-all', function () {
             $('img.ajp-result-item:not(.ajp-curator-selected-image)').click();
-            window._gaq.push(['_trackEvent', 'Curator', 'Select all']);
+            window.gtag('event', 'select_all', { 'category': 'Curator' });
         });
         $(document).on('click', '.ajp-curator-edit-album-button', function () {
             const targetId = $(this)[0].dataset.id;
@@ -699,10 +699,10 @@
                         $('#id-parent-album-autocomplete').css('display', 'block');
                         $('#id-parent-album-autocomplete').attr('disabled', false);
                     }
-                    window._gaq.push(['_trackEvent', 'Curator', 'Load edit form success']);
+                    window.gtag('event', 'load_album_edit_form_success', { 'category': 'Curator' });
                 },
                 error: function () {
-                    window._gaq.push(['_trackEvent', 'Curator', 'Load edit form error']);
+                    window.gtag('event', 'load_album_edit_form_error', { 'category': 'Curator' });
                 }
             });
         });
@@ -733,11 +733,11 @@
                     changeAreaLng = null;
                     $('#ajp-curator-change-area-name').val(null);
                     loadMyAlbums();
-                    window._gaq.push(['_trackEvent', 'Curator', 'Edit success']);
+                    window.gtag('event', 'album_edit_success', { 'category': 'Curator' });
                 },
                 error: function () {
                     $('#ajp-curator-edit-album-error').removeClass('d-none').addClass('d-block');
-                    window._gaq.push(['_trackEvent', 'Curator', 'Edit error']);
+                    window.gtag('event', 'album_edit_error', { 'category': 'Curator' });
                 }
             });
         });
@@ -771,7 +771,7 @@
                         $($(this).find('#ajp-curator-share-button-container')).empty().append(tmpl('ajp-curator-share-set-button', { gameLink: albumPlayLink }));
                         window.FB.XFBML.parse();
                     });
-                    window._gaq.push(['_trackEvent', 'Curator', 'Upload success']);
+                    window.gtag('event', 'photo_upload_batch_success', { 'category': 'Curator' });
                     return;
                 }
 
@@ -809,7 +809,7 @@
                                         $(targetDiv.find('.alert-success')[0]).html(item.message).show();
                                     }
                                     if (item.message === 'OK') {
-                                        window._gaq.push(['_trackEvent', 'Curator', 'New photo in Ajapaik', null, 100, false]);
+                                        window.gtag('event', 'photo_upload_success', { 'category': 'Curator', 'key': k });
                                     }
                                 }
                             }

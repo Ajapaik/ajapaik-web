@@ -537,9 +537,15 @@ class Album(Model):
         return Album.TYPE_CHOICES[self.atype][1]
 
 
+# Ugly hack for takedown notices and parties who regret their past actions
+class PhotoManager(EstimatedCountManager):
+    def get_queryset(self):
+        return super(PhotoManager, self).get_queryset().exclude(source_key__startswith="ERM Fk 2903").exclude(
+            source_key__startswith="TLM F 10198:").exclude(soft_deleted=True)
+
+
 class Photo(Model):
-    objects = EstimatedCountManager()
-    bulk = BulkUpdateManager()
+    objects = PhotoManager()
 
     # Removed sorl ImageField because of https://github.com/mariocesar/sorl-thumbnail/issues/295
     image = ImageField(_('Image'), upload_to='uploads', blank=True, null=True, max_length=255, height_field='height',
@@ -653,6 +659,8 @@ class Photo(Model):
     viewpoint_elevation = PositiveSmallIntegerField(_('Viewpoint elevation'), choices=VIEWPOINT_ELEVATION_CHOICES,
                                                     blank=True, null=True)
     description_original_language = CharField(_('Description original language'), max_length=255, blank=True, null=True)
+    # TODO: Migrate to use proxy model for admin
+    soft_deleted = BooleanField(default=False, help_text=_("Hide image from being accessed, even in ADMIN!"))
 
     original_lat = None
     original_lon = None

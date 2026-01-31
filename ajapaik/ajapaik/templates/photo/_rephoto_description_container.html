@@ -9,9 +9,8 @@
     {% endif %}
     {% if rephoto.source and rephoto.source_key and rephoto.source_url %}
         <div class="w-100">
-            <a id="ajp-photo-source"
+            <a id="ajp-rephoto-source"
                 rel="noopener nofollow"
-                onclick="window._gaq.push(['_trackEvent', 'Photoview', 'Source link click']);"
                 href="{{ rephoto.source_url }}" target="_blank">
                 {{ rephoto.source.description }} {{ rephoto.source_key }}
             </a>

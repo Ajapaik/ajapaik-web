@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 #
 # Author: Abbe98
+# Author: Jopparn
 # Author: Sabelöga
 # Author: WikiPhoenix
 # --
@@ -11,10 +12,10 @@
 msgid ""
 msgstr ""
 ""
-"Project-Id-Version: Ajapaik\n"
-"Report-Msgid-Bugs-To: \n"
+"Project-Id-Version: Ajapaik Web app - JavaScript\n"
+"Report-Msgid-Bugs-To: translatewiki.net\n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2023-03-16 12:00:25+0000\n"
+"PO-Revision-Date: 2025-10-30 12:00:29+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Swedish (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/sv/)\n"
 "Language: sv\n"
@@ -22,31 +23,32 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: MediaWiki 1.41.0-alpha; Translate 2023-01-24\n"
+"X-Generator: MediaWiki 1.46.0-alpha; Translate 2025-07-31\n"
 "X-Translated-Using: django-rosetta 0.7.4\n"
 "X-POT-Import-Date: 2021-10-10 16:30:23+0000\n"
+"X-Translation-Project: translatewiki.net <https://translatewiki.net>\n"
 
 #: ajapaik/ajapaik/static/js/ajp-core.js:392
 msgid "User denied the request for Geolocation."
-msgstr "Användaren avslog förfrågan om plats information."
+msgstr "Användaren avslog förfrågan om platsinformation."
 
 #: ajapaik/ajapaik/static/js/ajp-core.js:398
 msgid "Location information is unavailable."
-msgstr "Plats information är inte tillgänglig."
+msgstr "Platsinformation är inte tillgänglig."
 
 #: ajapaik/ajapaik/static/js/ajp-core.js:401
 msgid "The request to get user location timed out."
-msgstr "Förfrågan om plats information tog för lång tid."
+msgstr "Förfrågan om platsinformation tog för lång tid."
 
 #: ajapaik/ajapaik/static/js/ajp-core.js:404
 msgid "An unknown error occurred."
-msgstr "Ett okänt fel inträffade"
+msgstr "Ett okänt fel inträffade."
 
 #: ajapaik/ajapaik/static/js/ajp-core.js:878
 #: ajapaik/ajapaik/static/js/ajp-core.js:894
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:106
 msgid "System error"
-msgstr "System fel"
+msgstr "Systemfel"
 
 #: ajapaik/ajapaik/static/js/ajp-core.js:1024
 #: ajapaik/ajapaik/static/js/ajp-core.js:1069
@@ -233,7 +235,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:9
 msgid "Approximate address"
-msgstr "Uppskattad plats"
+msgstr "Uppskattad adress"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:10
 msgid "Are you sure you want to create an album with less than 5 photos? We recommend to create albums with at least 10 or more pictures."
@@ -603,7 +605,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:102
 msgid "Source ID"
-msgstr "Käll ID"
+msgstr "Käll-ID"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:103
 msgid "Source"
@@ -928,7 +930,7 @@ msgid "All pictures are shown in the sidebar"
 msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-selection.js:82
-#, fuzzy, javascript-format
+#, javascript-format
 msgid "You have gained %s point"
 msgid_plural "You have gained %s points"
 msgstr[0] "Du har fått %s poäng"
@@ -947,7 +949,6 @@ msgid "This transcription is correct"
 msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:165
-#, fuzzy
 msgid "What is written on the picture?"
 msgstr "Vad står det på bilden?"
 
@@ -1172,7 +1173,7 @@ msgstr "Öppna album"
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:147
 msgid "Tag <em>%(personName)s</em>"
-msgstr "Markera <em>%(personName)s</em>"
+msgstr "Tagga <em>%(personName)s</em>"
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:180
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:306

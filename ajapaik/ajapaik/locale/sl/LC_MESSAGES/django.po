@@ -9,568 +9,589 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2023-03-27 15:28:40+0000\n"
-"X-POT-Import-Date: 2022-07-22 13:21:16+0000\n"
+"PO-Revision-Date: 2025-10-30 12:00:31+0000\n"
+"X-POT-Import-Date: 2024-07-09 05:10:19+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: sl\n"
-"X-Generator: MediaWiki 1.41.0-alpha; Translate 2023-01-24\n"
+"X-Generator: MediaWiki 1.46.0-alpha; Translate 2025-07-31\n"
 "Plural-Forms: nplurals=4; plural=(n%100 == 1) ? 0 : ( (n%100 == 2) ? 1 : ( (n%100 == 3 || n%100 == 4) ? 2 : 3 ) );\n"
+"Project-Id-Version: Ajapaik Web app\n"
+"Report-Msgid-Bugs-To: translatewiki.net\n"
+"X-Translation-Project: translatewiki.net <https://translatewiki.net>\n"
 
 #: ajapaik/ajapaik/admin.py:87
 msgid "Invert colors"
 msgstr "Obrni barve"
 
-#: ajapaik/ajapaik/api.py:76
+#: ajapaik/ajapaik/api.py:78
 msgid "Add at least flip, invert or rotate parameter to the request"
 msgstr "Zahtevi dodajte vsaj parameter zrcaljenja, obračanja ali vrtenja"
 
-#: ajapaik/ajapaik/api.py:77
+#: ajapaik/ajapaik/api.py:79
 msgid "Add at least scene or viewpoint_elevation parameter to the request"
 msgstr "V zahtevek dodajte vsaj parameter scene ali viewpoint_elevation"
 
-#: ajapaik/ajapaik/api.py:78
+#: ajapaik/ajapaik/api.py:80
 msgid "Contributions and settings from the other account were added to current"
 msgstr "Prispevki in nastavitve iz drugega računa so bili dodani trenutnemu"
 
-#: ajapaik/ajapaik/api.py:79
+#: ajapaik/ajapaik/api.py:81
 msgid "Expired token"
 msgstr "Potekel žeton"
 
-#: ajapaik/ajapaik/api.py:80
+#: ajapaik/ajapaik/api.py:82
 msgid "Invalid token"
 msgstr "Neveljaven žeton"
 
-#: ajapaik/ajapaik/api.py:81
+#: ajapaik/ajapaik/api.py:83
 msgid "Missing parameter photo_ids"
 msgstr "Manjka parameter photo_ids"
 
-#: ajapaik/ajapaik/api.py:82
+#: ajapaik/ajapaik/api.py:84
 msgid "No photo with id:"
 msgstr "Ni fotografije z ID-jem:"
 
-#: ajapaik/ajapaik/api.py:83
+#: ajapaik/ajapaik/api.py:85
 msgid "Parameter photo_id must be an positive integer"
 msgstr "Parameter photo_id mora biti pozitivno celo število"
 
-#: ajapaik/ajapaik/api.py:85
+#: ajapaik/ajapaik/api.py:87
 msgid "Please login with a different account, you are currently logged in with the same account that you are merging from"
 msgstr "Prijavite se z drugim računom; trenutno ste prijavljeni z istim računom, iz katerega se združujete."
 
-#: ajapaik/ajapaik/api.py:87
+#: ajapaik/ajapaik/api.py:89
 msgid "Please login"
 msgstr "Prosimo, prijavite se"
 
-#: ajapaik/ajapaik/api.py:88
+#: ajapaik/ajapaik/api.py:90
 msgid "Rephoto upload settings have been saved"
 msgstr "Nastavitve nalaganja ponovne fotografije so bile shranjene"
 
-#: ajapaik/ajapaik/api.py:89
+#: ajapaik/ajapaik/api.py:91
 msgid "Required parameter, token is missing"
 msgstr "Manjka potrebni parameter, žeton"
 
-#: ajapaik/ajapaik/api.py:90
+#: ajapaik/ajapaik/api.py:92
 msgid "This transcription already exists, previous transcription was upvoted, thank you!"
 msgstr "Ta prepis že obstaja, prejšnji prepis je bil podprt, hvala!"
 
-#: ajapaik/ajapaik/api.py:91
+#: ajapaik/ajapaik/api.py:93
 msgid "Transcription added, thank you!"
 msgstr "Prepis dodan, hvala!"
 
-#: ajapaik/ajapaik/api.py:92
+#: ajapaik/ajapaik/api.py:94
 msgid "Transcription feedback added, thank you!"
 msgstr "Povratne informacije o prepisu dodane, hvala!"
 
-#: ajapaik/ajapaik/api.py:93
+#: ajapaik/ajapaik/api.py:95
 msgid "User display name has been saved"
 msgstr "Prikazno ime uporabnika je shranjeno"
 
-#: ajapaik/ajapaik/api.py:94
+#: ajapaik/ajapaik/api.py:96
 msgid "User settings have been saved"
 msgstr "Uporabniške nastavitve so shranjene"
 
-#: ajapaik/ajapaik/api.py:95
+#: ajapaik/ajapaik/api.py:97
 msgid "You have already given feedback for this transcription"
 msgstr "Za ta prepis ste že poslali povratne informacije"
 
-#: ajapaik/ajapaik/api.py:96
+#: ajapaik/ajapaik/api.py:98
 msgid "You have already submitted this transcription, thank you!"
 msgstr "Ta prepis ste že poslali, hvala!"
 
-#: ajapaik/ajapaik/api.py:97
+#: ajapaik/ajapaik/api.py:99
 msgid "Your transcription has been updated, thank you!"
 msgstr "Vaš prepis je posodobljen, hvala!"
 
-#: ajapaik/ajapaik/api.py:990 ajapaik/ajapaik/api.py:1640
-#: ajapaik/ajapaik/api.py:1660 ajapaik/ajapaik/api.py:1676
-#: ajapaik/ajapaik/api.py:1694 ajapaik/ajapaik/api.py:1783
-#: ajapaik/ajapaik/api.py:1903
+#: ajapaik/ajapaik/api.py:1038 ajapaik/ajapaik/api.py:1688
+#: ajapaik/ajapaik/api.py:1708 ajapaik/ajapaik/api.py:1724
+#: ajapaik/ajapaik/api.py:1742 ajapaik/ajapaik/api.py:1831
+#: ajapaik/ajapaik/api.py:1951
 msgid "Something went wrong"
 msgstr "Nekaj je šlo narobe"
 
-#: ajapaik/ajapaik/api.py:1955 ajapaik/utils.py:156
+#: ajapaik/ajapaik/api.py:2003 ajapaik/utils.py:156
 msgid "Your suggestion has been saved, but previous consensus remains"
 msgstr "Vaš predlog je shranjen, vendar prejšnje soglasje ostaja"
 
 #: ajapaik/ajapaik/autocomplete_views.py:324
+#: ajapaik/ajapaik/autocomplete_views.py:356
 msgid "No album found"
 msgstr "Ni najdenega albuma"
 
 #: ajapaik/ajapaik/delfi.py:20
 msgid "Bounding box must be set"
-msgstr "Nastaviti je treba omejevalni okvir"
+msgstr "Nastaviti je treba omejevalno polje"
 
 #: ajapaik/ajapaik/delfi.py:23
 msgid "Bounding box must have 4 comma-separated members"
-msgstr "Omejevalni okvir mora imeti 4 člane, ločene z vejicami"
+msgstr "Omejevalno polje mora imeti 4 člane, ločene z vejicami"
 
 #: ajapaik/ajapaik/delfi.py:28
 msgid "Bounding box values must be numbers"
 msgstr "Vrednosti omejevalnega polja morajo biti številke"
 
 #: ajapaik/ajapaik/forms.py:18
+#| msgid "Bad Token"
+msgid "!!FUZZY!!Bad Token"
+msgstr "Slab žeton"
+
+#: ajapaik/ajapaik/forms.py:24
 #: ajapaik/ajapaik/templates/socialaccount/connections_content.html:24
 #: ajapaik/ajapaik/templates/user/_user_card.html:11
 msgid "Email"
 msgstr "E-pošta"
 
-#: ajapaik/ajapaik/forms.py:19
+#: ajapaik/ajapaik/forms.py:25
 msgid "First name"
 msgstr "Prvo ime"
 
-#: ajapaik/ajapaik/forms.py:20
+#: ajapaik/ajapaik/forms.py:26
 msgid "Last name"
 msgstr "Priimek"
 
-#: ajapaik/ajapaik/forms.py:21
+#: ajapaik/ajapaik/forms.py:27
 #: ajapaik/ajapaik/templates/authentication/_login.html:41
 msgid "Password"
 msgstr "Geslo"
 
-#: ajapaik/ajapaik/forms.py:22
+#: ajapaik/ajapaik/forms.py:28
 msgid "Password confirmation"
 msgstr "Potrditev gesla"
 
-#: ajapaik/ajapaik/forms.py:106 ajapaik/ajapaik/forms.py:187
-#: ajapaik/ajapaik/forms.py:209
+#: ajapaik/ajapaik/forms.py:114 ajapaik/ajapaik/forms.py:195
+#: ajapaik/ajapaik/forms.py:217
 msgid "Choose area"
 msgstr "Izberite območje"
 
-#: ajapaik/ajapaik/forms.py:112 ajapaik/ajapaik/forms.py:186
-#: ajapaik/ajapaik/forms.py:200 ajapaik/ajapaik/forms.py:208
-#: ajapaik/ajapaik/forms.py:217
+#: ajapaik/ajapaik/forms.py:120 ajapaik/ajapaik/forms.py:194
+#: ajapaik/ajapaik/forms.py:208 ajapaik/ajapaik/forms.py:216
+#: ajapaik/ajapaik/forms.py:225
 msgid "Choose album"
 msgstr "Izberite album"
 
-#: ajapaik/ajapaik/forms.py:204 ajapaik/ajapaik/forms.py:211
+#: ajapaik/ajapaik/forms.py:212 ajapaik/ajapaik/forms.py:219
 msgid "Choose photo"
 msgstr "Izberite fotografijo"
 
-#: ajapaik/ajapaik/forms.py:233 ajapaik/ajapaik/forms.py:252
+#: ajapaik/ajapaik/forms.py:258
 msgid "Choose parent album"
 msgstr "Izberite nadrejeni album"
 
-#: ajapaik/ajapaik/forms.py:417
+#: ajapaik/ajapaik/forms.py:428
 msgid "Picture file"
 msgstr "Slikovna datoteka"
 
-#: ajapaik/ajapaik/forms.py:418 ajapaik/ajapaik/forms.py:471
-#: ajapaik/ajapaik/models.py:181 ajapaik/ajapaik/models.py:376
-#: ajapaik/ajapaik/templates/curator/curator.html:82
+#: ajapaik/ajapaik/forms.py:429 ajapaik/ajapaik/forms.py:482
+#: ajapaik/ajapaik/models.py:260 ajapaik/ajapaik/models.py:566
+#: ajapaik/ajapaik/templates/curator/curator.html:89
 #: ajapaik/ajapaik_face_recognition/forms.py:23
 msgid "Description"
 msgstr "Opis"
 
-#: ajapaik/ajapaik/forms.py:419
+#: ajapaik/ajapaik/forms.py:430
 msgid "I am the author"
 msgstr "Jaz sem avtor"
 
-#: ajapaik/ajapaik/forms.py:420 ajapaik/ajapaik/models.py:383
+#: ajapaik/ajapaik/forms.py:431 ajapaik/ajapaik/models.py:573
 msgid "Author"
 msgstr "Avtor"
 
-#: ajapaik/ajapaik/forms.py:421
+#: ajapaik/ajapaik/forms.py:432
 msgid "Licence or status of copyright"
 msgstr "Avtorskopravna licenca ali stanje"
 
-#: ajapaik/ajapaik/forms.py:424
+#: ajapaik/ajapaik/forms.py:435
 msgid "Accepted formats are .png or .jpg files"
 msgstr "Dovoljeni formati so datoteke .png ali .jpg"
 
-#: ajapaik/ajapaik/forms.py:425
+#: ajapaik/ajapaik/forms.py:436
 msgid "Add a short description of the picture"
 msgstr "Dodajte kratek opis slike"
 
-#: ajapaik/ajapaik/forms.py:426
+#: ajapaik/ajapaik/forms.py:437
 msgid "Author of the picture (photographer, painter)"
 msgstr "Avtor slike (fotograf, slikar)"
 
-#: ajapaik/ajapaik/forms.py:428
+#: ajapaik/ajapaik/forms.py:439
 msgid "Please select a licence to let other people know if and how they can reuse the material you upload.\n\nIf you are the author, you can choose the licence (we recommend using open Creative Commons licences). If someone else created the work, you need to use the same licence and rights holder that it currently has.\n\nCurrently we are also accepting content with unclear copyright status, please choose ‘Copyright not evaluated’ then."
 msgstr "Izberite licenco, da drugim sporočite, ali in kako lahko nadalje uporabijo gradivo, ki ga naložite.\n\nČe ste avtor, lahko izberete licenco (priporočamo uporabo odprtih licenc Creative Commons). Če je delo ustvaril nekdo drug, morate uporabiti isto licenco in imetnika pravic, kot ga ima trenutno.\n\nTrenutno sprejemamo tudi vsebino z nejasnim avtorskopravnim stanjem; v tem primeru izberite »Avtorske pravice niso ocenjene«."
 
-#: ajapaik/ajapaik/forms.py:436
+#: ajapaik/ajapaik/forms.py:447
 msgid "Description of the picture"
 msgstr "Opis slike"
 
-#: ajapaik/ajapaik/forms.py:437
+#: ajapaik/ajapaik/forms.py:448
 msgid "Author name"
 msgstr "Ime avtorja"
 
-#: ajapaik/ajapaik/forms.py:443
+#: ajapaik/ajapaik/forms.py:454
 msgid "Missing image"
 msgstr "Manjkajoča slika"
 
-#: ajapaik/ajapaik/forms.py:445
+#: ajapaik/ajapaik/forms.py:456
 msgid "Missing description"
 msgstr "Manjka opis"
 
-#: ajapaik/ajapaik/forms.py:447
+#: ajapaik/ajapaik/forms.py:458
 msgid "Missing licence"
 msgstr "Manjka licenca"
 
-#: ajapaik/ajapaik/forms.py:461
-#: ajapaik/ajapaik/templates/curator/curator.html:107
+#: ajapaik/ajapaik/forms.py:472
 msgid "Parent album"
 msgstr "Nadrejeni album"
 
-#: ajapaik/ajapaik/forms.py:464
+#: ajapaik/ajapaik/forms.py:475
+#: ajapaik/ajapaik/templates/curator/curator.html:144
 msgid "Location"
 msgstr "Lokacija"
 
-#: ajapaik/ajapaik/forms.py:465
+#: ajapaik/ajapaik/forms.py:476
 msgid "If this album is tied to a certain location, specify here"
 msgstr "Če je ta album vezan na določeno lokacijo, to navedite tukaj"
 
-#: ajapaik/ajapaik/forms.py:468
+#: ajapaik/ajapaik/forms.py:479
 msgid "Album type"
 msgstr "Vrsta albuma"
 
-#: ajapaik/ajapaik/forms.py:469
+#: ajapaik/ajapaik/forms.py:480
 msgid "Anything else"
 msgstr "Kar koli drugega"
 
-#: ajapaik/ajapaik/forms.py:469
+#: ajapaik/ajapaik/forms.py:480
 msgid "Person"
 msgstr "Oseba"
 
-#: ajapaik/ajapaik/forms.py:470 ajapaik/ajapaik/models.py:179
-#: ajapaik/ajapaik/templates/curator/curator.html:73
+#: ajapaik/ajapaik/forms.py:481 ajapaik/ajapaik/models.py:258
+#: ajapaik/ajapaik/templates/curator/curator.html:79
 #: ajapaik/ajapaik/templates/geotaggers/_geotaggers_modal_content.html:17
 #: ajapaik/ajapaik/templates/socialaccount/connections_content.html:26
 #: ajapaik/ajapaik/templates/user/_user_card.html:11
 msgid "Name"
 msgstr "Ime"
 
-#: ajapaik/ajapaik/forms.py:472 ajapaik/ajapaik/models.py:185
+#: ajapaik/ajapaik/forms.py:483 ajapaik/ajapaik/models.py:264
 msgid "Is public"
 msgstr "Je javno"
 
-#: ajapaik/ajapaik/forms.py:473 ajapaik/ajapaik/models.py:186
+#: ajapaik/ajapaik/forms.py:484 ajapaik/ajapaik/models.py:265
 msgid "Is open"
 msgstr "Je odprto"
 
-#: ajapaik/ajapaik/forms.py:486
+#: ajapaik/ajapaik/forms.py:497
 msgid "My preferred language is"
 msgstr "Moj prednostni jezik je"
 
-#: ajapaik/ajapaik/forms.py:487
+#: ajapaik/ajapaik/forms.py:498
 msgid "I wish to receive the newsletter"
 msgstr "Želim prejemati novičnik"
 
-#: ajapaik/ajapaik/forms.py:491 ajapaik/ajapaik/forms.py:510
+#: ajapaik/ajapaik/forms.py:502 ajapaik/ajapaik/forms.py:521
 msgid "Yes"
 msgstr "Da"
 
-#: ajapaik/ajapaik/forms.py:491 ajapaik/ajapaik/forms.py:510
+#: ajapaik/ajapaik/forms.py:502 ajapaik/ajapaik/forms.py:521
 msgid "No"
 msgstr "Ne"
 
-#: ajapaik/ajapaik/forms.py:497
+#: ajapaik/ajapaik/forms.py:508
 msgid "Please specify your prefered language"
 msgstr "Določite prednostni jezik"
 
-#: ajapaik/ajapaik/forms.py:499
+#: ajapaik/ajapaik/forms.py:510
 msgid "Please specify whether you would like to receive the newsletter"
 msgstr "Navedite, ali želite prejemati novičnik"
 
-#: ajapaik/ajapaik/forms.py:507
+#: ajapaik/ajapaik/forms.py:518
 msgid "I wish to to upload my rephotos to Wikimedia Commons"
 msgstr "Svoje refotografije želim nalagati v Wikimedijino zbirko"
 
-#: ajapaik/ajapaik/forms.py:517
+#: ajapaik/ajapaik/forms.py:528
 msgid "Please specify whether you would like your rephotos to be uploaded to Wikimedia Commons as well"
 msgstr "Določite, ali želite, da se vaše refotografije nalagajo tudi v Wikimedijino zbirko"
 
-#: ajapaik/ajapaik/forms.py:526
+#: ajapaik/ajapaik/forms.py:537
 msgid "Please specify what would you like your display name to be"
 msgstr "Določite, kakšno naj bo vaše prikazno ime"
 
-#: ajapaik/ajapaik/forms.py:545
+#: ajapaik/ajapaik/forms.py:556
 msgid "Email address"
 msgstr "E-poštni naslov"
 
-#: ajapaik/ajapaik/forms.py:550
+#: ajapaik/ajapaik/forms.py:561
 msgid "Comment box supports Markdown\n\nParagraphs\nAdd two new lines to start a new paragraph.\n\nBold\n**Geotagging** is the first task on Ajapaik.\n\nItalic\nNext come *rephotography* and *dating*.\n\nLinks\nJoin the discussion on [Ajapaiklejad FB group](https://www.facebook.com/groups/ajapaiklejad).\n\nImages\n![Ajapaik is gift for EV100](https://ajapaik.ee/static/images/ev100.png)"
 msgstr "Polje za komentarje podpira Markdown\n\nOdstavki\nZa začetek novega odstavka dodajte dve novi vrstici.\n\nKrepko\nPrva naloga na Ajapaiku je **geooznačevanje**.\n\nLežeče\nNato prideta na vrsto *refotografija* in *datiranje*.\n\nPovezave\nPridružite se razpravi v [FB-skupini Ajapaiklejad](https://www.facebook.com/groups/ajapaiklejad) .\n\nSlike\n![Ajapaik je darilo za EV100](https://ajapaik.ee/static/images/ev100.png)"
 
-#: ajapaik/ajapaik/forms.py:585
+#: ajapaik/ajapaik/forms.py:596
 msgid "Nothing to change."
 msgstr "Nič za spremeniti."
 
-#: ajapaik/ajapaik/models.py:175 ajapaik/ajapaik_face_recognition/forms.py:13
+#: ajapaik/ajapaik/models.py:254 ajapaik/ajapaik_face_recognition/forms.py:13
 #: ajapaik/ajapaik_face_recognition/models.py:23
-#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:50
+#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:51
 msgid "Male"
 msgstr "Moški"
 
-#: ajapaik/ajapaik/models.py:176 ajapaik/ajapaik_face_recognition/forms.py:13
+#: ajapaik/ajapaik/models.py:255 ajapaik/ajapaik_face_recognition/forms.py:13
 #: ajapaik/ajapaik_face_recognition/models.py:22
-#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:53
+#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:54
 msgid "Female"
 msgstr "Ženski"
 
-#: ajapaik/ajapaik/models.py:202 ajapaik/ajapaik_face_recognition/forms.py:21
+#: ajapaik/ajapaik/models.py:281 ajapaik/ajapaik_face_recognition/forms.py:21
 msgid "Gender"
 msgstr "Spol"
 
-#: ajapaik/ajapaik/models.py:204
+#: ajapaik/ajapaik/models.py:283
 msgid "Wikidata identifier"
 msgstr "Identifikator Wikipodatkov"
 
-#: ajapaik/ajapaik/models.py:211
+#: ajapaik/ajapaik/models.py:290
 msgid "Name original language"
 msgstr "Ime izvornega jezika"
 
-#: ajapaik/ajapaik/models.py:361
+#: ajapaik/ajapaik/models.py:551
 msgid "Image"
 msgstr "Slika"
 
-#: ajapaik/ajapaik/models.py:375 ajapaik/ajapaik/models.py:1901
+#: ajapaik/ajapaik/models.py:565 ajapaik/ajapaik/models.py:2113
 msgid "Title"
 msgstr "Naslov"
 
-#: ajapaik/ajapaik/models.py:377
+#: ajapaik/ajapaik/models.py:567
 msgid "MUIS title"
 msgstr "Naslov MUIS"
 
-#: ajapaik/ajapaik/models.py:378
+#: ajapaik/ajapaik/models.py:568
 msgid "MUIS comment"
 msgstr "Komentar MUIS"
 
-#: ajapaik/ajapaik/models.py:379
+#: ajapaik/ajapaik/models.py:569
 msgid "MUIS event description set note"
 msgstr "Opomba za opis dogodka MUIS"
 
-#: ajapaik/ajapaik/models.py:380
+#: ajapaik/ajapaik/models.py:570
 msgid "MUIS text on object"
 msgstr "Besedilo MUIS na predmetu"
 
-#: ajapaik/ajapaik/models.py:381
+#: ajapaik/ajapaik/models.py:571
 msgid "MUIS legends and descriptions"
 msgstr "Legende in opisi MUIS"
 
-#: ajapaik/ajapaik/models.py:458 ajapaik/ajapaik/models.py:1853
+#: ajapaik/ajapaik/models.py:649 ajapaik/ajapaik/models.py:2065
 msgid "Interior"
 msgstr "Notranjost"
 
-#: ajapaik/ajapaik/models.py:459 ajapaik/ajapaik/models.py:1854
+#: ajapaik/ajapaik/models.py:650 ajapaik/ajapaik/models.py:2066
 msgid "Exterior"
 msgstr "Zunanjost"
 
-#: ajapaik/ajapaik/models.py:461 ajapaik/ajapaik/models.py:1856
+#: ajapaik/ajapaik/models.py:652 ajapaik/ajapaik/models.py:2068
 msgid "Scene"
 msgstr "Prizor"
 
-#: ajapaik/ajapaik/models.py:464 ajapaik/ajapaik/models.py:1863
+#: ajapaik/ajapaik/models.py:655 ajapaik/ajapaik/models.py:2075
 msgid "Ground"
 msgstr "Tla"
 
-#: ajapaik/ajapaik/models.py:465 ajapaik/ajapaik/models.py:1864
+#: ajapaik/ajapaik/models.py:656 ajapaik/ajapaik/models.py:2076
 msgid "Raised"
 msgstr "Dvignjeno"
 
-#: ajapaik/ajapaik/models.py:466 ajapaik/ajapaik/models.py:1865
+#: ajapaik/ajapaik/models.py:657 ajapaik/ajapaik/models.py:2077
 msgid "Aerial"
 msgstr "Zračno"
 
-#: ajapaik/ajapaik/models.py:468 ajapaik/ajapaik/models.py:1867
+#: ajapaik/ajapaik/models.py:659 ajapaik/ajapaik/models.py:2079
 msgid "Viewpoint elevation"
 msgstr "Višina zorne točke"
 
-#: ajapaik/ajapaik/models.py:470
+#: ajapaik/ajapaik/models.py:661
 msgid "Description original language"
 msgstr "Opis izvornega jezika"
 
-#: ajapaik/ajapaik/models.py:1128 ajapaik/ajapaik/models.py:1219
+#: ajapaik/ajapaik/models.py:662
+msgid "Hide image from being accessed outside of Admin"
+msgstr "Skrij sliko pred osebami, ki niso administratorji"
+
+#: ajapaik/ajapaik/models.py:1339 ajapaik/ajapaik/models.py:1430
 msgid "Different"
 msgstr "Različno"
 
-#: ajapaik/ajapaik/models.py:1129 ajapaik/ajapaik/models.py:1220
+#: ajapaik/ajapaik/models.py:1340 ajapaik/ajapaik/models.py:1431
 msgid "Similar"
 msgstr "Podobno"
 
-#: ajapaik/ajapaik/models.py:1130 ajapaik/ajapaik/models.py:1221
+#: ajapaik/ajapaik/models.py:1341 ajapaik/ajapaik/models.py:1432
 msgid "Duplicate"
 msgstr "Dvojnik"
 
-#: ajapaik/ajapaik/models.py:1284
+#: ajapaik/ajapaik/models.py:1495
 msgid "Geotag"
 msgstr "Geooznaka"
 
-#: ajapaik/ajapaik/models.py:1285 ajapaik/ajapaik/models.py:1368
+#: ajapaik/ajapaik/models.py:1496 ajapaik/ajapaik/models.py:1579
 #: ajapaik/ajapaik/templates/_comments.html:11
 msgid "Rephoto"
 msgstr "Refoto"
 
-#: ajapaik/ajapaik/models.py:1286
+#: ajapaik/ajapaik/models.py:1497
 msgid "Photo upload"
 msgstr "Naložitev fotografije"
 
-#: ajapaik/ajapaik/models.py:1287
+#: ajapaik/ajapaik/models.py:1498
 msgid "Photo curation"
 msgstr "Pregledovanje fotografij"
 
-#: ajapaik/ajapaik/models.py:1288
+#: ajapaik/ajapaik/models.py:1499
 msgid "Photo re-curation"
 msgstr "Ponovno pregledovanje fotografij"
 
-#: ajapaik/ajapaik/models.py:1289
+#: ajapaik/ajapaik/models.py:1500
 msgid "Dating"
 msgstr "Datiranje"
 
-#: ajapaik/ajapaik/models.py:1290
+#: ajapaik/ajapaik/models.py:1501
 msgid "Dating confirmation"
 msgstr "Potrditev datiranja"
 
-#: ajapaik/ajapaik/models.py:1291
+#: ajapaik/ajapaik/models.py:1502
 msgid "Film still"
 msgstr "Filmska fotografija"
 
-#: ajapaik/ajapaik/models.py:1292
+#: ajapaik/ajapaik/models.py:1503
 msgid "Annotation"
 msgstr "Oznake"
 
-#: ajapaik/ajapaik/models.py:1293
+#: ajapaik/ajapaik/models.py:1504
 msgid "Confirm subject"
 msgstr "Potrdite motiv"
 
-#: ajapaik/ajapaik/models.py:1294
+#: ajapaik/ajapaik/models.py:1505
 msgid "Confirm Image similarity"
 msgstr "Potrdite podobnost slik"
 
-#: ajapaik/ajapaik/models.py:1295 ajapaik/ajapaik/models.py:1296
+#: ajapaik/ajapaik/models.py:1506 ajapaik/ajapaik/models.py:1507
 msgid "Suggestion subject age"
 msgstr "Starost predmeta predloga"
 
-#: ajapaik/ajapaik/models.py:1297 ajapaik/ajapaik/templates/_toolbox.html:66
+#: ajapaik/ajapaik/models.py:1508 ajapaik/ajapaik/templates/_toolbox.html:92
 msgid "Transcribe"
 msgstr "Prepiši"
 
-#: ajapaik/ajapaik/models.py:1298
+#: ajapaik/ajapaik/models.py:1509
 msgid "Categorize scene"
 msgstr "Kategorizirajte prizor"
 
-#: ajapaik/ajapaik/models.py:1299
+#: ajapaik/ajapaik/models.py:1510
 msgid "Add viewpoint elevation"
 msgstr "Dodajte višino zorne točke"
 
-#: ajapaik/ajapaik/models.py:1300
+#: ajapaik/ajapaik/models.py:1511
 msgid "Flip photo"
 msgstr "Zrcali fotografijo"
 
-#: ajapaik/ajapaik/models.py:1301
+#: ajapaik/ajapaik/models.py:1512
 msgid "Invert photo"
 msgstr "Obrni fotografijo"
 
-#: ajapaik/ajapaik/models.py:1302
+#: ajapaik/ajapaik/models.py:1513
 msgid "Rotate photo"
 msgstr "Zasukaj fotografijo"
 
-#: ajapaik/ajapaik/models.py:1353
+#: ajapaik/ajapaik/models.py:1564
 msgid "Map"
 msgstr "Zemljevid"
 
-#: ajapaik/ajapaik/models.py:1354
+#: ajapaik/ajapaik/models.py:1565
 msgid "EXIF"
 msgstr "EXIF"
 
-#: ajapaik/ajapaik/models.py:1355
+#: ajapaik/ajapaik/models.py:1566
 msgid "GPS"
 msgstr "GPS"
 
-#: ajapaik/ajapaik/models.py:1356
+#: ajapaik/ajapaik/models.py:1567
 msgid "Confirmation"
 msgstr "Potrditev"
 
-#: ajapaik/ajapaik/models.py:1357
+#: ajapaik/ajapaik/models.py:1568
 msgid "StreetView"
 msgstr "Ulični pogled"
 
-#: ajapaik/ajapaik/models.py:1358
+#: ajapaik/ajapaik/models.py:1569
 msgid "Source geotag"
 msgstr "Geooznaka vira"
 
-#: ajapaik/ajapaik/models.py:1359
+#: ajapaik/ajapaik/models.py:1570
 msgid "Android app"
 msgstr "Aplikacija android"
 
-#: ajapaik/ajapaik/models.py:1363
+#: ajapaik/ajapaik/models.py:1574
 msgid "Game"
 msgstr "Igra"
 
-#: ajapaik/ajapaik/models.py:1364
+#: ajapaik/ajapaik/models.py:1575
 msgid "Map view"
 msgstr "Pogled zemljevida"
 
-#: ajapaik/ajapaik/models.py:1365
+#: ajapaik/ajapaik/models.py:1576
 msgid "Gallery"
 msgstr "Galerija"
 
-#: ajapaik/ajapaik/models.py:1366
+#: ajapaik/ajapaik/models.py:1577
 msgid "Permalink"
 msgstr "Trajna povezava"
 
-#: ajapaik/ajapaik/models.py:1367
+#: ajapaik/ajapaik/models.py:1578
 msgid "Source"
 msgstr "Vir"
 
-#: ajapaik/ajapaik/models.py:1372
+#: ajapaik/ajapaik/models.py:1583
 msgid "Google map"
 msgstr "Zemljevi Google"
 
-#: ajapaik/ajapaik/models.py:1373
+#: ajapaik/ajapaik/models.py:1584
 msgid "Google satellite"
 msgstr "Satelitski pogled Google"
 
-#: ajapaik/ajapaik/models.py:1374
+#: ajapaik/ajapaik/models.py:1585
 msgid "OpenStreetMap"
 msgstr "OpenStreetMap"
 
-#: ajapaik/ajapaik/models.py:1375
+#: ajapaik/ajapaik/models.py:1586
 msgid "Juks"
 msgstr "Juks"
 
-#: ajapaik/ajapaik/models.py:1376
+#: ajapaik/ajapaik/models.py:1587
 msgid "No map"
 msgstr "Ni zemljevida"
 
-#: ajapaik/ajapaik/models.py:1518 ajapaik/ajapaik/models.py:1520
+#: ajapaik/ajapaik/models.py:1729 ajapaik/ajapaik/models.py:1731
 #: ajapaik/ajapaik/templates/comments/list.html:17
 msgid "Anonymous user"
 msgstr "Anonimni uporabnik"
 
-#: ajapaik/ajapaik/models.py:1711
+#: ajapaik/ajapaik/models.py:1921
 msgid "Day"
 msgstr "Dan"
 
-#: ajapaik/ajapaik/models.py:1712
+#: ajapaik/ajapaik/models.py:1922
 msgid "Month"
 msgstr "Mesec"
 
-#: ajapaik/ajapaik/models.py:1713
+#: ajapaik/ajapaik/models.py:1923
 msgid "Year"
 msgstr "Leto"
+
+#: ajapaik/ajapaik/models.py:1924
+msgid "Decade"
+msgstr "Desetletje"
+
+#: ajapaik/ajapaik/models.py:1925
+msgid "Century"
+msgstr "Stoletje"
 
 #: ajapaik/ajapaik/templates/404.html:5 ajapaik/ajapaik/templates/404.html:11
 #: ajapaik/ajapaik/templates/user/settings/user_settings.html:5
@@ -593,68 +614,69 @@ msgstr "Označi osebo"
 msgid "Original photo"
 msgstr "Izvorna fotografij"
 
-#: ajapaik/ajapaik/templates/_mode_select.html:8
+#: ajapaik/ajapaik/templates/_mode_select.html:9
 msgid "This album contains a film"
 msgstr "Ta album vsebuje film"
 
-#: ajapaik/ajapaik/templates/_mode_select.html:10
+#: ajapaik/ajapaik/templates/_mode_select.html:11
 msgid "This is a person album"
 msgstr "To je album osebe"
 
-#: ajapaik/ajapaik/templates/_mode_select.html:12
+#: ajapaik/ajapaik/templates/_mode_select.html:14
 msgid "This is a collection album"
 msgstr "To je album zbirke"
 
-#: ajapaik/ajapaik/templates/_mode_select.html:19
-#: ajapaik/ajapaik/templates/_mode_select.html:71
+#: ajapaik/ajapaik/templates/_mode_select.html:21
+#: ajapaik/ajapaik/templates/_mode_select.html:77
 msgid "Click to choose"
 msgstr "Kliknite za izbiro"
 
-#: ajapaik/ajapaik/templates/_mode_select.html:23
+#: ajapaik/ajapaik/templates/_mode_select.html:25
 msgid "Album details"
 msgstr "Podatki o albumu"
 
-#: ajapaik/ajapaik/templates/_mode_select.html:26
-#: ajapaik/ajapaik/templates/_mode_select.html:75
+#: ajapaik/ajapaik/templates/_mode_select.html:28
+#: ajapaik/ajapaik/templates/_mode_select.html:82
 msgid "Show albums"
 msgstr "Pokaži albume"
 
-#: ajapaik/ajapaik/templates/_mode_select.html:28
-#: ajapaik/ajapaik/templates/_mode_select.html:77
+#: ajapaik/ajapaik/templates/_mode_select.html:30
+#: ajapaik/ajapaik/templates/_mode_select.html:84
+#: ajapaik/ajapaik/templates/album/_album_creation_modal.html:28
 msgid "Albums"
 msgstr "Albumi"
 
-#: ajapaik/ajapaik/templates/_mode_select.html:31
-#: ajapaik/ajapaik/templates/_mode_select.html:79
+#: ajapaik/ajapaik/templates/_mode_select.html:33
+#: ajapaik/ajapaik/templates/_mode_select.html:87
 msgid "Show pictures"
 msgstr "Pokaži slike"
 
-#: ajapaik/ajapaik/templates/_mode_select.html:33
-#: ajapaik/ajapaik/templates/_mode_select.html:81
+#: ajapaik/ajapaik/templates/_mode_select.html:35
+#: ajapaik/ajapaik/templates/_mode_select.html:89
 msgid "All pictures"
 msgstr "Vse slike"
 
-#: ajapaik/ajapaik/templates/_mode_select.html:36
-#: ajapaik/ajapaik/templates/_mode_select.html:83
+#: ajapaik/ajapaik/templates/_mode_select.html:39
+#: ajapaik/ajapaik/templates/_mode_select.html:93
 msgid "Show my favorites"
 msgstr "Pokaži moje priljubljene"
 
-#: ajapaik/ajapaik/templates/_mode_select.html:38
-#: ajapaik/ajapaik/templates/_mode_select.html:85
+#: ajapaik/ajapaik/templates/_mode_select.html:41
+#: ajapaik/ajapaik/templates/_mode_select.html:95
 msgid "My favorites"
 msgstr "Moje priljubljene"
 
-#: ajapaik/ajapaik/templates/_mode_select.html:41
-#: ajapaik/ajapaik/templates/_mode_select.html:87
+#: ajapaik/ajapaik/templates/_mode_select.html:45
+#: ajapaik/ajapaik/templates/_mode_select.html:99
 msgid "Show rephotographed by me"
 msgstr "Pokaži moje refotografije"
 
-#: ajapaik/ajapaik/templates/_mode_select.html:43
-#: ajapaik/ajapaik/templates/_mode_select.html:89
+#: ajapaik/ajapaik/templates/_mode_select.html:47
+#: ajapaik/ajapaik/templates/_mode_select.html:101
 msgid "My rephotos"
 msgstr "Moje refotografije"
 
-#: ajapaik/ajapaik/templates/_mode_select.html:50
+#: ajapaik/ajapaik/templates/_mode_select.html:54
 msgid "Remove album filter"
 msgstr "Odstrani filter albumov"
 
@@ -664,69 +686,69 @@ msgstr "Primerjaj sliki"
 
 #: ajapaik/ajapaik/templates/_similar_images_tutorial_modal.html:12
 msgid "Indicate whether the content on pictures is overlapping or not. In the case of overlapping content the place or object is the same, in the case of same shot one of the pictures may also be cropped."
-msgstr "Označi, ali se vsebina na slikah prekriva ali ne. V primeru prekrivanja vsebine je kraj ali predmet enak, v primeru istega posnetka je lahko ena od slik tudi obrezana."
+msgstr "Označite, ali se vsebina na slikah prekriva ali ne. V primeru prekrivanja vsebine je kraj ali predmet isti, v primeru istega posnetka je lahko ena od slik tudi obrezana."
 
 #: ajapaik/ajapaik/templates/_similar_images_tutorial_modal.html:15
 msgid "The decision can also be made on keyboard (1, 2, 3)."
 msgstr "Odločitev je mogoča tudi s tipkovnico (1, 2, 3)."
 
-#: ajapaik/ajapaik/templates/_toolbox.html:8
-#: ajapaik/ajapaik/templates/common/game.html:54
-#: ajapaik/ajapaik/templates/photo/photoview.html:61
+#: ajapaik/ajapaik/templates/_toolbox.html:10
+#: ajapaik/ajapaik/templates/common/game.html:55
+#: ajapaik/ajapaik/templates/photo/photoview.html:62
 msgid "Pick the shooting location!"
 msgstr "Izberite lokacijo posnetka!"
 
-#: ajapaik/ajapaik/templates/_toolbox.html:12
+#: ajapaik/ajapaik/templates/_toolbox.html:14
 msgid "Add a geotag"
 msgstr "Dodaj geooznako"
 
-#: ajapaik/ajapaik/templates/_toolbox.html:16
+#: ajapaik/ajapaik/templates/_toolbox.html:18
 msgid "Date this image"
 msgstr "Datiraj to sliko"
 
-#: ajapaik/ajapaik/templates/_toolbox.html:20
+#: ajapaik/ajapaik/templates/_toolbox.html:22
 msgid "Date"
 msgstr "Datum"
 
-#: ajapaik/ajapaik/templates/_toolbox.html:23
+#: ajapaik/ajapaik/templates/_toolbox.html:25
 msgid "Add rephoto"
 msgstr "Dodaj refotografijo"
 
-#: ajapaik/ajapaik/templates/_toolbox.html:26
+#: ajapaik/ajapaik/templates/_toolbox.html:28
 msgid "Add a rephoto"
 msgstr "Dodaj refotografijo"
 
-#: ajapaik/ajapaik/templates/_toolbox.html:30
+#: ajapaik/ajapaik/templates/_toolbox.html:33
 msgid "Tag a new face/object - clicking this button will enable you to draw an object/face rectangle on the main image"
 msgstr "Označi nov obraz/predmet – s klikom tega gumba boste na glavno sliko lahko narisali pravokotnik predmeta/obraza"
 
-#: ajapaik/ajapaik/templates/_toolbox.html:34
+#: ajapaik/ajapaik/templates/_toolbox.html:37
 msgid "Annotate"
 msgstr "Označi"
 
-#: ajapaik/ajapaik/templates/_toolbox.html:37
-#: ajapaik/ajapaik/templates/_toolbox.html:52
+#: ajapaik/ajapaik/templates/_toolbox.html:40
+#: ajapaik/ajapaik/templates/_toolbox.html:76
 #: ajapaik/ajapaik/templates/info/_info_modal_content.html:83
 msgid "Share"
 msgstr "Deli"
 
-#: ajapaik/ajapaik/templates/_toolbox.html:54
+#: ajapaik/ajapaik/templates/_toolbox.html:79
 msgid "Add a category - clicking this button will enable you to categorize this picture to various categories such as whether this picture depicts indoors or outdoors"
 msgstr "Dodaj kategorijo – s klikom tega gumba boste to sliko lahko kategorizirali v različne kategorije, na primer, ali prikazuje notranji ali zunanji prostor"
 
-#: ajapaik/ajapaik/templates/_toolbox.html:58
+#: ajapaik/ajapaik/templates/_toolbox.html:84
 msgid "Categorize"
 msgstr "Kategoriziraj"
 
-#: ajapaik/ajapaik/templates/_toolbox.html:62
+#: ajapaik/ajapaik/templates/_toolbox.html:88
 msgid "Transcribe this image"
 msgstr "Prepiši to sliko"
 
-#: ajapaik/ajapaik/templates/_toolbox.html:72
+#: ajapaik/ajapaik/templates/_toolbox.html:99
 msgid "Edit picture"
 msgstr "Uredi sliko"
 
-#: ajapaik/ajapaik/templates/_toolbox.html:79
+#: ajapaik/ajapaik/templates/_toolbox.html:106
 msgid "Show annotations"
 msgstr "Pokaži označitve"
 
@@ -747,7 +769,7 @@ msgstr "Uporabniške nastavitve"
 #: ajapaik/ajapaik/templates/account/logout.html:5
 #: ajapaik/ajapaik/templates/account/logout.html:8
 #: ajapaik/ajapaik/templates/account/logout.html:17
-#: ajapaik/ajapaik/templates/core/_header.html:110
+#: ajapaik/ajapaik/templates/core/_header.html:105
 #: ajapaik/ajapaik/templates/leaderboard/_full_leaderboard_modal.html:20
 #: ajapaik/ajapaik/templates/rephoto_upload/_rephoto_upload_modal_content.html:12
 #: ajapaik/ajapaik/templates/user/user.html:43
@@ -778,7 +800,7 @@ msgstr "Meni"
 
 #: ajapaik/ajapaik/templates/account/email.html:5
 #: ajapaik/ajapaik/templates/account/email_content.html:3
-#: ajapaik/ajapaik/views.py:3483
+#: ajapaik/ajapaik/views.py:3714
 msgid "E-mail addresses"
 msgstr "E-poštni naslovi"
 
@@ -805,45 +827,45 @@ msgstr "Ta potrditvena e-poštna povezava je potekla ali ni veljavna. Prosimo, <
 msgid "The following E-mail addresses are associated with your account:"
 msgstr "Z vašim računom so povezani naslednji e-poštni naslovi:"
 
-#: ajapaik/ajapaik/templates/account/email_content.html:18
+#: ajapaik/ajapaik/templates/account/email_content.html:21
 msgid "verified"
 msgstr "preverjeno"
 
-#: ajapaik/ajapaik/templates/account/email_content.html:18
+#: ajapaik/ajapaik/templates/account/email_content.html:22
 msgid "unverified"
 msgstr "nepreverjeno"
 
-#: ajapaik/ajapaik/templates/account/email_content.html:18
+#: ajapaik/ajapaik/templates/account/email_content.html:23
 msgid "primary"
 msgstr "osnovni"
 
-#: ajapaik/ajapaik/templates/account/email_content.html:24
+#: ajapaik/ajapaik/templates/account/email_content.html:30
 msgid "Make Primary"
 msgstr "Naredi osnovnega"
 
-#: ajapaik/ajapaik/templates/account/email_content.html:25
+#: ajapaik/ajapaik/templates/account/email_content.html:32
 msgid "Re-send Verification"
 msgstr "Znova pošlji potrditev"
 
-#: ajapaik/ajapaik/templates/account/email_content.html:26
+#: ajapaik/ajapaik/templates/account/email_content.html:34
 #: ajapaik/ajapaik/templates/comments/delete.html:17
 #: ajapaik/ajapaik/templates/socialaccount/connections_content.html:33
 msgid "Remove"
 msgstr "Odstrani"
 
-#: ajapaik/ajapaik/templates/account/email_content.html:34
+#: ajapaik/ajapaik/templates/account/email_content.html:43
 msgid "Warning:"
 msgstr "Opozorilo:"
 
-#: ajapaik/ajapaik/templates/account/email_content.html:34
+#: ajapaik/ajapaik/templates/account/email_content.html:43
 msgid "You currently do not have any e-mail address set up. You should really add an e-mail address so you can receive notifications, reset your password, etc."
 msgstr "Trenutno nimate nastavljenega e-poštnega naslova. Res bi morali dodati e-poštni naslov, da boste lahko prejemali obvestila, ponastavili geslo idr."
 
-#: ajapaik/ajapaik/templates/account/email_content.html:40
+#: ajapaik/ajapaik/templates/account/email_content.html:50
 msgid "Add E-mail"
 msgstr "Dodaj e-poštni naslov"
 
-#: ajapaik/ajapaik/templates/account/email_content.html:47
+#: ajapaik/ajapaik/templates/account/email_content.html:57
 msgid "Do you really want to remove the selected e-mail address?"
 msgstr "Ali res želite odstraniti izbrani e-poštni naslov?"
 
@@ -892,7 +914,7 @@ msgid "Please contact us if you have any trouble resetting your password."
 msgstr "Če imate težave pri ponastavitvi gesla, nas kontaktirajte."
 
 #: ajapaik/ajapaik/templates/account/password_reset_done.html:15
-msgid "We have sent you an e-mail. Please contact us if you do not receive it within a few minutes."
+msgid "We have emailed you. Please contact us if you do not receive it within a few\n minutes."
 msgstr "Poslali smo vam e-pošto. Če je ne boste prejeli v nekaj minutah, nas kontaktirajte."
 
 #: ajapaik/ajapaik/templates/account/password_reset_from_key.html:7
@@ -946,19 +968,19 @@ msgstr "Informacije o zbirki"
 msgid "System error"
 msgstr "Sistemska napaka"
 
-#: ajapaik/ajapaik/templates/album/_album_creation_modal.html:32
+#: ajapaik/ajapaik/templates/album/_album_creation_modal.html:37
 #: ajapaik/ajapaik/templates/user_upload/user_upload.html:33
 msgid "Search for an existing album"
 msgstr "Iskanje obstoječega albuma"
 
-#: ajapaik/ajapaik/templates/album/_album_creation_modal.html:49
-#: ajapaik/ajapaik/templates/rephoto_upload/_rephoto_upload_settings_modal_content.html:6
-#: ajapaik/ajapaik/templates/user/display_name/change_display_name.html:6
-#: ajapaik/ajapaik/templates/user/settings/_user_settings_modal_content.html:6
+#: ajapaik/ajapaik/templates/album/_album_creation_modal.html:58
+#: ajapaik/ajapaik/templates/rephoto_upload/_rephoto_upload_settings_modal_content.html:7
+#: ajapaik/ajapaik/templates/user/display_name/change_display_name.html:7
+#: ajapaik/ajapaik/templates/user/settings/_user_settings_modal_content.html:7
 msgid "Submit"
 msgstr "Predloži"
 
-#: ajapaik/ajapaik/templates/album/_album_creation_modal.html:52
+#: ajapaik/ajapaik/templates/album/_album_creation_modal.html:62
 #: ajapaik/ajapaik/templates/comments/delete.html:18
 #: ajapaik/ajapaik/templates/comments/list.html:46
 #: ajapaik/ajapaik/templates/comments/list.html:68
@@ -1027,15 +1049,15 @@ msgstr "Prijava"
 msgid "Really remove this comment?"
 msgstr "Želite res odstraniti ta komentar?"
 
-#: ajapaik/ajapaik/templates/comments/form.html:4
+#: ajapaik/ajapaik/templates/comments/form.html:7
 msgid "Identify yourself to comment"
 msgstr "Za komentiranje se prijavite"
 
-#: ajapaik/ajapaik/templates/comments/form.html:6
+#: ajapaik/ajapaik/templates/comments/form.html:9
 msgid "Your comment"
 msgstr "Vaš komentar"
 
-#: ajapaik/ajapaik/templates/comments/form.html:38
+#: ajapaik/ajapaik/templates/comments/form.html:41
 msgid "Send"
 msgstr "Pošlji"
 
@@ -1072,7 +1094,7 @@ msgid "supports Markdown"
 msgstr "podpira Markdown"
 
 #: ajapaik/ajapaik/templates/comments/list.html:67
-#: ajapaik/ajapaik/templates/curator/curator.html:138
+#: ajapaik/ajapaik/templates/curator/curator.html:159
 msgid "Save"
 msgstr "Shrani"
 
@@ -1084,7 +1106,7 @@ msgstr "Avtentikacija"
 msgid "Game modal photo"
 msgstr "Modalna fotografija igre"
 
-#: ajapaik/ajapaik/templates/common/game.html:49
+#: ajapaik/ajapaik/templates/common/game.html:50
 msgid "Show description"
 msgstr "Prikaži opis"
 
@@ -1096,15 +1118,15 @@ msgstr "Pokaži slike"
 msgid "Search box"
 msgstr "Iskalno polje"
 
-#: ajapaik/ajapaik/templates/compare_photos/compare_photos.html:58
+#: ajapaik/ajapaik/templates/compare_photos/compare_photos.html:60
 msgid "No content overlap"
 msgstr "Brez prekrivanja vsebine"
 
-#: ajapaik/ajapaik/templates/compare_photos/compare_photos.html:63
+#: ajapaik/ajapaik/templates/compare_photos/compare_photos.html:65
 msgid "Overlapping content"
 msgstr "Vsebina prekrivanja"
 
-#: ajapaik/ajapaik/templates/compare_photos/compare_photos.html:68
+#: ajapaik/ajapaik/templates/compare_photos/compare_photos.html:70
 msgid "Same shot"
 msgstr "Isti posnetek"
 
@@ -1117,21 +1139,26 @@ msgstr "Pregledali ste že vse podobne pare slik"
 msgid "Estonian Photographic Heritage Society"
 msgstr "Estonsko društvo za fotografsko dediščino"
 
+#: ajapaik/ajapaik/templates/core/_footer.html:24
+#: ajapaik/ajapaik_face_recognition/templates/_footer.html:24
+msgid "Privacy policy"
+msgstr "Pravilnik o zasebnosti"
+
 #: ajapaik/ajapaik/templates/core/_footer.html:29
 #: ajapaik/ajapaik_face_recognition/templates/_footer.html:29
+msgid "Terms and conditions"
+msgstr "Pogoji uporabe"
+
+#: ajapaik/ajapaik/templates/core/_footer.html:39
+#: ajapaik/ajapaik_face_recognition/templates/_footer.html:39
 msgid "Support Ajapaik"
 msgstr "Podprite Ajapaik"
 
-#: ajapaik/ajapaik/templates/core/_footer.html:29
+#: ajapaik/ajapaik/templates/core/_footer.html:39
 #: ajapaik/ajapaik/templates/donate/supporters.html:12
-#: ajapaik/ajapaik_face_recognition/templates/_footer.html:29
+#: ajapaik/ajapaik_face_recognition/templates/_footer.html:39
 msgid "Support us"
 msgstr "Podprite nas"
-
-#: ajapaik/ajapaik/templates/core/_footer.html:34
-#: ajapaik/ajapaik_face_recognition/templates/_footer.html:34
-msgid "See also – Sift.pics"
-msgstr "Glej tudi – Sift.pics"
 
 #: ajapaik/ajapaik/templates/core/_header.html:4
 msgid "Back to homepage"
@@ -1165,40 +1192,36 @@ msgstr "Pokaži na zemljevidu"
 msgid "Categorize faces"
 msgstr "Kategoriziranje obrazov"
 
-#: ajapaik/ajapaik/templates/core/_header.html:49
-msgid "Newsletters"
-msgstr "Novičniki"
-
-#: ajapaik/ajapaik/templates/core/_header.html:53
+#: ajapaik/ajapaik/templates/core/_header.html:48
 msgid "Add pictures"
 msgstr "Dodaj slike"
 
-#: ajapaik/ajapaik/templates/core/_header.html:57
+#: ajapaik/ajapaik/templates/core/_header.html:52
 msgid "Current selection"
 msgstr "Trenutna izbira"
 
-#: ajapaik/ajapaik/templates/core/_header.html:67
+#: ajapaik/ajapaik/templates/core/_header.html:62
 msgid "Choose language"
 msgstr "Izberite jezik"
 
-#: ajapaik/ajapaik/templates/core/_header.html:79
+#: ajapaik/ajapaik/templates/core/_header.html:74
 msgid "About Ajapaik"
 msgstr "O Ajapaiku"
 
-#: ajapaik/ajapaik/templates/core/_header.html:82
+#: ajapaik/ajapaik/templates/core/_header.html:77
 msgid "Ajapaik on Facebook"
 msgstr "Ajapaik na Facebooku"
 
-#: ajapaik/ajapaik/templates/core/_header.html:88
+#: ajapaik/ajapaik/templates/core/_header.html:83
 msgid "Profile and leaderboard"
 msgstr "Profil in lestvica vodilnih"
 
-#: ajapaik/ajapaik/templates/core/_header.html:96 ajapaik/ajapaik/views.py:1895
-#: ajapaik/ajapaik/views.py:1911 ajapaik/ajapaik/views.py:1946
+#: ajapaik/ajapaik/templates/core/_header.html:91 ajapaik/ajapaik/views.py:1998
+#: ajapaik/ajapaik/views.py:2014 ajapaik/ajapaik/views.py:2049
 msgid "Leaderboard"
 msgstr "Lestvica vodilnih"
 
-#: ajapaik/ajapaik/templates/core/_header.html:107
+#: ajapaik/ajapaik/templates/core/_header.html:102
 #: ajapaik/ajapaik/templates/rephoto_upload/_rephoto_upload_modal_content.html:9
 msgid "You are logged in as"
 msgstr "Prijavljeni ste kot"
@@ -1277,16 +1300,16 @@ msgstr "išči,muzej,star,fotogrfaije,slike,zgodovinski"
 msgid "Gallery of rephotographs by %(rephotos_by_name)s"
 msgstr "Galerija refotografij od %(rephotos_by_name)s"
 
-#: ajapaik/ajapaik/templates/core/base_bootstrap.html:95
+#: ajapaik/ajapaik/templates/core/base_bootstrap.html:96
 #, python-format
 msgid "Album has %(album_photo_count)s historic pictures. Let's put pictures on the map!"
 msgstr "Album ima %(album_photo_count)s zgodovinskih slik. Postavimo slike na zemljevid!"
 
-#: ajapaik/ajapaik/templates/core/base_bootstrap.html:97
+#: ajapaik/ajapaik/templates/core/base_bootstrap.html:98
 msgid "Let's put pictures on the map"
 msgstr "Postavimo slike na zemljevid"
 
-#: ajapaik/ajapaik/templates/core/base_bootstrap.html:100
+#: ajapaik/ajapaik/templates/core/base_bootstrap.html:101
 #, python-format
 msgid "Album has %(counter)s photo,"
 msgid_plural "Album has %(counter)s photos,"
@@ -1295,52 +1318,32 @@ msgstr[1] "Album ima %(counter)s fotografiji,"
 msgstr[2] "Album ima %(counter)s fotografije,"
 msgstr[3] "Album ima %(counter)s fotografij,"
 
-#: ajapaik/ajapaik/templates/core/base_bootstrap.html:101
-#: ajapaik/ajapaik/templates/info/_info_modal_content.html:28
-#, python-format
-msgid "%(counter)s user has put"
-msgid_plural "%(counter)s users have put"
-msgstr[0] "%(counter)s uporabnik je postavil"
-msgstr[1] "%(counter)s uporabnika sta postavila"
-msgstr[2] "%(counter)s so postavili"
-msgstr[3] "%(counter)s je postavilo"
-
-#: ajapaik/ajapaik/templates/core/base_bootstrap.html:103
+#: ajapaik/ajapaik/templates/core/base_bootstrap.html:105
 #: ajapaik/ajapaik/templates/info/_info_modal_content.html:30
 msgid "all the pictures on the map."
 msgstr "na zemljevid vse slike."
 
-#: ajapaik/ajapaik/templates/core/base_bootstrap.html:105
-#: ajapaik/ajapaik/templates/info/_info_modal_content.html:32
-#, python-format
-msgid "%(counter)s picture on the map."
-msgid_plural "%(counter)s pictures on the map."
-msgstr[0] " %(counter)s slika na zemljevidu."
-msgstr[1] "%(counter)s sliki na zemljevidu."
-msgstr[2] "%(counter)s slike na zemljevidu"
-msgstr[3] "%(counter)s slik na zemljevidu"
-
-#: ajapaik/ajapaik/templates/core/base_bootstrap.html:198
+#: ajapaik/ajapaik/templates/core/base_bootstrap.html:206
 msgid "Timepatch (Ajapaik)"
 msgstr "Timepatch (Ajapaik)"
 
-#: ajapaik/ajapaik/templates/core/base_bootstrap.html:269
+#: ajapaik/ajapaik/templates/core/base_bootstrap.html:297
 msgid "Geolocation error"
 msgstr "Napaka geolokacije"
 
-#: ajapaik/ajapaik/templates/core/base_bootstrap.html:272
+#: ajapaik/ajapaik/templates/core/base_bootstrap.html:300
 msgid "Sorting"
 msgstr "Razvrščanje"
 
-#: ajapaik/ajapaik/templates/core/base_bootstrap.html:481
+#: ajapaik/ajapaik/templates/core/base_bootstrap.html:519
 msgid "This website uses cookies to ensure you get the best experience on our website"
 msgstr "To spletno mesto uporablja za zagotavljanje najboljše izkušnje piškotke."
 
-#: ajapaik/ajapaik/templates/core/base_bootstrap.html:482
+#: ajapaik/ajapaik/templates/core/base_bootstrap.html:520
 msgid "Got it!"
 msgstr "Razumem!"
 
-#: ajapaik/ajapaik/templates/core/base_bootstrap.html:483
+#: ajapaik/ajapaik/templates/core/base_bootstrap.html:521
 msgid "More info"
 msgstr "Več informacij"
 
@@ -1352,62 +1355,59 @@ msgstr "Tukaj lahko naložite CSV za uvoz fotografij v Ajapaik"
 msgid "Import photo"
 msgstr "Uvozi foografijo"
 
-#: ajapaik/ajapaik/templates/curator/curator.html:16
+#: ajapaik/ajapaik/templates/curator/curator.html:22
 msgid "Thank you!"
 msgstr "Hvala!"
 
-#: ajapaik/ajapaik/templates/curator/curator.html:22
+#: ajapaik/ajapaik/templates/curator/curator.html:28
 msgid "Your photos have now been added to Ajapaik and can be interacted with as usual."
 msgstr "Vaše fotografije so zdaj dodane v Ajapaik in jih lahko uporabljate kot običajno."
 
-#: ajapaik/ajapaik/templates/curator/curator.html:24
+#: ajapaik/ajapaik/templates/curator/curator.html:30
 msgid "Points awarded for curating"
 msgstr "Dodeljene točke za urejanje"
 
-#: ajapaik/ajapaik/templates/curator/curator.html:27
+#: ajapaik/ajapaik/templates/curator/curator.html:33
 msgid "You can start geotagging the new content here"
 msgstr "Novo vsebino lahko začnete geooznačevati tukaj"
 
-#: ajapaik/ajapaik/templates/curator/curator.html:31
+#: ajapaik/ajapaik/templates/curator/curator.html:37
 msgid "Tell your friends on Facebook"
 msgstr "Povejte prijateljem na Facebooku"
 
-#: ajapaik/ajapaik/templates/curator/curator.html:37
-#: ajapaik/ajapaik/templates/curator/curator.html:134
+#: ajapaik/ajapaik/templates/curator/curator.html:43
+#: ajapaik/ajapaik/templates/curator/curator.html:155
 #: ajapaik/ajapaik/templates/rephoto_upload/_rephoto_upload_modal_content.html:42
 #: ajapaik/ajapaik/templates/user_upload/user_upload_add_album.html:22
 #: ajapaik/ajapaik_face_recognition/templates/add_subject.html:24
 msgid "Close"
 msgstr "Zapri"
 
-#: ajapaik/ajapaik/templates/curator/curator.html:46
+#: ajapaik/ajapaik/templates/curator/curator.html:52
 #: ajapaik/ajapaik/templates/curator/curator_search_controls.html:46
 msgid "Load more"
 msgstr "Naloži več"
 
-#: ajapaik/ajapaik/templates/curator/curator.html:55
+#: ajapaik/ajapaik/templates/curator/curator.html:61
 msgid "Edit your album"
 msgstr "Uredite svoj album"
 
-#: ajapaik/ajapaik/templates/curator/curator.html:66
+#: ajapaik/ajapaik/templates/curator/curator.html:72
 msgid "Error"
 msgstr "Napaka"
 
-#: ajapaik/ajapaik/templates/curator/curator.html:93
+#: ajapaik/ajapaik/templates/curator/curator.html:100
 msgid "Open album (anyone can add pictures)"
 msgstr "Odpri album (slike lahko dodaja vsakdo)"
 
-#: ajapaik/ajapaik/templates/curator/curator.html:101
+#: ajapaik/ajapaik/templates/curator/curator.html:108
 msgid "Visible (shown in selection)"
 msgstr "Vidno (prikazano v izbiri)"
 
-#: ajapaik/ajapaik/templates/curator/curator.html:117
-msgid "If the photos are from the same place, specify a location here"
-msgstr "Če so fotografije iz istega kraja, tu določite lokacijo"
-
 #: ajapaik/ajapaik/templates/curator/curator.html:123
-msgid "Place"
-msgstr "Kraj"
+#| msgid "Search for an existing album"
+msgid "!!FUZZY!!Search for an existing album"
+msgstr "Iskanje obstoječega albuma"
 
 #: ajapaik/ajapaik/templates/curator/curator_search_controls.html:9
 msgid "Search"
@@ -1550,11 +1550,11 @@ msgstr "Če vam Ajapaik pomaga pri iskanju zgodovinskih slik, ki vas zanimajo, r
 msgid "Ajapaik is currently using funding received from:"
 msgstr "Ajapaik trenutno uporablja sredstva, ki jih je prejel od:"
 
-#: ajapaik/ajapaik/templates/donate/_supporters.html:15
+#: ajapaik/ajapaik/templates/donate/_supporters.html:16
 msgid "Ajapaik has received donations from:"
 msgstr "Ajapaik je prejel donacije od:"
 
-#: ajapaik/ajapaik/templates/donate/_supporters.html:26
+#: ajapaik/ajapaik/templates/donate/_supporters.html:27
 msgid "Earlier funders:"
 msgstr "Prejšnji donatorji:"
 
@@ -1586,201 +1586,201 @@ msgstr "Nastavi geslo"
 msgid "Rephoto upload settings"
 msgstr "Nastavitve nalaganja refotografij"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:2
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:4
 msgid "Filtering"
 msgstr "Filtriranje"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:14
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:16
 msgid "Filters"
 msgstr "Filtri"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:16
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:18
 msgid "film"
 msgstr "film"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:19
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:21
 msgid "collections"
 msgstr "zbirke"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:22
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:24
 msgid "people"
 msgstr "ljudje"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:25
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:27
 msgid "back sides of pictures"
 msgstr "zadnje strani slik"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:28
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:30
 msgid "pictures in portrait format"
 msgstr "slike v pokončnem formatu"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:31
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:33
 msgid "pictures in square format"
 msgstr "slike v kvadratnem formatu"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:34
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:36
 msgid "pictures in landscape format"
 msgstr "slike v ležečem formatu"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:37
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:39
 msgid "pictures in panoramic format"
 msgstr "slike v panoramskem formatu"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:40
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:42
 msgid "exteriors"
 msgstr "zunanjosti"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:43
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:45
 msgid "interiors"
 msgstr "notranjosti"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:46
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:48
 msgid "pictures from the ground"
 msgstr "slike s tal"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:49
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:51
 msgid "pictures from a raised viewpoint"
 msgstr "slike z dvignjene zorne točke"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:52
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:54
 msgid "aerial pictures"
 msgstr "zračne slike"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:55
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:57
 msgid "pictures which are not geotagged"
 msgstr "slike, ki niso geooznačene"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:58
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:60
 msgid "high-quality pictures"
 msgstr "visokokakovostne slike"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:61
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:63
 msgid "no filter"
 msgstr "brez filtra"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:66
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:94
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:68
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:99
 msgid "Show person albums"
 msgstr "Pokaži albume oseb"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:66
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:94
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:69
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:100
 msgid "Show pictures with faces"
 msgstr "Pokaži slike z obrazi"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:74
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:78
 msgid "Pictures by collections"
 msgstr "Slike po zbirkah"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:82
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:86
 msgid "Show film albums"
 msgstr "Pokaži filmske albume"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:101
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:108
 msgid "Show pictures with back sides"
 msgstr "Pokaži slike z zadnjimi stranmi"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:111
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:118
 msgid "Show portrait pictures"
 msgstr "Pokaži pokončne slike"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:121
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:128
 msgid "Show square pictures"
 msgstr "Pokaži kvadratne slike"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:131
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:138
 msgid "Show landscape pictures"
 msgstr "Pokaži ležeče slike"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:141
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:148
 msgid "Show panoramic pictures"
 msgstr "Pokaži panoramske slike"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:151
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:158
 msgid "Show pictures made from the ground level"
 msgstr "Pokaži slike, posnete s tal"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:161
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:168
 msgid "Show pictures made from a raised viewpoint"
 msgstr "Pokaži slike, posnete z dvignjene zorne točke"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:171
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:178
 msgid "Show aerial pictures"
 msgstr "Pokaži zračne slike"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:181
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:188
 msgid "Show interior pictures"
 msgstr "Pokaži slike notranjosti"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:190
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:198
 msgid "Show exterior pictures"
 msgstr "Pokaži slike zunanjosti"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:200
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:208
 msgid "Show pictures which are not geotagged"
 msgstr "Pokaži slike, ki niso geooznačene"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:210
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:218
 msgid "Show high-quality pictures"
 msgstr "Pokaži visokokakovostne slike"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:225
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:231
 msgid "Sort by distance from you"
 msgstr "Razvrstitev po oddaljenosti od vas"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:235
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:241
 msgid "Sort by time and ..."
 msgstr "Razvrstitev po času in ..."
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:245
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:251
 msgid "Sort by photos' time added"
 msgstr "Razvrstitev po času dodatka fotografij"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:256
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:262
 msgid "Sort by stills' timestamp"
 msgstr "Razvrstitev po časovnem žigu kadrov"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:266
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:273
 msgid "Sort by views' time added or amount"
 msgstr "Razvrstitev po času dodatka ali številu ogledov"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:275
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:283
 msgid "Sort by geotags' time added or amount"
 msgstr "Razvrstitev po času dodatka ali številu geooznačitev"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:285
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:293
 msgid "Sort by rephotos' time added or amount"
 msgstr "Razvrstitev po času dodatka ali številu refotografij"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:295
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:303
 msgid "Sort by annotations' time added or amount"
 msgstr "Razvrstitev po času dodatka ali številu označitev"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:304
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:312
 msgid "Sort by transcriptions' time added or amount"
 msgstr "Razvrstitev po času dodatka ali številu prepisov"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:313
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:321
 msgid "Sort by datings' time added or amount"
 msgstr "Razvrstitev po času dodatka ali številu datiranj"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:323
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:331
 msgid "Sort by comments' time added or amount"
 msgstr "Razvrstitev po času dodatka ali številu komentarjev"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:333
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:341
 msgid "Sort by likes' time added or amount"
 msgstr "Razvrsti po času dodatka ali številu všečkov"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:343
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:351
 msgid "Sort by amount and ..."
 msgstr "Razvrsti po številu in ..."
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:353
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:361
 msgid "Change sorting order"
 msgstr "Spremeni razvrščanje"
 
-#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:362
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:370
 msgid "Help"
 msgstr "Pomoč"
 
@@ -1865,16 +1865,16 @@ msgstr "Ajapaik je neprofitni podvig Estonskega združenja za fotografsko dediš
 msgid "Ajapaik has <b>%(total_photo_count)s</b> historic pictures, out of which <b>%(total_photos_tagged)s</b> pictures have been put on the map by <b>%(contributing_users)s</b> users and <b>%(rephoto_count)s</b> rephotographs for <b>%(rephotographed_photo_count)s</b> pictures made by <b>%(rephotographing_users)s</b> users."
 msgstr "Ajapaik vsebuje <b>%(total_photo_count)s</b> zgodovinskih slik, od katerih je <b>%(contributing_users)s</b> na zemljevid postavilo <b>%(total_photos_tagged)s</b> slik in <b>%(rephoto_count)s</b> refotografij za <b>%(rephotographed_photo_count)s</b> slik, ki jih je ustvarilo <b>%(rephotographing_users)s</b> uporabnikov."
 
-#: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:34
+#: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:38
 #, python-format
 msgid "There are <b>%(person_annotation_count)s</b> faces detected on the pictures, a person has been identified in <b>%(person_annotation_count_with_person_album)s</b> cases, age or gender is marked for <b>%(person_annotation_count_with_subject_data)s</b> faces."
 msgstr "Na slikah je bilo zaznanih <b>%(person_annotation_count)s</b> obrazov; oseba je bila identificirana v <b>%(person_annotation_count_with_person_album)s</b> primerih, starost ali spol je označen za <b>%(person_annotation_count_with_subject_data)s</b> obrazov."
 
-#: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:38
+#: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:45
 msgid "Overview of your own contributions can be found on your <a href='/me'>user profile page</a>."
 msgstr "Pregled lastnih prispevkov najdete na <a href='/me'>strani vašega uporabniškega profila</a>."
 
-#: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:41
+#: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:48
 msgid "General statistics refresh every 10 minutes."
 msgstr "Splošna statistika se osveži vsakih 10 minut."
 
@@ -1895,6 +1895,26 @@ msgstr[0] " Album ima %(counter)s zgodovinsko sliko,"
 msgstr[1] "Album ima %(counter)s zgodovinski sliki,"
 msgstr[2] "Album ima %(counter)s zgodovinske slike,"
 msgstr[3] "Album ima %(counter)s zgodovinskih slik,"
+
+#: ajapaik/ajapaik/templates/core/base_bootstrap.html:102
+#: ajapaik/ajapaik/templates/info/_info_modal_content.html:28
+#, python-format
+msgid "%(counter)s user has put"
+msgid_plural "%(counter)s users have put"
+msgstr[0] "%(counter)s uporabnik je postavil"
+msgstr[1] "%(counter)s uporabnika sta postavila"
+msgstr[2] "%(counter)s so postavili"
+msgstr[3] "%(counter)s je postavilo"
+
+#: ajapaik/ajapaik/templates/core/base_bootstrap.html:107
+#: ajapaik/ajapaik/templates/info/_info_modal_content.html:32
+#, python-format
+msgid "%(counter)s picture on the map."
+msgid_plural "%(counter)s pictures on the map."
+msgstr[0] " %(counter)s slika na zemljevidu."
+msgstr[1] "%(counter)s sliki na zemljevidu."
+msgstr[2] "%(counter)s slike na zemljevidu"
+msgstr[3] "%(counter)s slik na zemljevidu"
 
 #: ajapaik/ajapaik/templates/info/_info_modal_content.html:37
 msgid "You haven't made any location suggestions for pictures in this album."
@@ -2024,38 +2044,38 @@ msgid "Approximate address"
 msgstr "Približen naslov"
 
 #: ajapaik/ajapaik/templates/photo/_photo_modal.html:46
-#: ajapaik/ajapaik/templates/photo/photoview.html:68
+#: ajapaik/ajapaik/templates/photo/photoview.html:69
 msgid "See the other side of photo"
 msgstr "Ogled druge strani fotografije"
 
 #: ajapaik/ajapaik/templates/photo/_photo_modal.html:81
 #: ajapaik/ajapaik/templates/photo/_photo_modal.html:82
-#: ajapaik/ajapaik/templates/photo/photoview.html:136
 #: ajapaik/ajapaik/templates/photo/photoview.html:137
+#: ajapaik/ajapaik/templates/photo/photoview.html:138
 msgid "similar photo"
 msgstr "podobna fotografija"
 
 #: ajapaik/ajapaik/templates/photo/_photo_modal.html:84
 #: ajapaik/ajapaik/templates/photo/_photo_modal.html:85
-#: ajapaik/ajapaik/templates/photo/photoview.html:139
 #: ajapaik/ajapaik/templates/photo/photoview.html:140
+#: ajapaik/ajapaik/templates/photo/photoview.html:141
 msgid "duplicate photo"
 msgstr "podvojena fotografija"
 
-#: ajapaik/ajapaik/templates/photo/_rephoto_description_container.html:38
+#: ajapaik/ajapaik/templates/photo/_rephoto_description_container.html:37
 msgid "Date taken"
 msgstr "Datum posnetka"
 
 #: ajapaik/ajapaik/templates/photo/photoview.html:29
-#: ajapaik/ajapaik/templates/photo/photoview.html:31
-#: ajapaik/ajapaik/templates/photo/photoview.html:111
-#: ajapaik/ajapaik/templates/photo/photoview.html:164
+#: ajapaik/ajapaik/templates/photo/photoview.html:32
+#: ajapaik/ajapaik/templates/photo/photoview.html:112
 #: ajapaik/ajapaik/templates/photo/photoview.html:165
+#: ajapaik/ajapaik/templates/photo/photoview.html:166
 msgid "rephoto"
 msgstr "refotografija"
 
 #: ajapaik/ajapaik/templates/photo/selection/photo_selection.html:22
-#: ajapaik/ajapaik/templates/photo/selection/photo_selection.html:109
+#: ajapaik/ajapaik/templates/photo/selection/photo_selection.html:110
 msgid "Mark as similar or duplicates"
 msgstr "Označi kot podobno ali dvojnik"
 
@@ -2071,11 +2091,11 @@ msgstr "Zrcaljenje, vrtenje in obračanje slik"
 msgid "You can re-order photos by dragging and dropping"
 msgstr "Fotografije lahko prerazvrščate tako, da jih povlečete in spustite"
 
-#: ajapaik/ajapaik/templates/photo/selection/photo_selection.html:108
+#: ajapaik/ajapaik/templates/photo/selection/photo_selection.html:109
 msgid "Images have overlapping content"
 msgstr "Slike imajo prekrivajočo se vsebino"
 
-#: ajapaik/ajapaik/templates/photo/selection/photo_selection.html:108
+#: ajapaik/ajapaik/templates/photo/selection/photo_selection.html:109
 msgid "All images are of the same shot"
 msgstr "Vse slike pripadajo istemu posnetku"
 
@@ -2096,8 +2116,8 @@ msgid "CSV Import"
 msgstr "Uvoz CSV"
 
 #: ajapaik/ajapaik/templates/rephoto_upload/_rephoto_upload_modal_content.html:21
-#: ajapaik/ajapaik/templates/rephoto_upload/_rephoto_upload_modal_content.html:99
-#: ajapaik/ajapaik/templates/user_upload/user_upload.html:51
+#: ajapaik/ajapaik/templates/rephoto_upload/_rephoto_upload_modal_content.html:98
+#: ajapaik/ajapaik/templates/user_upload/user_upload.html:53
 msgid "Upload"
 msgstr "Naloži"
 
@@ -2121,7 +2141,7 @@ msgstr "Prekini"
 msgid "Select new file..."
 msgstr "Izberite novo datoteko ..."
 
-#: ajapaik/ajapaik/templates/rephoto_upload/_rephoto_upload_modal_content.html:107
+#: ajapaik/ajapaik/templates/rephoto_upload/_rephoto_upload_modal_content.html:106
 msgid "File upload failed."
 msgstr "Nlaganje datoteke je spodletelo."
 
@@ -2145,7 +2165,7 @@ msgstr "Pri poskusu prijave z vašim računom družbenega omrežja je prišlo do
 
 #: ajapaik/ajapaik/templates/socialaccount/connections.html:5
 #: ajapaik/ajapaik/templates/socialaccount/connections_content.html:3
-#: ajapaik/ajapaik/views.py:3486
+#: ajapaik/ajapaik/views.py:3717
 msgid "Account Connections"
 msgstr "Povezave v račun"
 
@@ -2266,10 +2286,10 @@ msgstr[3] "<b>%(face_annotations_pictures)s</b> slikah"
 #, python-format
 msgid "annotated <b>%(object_annotations)s</b> object on"
 msgid_plural "annotated <b>%(object_annotations)s</b> objects on"
-msgstr[0] "označili <b>%(object_annotations)s</b> objekt na"
-msgstr[1] "označili <b>%(object_annotations)s</b> objekta na"
-msgstr[2] "označili <b>%(object_annotations)s</b> objekte na"
-msgstr[3] "označili <b>%(object_annotations)s</b> objektov na"
+msgstr[0] "označili <b>%(object_annotations)s</b> predmet na"
+msgstr[1] "označili <b>%(object_annotations)s</b> predmeta na"
+msgstr[2] "označili <b>%(object_annotations)s</b> predmete na"
+msgstr[3] "označili <b>%(object_annotations)s</b> predmetov na"
 
 #: ajapaik/ajapaik/templates/user/_current_user_info.html:46
 #, python-format
@@ -2470,11 +2490,11 @@ msgstr "Dodajte sliko v nekaj albumov"
 msgid "You need to add the picture to atleast one album"
 msgstr "Sliko morate dodati v vsaj en album"
 
-#: ajapaik/ajapaik/templates/user_upload/user_upload.html:46
+#: ajapaik/ajapaik/templates/user_upload/user_upload.html:48
 msgid "Please add the picture to some existing album(s) or create first a new album and then add the picture to it"
 msgstr "Dodajte sliko v nekatere obstoječe albume ali najprej ustvarite nov album in nato vanj dodajte sliko"
 
-#: ajapaik/ajapaik/templates/user_upload/user_upload.html:54
+#: ajapaik/ajapaik/templates/user_upload/user_upload.html:56
 msgid "Upload and mark on map"
 msgstr "Naloži in označi na zemljevidu"
 
@@ -2487,134 +2507,134 @@ msgstr "Dodaj"
 msgid "You're anonymous. You can now log in with your e-mail."
 msgstr "Ste anonimni. Zdaj se lahko prijavite s svojim e-poštnim naslovom."
 
-#: ajapaik/ajapaik/views.py:469
+#: ajapaik/ajapaik/views.py:526
 msgid "Non-authenticated user"
 msgstr "Neavtenticiran uporabnik"
 
-#: ajapaik/ajapaik/views.py:607
+#: ajapaik/ajapaik/views.py:664
 msgid "Geotagging game"
 msgstr "Igra geooznačevanja"
 
-#: ajapaik/ajapaik/views.py:675
+#: ajapaik/ajapaik/views.py:731
 #, python-format
 msgid "%(name)s - rephotos"
 msgstr "%(name)s – refotografije"
 
-#: ajapaik/ajapaik/views.py:1229
+#: ajapaik/ajapaik/views.py:1299
 msgid "Cannot upload to these albums"
 msgstr "V te albume ni mogoče nalagati"
 
-#: ajapaik/ajapaik/views.py:1263
+#: ajapaik/ajapaik/views.py:1333
 msgid "Recuration successful"
 msgstr "Uspešno ponovno urejanje"
 
-#: ajapaik/ajapaik/views.py:1265
+#: ajapaik/ajapaik/views.py:1335
 msgid "Faulty data submitted"
 msgstr "Predloženi napačni podatki"
 
-#: ajapaik/ajapaik/views.py:1609
+#: ajapaik/ajapaik/views.py:1712
 msgid "Browse photos on map"
 msgstr "Brskajte po fotografijah na zemljevidu"
 
-#: ajapaik/ajapaik/views.py:1751
+#: ajapaik/ajapaik/views.py:1854
 msgid "Your contribution didn't change the estimated location for the photo, not yet anyway."
 msgstr "Vaš prispevek ni spremenil ocenjene lokacije fotografije, vsaj trenutno še ne."
 
-#: ajapaik/ajapaik/views.py:1753
+#: ajapaik/ajapaik/views.py:1856
 msgid "The photo has been mapped to a new location thanks to you."
 msgstr "Fotografija je bila po vaši zaslugi povezana z novim stojiščem."
 
-#: ajapaik/ajapaik/views.py:1755
+#: ajapaik/ajapaik/views.py:1858
 msgid "Your suggestion was first."
 msgstr "Vaš predlog je bil prvi."
 
-#: ajapaik/ajapaik/views.py:2028
+#: ajapaik/ajapaik/views.py:2131
 msgid "Search for old photos, add them to Ajapaik, determine their locations and share the resulting album!"
 msgstr "Poiščite stare fotografije, jih dodajte v Ajapaik, določite njihove lokacije in delite nastali album!"
 
-#: ajapaik/ajapaik/views.py:2379
+#: ajapaik/ajapaik/views.py:2478
 msgid "OK"
 msgstr "V redu"
 
-#: ajapaik/ajapaik/views.py:2439 ajapaik/ajapaik/views.py:2460
+#: ajapaik/ajapaik/views.py:2619 ajapaik/ajapaik/views.py:2640
 #, python-format
 msgid "Error uploading file: %s (%s)"
 msgstr "Napaka pri nalaganju datoteke: %s (%s)"
 
-#: ajapaik/ajapaik/views.py:2457
+#: ajapaik/ajapaik/views.py:2637
 msgid "Photo already exists in Ajapaik"
 msgstr "Fotografija že obstaja v Ajapaiku"
 
-#: ajapaik/ajapaik/views.py:2479
+#: ajapaik/ajapaik/views.py:2659
 msgid "Please add pictures to your album"
 msgstr "Dodajte slike v svoj album"
 
-#: ajapaik/ajapaik/views.py:2481
+#: ajapaik/ajapaik/views.py:2661
 msgid "Not enough data submitted"
 msgstr "Predloženih ni dovolj podatkov"
 
-#: ajapaik/ajapaik/views.py:2923
+#: ajapaik/ajapaik/views.py:3115
 #, python-format
 msgid "Still from \"%(film)s\" at %(time)s"
 msgstr "Kader iz »%(film)s« ob %(time)s"
 
-#: ajapaik/ajapaik/views.py:3177
+#: ajapaik/ajapaik/views.py:3369
 msgid "Photo uploaded"
 msgstr "Fotografija naložena"
 
-#: ajapaik/ajapaik/views.py:3197
+#: ajapaik/ajapaik/views.py:3389
 msgid "Album created"
 msgstr "Album ustvarjen"
 
-#: ajapaik/ajapaik/views.py:3271
+#: ajapaik/ajapaik/views.py:3463
 msgid "Sorry but we fail to post your comment."
 msgstr "Oprostite, vendar ne uspemo objaviti vašega komentarja."
 
-#: ajapaik/ajapaik/views.py:3474
+#: ajapaik/ajapaik/views.py:3705
 msgid "Change password"
 msgstr "Sprememba gesla"
 
-#: ajapaik/ajapaik/views.py:3478
+#: ajapaik/ajapaik/views.py:3709
 msgid "Change display name"
 msgstr "Sprememba prikaznega imena"
 
-#: ajapaik/ajapaik/views.py:3480
+#: ajapaik/ajapaik/views.py:3711
 msgid "Newsletter and language settings"
 msgstr "Nastavitve novičnika in jezikov"
 
-#: ajapaik/ajapaik/views.py:3488
+#: ajapaik/ajapaik/views.py:3719
 msgid "Merge another Ajapaik account with current one"
 msgstr "Združite s trenutnim računom drug Ajapaik račun"
 
-#: ajapaik/ajapaik/views.py:3571
+#: ajapaik/ajapaik/views.py:3802
 msgid "KulKa logo"
 msgstr "Logotip KulKa"
 
-#: ajapaik/ajapaik/views.py:3576
+#: ajapaik/ajapaik/views.py:3807
 msgid "Ministry of Education logo"
 msgstr "Logotip Ministrstva za izobraževanje"
 
-#: ajapaik/ajapaik/views.py:3582
+#: ajapaik/ajapaik/views.py:3813
 msgid "EV100 logo"
 msgstr "Logotip EV100"
 
-#: ajapaik/ajapaik/views.py:3589
+#: ajapaik/ajapaik/views.py:3820
 msgid "KYSK logo"
 msgstr "Logotip KYSK"
 
-#: ajapaik/ajapaik/views.py:3594
+#: ajapaik/ajapaik/views.py:3825
 msgid "Ministry of Culture"
 msgstr "Ministrstvo za kulturo"
 
-#: ajapaik/ajapaik/views.py:3600
+#: ajapaik/ajapaik/views.py:3831
 msgid "Republic of Estonia National Heritage Board"
 msgstr "Odbor za narodno dediščino Republike Estonije"
 
-#: ajapaik/ajapaik/views.py:3607
+#: ajapaik/ajapaik/views.py:3838
 msgid "Year of Digital Culture 2020"
 msgstr "Leto digitalne kulture 2020"
 
-#: ajapaik/ajapaik/views.py:3614
+#: ajapaik/ajapaik/views.py:3845
 msgid "Wikimedia Finland"
 msgstr "Wikimedia Finska"
 
@@ -2639,17 +2659,17 @@ msgid "Additional remarks about the person (other names etc)"
 msgstr "Dodatne opombe o osebi (druga imena idr.)"
 
 #: ajapaik/ajapaik_face_recognition/models.py:14
-#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:71
+#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:72
 msgid "Child"
 msgstr "Otrok"
 
 #: ajapaik/ajapaik_face_recognition/models.py:15
-#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:74
+#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:75
 msgid "Adult"
 msgstr "Odrasel"
 
 #: ajapaik/ajapaik_face_recognition/models.py:16
-#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:77
+#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:78
 msgid "Elderly"
 msgstr "Starejši"
 
@@ -2694,8 +2714,8 @@ msgid "In case the rectangle is misplaced please choose"
 msgstr "V primeru, da je pravokotnik napačno postavljen, izberite"
 
 #: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:16
-#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:61
-#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:85
+#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:62
+#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:86
 msgid "Not a Face"
 msgstr "Ni obraz"
 
@@ -2704,8 +2724,8 @@ msgid "To see the description of the image, please press"
 msgstr "Če si želite ogledati opis slike, pritisnite"
 
 #: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:18
-#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:64
-#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:88
+#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:65
+#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:89
 msgid "Info"
 msgstr "Informacije"
 
@@ -2713,20 +2733,20 @@ msgstr "Informacije"
 msgid "Create a new person record"
 msgstr "Ustvari nov zapis osebe"
 
-#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:58
-#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:82
+#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:59
+#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:83
 msgid "Not sure"
 msgstr "Nisem prepričan_a"
 
-#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:94
+#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:95
 msgid "Skip"
 msgstr "Preskoči"
 
-#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:98
+#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:99
 msgid "Currently the gender is"
 msgstr "Trenutno je spol"
 
-#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:100
+#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:101
 msgid "Currently the age is"
 msgstr "Trenutno je starost"
 

@@ -1,4 +1,4 @@
-# Translation of Ajapaik Web app - JavaScript to Zazaki (Zazaki)
+# Translation of Ajapaik Web app - JavaScript to Dimli (Zazaki)
 # Exported from translatewiki.net
 #
 # Author: 1917 Ekim Devrimi
@@ -11,15 +11,17 @@
 msgid ""
 msgstr ""
 ""
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: translatewiki.net\n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2023-03-16 12:00:23+0000\n"
+"PO-Revision-Date: 2025-10-30 12:00:24+0000\n"
 "Language: diq\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-POT-Import-Date: 2021-10-10 16:30:23+0000\n"
-"X-Generator: MediaWiki 1.41.0-alpha; Translate 2023-01-24\n"
+"X-Generator: MediaWiki 1.46.0-alpha; Translate 2025-07-31\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Project-Id-Version: Ajapaik Web app - JavaScript\n"
+"X-Translation-Project: translatewiki.net <https://translatewiki.net>\n"
 
 #: ajapaik/ajapaik/static/js/ajp-core.js:392
 msgid "User denied the request for Geolocation."
@@ -691,7 +693,7 @@ msgstr "fotrafi"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:100
 msgid "Ordering"
-msgstr ""
+msgstr "Rêzkerdış"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:105
 msgid "earliest"
@@ -740,7 +742,7 @@ msgstr "rıdiyaye"
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:141
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:144
 msgid "categorized"
-msgstr ""
+msgstr "kategorize kerd"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:147
 msgid "dated"

@@ -9,13 +9,16 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2023-03-27 15:28:39+0000\n"
+"PO-Revision-Date: 2025-10-30 12:00:28+0000\n"
 "X-POT-Import-Date: 2021-10-10 16:30:23+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: sl\n"
-"X-Generator: MediaWiki 1.41.0-alpha; Translate 2023-01-24\n"
+"X-Generator: MediaWiki 1.46.0-alpha; Translate 2025-07-31\n"
 "Plural-Forms: nplurals=4; plural=(n%100 == 1) ? 0 : ( (n%100 == 2) ? 1 : ( (n%100 == 3 || n%100 == 4) ? 2 : 3 ) );\n"
+"Project-Id-Version: Ajapaik Web app - JavaScript\n"
+"Report-Msgid-Bugs-To: translatewiki.net\n"
+"X-Translation-Project: translatewiki.net <https://translatewiki.net>\n"
 
 #: ajapaik/ajapaik/static/js/ajp-core.js:392
 msgid "User denied the request for Geolocation."
@@ -590,7 +593,7 @@ msgstr "Velikost"
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:101
 #: ajapaik/ajapaik/static/js/ajp-selection.js:93
 msgid "Something went wrong, please check your connection. If the issue persists please contact us on Tawk.to"
-msgstr "Nekaj je šlo narobe, preverite povezavo. Če težave ne odpravite, nas kontaktirajte na Tawk.to"
+msgstr "Nekaj je šlo narobe, preverite povezavo. Če težave ne boste mogli odpraviti, nas kontaktirajte na Tawk.to"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:102
 msgid "Source ID"
@@ -835,7 +838,7 @@ msgstr "Objekt"
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:765
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:908
 msgid "Grab and drag the MAP so that the marker is where the photographer was standing."
-msgstr "Zgrabite in povlecite ZEMLJEVID tako, da bo oznaka tam, kjer je stal fotograf."
+msgstr "Zgrabite in povlecite ZEMLJEVID tako, da bo označevalec tam, kjer je stal fotograf."
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:517
 msgid "Search box"
@@ -876,7 +879,7 @@ msgstr "Kliknite zemljevid, da zaklenete smer pogleda, ali kliknite rumeni gumb,
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:913
 msgid "Click the green button to save both the location and the direction of the view. Click on the map to unlock the direction, drag MARKER to correct the location."
-msgstr "Kliknite zeleni gumb, da shranite lokacijo in smer pogleda. Kliknite zemljevid, da odklenete smer. Povlecite MARKER, da popravite lokacijo."
+msgstr "Kliknite zeleni gumb, da shranite lokacijo in smer pogleda. Kliknite zemljevid, da odklenete smer. Povlecite OZNAČEVALEC, da popravite lokacijo."
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:917
 msgid "Now you can drag the MARKER where the photographer was standing and the MAP separately."
@@ -888,7 +891,7 @@ msgstr "Povlecite zemljevid tako, da krog pokriva približno lokacijo. Kliknite 
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:923
 msgid "Drag the map so that the marker is on top of the object you see on the picture, click save when ready."
-msgstr "Povlecite zemljevid tako, da je oznaka na vrhu objekta, ki ga vidite na sliki. Kliknite shrani, ko ste pripravljeni."
+msgstr "Povlecite zemljevid tako, da bo označevalec na vrhu objekta, ki ga vidite na sliki. Ko boste pripravljeni, kliknite »Shrani«."
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:1069
 msgid "Points awarded"
@@ -1037,7 +1040,7 @@ msgstr "Obraz"
 
 #: ajapaik/ajapaik/static/js/constants.js:79
 msgid "Failed to load object annotation classes"
-msgstr "Nalaganje razredov označitev objektov ni uspelo"
+msgstr "Nalaganje razredov označitev predmetov ni uspelo"
 
 #: ajapaik/ajapaik/static/js/constants.js:80
 msgid "Failed to load annotations"
@@ -1045,7 +1048,7 @@ msgstr "Nalaganje označitev ni uspelo"
 
 #: ajapaik/ajapaik/static/js/constants.js:81
 msgid "Successfully added object annotation"
-msgstr "Uspešno dodana označitev objekta"
+msgstr "Označitev predmeta uspešno dodana"
 
 #: ajapaik/ajapaik/static/js/constants.js:82
 msgid "Unable to save object annotation"
@@ -1053,7 +1056,7 @@ msgstr "Označitve objekta ni bilo mogoče shraniti"
 
 #: ajapaik/ajapaik/static/js/constants.js:83
 msgid "Successfully updated object annotation"
-msgstr "Označitev objekta uspešno shranjenA"
+msgstr "Označitev predmeta uspešno shranjena"
 
 #: ajapaik/ajapaik/static/js/constants.js:84
 msgid "Unable to update object annotation"
@@ -1065,11 +1068,11 @@ msgstr "Povratna informacija o označitvi objekta uspešno dodana"
 
 #: ajapaik/ajapaik/static/js/constants.js:86
 msgid "Failed to add object annotation feedback"
-msgstr "Povratne informacije o označitvi objekta ni bilo mogoče dodati"
+msgstr "Povratne informacije o označitvi predmeta ni bilo mogoče dodati"
 
 #: ajapaik/ajapaik/static/js/constants.js:87
 msgid "Successfully removed object annotation"
-msgstr "Uspešno odstranjena označitev objekta"
+msgstr "Označitev predmeta uspešno odstranjena"
 
 #: ajapaik/ajapaik/static/js/constants.js:88
 msgid "Unable to remove object annotation"
@@ -1202,5 +1205,5 @@ msgstr "Samodejno zaznan objekt"
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:311
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:313
 msgid "View object on Wikidata"
-msgstr "Ogled objekta v Wikipodatkih"
+msgstr "Ogled predmeta v Wikipodatkih"
 

@@ -4,6 +4,8 @@
 # Author: Duke of Wikipädia
 # Author: Eduardo Addad de Oliveira
 # Author: Eduardoaddad
+# Author: Felipe L. Ewald
+# Author: Re demz
 # Author: Svjatysberega
 # Author: Yeltsinxyz
 # --
@@ -13,15 +15,17 @@
 msgid ""
 msgstr ""
 ""
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: translatewiki.net\n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2023-03-16 12:00:25+0000\n"
+"PO-Revision-Date: 2025-10-30 12:00:28+0000\n"
 "Language: pt-BR\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-POT-Import-Date: 2021-10-10 16:30:23+0000\n"
-"X-Generator: MediaWiki 1.41.0-alpha; Translate 2023-01-24\n"
+"X-Generator: MediaWiki 1.46.0-alpha; Translate 2025-07-31\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Project-Id-Version: Ajapaik Web app - JavaScript\n"
+"X-Translation-Project: translatewiki.net <https://translatewiki.net>\n"
 
 #: ajapaik/ajapaik/static/js/ajp-core.js:392
 msgid "User denied the request for Geolocation."
@@ -226,7 +230,7 @@ msgstr "Detalhes do álbum"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:8
 msgid "Album has <em>%(photoCount)s</em> pictures"
-msgstr ""
+msgstr "O álbum tem <em>%(photoCount)s</em> imagens"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:9
 msgid "Approximate address"
@@ -357,27 +361,27 @@ msgstr "Nenhuma foto aérea foi encontrada"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:41
 msgid "No exterior views were found in this album"
-msgstr ""
+msgstr "Visualizações externas não foram encontradas neste álbum"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:42
 msgid "No exterior views were found"
-msgstr ""
+msgstr "Visualizações externas não foram encontradas"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:43
 msgid "No high-quality pictures were found"
-msgstr ""
+msgstr "Imagens de alta qualidade não foram encontradas"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:44
 msgid "No high-quality pictures were found in this album"
-msgstr ""
+msgstr "Nenhuma imagem de alta qualidade foi encontrada neste álbum"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:45
 msgid "No interior views were found in this album"
-msgstr ""
+msgstr "Visualizações internas não foram encontradas neste álbum"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:46
 msgid "No interior views were found"
-msgstr ""
+msgstr "Visualizações internas não foram encontradas"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:47
 msgid "No pictures in landscape format were found"
@@ -397,51 +401,51 @@ msgstr "Nenhuma foto em formato panorâmico foi encontrada neste álbum"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:51
 msgid "No pictures from the ground level were found in this album"
-msgstr ""
+msgstr "Não foram encontradas fotos do nível do solo nesse álbum"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:52
 msgid "No pictures from the ground level were found"
-msgstr ""
+msgstr "Não foram encontradas fotos do nível do solo"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:53
 msgid "No pictures were found in this album"
-msgstr ""
+msgstr "Nenhuma imagem foi encontrada neste álbum"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:54
 msgid "No pictures were found with the selected filters in this album"
-msgstr ""
+msgstr "Nenhuma imagem com os filtros selecionados foi encontrada neste álbum"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:55
 msgid "No pictures were found with the selected filters"
-msgstr ""
+msgstr "Nenhuma imagem com os filtros selecionados foi encontrada"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:56
 msgid "No pictures were found"
-msgstr ""
+msgstr "Nenhuma imagem foi encontrada"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:57
 msgid "No pictures which have 0 geotags were found in this album"
-msgstr ""
+msgstr "Nenhuma imagem que tenha 0 geotags foi encontrada neste álbum"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:58
 msgid "No pictures which have 0 geotags were found"
-msgstr ""
+msgstr "Nenhuma imagem que tenha 0 geotags foi encotrada"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:59
 msgid "No pictures with back sides were found in this album"
-msgstr ""
+msgstr "Nenhuma imagem com verso foi encontrada neste álbum"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:60
 msgid "No pictures with back sides were found"
-msgstr ""
+msgstr "Nenhuma imagem com verso foi encontrada"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:61
 msgid "No pictures with marked faces were found in this album"
-msgstr ""
+msgstr "Nenhuma imagem com rostos marcados foi encontrada neste álbum"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:62
 msgid "No pictures with marked faces were found"
-msgstr ""
+msgstr "Nenhuma imagem com rostos marcados foi encontrada"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:63
 msgid "No pictures in portrait format were found"
@@ -453,19 +457,19 @@ msgstr "Nenhuma foto em formato retrato foi encontrada neste álbum"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:65
 msgid "No raised viewpoint pictures were found in this album"
-msgstr ""
+msgstr "Nenhuma imagem de ponto de vista alto foi encontrada neste álbum"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:66
 msgid "No raised viewpoint pictures were found"
-msgstr ""
+msgstr "Nenhuma imagem de ponto de vista alto foi encontrada"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:67
 msgid "No results found for: %(query)s in this album"
-msgstr ""
+msgstr "Nenhum resulto encontrado para: %(query)s neste álbum"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:68
 msgid "No results found for: %(query)s in this album\nYou could also try to edit filters applied to your search"
-msgstr ""
+msgstr "Nenhum resultado encontrado para: %(query)s neste álbum\nVocê também pode tentar editar os filtros aplicados a sua pesquisa"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:69
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:249
@@ -474,7 +478,7 @@ msgstr "Nenhum resultado encontrado para: %(query)s"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:70
 msgid "No results found for: %(query)s\nYou could also try to edit filters applied to your search"
-msgstr ""
+msgstr "Nenhum resultado encontrado para: %(query)s\nVocê também pode tentar editar os filtros aplicados a sua pesquisa"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:71
 msgid "No pictures in square format were found"
@@ -486,11 +490,11 @@ msgstr "Nenhuma imagem em formato quadrado foi encontrada neste álbum"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:73
 msgid "No rephotos were found"
-msgstr ""
+msgstr "Não foram encontradas rephotos"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:74
 msgid "No rephotos were found in this album"
-msgstr ""
+msgstr "Não foram encontrados rephotos neste album"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:75
 msgid "No liked pictures were found"
@@ -506,7 +510,7 @@ msgstr "Número"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:79
 msgid "Picture added to album by:"
-msgstr ""
+msgstr "Imagem adicionada ao álbum por:"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:80
 msgid "Picture already in album(s)"
@@ -522,11 +526,11 @@ msgstr "A imagem já está em Ajapaik. Você ainda pode adicioná-lo ao seu álb
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:83
 msgid "Picture set has no annotations"
-msgstr ""
+msgstr "O conjunto de imagens não tem anotações"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:84
 msgid "Picture set has no comments"
-msgstr ""
+msgstr "O conjunto de imagens não tem comentários"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:85
 msgid "Picture set has no datings"
@@ -534,7 +538,7 @@ msgstr "O conjunto de imagens não tem datas"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:86
 msgid "Picture set has no geotags"
-msgstr ""
+msgstr "O conjunto de imagens não tem geotags"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:87
 msgid "Picture set has no likes"
@@ -542,11 +546,11 @@ msgstr "O conjunto de imagens não tem curtidas"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:88
 msgid "Picture set has no rephotos"
-msgstr ""
+msgstr "O conjunto de imagens não tem rephotos"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:89
 msgid "Picture set has no transcriptions"
-msgstr ""
+msgstr "O conjunto de imagens não tem transcrições"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:90
 msgid "Picture set has no views"
@@ -902,7 +906,7 @@ msgstr "Pontos atribuídos"
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:1071
 msgid "Picture flip feedback"
-msgstr ""
+msgstr "Feedback de inversão de imagem"
 
 #: ajapaik/ajapaik/static/js/ajp-juks-gmaps.js:50
 msgid "Historic maps"
@@ -914,7 +918,7 @@ msgstr "Remover o filtro de álbuns"
 
 #: ajapaik/ajapaik/static/js/ajp-map.js:711
 msgid "Pictures only in album: %(albumName)s are shown in the sidebar"
-msgstr ""
+msgstr "Imagens somente no álbum: %(albumName)s estão na barra lateral"
 
 #: ajapaik/ajapaik/static/js/ajp-map.js:726
 msgid "Apply album filter"
@@ -1164,7 +1168,7 @@ msgstr "Desenhe e marque um rosto"
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:217
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:219
 msgid "Open album"
-msgstr ""
+msgstr "Abrir álbum"
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:147
 msgid "Tag <em>%(personName)s</em>"
@@ -1182,8 +1186,8 @@ msgstr "Rosto detectado automaticamente"
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:191
 msgid "%(photoCount)s picture"
 msgid_plural "%(photoCount)s pictures"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%(photoCount)s imagem"
+msgstr[1] "%(photoCount)s imagens"
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:201
 msgid "Tag a face annotation with person's name"
