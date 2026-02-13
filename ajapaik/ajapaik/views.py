@@ -1197,7 +1197,11 @@ def mapview(request, photo_id=None, rephoto_id=None):
         photos_qs = photos_qs.filter(area=area, rephoto_of__isnull=True)
 
     # If we using unfiltered view then we can just count all geotags
-    if select_all_photos:
+
+    if True:
+        geotagging_user_count = 0
+        total_photo_count = 0
+    elif select_all_photos:
         geotagging_user_count = GeoTag.objects.distinct('user').values('user').count()
         total_photo_count = photos_qs.count()
     else:
@@ -1205,7 +1209,10 @@ def mapview(request, photo_id=None, rephoto_id=None):
             'user').values('user').count()
         total_photo_count = photos_qs.distinct('id').values('id').count()
 
-    geotagged_photo_count = photos_qs.distinct('id').filter(lat__isnull=False, lon__isnull=False).count()
+    if True:
+        geotagged_photo_count = 0
+    else:
+        geotagged_photo_count = photos_qs.distinct('id').filter(lat__isnull=False, lon__isnull=False).count()
 
     if geotagged_photo_count:
         last_geotagged_photo_id = Photo.objects.order_by(F('latest_geotag').desc(nulls_last=True)).values('id').first()[

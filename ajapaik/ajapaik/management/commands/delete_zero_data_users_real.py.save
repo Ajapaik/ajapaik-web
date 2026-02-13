@@ -1,0 +1,26 @@
+import datetime
+
+from django.core.management import BaseCommand
+
+from ajapaik.ajapaik.models import Profile
+from django.contrib.auth.models import User
+
+
+class Command(BaseCommand):
+    help = 'Find and delete users that do not have a profile linked to it'
+
+
+    def handle(self, *args, **options):
+        deleted = 0
+        print("starting command")
+
+        profile_ids = list(Profile.objects.values_list("user_id", flat=True))
+        user_ids = User.objects.exclude(id__in=profile_ids).values_list("id", flat=True)
+        print(len(user_ids))
+
+
+        while deleted < 20200000:
+        #    deleted += User.objects.filter(id__in=user_ids[-10000:]).delete()[0]
+        #    print("deleted 10k")
+        #    user_ids = user_ids[:len(user_ids) - 10000]
+        print("deleted something", deleted)

@@ -6,7 +6,7 @@ TEST_RUNNER = 'django.test.runner.DiscoverRunner'
 gettext = lambda s: s  # noqa
 
 MESSAGE_STORAGE = 'django.contrib.messages.storage.fallback.FallbackStorage'
-
+SILENCED_SYSTEM_CHECKS = ['django_recaptcha.recaptcha_test_key_error']
 DEBUG = False
 
 DEFER_JAVASCRIPT = False
@@ -82,7 +82,7 @@ LANGUAGES = (
 
 MODELTRANSLATION_LANGUAGES = ('et', 'lv', 'lt', 'en', 'ru', 'fi', 'sv', 'nl', 'de', 'no')
 MODELTRANSLATION_PREPOPULATE_LANGUAGE = 'et'
-MODELTRANSLATION_FALLBACK_LANGUAGES = ('lt', 'lv', 'fi', 'sv', 'no', 'nl', 'de', 'ru', 'en', 'et')
+MODELTRANSLATION_FALLBACK_LANGUAGES = {'default': ('en', 'et'), 'en': ('et',), 'et': ('en',), 'sv': ('no', 'en', 'et'), 'no': ('sv', 'en', 'et')}
 
 TARTUNLP_LANGUAGES = ('et', 'lv', 'lt', 'en', 'ru', 'de', 'fi')
 TARTUNLP_API_URL = 'https://api.tartunlp.ai/translation/v2'
@@ -168,7 +168,6 @@ INSTALLED_APPS = [
     'admin_tools.theming',
     'admin_tools.menu',
     'admin_tools.dashboard',
-    'captcha',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -216,7 +215,8 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.facebook',
     'allauth.socialaccount.providers.google',
-    'ajapaik.ajapaik.socialaccount.providers.wikimedia_commons'
+    'ajapaik.ajapaik.socialaccount.providers.wikimedia_commons',
+    'django_recaptcha',
 ]
 
 # Note: Allauth login's next-parameter redirection doesn't understand wildcards in ALLOWED_HOSTS.

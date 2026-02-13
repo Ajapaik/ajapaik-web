@@ -1,0 +1,17 @@
+/home/ajapaik//ajapaik-web/venv/bin/uwsgi \
+  --wsgi-file /home/ajapaik/ajapaik-web/wsgi.py \
+  --socket /home/ajapaik/ajapaik-web/run/app.sock \
+  --chmod-socket=777 \
+  --processes 5 \
+  --master \
+  --max-requests 50 \
+  --max-worker-lifetime 3600 \
+  --reload-on-rss 512 \
+  --worker-reload-mercy 60 \
+  --chdir /home/ajapaik/ajapaik-web/ \
+  --env=LANG="en_US.utf8" \
+  --buffer-size 8192 \
+  --log-slow 1000 \
+  --harakiri 600 \
+  --harakiri-verbose \
+  --logto /var/log/ajapaik/production/uwsgi.log

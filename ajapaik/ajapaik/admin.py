@@ -114,6 +114,8 @@ class PhotoAdmin(ModelAdmin):
         'description_de',
         'description_ru',
         'description_en',
+        'description_nl',
+        'description_no',
         'title_et',
         'title_lv',
         'title_lt',
@@ -123,6 +125,8 @@ class PhotoAdmin(ModelAdmin):
         'title_de',
         'title_ru',
         'title_en',
+        'title_no',
+        'title_nl',
         'author',
         'types',
         'keywords',
@@ -174,6 +178,8 @@ class AlbumAdmin(ModelAdmin):
         'name_de',
         'name_ru',
         'name_en',
+        'name_nl',
+        'name_no',
         'description',
         'slug'
     )

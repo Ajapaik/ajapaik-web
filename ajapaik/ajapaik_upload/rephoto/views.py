@@ -35,8 +35,9 @@ def rephoto_upload(request, photo_id):
     for f in request.FILES.getlist("user_file[]"):
         data = request.POST
         date_taken = data.get('dateTaken', None)
-        parsed_date_taken = timezone.now()
-        if date_taken is not None:
+        parsed_date_taken = None
+
+        if date_taken:
             try:
                 parsed_date_taken = strftime('%Y-%m-%d %H:%M', strptime(date_taken, '%d.%m.%Y %H:%M'))
             except:  # noqa
@@ -56,8 +57,10 @@ def rephoto_upload(request, photo_id):
             cam_yaw=data.get('yaw'),
             cam_pitch=data.get('pitch'),
             cam_roll=data.get('roll'),
-            date=parsed_date_taken,
         )
+        if parsed_date_taken:
+            photo.date = parsed_date_taken
+
         rephoto.save()
         rephoto.image.save('rephoto.jpg', file_obj)
         rephoto.set_aspect_ratio()
