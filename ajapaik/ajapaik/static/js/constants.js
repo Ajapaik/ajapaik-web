@@ -81,6 +81,12 @@ var constants = {
       },
     },
     queries: {
+      POST_CATEGORY_CONFIRMATION_SUCCESS: gettext(
+          'Successfully posted object category confirmation'
+      ),
+      POST_CATEGORY_CONFIRMATION_FAILED: gettext(
+          'Failed to post object category confirmation'
+      ),
       GET_ANNOTATION_CLASSES_FAILED: gettext(
         'Failed to load object annotation classes'
       ),
