@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 #
 # Author: Ajeje Brazorf
+# Author: Asteralee
 # Author: Beta16
 # Author: CarloBerg
 # Author: Champ0999
@@ -16,7 +17,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2025-12-25 12:00:18+0000\n"
+"PO-Revision-Date: 2026-02-16 12:00:21+0000\n"
 "X-POT-Import-Date: 2024-07-09 05:10:19+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1831,7 +1832,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/geotaggers/_geotaggers_modal_content.html:18
 msgid "Modified"
-msgstr ""
+msgstr "Modificato"
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:14
 msgid "Ajapaik is crowdsourcing additional metadata about pictorial heritage. Ajapaik is mostly hosting old photos, but there are also paintings, graphic art and historic films on Ajapaik."
