@@ -7,6 +7,7 @@
 # Author: CarloBerg
 # Author: Champ0999
 # Author: CloeRiva
+# Author: Dream Indigo
 # Author: EditGio
 # Author: GseSro
 # Author: JackLantern
@@ -17,7 +18,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2026-02-16 12:00:21+0000\n"
+"PO-Revision-Date: 2026-02-23 12:00:20+0000\n"
 "X-POT-Import-Date: 2024-07-09 05:10:19+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -349,7 +350,7 @@ msgstr "Donna"
 
 #: ajapaik/ajapaik/models.py:281 ajapaik/ajapaik_face_recognition/forms.py:21
 msgid "Gender"
-msgstr "Sesso"
+msgstr "Genere"
 
 #: ajapaik/ajapaik/models.py:283
 msgid "Wikidata identifier"
@@ -2690,7 +2691,7 @@ msgstr "Salta"
 
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:99
 msgid "Currently the gender is"
-msgstr "Attualmente il sesso è"
+msgstr "Attualmente il genere è"
 
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:101
 msgid "Currently the age is"
