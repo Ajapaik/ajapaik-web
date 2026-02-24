@@ -4,13 +4,14 @@ from django.contrib.admin import ModelAdmin
 from django.contrib.admin.sites import NotRegistered, AlreadyRegistered
 from django.contrib.auth.models import User
 from django.http.response import HttpResponse
+from django.urls import re_path
 from django.utils.translation import gettext as _
 from django_comments_xtd.admin import XtdCommentsAdmin
 from sorl.thumbnail import delete as sorl_delete
 
 from ajapaik import settings
 from ajapaik.ajapaik.autocomplete import autocomplete_form_factory
-from ajapaik.ajapaik.models import Photo, GeoTag, Profile, Source, Skip, Action, Album, Points, Area, \
+from ajapaik.ajapaik.models import Photo, GeoTag, Profile, Source, Skip, Album, Points, Area, \
     AlbumPhoto, Licence, Device, Dating, \
     DatingConfirmation, Video, MyXtdComment, Supporter, \
     Location, LocationPhoto, ApplicationException, ImportBlacklist
@@ -94,9 +95,9 @@ class PhotoAdmin(ModelAdmin):
         return super(PhotoAdmin, self).change_view(request, object_id, form_url, extra_context=extra_context)
 
     def get_urls(self):
-        from django.conf.urls import url
         urls = super(PhotoAdmin, self).get_urls()
-        my_urls = list((url(r'^(.+)/%(url)s/$' % b, self.admin_site.admin_view(b['func'])) for b in self.extra_buttons))
+        my_urls = list(
+            (re_path(r'^(.+)/%(url)s/$' % b, self.admin_site.admin_view(b['func'])) for b in self.extra_buttons))
         return my_urls + urls
 
     inlines = (AlbumPhotoInline,)
@@ -113,6 +114,8 @@ class PhotoAdmin(ModelAdmin):
         'description_de',
         'description_ru',
         'description_en',
+        'description_nl',
+        'description_no',
         'title_et',
         'title_lv',
         'title_lt',
@@ -122,6 +125,8 @@ class PhotoAdmin(ModelAdmin):
         'title_de',
         'title_ru',
         'title_en',
+        'title_no',
+        'title_nl',
         'author',
         'types',
         'keywords',
@@ -173,6 +178,8 @@ class AlbumAdmin(ModelAdmin):
         'name_de',
         'name_ru',
         'name_en',
+        'name_nl',
+        'name_no',
         'description',
         'slug'
     )
@@ -248,7 +255,6 @@ admin.site.register(Points, PointsAdmin)
 admin.site.register(Profile, ProfileAdmin)
 admin.site.register(Source, SourceAdmin)
 admin.site.register(Skip, SkipAdmin)
-admin.site.register(Action)
 admin.site.register(Album, AlbumAdmin)
 admin.site.register(AlbumPhoto, AlbumPhotoAdmin)
 admin.site.register(Area, AreaAdmin)

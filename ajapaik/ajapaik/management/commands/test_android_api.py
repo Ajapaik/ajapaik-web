@@ -149,7 +149,7 @@ class Command(BaseCommand):
         print(status, '\t', url, '\t', round(endtime - starttime, 6), )
         return session
 
-    def randomString(self, stringLength=10):
+    def random_string(self, stringLength=10):
         letters = string.ascii_lowercase
         return ''.join(random.choice(letters) for i in range(stringLength))
 
@@ -186,7 +186,7 @@ class Command(BaseCommand):
     def run_tests(self, username='', password=''):
         for t in self.tests:
             url = t['url'].replace('^', self.baseurl)
-            starttime = time.time()
+            start_time = time.time()
             status = ''
             session = requests.Session()
             if username and password:
@@ -206,18 +206,18 @@ class Command(BaseCommand):
                 status = e.reason
 
             endtime = time.time()
-            print(status, '\t', url, '\t', round(endtime - starttime, 6), )
+            print(status, '\t', url, '\t', round(endtime - start_time, 6), )
 
     def handle(self, *args, **options):
 
         if options["baseurl"]:
             self.baseurl = options["baseurl"]
 
-        randomname = self.randomString(10)
-        username = f'{randomname}-ajapaik-test@gmail.com'
-        password = self.randomString(16)
-        firstname = f'first {randomname}'
-        lastname = f'last {randomname}'
+        random_name = self.random_string(10)
+        username = f'{random_name}-ajapaik-test@gmail.com'
+        password = self.random_string(16)
+        firstname = f'first {random_name}'
+        lastname = f'last {random_name}'
 
         session = self.test_register(username, password, firstname, lastname, '{"error":0')
 

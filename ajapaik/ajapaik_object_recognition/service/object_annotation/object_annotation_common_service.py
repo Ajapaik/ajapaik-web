@@ -1,4 +1,4 @@
-from ajapaik.ajapaik.curator_drivers import wikidata
+from ajapaik.ajapaik_curator.curator_drivers import wikidata
 from ajapaik.ajapaik_object_recognition.models import ObjectAnnotationClass, ObjectDetectionModel
 from ajapaik.ajapaik_object_recognition.service.object_annotation import detection_models
 

@@ -14,19 +14,19 @@
     <meta name="description" content="
         {% if is_frontpage %}
             {% if album %}
-                {% trans 'Gallery of old historic photos from the album' %} {{ album.1 }}
+                {% trans 'Gallery of old historic photos from the album' %} {{ album.name }}
             {% else %}
                 {% trans 'Historic photo gallery' %}
             {% endif %}
         {% elif is_mapview %}
             {% if album %}
-                {% trans 'Mapped old historic photos from the album' %} {{ album.1 }}
+                {% trans 'Mapped old historic photos from the album' %} {{ album.name }}
             {% else %}
                 {% trans 'Mapped old historic photos' %}
             {% endif %}
         {% elif is_game %}
             {% if album %}
-                {% trans 'Help geotag old historic photos from the album' %} {{ album.1 }}
+                {% trans 'Help geotag old historic photos from the album' %} {{ album.name }}
             {% else %}
                 {% trans 'Help geotag old historic photos' %}
             {% endif %}
@@ -45,19 +45,19 @@
     <meta name="keywords" content="
         {% if is_frontpage %}
             {% if album %}
-                {% trans 'historic,pictures,old,photos' %},{{ album.2 }}
+                {% trans 'historic,pictures,old,photos' %},{{ album.name }}
             {% else %}
                 {% trans 'historic,pictures,old,photos' %}
             {% endif %}
         {% elif is_mapview %}
             {% if album %}
-                {% trans 'historic,pictures,old,photos,map,geotagged,location' %},{{ album.4 }}
+                {% trans 'historic,pictures,old,photos,map,geotagged,location' %},{{ album.name }}
             {% else %}
                 {% trans 'historic,pictures,old,photos,map,geotagged,location' %}
             {% endif %}
         {% elif is_game %}
             {% if album %}
-                {% trans 'historic,pictures,old,photos,crowd-sourced,geotagging,game' %},{{ album.4 }}
+                {% trans 'historic,pictures,old,photos,crowd-sourced,geotagging,game' %},{{ album.name }}
             {% else %}
                 {% trans 'historic,pictures,old,photos,crowd-sourced,geotagging,game' %}
             {% endif %}
@@ -146,20 +146,22 @@
         {% endif %}
         {% if selected_photo %}
             <meta property="og:image"
-                  content="{{ hostname }}{% url "image_full" selected_photo.pk selected_photo.get_pseudo_slug %}">
+                  content="{{ hostname }}{% url "image_full" selected_photo.pk selected_photo.slug %}">
             <meta property="og:image:type" content="image/jpeg" />
             <meta property="og:image:width" content="{{ selected_photo.width }}" />
             <meta property="og:image:height" content="{{ selected_photo.height }}" />
         {% else %}
             {% if not is_photoview and not is_game %}
                 {% if rephoto %}
-                    <meta property="og:image" content="{{ hostname }}{% url "image_full" rephoto.0 rephoto.1 %}" />
+                    <meta property="og:image"
+                          content="{{ hostname }}{% url "image_full" rephoto.id rephoto.slug %}" />
                     <meta property="og:image:type" content="image/jpeg" />
                     <meta property="og:image:width" content="{{ rephoto.2 }}" />
                     <meta property="og:image:height" content="{{ rephoto.3 }}" />
                 {% else %}
                     {% if photo %}
-                        <meta property="og:image" content="{{ hostname }}{% url "image_full" photo.0 photo.1 %}" />
+                        <meta property="og:image"
+                              content="{{ hostname }}{% url "image_full" photo.id photo.slug %}" />
                         <meta property="og:image:type" content="image/jpeg" />
                         <meta property="og:image:width" content="{{ photo.2 }}" />
                         <meta property="og:image:height" content="{{ photo.3 }}" />
@@ -168,14 +170,14 @@
             {% else %}
                 {% if rephoto %}
                     <meta property="og:image"
-                          content="{{ hostname }}{% url "image_full" rephoto.pk rephoto.get_pseudo_slug %}" />
+                          content="{{ hostname }}{% url "image_full" rephoto.id rephoto.slug %}" />
                     <meta property="og:image:type" content="image/jpeg" />
                     <meta property="og:image:width" content="{{ rephoto.width }}" />
                     <meta property="og:image:height" content="{{ rephoto.height }}" />
                 {% else %}
                     {% if photo %}
                         <meta property="og:image"
-                              content="{{ hostname }}{% url "image_full" photo.id photo.get_pseudo_slug %}" />
+                              content="{{ hostname }}{% url "image_full" photo.id photo.slug %}" />
                         <meta property="og:image:type" content="image/jpeg" />
                         <meta property="og:image:width" content="{{ photo.width }}" />
                         <meta property="og:image:height" content="{{ photo.height }}" />
@@ -184,10 +186,10 @@
             {% endif %}
             {% if facebook_share_photos %}
                 {% for p in facebook_share_photos %}
-                    <meta property="og:image" content="{{ hostname }}{% url "image_full" p.0 p.1 %}" />
+                    <meta property="og:image" content="{{ hostname }}{% url "image_full" p.id p.slug %}" />
                     <meta property="og:image:type" content="image/jpeg" />
-                    <meta property="og:image:width" content="{{ p.2 }}" />
-                    <meta property="og:image:height" content="{{ p.3 }}" />
+                    <meta property="og:image:width" content="{{ p.width }}" />
+                    <meta property="og:image:height" content="{{ p.height }}" />
                 {% endfor %}
             {% endif %}
             {% if curator_random_images %}
@@ -309,7 +311,7 @@
 {% endblock header %}
 {% block layout %}{% endblock layout %}
 {% get_current_language as LANGUAGE_CODE %}
-{% if is_frontpage or is_order or is_photoview or is_newsletter or is_comparephoto and not newsletter %}
+{% if is_frontpage or is_order or is_photoview or is_newsletter or is_compare_photo and not newsletter %}
     {% block footer %}
         {% include "core/_footer.html" %}
     {% endblock footer %}
@@ -325,7 +327,9 @@
             $('#ajp-loading-overlay').show();
         });
         window.addEventListener('pageshow', function() {
-            $('#ajp-loading-overlay').hide();
+            if (!window.loadingPhotos) {
+                $('#ajp-loading-overlay').hide();
+            }
         });
 
         window.fbAsyncInit = function() {

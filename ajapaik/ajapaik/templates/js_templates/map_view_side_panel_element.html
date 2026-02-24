@@ -10,7 +10,7 @@
                         data-id="{%=o[i].id%}"
                         onmouseover="(function(e) {window.paneImageHoverIn(e)})(this)"
                         onmouseout="(function(e) {window.paneImageHoverOut(e)})(this)"
-                        onload="checkLoadedSidePanelPhotos(this)"/>
+                        onload="checkLoadedSidePanelPhotos()"/>
                     {% if (o[i].rephoto_count) { %}
                         <div class="ajp-rephoto-count ajp-rephoto-count-{%=o[i].rephoto_count%}" id="ajp-map-rephoto-count"
                             data-id="{%=o[i].id%}">

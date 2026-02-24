@@ -1,9 +1,11 @@
 import hashlib
+import json
 import os
 import re
 from contextlib import closing
 from copy import deepcopy
 from datetime import datetime
+from functools import cached_property
 from io import StringIO
 from json import loads
 from math import degrees
@@ -17,27 +19,28 @@ from bulk_update.manager import BulkUpdateManager
 from django.apps import apps
 from django.conf import settings
 from django.contrib.auth.models import User
-from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
-from django.contrib.gis.db.models import Model, TextField, FloatField, CharField, BooleanField, BigIntegerField, \
-    ForeignKey, IntegerField, DateTimeField, ImageField, URLField, ManyToManyField, SlugField, \
-    PositiveSmallIntegerField, PointField, Manager, PositiveIntegerField
+from django.contrib.gis.db.models import Model, FloatField, BigIntegerField, \
+    IntegerField, ImageField, URLField, ManyToManyField, SlugField, \
+    PositiveSmallIntegerField, PointField, Manager
 from django.contrib.gis.geos import Point
 from django.contrib.postgres.fields import ArrayField
 from django.core.cache import cache
 from django.core.exceptions import ObjectDoesNotExist, ValidationError
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.core.validators import MaxValueValidator, MinValueValidator
-from django.db.models import CASCADE, DateField, FileField, Lookup, Transform, OneToOneField, Q, F, Sum, Index
+from django.db.models import CASCADE, DateField, FileField, Lookup, Transform, Q, F, Sum, Index, Model, OneToOneField, \
+    CharField, TextField, DateTimeField, PositiveIntegerField, BooleanField, ForeignKey
+from django.db.models import JSONField
 from django.db.models.fields import Field
 from django.db.models.query import QuerySet
 from django.db.models.signals import post_save
 from django.template.defaultfilters import slugify
 from django.urls import reverse
 from django.utils import timezone
+from django.utils.text import slugify
 from django.utils.translation import gettext as _
 from django_comments_xtd.models import XtdComment, LIKEDIT_FLAG, DISLIKEDIT_FLAG
-from django_extensions.db.fields import json
 from geopy.distance import great_circle
 from haystack import connections
 from pandas import DataFrame, Series
@@ -56,10 +59,9 @@ from ajapaik.utils import angle_diff, average_angle
 class EstimatedCountQuerySet(QuerySet):
 
     # Get count from cache if it is available
-    def cached_count(self):
-        cached_count = 0
-        key = "query: " + str(hashlib.md5(str(self.query).encode()).hexdigest())
-        cached_count = cache.get(key, cached_count)
+    def cached_count(self, query):
+        key = "query:" + str(hashlib.md5(query.encode()).hexdigest())
+        cached_count = cache.get(key, 0)
 
         # not in cache or small then query exact value
         if cached_count < 100000:
@@ -117,7 +119,7 @@ class BooleanValue(Transform):
 
     def as_sql(self, compiler, connection):
         sql, params = compiler.compile(self.lhs)
-        sql = 'CAST(%s AS BOOL)' % sql
+        sql = f'CAST({sql} AS BOOL)'
         return sql, params
 
 
@@ -158,20 +160,9 @@ def _calc_trustworthiness(user_id):
 
 def _make_fullscreen(photo):
     return {
-        'url': reverse('image_full', args=(photo.pk, photo.get_pseudo_slug())),
+        'url': reverse('image_full', args=(photo.pk, photo.get_pseudo_slug)),
         'size': [photo.width, photo.height]
     }
-
-
-def _get_pseudo_slug_for_photo(description, source_key, id):
-    if description is not None and description != '':
-        slug = '-'.join(slugify(description).split('-')[:6])[:60]
-    elif source_key is not None and source_key != '':
-        slug = slugify(source_key)
-    else:
-        slug = slugify(id)
-
-    return slug
 
 
 # TODO: Somehow this fires from Sift too...also, it fires at least 3 times on user registration, wasteful
@@ -214,22 +205,23 @@ class AlbumPhoto(Model):
 
     album = ForeignKey('Album', on_delete=CASCADE)
     photo = ForeignKey('Photo', related_name='albumphoto', on_delete=CASCADE)
-    profile = ForeignKey('Profile', blank=True, null=True, related_name='album_photo_links', on_delete=CASCADE)
+    profile = ForeignKey('Profile', blank=True, null=True,
+                         related_name='album_photo_links', on_delete=CASCADE)
     type = PositiveSmallIntegerField(choices=TYPE_CHOICES, default=MANUAL, db_index=True)
     created = DateTimeField(auto_now_add=True, db_index=True)
 
     class Meta:
         db_table = 'project_albumphoto'
+
         # FIXME: May be causing bugs elsewhere
         # ordering = ['-created']
 
     def __str__(self):
         if self.profile:
-            profilename = self.profile.get_display_name
-        else:
-            profilename = 'None'
+            profile_name = self.profile.get_display_name
+            return f'{self.album_id} - {self.photo_id} - {self.TYPE_CHOICES[self.type][1]} - {profile_name}'
 
-        return '%d - %d - %s - %s' % (self.album_id, self.photo_id, self.TYPE_CHOICES[self.type][1], profilename)
+        return f'{self.album_id} - {self.photo_id} - {self.TYPE_CHOICES[self.type][1]}'
 
     def delete(self, *args, **kwargs):
         if self.album.atype == Album.CURATED:
@@ -260,7 +252,8 @@ class Album(Model):
     description = TextField(_('Description'), null=True, blank=True, max_length=2047)
     subalbum_of = ForeignKey('self', blank=True, null=True, related_name='subalbums', on_delete=CASCADE)
     atype = PositiveSmallIntegerField(choices=TYPE_CHOICES)
-    profile = ForeignKey('Profile', related_name='albums', blank=True, null=True, on_delete=CASCADE)
+    profile = ForeignKey('Profile', related_name='albums', blank=True, null=True,
+                         on_delete=CASCADE)
     is_public = BooleanField(_('Is public'), default=True)
     open = BooleanField(_('Is open'), default=False)
     ordered = BooleanField(default=False)
@@ -315,68 +308,61 @@ class Album(Model):
         self.original_lat = self.lat
         self.original_lon = self.lon
 
-    def save(self, *args, **kwargs):
+    def save(self, *args, update_fields=None, force_insert=False, **kwargs):
+        # We should not have such complex logic in save methods, because currently we perform save multiple times
+        # which results in objects.create not working, since we can only save with `force_insert=True` only once
+        # but our complicated save methods calls it multiple times.
+        if not self.id or force_insert:
+            super(Album, self).save(*args, update_fields=update_fields, force_insert=force_insert, **kwargs)
+
+        elif update_fields:
+            super(Album, self).save(*args, update_fields=update_fields, **kwargs)
+            return
+
         self.set_calculated_fields()
         if not self.cover_photo and self.photo_count_with_subalbums > 0:
             random_photo = self.photos.order_by('?').first()
             self.cover_photo = random_photo
             if random_photo and random_photo.flip:
                 self.cover_photo_flipped = random_photo.flip
+
         if not self.lat and not self.lon:
             random_photo_with_location = self.get_geotagged_historic_photo_queryset_with_subalbums().first()
             if random_photo_with_location:
                 self.lat = random_photo_with_location.lat
                 self.lon = random_photo_with_location.lon
+
         if self.lat and self.lon and self.lat != self.original_lat and self.lon != self.original_lon:
             self.geography = Point(x=float(self.lon), y=float(self.lat), srid=4326)
+
         self.original_lat = self.lat
         self.original_lon = self.lon
         super(Album, self).save(*args, **kwargs)
+
         if self.subalbum_of:
             self.subalbum_of.save()
         connections['default'].get_unified_index().get_index(Album).update_object(self)
 
-    def get_historic_photos_queryset_with_subalbums_old(self):
-        qs = self.photos.filter(rephoto_of__isnull=True)
-        for sa in self.subalbums.filter(atype__in=[Album.CURATED, Album.PERSON]):
-            qs = qs | sa.photos.filter(rephoto_of__isnull=True)
-        return qs.distinct('id')
-
     def get_historic_photos_queryset_with_subalbums(self):
         sa_ids = [self.id]
+
         for sa in self.subalbums.filter(atype__in=[Album.CURATED, Album.PERSON]):
             sa_ids.append(sa.id)
+
         qs = Photo.objects.filter(rephoto_of__isnull=True).prefetch_related('albumphoto').filter(
             albumphoto__album__in=sa_ids)
-        return qs.distinct('id')
 
-    def get_geotagged_historic_photo_queryset_with_subalbums_old(self):
-        qs = self.photos.filter(rephoto_of__isnull=True, lat__isnull=False, lon__isnull=False)
-        for sa in self.subalbums.filter(atype__in=[Album.CURATED, Album.PERSON]):
-            qs = qs | sa.photos.filter(rephoto_of__isnull=True, lat__isnull=False, lon__isnull=False)
         return qs.distinct('id')
 
     def get_geotagged_historic_photo_queryset_with_subalbums(self):
         qs = self.get_historic_photos_queryset_with_subalbums().filter(lat__isnull=False, lon__isnull=False)
         return qs.distinct('id')
 
-    def get_rephotos_queryset_with_subalbums_old(self):
-        qs = self.get_all_photos_queryset_with_subalbums_old().filter(rephoto_of__isnull=False)
-        return qs.distinct('pk')
-
     def get_rephotos_queryset_with_subalbums(self):
         historic_photo_qs = self.get_historic_photos_queryset_with_subalbums().only('id').order_by()
         qs = Photo.objects.filter(rephoto_of__isnull=False,
                                   rephoto_of__in=historic_photo_qs.values('id').order_by()).order_by()
-        return qs.distinct('pk')
 
-    def get_all_photos_queryset_with_subalbums_old(self):
-        qs = self.photos.all()
-        for sa in self.subalbums.filter(atype__in=[Album.CURATED, Album.PERSON]):
-            qs = qs | sa.photos.all()
-
-        photo_ids = qs.values_list('pk', flat=True)
-        qs = qs | Photo.objects.filter(rephoto_of__isnull=False, rephoto_of_id__in=photo_ids)
         return qs.distinct('pk')
 
     # All photos = historical photos + rephotos
@@ -387,19 +373,12 @@ class Album(Model):
             'id').distinct('id').order_by()
 
         historic_photo_list = list(historic_photo_qs.values_list('id', flat=True))
+
         for p in rephoto_qs:
             historic_photo_list.append(p['id'])
 
         qs = Photo.objects.filter(id__in=historic_photo_list)
         return qs.distinct('pk')
-
-    def get_comment_count_with_subalbums_old(self):
-        qs = self.get_all_photos_queryset_with_subalbums_old().filter(comment_count__gt=0).order_by()
-        count = 0
-        for each in qs:
-            count += each.comment_count
-
-        return count
 
     def get_comment_count_with_subalbums(self):
         historic_photo_qs = self.get_historic_photos_queryset_with_subalbums() \
@@ -421,13 +400,6 @@ class Album(Model):
         else:
             return count
 
-    def get_confirmed_similar_photo_count_with_subalbums_old(self):
-        qs = self.get_all_photos_queryset_with_subalbums_old().order_by()
-        photo_ids = qs.values_list('pk', flat=True)
-        count = ImageSimilarity.objects.filter(
-            from_photo__in=photo_ids, confirmed=True).only('pk').distinct('pk').order_by().count()
-        return count
-
     def get_confirmed_similar_photo_count_with_subalbums(self):
         qs = self.get_all_photos_queryset_with_subalbums().order_by()
         photo_ids = qs.values_list('pk', flat=True)
@@ -435,28 +407,11 @@ class Album(Model):
             from_photo__in=photo_ids, confirmed=True).only('pk').distinct('pk').order_by().count()
         return count
 
-    def get_similar_photo_count_with_subalbums_old(self):
-        qs = self.get_all_photos_queryset_with_subalbums_old().order_by()
-        photo_ids = qs.values_list('pk', flat=True)
-        count = ImageSimilarity.objects.filter(from_photo__in=photo_ids).only('pk').distinct('pk').order_by().count()
-        return count
-
     def get_similar_photo_count_with_subalbums(self):
         qs = self.get_all_photos_queryset_with_subalbums().order_by()
         photo_ids = qs.values_list('pk', flat=True)
         count = ImageSimilarity.objects.filter(from_photo__in=photo_ids).only('pk').distinct('pk').order_by().count()
         return count
-
-    def set_calculated_fields_old(self):
-        self.photo_count_with_subalbums = self.get_historic_photos_queryset_with_subalbums_old().only(
-            'pk').order_by().count()
-        self.rephoto_count_with_subalbums = self.get_rephotos_queryset_with_subalbums_old().only(
-            'pk').order_by().count()
-        self.geotagged_photo_count_with_subalbums = self.get_geotagged_historic_photo_queryset_with_subalbums_old().only(
-            'pk').order_by().count()
-        self.comments_count_with_subalbums = self.get_comment_count_with_subalbums_old()
-        self.similar_photo_count_with_subalbums = self.get_similar_photo_count_with_subalbums_old()
-        self.confirmed_similar_photo_count_with_subalbums = self.get_confirmed_similar_photo_count_with_subalbums_old()
 
     def set_calculated_fields_new(self):
         self.photo_count_with_subalbums = self.get_historic_photos_queryset_with_subalbums().only(
@@ -577,7 +532,8 @@ class Photo(Model):
     types = CharField(max_length=255, blank=True, null=True)
     keywords = TextField(null=True, blank=True)
     # Legacy field name, actually profile
-    user = ForeignKey('Profile', related_name='photos', blank=True, null=True, on_delete=CASCADE)
+    user = ForeignKey('Profile', related_name='photos', blank=True, null=True,
+                      on_delete=CASCADE)
     # Unused, was set manually for some of the very earliest photos
     level = PositiveSmallIntegerField(default=0)
     suggestion_level = FloatField(default=3)
@@ -661,9 +617,6 @@ class Photo(Model):
     description_original_language = CharField(_('Description original language'), max_length=255, blank=True, null=True)
     # TODO: Migrate to use proxy model for admin
     soft_deleted = BooleanField(default=False, help_text=_("Hide image from being accessed, even in ADMIN!"))
-
-    original_lat = None
-    original_lon = None
 
     class Meta:
         ordering = ['-id']
@@ -827,20 +780,23 @@ class Photo(Model):
         return [Photo.get_game_json_format_photo(ret), user_seen_all, nothing_more_to_show]
 
     def __str__(self):
-        return u'%s - %s (%s) (%s)' % (self.id, self.get_display_text, self.date_text, self.source_key)
-
-    def __init__(self, *args, **kwargs):
-        super(Photo, self).__init__(*args, **kwargs)
-        self.original_lat = self.lat
-        self.original_lon = self.lon
-        self.original_flip = self.flip
-        self.original_invert = self.invert
-        self.original_rotated = self.rotated
-        self.original_height = self.height
+        return f'{self.id} - {self.get_display_text} {self.date_text} {self.source_key}'
 
     def get_detail_url(self):
         # Legacy URL needs to stay this way for now for Facebook
         return reverse('photo', args=(self.pk,))
+
+    def _generate_thumbnail_and_apply_action(self, size, action, parameter=None):
+        thumb_path = f'{settings.MEDIA_ROOT}/{get_thumbnail(self.image, f"{size}x{size}", upscale=False).name}'
+        img_thumb = Image.open(thumb_path)
+
+        if isinstance(action, str):
+            img_thumb = getattr(img_thumb, action)(parameter)
+        else:
+            img_thumb = action(img_thumb)
+
+        img_thumb.save(thumb_path)
+        img_thumb.close()
 
     def do_flip(self):
         photo_path = f'{settings.MEDIA_ROOT}/{str(self.image)}'
@@ -850,21 +806,14 @@ class Photo(Model):
         img.close()
         flipped_image.close()
         self.flip = not self.flip
-        small_thumb_path = f'{settings.MEDIA_ROOT}/{get_thumbnail(self.image, "400x400", upscale=False).name}'
-        img_small_thumb = Image.open(small_thumb_path)
-        img_small_thumb = img_small_thumb.transpose(Image.FLIP_LEFT_RIGHT)
-        img_small_thumb.save(small_thumb_path)
-        img_small_thumb.close()
-        bigger_thumb_path = f'{settings.MEDIA_ROOT}/{get_thumbnail(self.image, "1024x1024", upscale=False).name}'
-        img_bigger_thumb = Image.open(bigger_thumb_path)
-        img_bigger_thumb = img_bigger_thumb.transpose(Image.FLIP_LEFT_RIGHT)
-        img_bigger_thumb.save(bigger_thumb_path)
-        img_bigger_thumb.close()
+        self._generate_thumbnail_and_apply_action(400, 'transpose', Image.FLIP_LEFT_RIGHT)
+        self._generate_thumbnail_and_apply_action(1024, 'transpose', Image.FLIP_LEFT_RIGHT)
+
         if self.image_unscaled != '':
             delete(self.image_unscaled, delete_file=False)
+
         if self.image_no_watermark != '':
             delete(self.image_no_watermark, delete_file=False)
-        self.original_flip = self.flip
 
         face_recognition_rectangles = apps.get_model(
             'ajapaik_face_recognition.FaceRecognitionRectangle').objects.filter(photo_id=self.id)
@@ -899,56 +848,41 @@ class Photo(Model):
         self.perceptual_hash = phash(inverted_image)
         inverted_image.close()
         self.invert = not self.invert
-        small_thumb_path = f'{settings.MEDIA_ROOT}/{get_thumbnail(self.image, "400x400", upscale=False).name}'
-        img_small_thumb = Image.open(small_thumb_path)
-        img_small_thumb = ImageOps.invert(img_small_thumb)
-        img_small_thumb.save(small_thumb_path)
-        img_small_thumb.close()
-        bigger_thumb_path = f'{settings.MEDIA_ROOT}/{get_thumbnail(self.image, "1024x1024", upscale=False).name}'
-        img_bigger_thumb = Image.open(bigger_thumb_path)
-        img_bigger_thumb = ImageOps.invert(img_bigger_thumb)
-        img_bigger_thumb.save(bigger_thumb_path)
-        img_bigger_thumb.close()
+        self._generate_thumbnail_and_apply_action(400, ImageOps.invert)
+        self._generate_thumbnail_and_apply_action(1024, ImageOps.invert)
+
         if self.image_unscaled != '':
             delete(self.image_unscaled, delete_file=False)
         if self.image_no_watermark != '':
             delete(self.image_no_watermark, delete_file=False)
-        self.original_invert = self.invert
+
         self.light_save()
 
-    def do_rotate(self, degrees):
+    def do_rotate(self, rotation_degrees: int):
         photo_path = f'{settings.MEDIA_ROOT}/{str(self.image)}'
         img = Image.open(photo_path)
-        original_degrees = 0
-        if self.original_rotated is not None:
-            original_degrees = self.original_rotated
-        rotation_degrees = degrees - original_degrees
+        original_degrees = self.rotated or 0
+
+        rotation_degrees = rotation_degrees - original_degrees
         rotated_image = img.rotate(rotation_degrees, expand=True)
         rotated_image.save(photo_path)
         img.close()
         self.perceptual_hash = phash(rotated_image)
         rotated_image.close()
-        self.rotated = degrees
-        small_thumb_path = f'{settings.MEDIA_ROOT}/{get_thumbnail(self.image, "400x400", upscale=False).name}'
-        img_small_thumb = Image.open(small_thumb_path)
-        img_small_thumb = img_small_thumb.rotate(rotation_degrees, expand=True)
-        img_small_thumb.save(small_thumb_path)
-        img_small_thumb.close()
-        bigger_thumb_path = f'{settings.MEDIA_ROOT}/{get_thumbnail(self.image, "1024x1024", upscale=False).name}'
-        img_bigger_thumb = Image.open(bigger_thumb_path)
-        img_bigger_thumb = img_bigger_thumb.rotate(rotation_degrees, expand=True)
-        img_bigger_thumb.save(bigger_thumb_path)
-        img_bigger_thumb.close()
+        self.rotated = rotation_degrees
+        self._generate_thumbnail_and_apply_action(400, 'rotate', rotation_degrees)
+        self._generate_thumbnail_and_apply_action(1024, 'rotate', rotation_degrees)
+
         if self.image_unscaled != '':
             delete(self.image_unscaled, delete_file=False)
         if self.image_no_watermark != '':
             delete(self.image_no_watermark, delete_file=False)
-        self.original_rotated = self.rotated
 
         if rotation_degrees % 360 == 90 or rotation_degrees % 360 == 270:
+            original_height = self.height
             self.height = self.width
-            self.width = self.original_height
-            self.original_height = self.height
+            self.width = original_height
+
             if self.aspect_ratio is not None:
                 self.aspect_ratio = 1 / self.aspect_ratio
             else:
@@ -959,24 +893,31 @@ class Photo(Model):
             'ajapaik_face_recognition.FaceRecognitionRectangle').objects.filter(photo_id=self.id)
         if face_recognition_rectangles is None:
             return
+
         for face_recognition_rectangle in face_recognition_rectangles:
             top, right, bottom, left = face_recognition_rectangle.coordinates.strip('[').strip(']').split(', ')
+
             if rotation_degrees == 0:
                 return
+
             elif rotation_degrees == 90 or rotation_degrees == -270:
                 face_recognition_rectangle.coordinates = \
                     f'[{str(self.height - int(right))}, {bottom}, {str(self.height - int(left))}, {top}]'
+
             elif rotation_degrees == 180 or rotation_degrees == -180:
                 face_recognition_rectangle.coordinates = \
                     f'[{str(self.height - int(bottom))}, {str(self.width - int(left))},' + \
                     f'{str(self.height - int(top))}, {str(self.width - int(right))}]'
+
             elif rotation_degrees == 270 or rotation_degrees == -90:
                 face_recognition_rectangle.coordinates = \
                     f'[{left}, {str(self.width - int(top))}, {right}, {str(self.width - int(bottom))}]'
+
             face_recognition_rectangle.save()
 
         object_recognition_rectangles = apps.get_model(
             'ajapaik_object_recognition.ObjectDetectionAnnotation').objects.filter(photo_id=self.id)
+
         if object_recognition_rectangles is None:
             return
         for object_recognition_rectangle in object_recognition_rectangles:
@@ -984,58 +925,67 @@ class Photo(Model):
             right = object_recognition_rectangle.x2
             bottom = object_recognition_rectangle.y2
             left = object_recognition_rectangle.x1
+
             if rotation_degrees == 0:
                 return
+
             elif rotation_degrees == 90 or rotation_degrees == -270:
                 object_recognition_rectangle.y1 = self.height - right
                 object_recognition_rectangle.x2 = bottom
                 object_recognition_rectangle.y2 = self.height - left
                 object_recognition_rectangle.x1 = top
+
             elif rotation_degrees == 180 or rotation_degrees == -180:
                 object_recognition_rectangle.y1 = self.height - bottom
                 object_recognition_rectangle.x2 = self.width - left
                 object_recognition_rectangle.y2 = self.height - top
                 object_recognition_rectangle.x1 = self.width - right
+
             elif rotation_degrees == 270 or rotation_degrees == -90:
                 object_recognition_rectangle.y1 = left
                 object_recognition_rectangle.x2 = self.width - top
                 object_recognition_rectangle.y2 = right
                 object_recognition_rectangle.x1 = self.width - bottom
+
             object_recognition_rectangle.save()
 
         self.light_save()
 
     def set_aspect_ratio(self):
-        if self.height is not None and self.width is not None:
+        if self.height and self.width:
             self.aspect_ratio = self.width / self.height
-            self.light_save()
+            self.save(update_fields=['aspect_ratio'])
 
     def calculate_phash(self):
         img = Image.open(f'{settings.MEDIA_ROOT}/{str(self.image)}')
         self.perceptual_hash = phash(img)
-        self.light_save()
+        self.save(update_fields=['perceptual_hash'])
 
     def find_similar(self):
         if not settings.DEBUG:
-            img = Image.open(f'{settings.MEDIA_ROOT}/{str(self.image)}')
-            self.perceptual_hash = phash(img)
+            self.calculate_phash()
             query = 'SELECT * FROM project_photo WHERE rephoto_of_id IS NULL AND perceptual_hash <@ (%s, 8) ' \
                     'AND NOT id=%s AND aspect_ratio > %s AND aspect_ratio < %s'
-            if self.aspect_ratio is None:
-                self.aspect_ratio = self.width / self.height
+
+            if not self.aspect_ratio:
+                self.set_aspect_ratio()
+
             photos = Photo.objects.raw(query, [str(self.perceptual_hash), self.id, self.aspect_ratio * 0.8,
                                                self.aspect_ratio * 1.25])
             for similar in photos:
                 ImageSimilarity.add_or_update(self, similar)
                 similar.light_save()
-            self.light_save()
+
+            self.save(update_fields=['perceptual_hash'])
 
     def find_similar_for_existing_photo(self):
         if self.rephoto_of_id is not None:
             return
-        if self.aspect_ratio is None:
-            self.aspect_ratio = self.width / self.height
-        if not (self.lat is None and self.lon is None):
+
+        if not self.aspect_ratio:
+            self.set_aspect_ratio()
+
+        if self.lat and self.lon:
             query = 'SELECT * FROM project_photo WHERE perceptual_hash <@ (%s, 8) AND rephoto_of_id IS NULL ' \
                     'AND NOT id=%s AND lat < %s AND lon < %s AND lat > %s AND lon > %s AND aspect_ratio > %s ' \
                     'AND aspect_ratio < %s'
@@ -1051,10 +1001,9 @@ class Photo(Model):
         for similar in photos:
             list1 = ImageSimilarity.objects.filter(Q(from_photo=self) & Q(to_photo=similar))
             list2 = ImageSimilarity.objects.filter(Q(from_photo=similar) & Q(to_photo=self))
-            if list1.count() < 1 or list2.count() < 1:
+
+            if not list1 or not list2:
                 ImageSimilarity.add_or_update(self, similar)
-            similar.light_save()
-        self.light_save()
 
     def watermark(self):
         # For ETERA
@@ -1077,26 +1026,25 @@ class Photo(Model):
 
         self.image.save('watermarked.jpg', image_file)
 
-    def get_absolute_url(self):
-        return reverse('photo', args=(self.id, self.get_pseudo_slug()))
+    @property
+    def absolute_url(self):
+        return reverse('photo', args=(self.id, self.get_pseudo_slug))
 
+    @cached_property
     def get_pseudo_slug(self):
-        if self.get_display_text is not None and self.get_display_text != '':
-            slug = '-'.join(slugify(self.get_display_text).split('-')[:6])[:60]
-        elif self.source_key is not None and self.source_key != '':
-            slug = slugify(self.source_key)
-        else:
-            slug = slugify(self.created.__format__('%Y-%m-%d'))
-
+        slug = get_pseudo_slug_for_photo(self.get_display_text, self.source_key, self.id, self.created)
         return slug
 
     def get_heatmap_points(self):
         valid_geotags = self.geotags.distinct('user_id').order_by('user_id', '-created')
         data = []
+
         for each in valid_geotags:
             serialized = [each.lat, each.lon]
+
             if each.azimuth:
                 serialized.append(each.azimuth)
+
             data.append(serialized)
 
         return data
@@ -1105,6 +1053,7 @@ class Photo(Model):
         url = f'https://maps.googleapis.com/maps/api/geocode/json?latlng=%0.5f,%0.5f&key={settings.GOOGLE_API_KEY}'
         lat = None
         lon = None
+
         if self.lat and self.lon:
             lat = self.lat
             lon = self.lon
@@ -1114,6 +1063,7 @@ class Photo(Model):
                     lat = a.lat
                     lon = a.lon
                     break
+
         if lat and lon:
             cached_response = GoogleMapsReverseGeocode.objects.filter(lat='{:.5f}'.format(lat),
                                                                       lon='{:.5f}'.format(lon)).first()
@@ -1130,9 +1080,11 @@ class Photo(Model):
                         response=response.text
                     ).save()
                 response = decoded_response
+
             if response['status'] == 'OK':
                 most_accurate_result = response['results'][0]
                 self.address = most_accurate_result['formatted_address']
+
             elif response['status'] == 'OVER_QUERY_LIMIT':
                 return
 
@@ -1143,52 +1095,69 @@ class Photo(Model):
         opposite.save()
 
     def save(self, *args, **kwargs):
+        photo = Photo.objects.filter(id=self.id).only('flip').first()
+        if photo:
+            original_flip = photo.flip or False
+        else:
+            original_flip = False
+
+        update_fields = kwargs.get('update_fields')
         super(Photo, self).save(*args, **kwargs)
-        if self.lat and self.lon and self.lat != self.original_lat and self.lon != self.original_lon:
-            self.geography = Point(x=float(self.lon), y=float(self.lat), srid=4326)
+
+        if update_fields:
+            return
+
+        kwargs = {**kwargs, 'force_insert': False}
+
+        if self.lat and self.lon and (self.geography.x != self.lon or self.geography.y != self.lat):
+            self.geography = Point(x=self.lon, y=self.lat, srid=4326)
             self.reverse_geocode_location()
+
         if self.flip is None:
             self.flip = False
-        if self.original_flip is None:
-            self.original_flip = False
-        if self.flip != self.original_flip:
+
+        if self.flip != original_flip:
             self.do_flip()
-        self.original_lat = self.lat
-        self.original_lon = self.lon
+
         if not self.first_rephoto:
             first_rephoto = self.rephotos.order_by('created').first()
             if first_rephoto:
                 self.first_rephoto = first_rephoto.created
         last_rephoto = self.rephotos.order_by('-created').first()
+
         if last_rephoto:
             self.latest_rephoto = last_rephoto.created
             self.rephoto_count = self.rephotos.count()
+
         super(Photo, self).save(*args, **kwargs)
+
         if not settings.DEBUG:
             connections['default'].get_unified_index().get_index(Photo).update_object(self)
+
         if self.aspect_ratio is None:
             self.set_aspect_ratio()
 
-    def add_to_source_album(self, *args, **kwargs):
+    def add_to_source_album(self):
         if self.source_id is not None and self.source_id > 0:
-            sourceAlbum = Album.objects.filter(source_id=self.source_id).first()
-            if sourceAlbum is None:
-                sourceAlbum = Album(
+            source_album = Album.objects.filter(source_id=self.source_id).first()
+
+            if not source_album:
+                source_album = Album(
                     name=self.source.name,
                     slug=self.source.name,
                     atype=Album.COLLECTION,
                     cover_photo=self,
                     source=self.source
                 )
-                sourceAlbum.save()
+                source_album.save()
 
             AlbumPhoto(
                 type=AlbumPhoto.COLLECTION,
                 photo=self,
-                album=sourceAlbum
+                album=source_album
             ).save()
-
-            sourceAlbum.save()
+            source_album.set_calculated_fields_new()
+            source_album.light_save()
 
     def light_save(self, *args, **kwargs):
         super(Photo, self).save(*args, **kwargs)
@@ -1209,6 +1178,7 @@ class Photo(Model):
         for point in set_of_points:
             point = (point[1], point[0])
             dist = great_circle(point_of_reference, point).meters
+
             if (closest_dist is None) or (dist < closest_dist):
                 closest_point = point
                 closest_dist = dist
@@ -1224,18 +1194,22 @@ class Photo(Model):
             if getattr(self, key):
                 translation_source = key
                 original_languages.append(each)
+
         self.description_original_language = ','.join(original_languages)
         if translation_source:
             translation_done = False
+
             for each in settings.TARTUNLP_LANGUAGES:
                 key = f'description_{each}'
                 current_value = getattr(self, key)
+
                 if not current_value:
                     headers = {'Content-Type': 'application/json', 'x-api-key': 'public', 'application': 'ajapaik'}
                     json = {'text': getattr(self, translation_source), 'tgt': each}
                     response = requests.post(settings.TARTUNLP_API_URL, headers=headers, json=json).json()
                     setattr(self, key, response['result'])
                     translation_done = True
+
             if translation_done:
                 self.light_save()
 
@@ -1342,7 +1316,8 @@ class ImageSimilarity(Model):
         (DUPLICATE, _('Duplicate'))
     )
     similarity_type = PositiveSmallIntegerField(choices=SIMILARITY_TYPES, blank=True, null=True)
-    user_last_modified = ForeignKey('Profile', related_name='user_last_modified', null=True, on_delete=CASCADE)
+    user_last_modified = ForeignKey('Profile', related_name='user_last_modified',
+                                    null=True, on_delete=CASCADE)
     created = DateTimeField(auto_now_add=True, db_index=True)
     modified = DateTimeField(auto_now=True)
 
@@ -1365,15 +1340,18 @@ class ImageSimilarity(Model):
                                                similarity_type=self.similarity_type)
         suggestions = ImageSimilaritySuggestion.objects.filter(image_similarity_id=imageSimilarity.id).order_by(
             'proposer_id', '-created').all().distinct('proposer_id')
+
         if self.similarity_type is not None:
             first_suggestion = 0 if self.similarity_type == 1 else 1
             second_suggestion = 0 if self.similarity_type == 2 else 2
+
             if suggestions.filter(similarity_type=self.similarity_type).count() >= (
                     suggestions.filter(similarity_type=second_suggestion).count() - 1) \
                     and suggestions.filter(similarity_type=self.similarity_type).count() >= (
                     suggestions.filter(similarity_type=first_suggestion).count() - 1):
                 suggestion.proposer = self.user_last_modified
                 imageSimilarity.similarity_type = self.similarity_type
+
                 if self.similarity_type == 0:
                     has_similar = ImageSimilarity.objects.filter(
                         Q(from_photo_id=imageSimilarity.from_photo.id) &
@@ -1381,6 +1359,7 @@ class ImageSimilarity(Model):
                         Q(similarity_type__gt=0)).first() is not None
                     imageSimilarity.from_photo.has_similar = has_similar
                     imageSimilarity.to_photo.has_similar = has_similar
+
         imageSimilarity.save()
         imageSimilarity.to_photo.has_similar = ImageSimilarity.objects.filter(
             from_photo_id=imageSimilarity.from_photo.id).exclude(similarity_type=0).first() is not None
@@ -1397,12 +1376,12 @@ class ImageSimilarity(Model):
 
     def __add_or_update__(self):
         qs = ImageSimilarity.objects.filter(from_photo=self.from_photo, to_photo=self.to_photo)
-        points = 0
         if len(qs) == 0:
             points, suggestion = self.__add__()
         else:
             points, suggestion = self.__update__(qs)
-        if points > 0:
+
+        if points:
             Points(
                 user=self.user_last_modified,
                 action=Points.CONFIRM_IMAGE_SIMILARITY,
@@ -1410,6 +1389,7 @@ class ImageSimilarity(Model):
                 image_similarity_confirmation=suggestion,
                 created=timezone.now()
             ).save()
+
         return points
 
     @staticmethod
@@ -1425,7 +1405,8 @@ class ImageSimilarity(Model):
 
 class ImageSimilaritySuggestion(Model):
     image_similarity = ForeignKey(ImageSimilarity, on_delete=CASCADE, related_name='image_similarity')
-    proposer = ForeignKey('Profile', on_delete=CASCADE, related_name='image_similarity_proposer', null=True, blank=True)
+    proposer = ForeignKey('Profile', on_delete=CASCADE,
+                          related_name='image_similarity_proposer', null=True, blank=True)
     DIFFERENT, SIMILAR, DUPLICATE = range(3)
     SIMILARITY_TYPES = (
         (DIFFERENT, _('Different')),
@@ -1434,20 +1415,6 @@ class ImageSimilaritySuggestion(Model):
     )
     similarity_type = PositiveSmallIntegerField(choices=SIMILARITY_TYPES, blank=True, null=True)
     created = DateTimeField(auto_now_add=True, db_index=True)
-
-
-class PhotoMetadataUpdate(Model):
-    photo = ForeignKey('Photo', related_name='metadata_updates', on_delete=CASCADE)
-    old_title = CharField(max_length=255, blank=True, null=True)
-    new_title = CharField(max_length=255, blank=True, null=True)
-    old_description = TextField(null=True, blank=True)
-    new_description = TextField(null=True, blank=True)
-    old_author = CharField(null=True, blank=True, max_length=255)
-    new_author = CharField(null=True, blank=True, max_length=255)
-    created = DateTimeField(auto_now_add=True)
-
-    class Meta:
-        db_table = 'project_photometadataupdate'
 
 
 class PhotoComment(Model):
@@ -1475,7 +1442,8 @@ class PhotoLike(Model):
 
 class DifficultyFeedback(Model):
     photo = ForeignKey('Photo', on_delete=CASCADE)
-    user_profile = ForeignKey('Profile', related_name='difficulty_feedbacks', on_delete=CASCADE)
+    user_profile = ForeignKey('Profile', related_name='difficulty_feedbacks',
+                              on_delete=CASCADE)
     level = PositiveSmallIntegerField()
     trustworthiness = FloatField()
     geotag = ForeignKey('GeoTag', on_delete=CASCADE)
@@ -1541,7 +1509,7 @@ class Points(Model):
             ('user', 'image_similarity_confirmation'))
 
     def __str__(self):
-        return u'%d - %s - %d' % (self.user_id, self.ACTION_CHOICES[self.action], self.points)
+        return f'{self.user_id} - {self.ACTION_CHOICES[self.action]} - {self.points}'
 
 
 class Transcription(Model):
@@ -1554,7 +1522,8 @@ class Transcription(Model):
 
 class TranscriptionFeedback(Model):
     created = DateTimeField(auto_now_add=True, db_index=True)
-    user = ForeignKey('Profile', related_name='transcription_feedback', on_delete=CASCADE)
+    user = ForeignKey('Profile', related_name='transcription_feedback',
+                      on_delete=CASCADE)
     transcription = ForeignKey(Transcription, on_delete=CASCADE, related_name='transcription')
 
 
@@ -1600,7 +1569,8 @@ class GeoTag(Model):
     map_type = PositiveSmallIntegerField(choices=MAP_TYPE_CHOICES, default=0)
     hint_used = BooleanField(default=False)
     photo_flipped = BooleanField(default=False)
-    user = ForeignKey('Profile', related_name='geotags', null=True, blank=True, on_delete=CASCADE)
+    user = ForeignKey('Profile', related_name='geotags', null=True, blank=True,
+                      on_delete=CASCADE)
     photo = ForeignKey('Photo', related_name='geotags', on_delete=CASCADE)
     is_correct = BooleanField(default=False)
     azimuth_correct = BooleanField(default=False)
@@ -1619,10 +1589,11 @@ class GeoTag(Model):
         super(GeoTag, self).save(*args, **kwargs)
 
     def __str__(self):
-        # Django admin may crash with too long names
         importer = self.user.get_display_name if self.user else 'Ajapaik'
         photo = self.photo
+
         if importer:
+            # Django admin may crash with too long names
             return f'{str(self.id)} - {str(photo.id)} - {photo.get_display_text[:50]} - {importer}'
 
 
@@ -1652,7 +1623,7 @@ class FacebookManager(Manager):
             return request.read()
 
     def get_user(self, access_token):
-        data = loads(self.url_read('https://graph.facebook.com/v7.0/me?access_token=%s' % access_token))
+        data = loads(self.url_read(f'https://graph.facebook.com/v7.0/me?access_token={access_token}'))
         if not data:
             raise Exception('Facebook did not return anything useful for this access token')
 
@@ -1660,6 +1631,285 @@ class FacebookManager(Manager):
             return self.get(fb_id=data.get('id')), data
         except ObjectDoesNotExist:
             return None, data,
+
+
+class Source(Model):
+    name = CharField(max_length=255)
+    description = TextField(null=True, blank=True)
+    created = DateTimeField(auto_now_add=True)
+    modified = DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        db_table = 'project_source'
+
+
+class Device(Model):
+    camera_make = CharField(null=True, blank=True, max_length=255)
+    camera_model = CharField(null=True, blank=True, max_length=255)
+    lens_make = CharField(null=True, blank=True, max_length=255)
+    lens_model = CharField(null=True, blank=True, max_length=255)
+    software = CharField(null=True, blank=True, max_length=255)
+
+    class Meta:
+        db_table = 'project_device'
+
+    def __str__(self):
+        return f'{self.camera_make} {self.camera_model} {self.lens_make} {self.lens_model} {self.software}'
+
+
+class Skip(Model):
+    user = ForeignKey('Profile', related_name='skips', on_delete=CASCADE)
+    photo = ForeignKey('Photo', on_delete=CASCADE)
+    created = DateTimeField(auto_now_add=True)
+
+    class Meta:
+        db_table = 'project_skip'
+
+    def __str__(self):
+        return f'{str(self.user.pk)} {str(self.photo.pk)}'
+
+
+class Licence(Model):
+    name = CharField(max_length=255)
+    url = URLField(blank=True, null=True)
+    image_url = URLField(blank=True, null=True)
+    is_public = BooleanField(default=False)
+
+    class Meta:
+        db_table = 'project_licence'
+
+    def __str__(self):
+        return self.name
+
+
+class GoogleMapsReverseGeocode(Model):
+    lat = FloatField(validators=[MinValueValidator(-85.05115), MaxValueValidator(85)], db_index=True)
+    lon = FloatField(validators=[MinValueValidator(-180), MaxValueValidator(180)], db_index=True)
+    response = JSONField()
+
+    class Meta:
+        db_table = 'project_googlemapsreversegeocode'
+
+    def __str__(self):
+        if self.response.get('results'):
+            location = self.response.get('results')[0].get('formatted_address')
+            return f'{location};{self.lat};{self.lon}'
+        else:
+            return f'{self.lat};{self.lon}'
+
+
+class Dating(Model):
+    DAY, MONTH, YEAR, DECADE, CENTURY = range(5)
+    ACCURACY_CHOICES = (
+        (DAY, _('Day')),
+        (MONTH, _('Month')),
+        (YEAR, _('Year')),
+        (DECADE, _('Decade')),
+        (CENTURY, _('Century'))
+    )
+
+    photo = ForeignKey('Photo', related_name='datings', on_delete=CASCADE)
+    profile = ForeignKey('Profile', blank=True, null=True, related_name='datings',
+                         on_delete=CASCADE)
+    raw = CharField(max_length=25, null=True, blank=True)
+    comment = TextField(blank=True, null=True)
+    start = DateField(default=datetime.strptime('01011000', '%d%m%Y').date())
+    start_approximate = BooleanField(default=False)
+    start_accuracy = PositiveSmallIntegerField(choices=ACCURACY_CHOICES, blank=True, null=True)
+    end = DateField(default=datetime.strptime('01013000', '%d%m%Y').date())
+    end_approximate = BooleanField(default=False)
+    end_accuracy = PositiveSmallIntegerField(choices=ACCURACY_CHOICES, blank=True, null=True)
+    created = DateTimeField(auto_now_add=True)
+    modified = DateTimeField(auto_now=True)
+
+    class Meta:
+        db_table = 'project_dating'
+
+    def __str__(self):
+        return f'{str(self.profile.pk)} - {str(self.photo.pk)}' if self.profile else f'Ajapaik - {str(self.photo.pk)}'
+
+
+class DatingConfirmation(Model):
+    confirmation_of = ForeignKey('Dating', related_name='confirmations', on_delete=CASCADE)
+    profile = ForeignKey('Profile', related_name='dating_confirmations',
+                         on_delete=CASCADE)
+    created = DateTimeField(auto_now_add=True)
+    modified = DateTimeField(auto_now=True)
+
+    class Meta:
+        db_table = 'project_datingconfirmation'
+
+    def __str__(self):
+        return f'{str(self.profile.pk)} - {str(self.confirmation_of.pk)}'
+
+
+class Video(Model):
+    name = CharField(max_length=255)
+    slug = SlugField(null=True, blank=True, max_length=255, unique=True)
+    file = FileField(upload_to='videos', blank=True, null=True)
+    width = IntegerField()
+    height = IntegerField()
+    author = CharField(max_length=255, blank=True, null=True)
+    date = DateField(blank=True, null=True)
+    source = ForeignKey('Source', blank=True, null=True, on_delete=CASCADE)
+    source_key = CharField(max_length=255, blank=True, null=True)
+    source_url = URLField(blank=True, null=True)
+    cover_image = ImageField(upload_to='videos/covers', height_field='cover_image_height',
+                             width_field='cover_image_width', blank=True, null=True)
+    cover_image_height = IntegerField(blank=True, null=True)
+    cover_image_width = IntegerField(blank=True, null=True)
+    created = DateTimeField(auto_now_add=True)
+    modified = DateTimeField(auto_now=True)
+
+    class Meta:
+        db_table = 'project_video'
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super(Video, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return reverse('videoslug', args=(self.id, self.slug))
+
+
+class MyXtdComment(XtdComment):
+    facebook_comment_id = CharField(max_length=255, blank=True, null=True)
+
+    def save(self, **kwargs):
+        super(MyXtdComment, self).save(**kwargs)
+        photo = Photo.objects.filter(pk=self.object_pk).first()
+        if photo:
+            if not photo.first_comment:
+                photo.first_comment = self.submit_date
+
+            if not photo.latest_comment or photo.latest_comment < self.submit_date:
+                photo.latest_comment = self.submit_date
+
+            photo.comment_count = MyXtdComment.objects.filter(object_pk=self.object_pk, is_removed=False).count()
+            photo.light_save()
+
+    def delete(self, *args, **kwargs):
+        # It evaluates to string? SO no need to deepcopy as strings are not pass-by-reference.
+        object_pk = deepcopy(self.object_pk)
+        super(MyXtdComment, self).delete(*args, **kwargs)
+        photo = Photo.objects.filter(pk=object_pk).first()
+
+        if photo:
+            comments = MyXtdComment.objects.filter(
+                object_pk=self.object_pk, is_removed=False
+            )
+            photo.comment_count = comments.count()
+            if photo.comment_count == 0:
+                photo.first_comment = None
+                photo.latest_comment = None
+            else:
+                first_comment = comments.order_by('-submit_date').first()
+                if first_comment:
+                    photo.first_comment = first_comment.submit_date
+                latest_comment = comments.order_by('submit_date').first()
+                if latest_comment:
+                    photo.latest_comment = latest_comment.submit_date
+
+            photo.light_save()
+
+    def like_count(self):
+        return self.flags.filter(flag=LIKEDIT_FLAG).count()
+
+    def dislike_count(self):
+        return self.flags.filter(flag=DISLIKEDIT_FLAG).count()
+
+
+class Suggestion(Model):
+    created = DateTimeField(auto_now_add=True, db_index=True)
+    photo = ForeignKey('Photo', on_delete=CASCADE)
+
+    class Meta:
+        abstract = True
+
+
+class PhotoSceneSuggestion(Suggestion):
+    INTERIOR, EXTERIOR = range(2)
+    SCENE_CHOICES = (
+        (INTERIOR, _('Interior')),
+        (EXTERIOR, _('Exterior'))
+    )
+    scene = PositiveSmallIntegerField(_('Scene'), choices=SCENE_CHOICES, blank=True, null=True)
+    proposer = ForeignKey('Profile', blank=True, null=True,
+                          related_name='photo_scene_suggestions', on_delete=CASCADE)
+
+
+class PhotoViewpointElevationSuggestion(Suggestion):
+    GROUND_LEVEL, RAISED, AERIAL = range(3)
+    VIEWPOINT_ELEVATION_CHOICES = (
+        (GROUND_LEVEL, _('Ground')),
+        (RAISED, _('Raised')),
+        (AERIAL, _('Aerial'))
+    )
+    viewpoint_elevation = PositiveSmallIntegerField(_('Viewpoint elevation'), choices=VIEWPOINT_ELEVATION_CHOICES,
+                                                    blank=True, null=True)
+    proposer = ForeignKey('Profile', blank=True, null=True,
+                          related_name='photo_viewpoint_elevation_suggestions',
+                          on_delete=CASCADE)
+
+
+class PhotoFlipSuggestion(Suggestion):
+    proposer = ForeignKey('Profile', blank=True, null=True,
+                          related_name='photo_flip_suggestions', on_delete=CASCADE)
+    flip = BooleanField(null=True)
+
+
+class PhotoInvertSuggestion(Suggestion):
+    proposer = ForeignKey('Profile', blank=True, null=True,
+                          related_name='photo_invert_suggestions', on_delete=CASCADE)
+    invert = BooleanField(null=True)
+
+
+class PhotoRotationSuggestion(Suggestion):
+    proposer = ForeignKey('Profile', blank=True, null=True,
+                          related_name='photo_rotate_suggestions', on_delete=CASCADE)
+    rotated = IntegerField(null=True, blank=True)
+
+
+class Supporter(Model):
+    name = CharField(max_length=255, null=True, blank=True)
+    profile = ForeignKey('Profile', blank=True, null=True, related_name='supporter',
+                         on_delete=CASCADE)
+
+
+class MuisCollection(Model):
+    spec = CharField(max_length=255, null=True, blank=True)
+    name = CharField(max_length=255, null=True, blank=True)
+    imported = BooleanField(default=False)
+    blacklisted = BooleanField(default=False)
+
+
+class ApplicationException(Model):
+    exception = TextField(_('Title'), null=True, blank=True)
+    external_id = CharField(max_length=100, null=True, blank=True)
+    photo = ForeignKey('Photo', on_delete=CASCADE, null=True)
+
+
+class ImportBlacklist(Model):
+    source_key = CharField(max_length=100, null=True, blank=True, unique=True,
+                           help_text='To be used if only one specific source key is to be blacklisted')
+    source_key_pattern = CharField(max_length=100, null=True, blank=True, unique=True,
+                                   help_text='Supports regex, example: starts with: "collection:key*", for exact match use: source_key instead')
+    source_url = URLField(null=True, blank=True, max_length=1023,
+                          help_text='Used to keep reference to blacklisted item, not used for matching')
+    comment = CharField(max_length=255, null=True, blank=True,
+                        help_text='Used for adding extra information on why the image is blacklisted from import')
+
+    def clean(self):
+        if self.source_key and self.source_key_pattern:
+            raise ValidationError('Either `source_key` or `source_key_pattern` must be set, but not both')
+        if self.source_key_pattern and self.source_key_pattern.startswith("*"):
+            raise ValidationError('Source key pattern can not start with *')
 
 
 class Profile(Model):
@@ -1717,12 +1967,16 @@ class Profile(Model):
     def get_display_name(self):
         if self.display_name:
             return self.display_name
-        elif self.first_name and self.last_name:
-            return '%s %s' % (self.first_name, self.last_name)
+
+        elif self.first_name or self.last_name:
+            return f'{self.first_name or ""} {self.last_name or ""}'.strip()
+
         elif self.google_plus_name:
             return self.google_plus_name
+
         elif self.fb_name:
             return self.fb_name
+
         elif self.google_plus_email:
             try:
                 return self.google_plus_email.split('@')[0]
@@ -1749,67 +2003,42 @@ class Profile(Model):
 
     def update_rephoto_score(self):
         photo_ids_rephotographed_by_this_user = Photo.objects.filter(
-            rephoto_of__isnull=False, user_id=self.user_id).values_list('rephoto_of', flat=True)
-        original_photos = Photo.objects.filter(id__in=set(photo_ids_rephotographed_by_this_user))
+            rephoto_of__isnull=False, user_id=self.user_id).select_related('rephoto_of').only(
+            'rephoto_of').values_list('rephoto_of', flat=True)
+        original_photos = Photo.objects.filter(
+            id__in=set(photo_ids_rephotographed_by_this_user)).prefetch_related('rephotos')
 
         user_rephoto_score = 0
 
         for p in original_photos:
-            oldest_rephoto = None
-            rephotos_by_this_user = []
-            for rp in p.rephotos.all():
-                if rp.user and rp.user_id == self.user_id:
-                    rephotos_by_this_user.append(rp)
-                if not oldest_rephoto or rp.created < oldest_rephoto.created:
-                    oldest_rephoto = rp
-            oldest_rephoto_is_from_this_user = oldest_rephoto.user \
-                                               and self.user \
-                                               and oldest_rephoto.user_id == self.user_id
-            user_first_bonus_earned = False
-            if oldest_rephoto_is_from_this_user:
-                user_first_bonus_earned = True
-                user_rephoto_score += 1250
-                try:
-                    Points.objects.get(action=Points.REPHOTO, photo=oldest_rephoto)
-                except ObjectDoesNotExist:
+            rephotos_by_this_user = p.rephotos.filter(user_id=self.user_id).order_by('-created')
+            oldest_rephoto = p.rephotos.order_by('-created').first()
+            oldest_rephoto_is_from_this_user = oldest_rephoto in rephotos_by_this_user
+
+            # First rephoto of user gets more points than subsequent ones. First Rephoto ever gets an additional 250p
+            current_score = 1250 if oldest_rephoto_is_from_this_user else 1000
+            for rp in rephotos_by_this_user:
+                # Check that we have a record in the scoring table
+                if not Points.objects.filter(action=Points.REPHOTO, photo=rp).exists():
                     new_record = Points(
-                        user=oldest_rephoto.user,
+                        user=self,
                         action=Points.REPHOTO,
-                        photo=oldest_rephoto,
-                        points=1250,
-                        created=oldest_rephoto.created
+                        photo=rp,
+                        points=current_score,
+                        created=rp.created
                     )
                     new_record.save()
-            for rp in rephotos_by_this_user:
+                user_rephoto_score += current_score
+                # Add 250 points for any subsequent rephotos
                 current_score = 250
-                if rp.id == oldest_rephoto.id:
-                    continue
-                else:
-                    if not user_first_bonus_earned:
-                        current_score = 1000
-                        user_first_bonus_earned = True
-                    # Check that we have a record in the scoring table
-                    try:
-                        Points.objects.get(action=Points.REPHOTO, photo=rp)
-                    except ObjectDoesNotExist:
-                        new_record = Points(
-                            user=rp.user,
-                            action=Points.REPHOTO,
-                            photo=rp,
-                            points=current_score,
-                            created=rp.created
-                        )
-                        new_record.save()
-                    user_rephoto_score += current_score
 
         self.score_rephoto = user_rephoto_score
-        self.save()
+        self.save(update_fields=['score_rephoto'])
 
     def set_calculated_fields(self):
-        all_time_score = self.points.aggregate(Sum('points'))['points__sum']
-        if all_time_score == None:
-            all_time_score = 0
+        all_time_score = self.points.aggregate(Sum('points', default=0))['points__sum']
         self.score = all_time_score
+        self.save(update_fields=['score'])
 
     def get_preferred_language(self):
         if not self.preferred_language:
@@ -1818,316 +2047,34 @@ class Profile(Model):
             return self.preferred_language
 
 
-class Source(Model):
-    name = CharField(max_length=255)
-    description = TextField(null=True, blank=True)
-    created = DateTimeField(auto_now_add=True)
-    modified = DateTimeField(auto_now=True)
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        db_table = 'project_source'
-
-
 class ProfileMergeToken(Model):
     token = CharField(max_length=36)
     created = DateTimeField(auto_now_add=True)
     used = DateTimeField(null=True, blank=True)
-    profile = ForeignKey('Profile', related_name='profile_merge_tokens', on_delete=CASCADE)
-    source_profile = ForeignKey('Profile', blank=True, null=True, related_name='merged_from_profile', on_delete=CASCADE)
-    target_profile = ForeignKey('Profile', blank=True, null=True, related_name='merged_into_profile', on_delete=CASCADE)
-
-
-class Device(Model):
-    camera_make = CharField(null=True, blank=True, max_length=255)
-    camera_model = CharField(null=True, blank=True, max_length=255)
-    lens_make = CharField(null=True, blank=True, max_length=255)
-    lens_model = CharField(null=True, blank=True, max_length=255)
-    software = CharField(null=True, blank=True, max_length=255)
-
-    class Meta:
-        db_table = 'project_device'
-
-    def __str__(self):
-        return f'{self.camera_make} {self.camera_model} {self.lens_make} {self.lens_model} {self.software}'
-
-
-class Skip(Model):
-    user = ForeignKey('Profile', related_name='skips', on_delete=CASCADE)
-    photo = ForeignKey('Photo', on_delete=CASCADE)
-    created = DateTimeField(auto_now_add=True)
-
-    class Meta:
-        db_table = 'project_skip'
-
-    def __str__(self):
-        return f'{str(self.user.pk)} {str(self.photo.pk)}'
-
-
-# TODO: Do we need this? Kind of violating users' privacy, no?
-class Action(Model):
-    type = CharField(max_length=255)
-    related_type = ForeignKey(ContentType, null=True, blank=True, on_delete=CASCADE)
-    related_id = PositiveIntegerField(null=True, blank=True)
-    related_object = GenericForeignKey('related_type', 'related_id')
-    params = json.JSONField(null=True, blank=True)
-
-    @classmethod
-    def log(cls, my_type, params=None, related_object=None, request=None):
-        obj = cls(type=my_type, params=params)
-        if related_object:
-            obj.related_object = related_object
-        obj.save()
-
-        return obj
-
-    class Meta:
-        db_table = 'project_action'
-
-
-class Licence(Model):
-    name = CharField(max_length=255)
-    url = URLField(blank=True, null=True)
-    image_url = URLField(blank=True, null=True)
-    is_public = BooleanField(default=False)
-
-    class Meta:
-        db_table = 'project_licence'
-
-    def __str__(self):
-        return self.name
-
-
-class GoogleMapsReverseGeocode(Model):
-    lat = FloatField(validators=[MinValueValidator(-85.05115), MaxValueValidator(85)], db_index=True)
-    lon = FloatField(validators=[MinValueValidator(-180), MaxValueValidator(180)], db_index=True)
-    response = json.JSONField()
-
-    class Meta:
-        db_table = 'project_googlemapsreversegeocode'
-
-    def __str__(self):
-        if self.response.get('results') and self.response.get('results')[0]:
-            location = self.response.get('results')[0].get('formatted_address')
-            return f'{location};{self.lat};{self.lon}'
-        else:
-            return f'{self.lat};{self.lon}'
-
-
-class Dating(Model):
-    DAY, MONTH, YEAR, DECADE, CENTURY = range(5)
-    ACCURACY_CHOICES = (
-        (DAY, _('Day')),
-        (MONTH, _('Month')),
-        (YEAR, _('Year')),
-        (DECADE, _('Decade')),
-        (CENTURY, _('Century'))
-    )
-
-    photo = ForeignKey('Photo', related_name='datings', on_delete=CASCADE)
-    profile = ForeignKey('Profile', blank=True, null=True, related_name='datings', on_delete=CASCADE)
-    raw = CharField(max_length=25, null=True, blank=True)
-    comment = TextField(blank=True, null=True)
-    start = DateField(default=datetime.strptime('01011000', '%d%m%Y').date())
-    start_approximate = BooleanField(default=False)
-    start_accuracy = PositiveSmallIntegerField(choices=ACCURACY_CHOICES, blank=True, null=True)
-    end = DateField(default=datetime.strptime('01013000', '%d%m%Y').date())
-    end_approximate = BooleanField(default=False)
-    end_accuracy = PositiveSmallIntegerField(choices=ACCURACY_CHOICES, blank=True, null=True)
-    created = DateTimeField(auto_now_add=True)
-    modified = DateTimeField(auto_now=True)
-
-    class Meta:
-        db_table = 'project_dating'
-
-    def __str__(self):
-        return f'{str(self.profile.pk)} - {str(self.photo.pk)}' if self.profile else f'Ajapaik - {str(self.photo.pk)}'
-
-
-class DatingConfirmation(Model):
-    confirmation_of = ForeignKey('Dating', related_name='confirmations', on_delete=CASCADE)
-    profile = ForeignKey('Profile', related_name='dating_confirmations', on_delete=CASCADE)
-    created = DateTimeField(auto_now_add=True)
-    modified = DateTimeField(auto_now=True)
-
-    class Meta:
-        db_table = 'project_datingconfirmation'
-
-    def __str__(self):
-        return f'{str(self.profile.pk)} - {str(self.confirmation_of.pk)}'
-
-
-class Video(Model):
-    name = CharField(max_length=255)
-    slug = SlugField(null=True, blank=True, max_length=255, unique=True)
-    file = FileField(upload_to='videos', blank=True, null=True)
-    width = IntegerField()
-    height = IntegerField()
-    author = CharField(max_length=255, blank=True, null=True)
-    date = DateField(blank=True, null=True)
-    source = ForeignKey('Source', blank=True, null=True, on_delete=CASCADE)
-    source_key = CharField(max_length=255, blank=True, null=True)
-    source_url = URLField(blank=True, null=True)
-    cover_image = ImageField(upload_to='videos/covers', height_field='cover_image_height',
-                             width_field='cover_image_width', blank=True, null=True)
-    cover_image_height = IntegerField(blank=True, null=True)
-    cover_image_width = IntegerField(blank=True, null=True)
-    created = DateTimeField(auto_now_add=True)
-    modified = DateTimeField(auto_now=True)
-
-    class Meta:
-        db_table = 'project_video'
-
-    def save(self, *args, **kwargs):
-        super(Video, self).save(*args, **kwargs)
-        if not self.slug:
-            self.slug = slugify(self.name)
-            super(Video, self).save(*args, **kwargs)
-
-    def __str__(self):
-        return self.name
-
-    def get_absolute_url(self):
-        return reverse('videoslug', args=(self.id, self.slug))
+    profile = ForeignKey('ajapaik.Profile', related_name='profile_merge_tokens', on_delete=CASCADE)
+    source_profile = ForeignKey('ajapaik.Profile', blank=True, null=True,
+                                related_name='merged_from_profile', on_delete=CASCADE)
+    target_profile = ForeignKey('ajapaik.Profile', blank=True, null=True,
+                                related_name='merged_into_profile', on_delete=CASCADE)
 
 
 class ProfileDisplayNameChange(Model):
-    profile = ForeignKey('Profile', related_name='display_name_changes', on_delete=CASCADE)
+    profile = ForeignKey('ajapaik.Profile', related_name='display_name_changes',
+                         on_delete=CASCADE)
     display_name = CharField(max_length=255, null=True, blank=True)
     created = DateTimeField(auto_now_add=True, db_index=True)
 
 
-class MyXtdComment(XtdComment):
-    facebook_comment_id = CharField(max_length=255, blank=True, null=True)
+def get_pseudo_slug_for_photo(description, source_key, id, created=None):
+    slug = None
 
-    def save(self, **kwargs):
-        super(MyXtdComment, self).save(**kwargs)
-        photo = Photo.objects.filter(pk=self.object_pk).first()
-        if photo:
-            if not photo.first_comment:
-                photo.first_comment = self.submit_date
-            if not photo.latest_comment or photo.latest_comment < self.submit_date:
-                photo.latest_comment = self.submit_date
-            photo.comment_count = MyXtdComment.objects.filter(
-                object_pk=self.object_pk, is_removed=False
-            ).count()
-            photo.light_save()
+    if description:
+        slug = '-'.join(slugify(description).split('-')[:6])[:60]
+    if not slug and source_key:
+        slug = slugify(source_key)
+    if not slug and created:
+        slug = slugify(created.__format__('%Y-%m-%d'))
+    if not slug:
+        slug = slugify(str(id))
 
-    def delete(self, *args, **kwargs):
-        object_pk = deepcopy(self.object_pk)
-        super(MyXtdComment, self).delete(*args, **kwargs)
-        photo = Photo.objects.filter(pk=object_pk).first()
-        if photo:
-            comments = MyXtdComment.objects.filter(
-                object_pk=self.object_pk, is_removed=False
-            )
-            photo.comment_count = comments.count()
-            if photo.comment_count == 0:
-                photo.first_comment = None
-                photo.latest_comment = None
-            else:
-                first_comment = comments.order_by('-submit_date').first()
-                if first_comment:
-                    photo.first_comment = first_comment.submit_date
-                latest_comment = comments.order_by('submit_date').first()
-                if latest_comment:
-                    photo.latest_comment = latest_comment.submit_date
-
-            photo.light_save()
-
-    def like_count(self):
-        return self.flags.filter(flag=LIKEDIT_FLAG).count()
-
-    def dislike_count(self):
-        return self.flags.filter(flag=DISLIKEDIT_FLAG).count()
-
-
-class WikimediaCommonsUpload(Model):
-    response_code = IntegerField(null=True, editable=False)
-    response_data = TextField(null=True, editable=False)
-    created = DateTimeField(auto_now_add=True, db_index=True)
-    photo = ForeignKey('Photo', on_delete=CASCADE)
-    url = URLField(null=True, blank=True, max_length=1023)
-
-
-class Suggestion(Model):
-    created = DateTimeField(auto_now_add=True, db_index=True)
-    photo = ForeignKey('Photo', on_delete=CASCADE)
-
-    class Meta:
-        abstract = True
-
-
-class PhotoSceneSuggestion(Suggestion):
-    INTERIOR, EXTERIOR = range(2)
-    SCENE_CHOICES = (
-        (INTERIOR, _('Interior')),
-        (EXTERIOR, _('Exterior'))
-    )
-    scene = PositiveSmallIntegerField(_('Scene'), choices=SCENE_CHOICES, blank=True, null=True)
-    proposer = ForeignKey('Profile', blank=True, null=True, related_name='photo_scene_suggestions', on_delete=CASCADE)
-
-
-class PhotoViewpointElevationSuggestion(Suggestion):
-    GROUND_LEVEL, RAISED, AERIAL = range(3)
-    VIEWPOINT_ELEVATION_CHOICES = (
-        (GROUND_LEVEL, _('Ground')),
-        (RAISED, _('Raised')),
-        (AERIAL, _('Aerial'))
-    )
-    viewpoint_elevation = PositiveSmallIntegerField(_('Viewpoint elevation'), choices=VIEWPOINT_ELEVATION_CHOICES,
-                                                    blank=True, null=True)
-    proposer = ForeignKey('Profile', blank=True, null=True, related_name='photo_viewpoint_elevation_suggestions',
-                          on_delete=CASCADE)
-
-
-class PhotoFlipSuggestion(Suggestion):
-    proposer = ForeignKey('Profile', blank=True, null=True, related_name='photo_flip_suggestions', on_delete=CASCADE)
-    flip = BooleanField(null=True)
-
-
-class PhotoInvertSuggestion(Suggestion):
-    proposer = ForeignKey('Profile', blank=True, null=True, related_name='photo_invert_suggestions', on_delete=CASCADE)
-    invert = BooleanField(null=True)
-
-
-class PhotoRotationSuggestion(Suggestion):
-    proposer = ForeignKey('Profile', blank=True, null=True, related_name='photo_rotate_suggestions', on_delete=CASCADE)
-    rotated = IntegerField(null=True, blank=True)
-
-
-class Supporter(Model):
-    name = CharField(max_length=255, null=True, blank=True)
-    profile = ForeignKey('Profile', blank=True, null=True, related_name='supporter', on_delete=CASCADE)
-
-
-class MuisCollection(Model):
-    spec = CharField(max_length=255, null=True, blank=True)
-    name = CharField(max_length=255, null=True, blank=True)
-    imported = BooleanField(default=False)
-    blacklisted = BooleanField(default=False)
-
-
-class ApplicationException(Model):
-    exception = TextField(_('Title'), null=True, blank=True)
-    external_id = CharField(max_length=100, null=True, blank=True)
-    photo = ForeignKey('Photo', on_delete=CASCADE)
-
-
-class ImportBlacklist(Model):
-    source_key = CharField(max_length=100, null=True, blank=True, unique=True,
-                           help_text='To be used if only one specific source key is to be blacklisted')
-    source_key_pattern = CharField(max_length=100, null=True, blank=True, unique=True,
-                                   help_text='Supports regex, example: starts with: "collection:key*", for exact match use: source_key instead')
-    source_url = URLField(null=True, blank=True, max_length=1023,
-                          help_text='Used to keep reference to blacklisted item, not used for matching')
-    comment = CharField(max_length=255, null=True, blank=True,
-                        help_text='Used for adding extra information on why the image is blacklisted from import')
-
-    def clean(self):
-        if self.source_key and self.source_key_pattern:
-            raise ValidationError('Either `source_key` or `source_key_pattern` must be set, but not both')
-        if self.source_key_pattern and self.source_key_pattern.startswith("*"):
-            raise ValidationError('Source key pattern can not start with *')
+    return slug

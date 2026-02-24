@@ -4,8 +4,8 @@ from json import dumps, loads
 
 from requests import get
 
-from ajapaik.ajapaik.fotis_utils import transform_fotis_persons_response
 from ajapaik.ajapaik.models import Photo, AlbumPhoto, Album
+from ajapaik.ajapaik_curator.utils import transform_fotis_persons_response
 
 
 class FotisDriver(object):
@@ -45,7 +45,7 @@ class FotisDriver(object):
             'pageCount': int(response_headers.get('X-Pagination-Page-Count', 1))
         }
 
-    def transform_response(self, response, remove_existing=False, fotis_page=1):
+    def transform_response(self, response, remove_existing=False):
         ids = [p['id'] for p in response['records']]
         transformed = {
             'result': {

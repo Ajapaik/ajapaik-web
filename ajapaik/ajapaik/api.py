@@ -6,7 +6,6 @@ import logging
 import re
 import sys
 import time
-import datetime
 from urllib.parse import parse_qs
 from urllib.parse import quote
 from urllib.request import urlopen
@@ -20,9 +19,8 @@ from allauth.account.utils import complete_signup
 from allauth.socialaccount.helpers import complete_social_login
 from allauth.socialaccount.providers.facebook.views import FacebookOAuth2Adapter
 from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
-from ajapaik.ajapaik.socialaccount.providers.wikimedia_commons.views import WikimediaCommonsOAuth2Adapter
 from django.conf import settings
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, logout
 from django.contrib.gis.db.models.functions import Distance, GeometryDistance
 from django.contrib.gis.geos import Point
 from django.contrib.gis.measure import D
@@ -38,7 +36,7 @@ from google.auth.transport import requests as google_auth_requests
 from google.oauth2 import id_token
 from haystack.inputs import AutoQuery
 from haystack.query import SearchQuerySet
-from rest_framework.authentication import SessionAuthentication, BasicAuthentication
+from rest_framework.authentication import BasicAuthentication, SessionAuthentication
 from rest_framework.decorators import permission_classes
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
@@ -46,14 +44,15 @@ from rest_framework.views import APIView, exception_handler
 from sorl.thumbnail import get_thumbnail
 
 from ajapaik.ajapaik import forms
-from ajapaik.ajapaik.serializers import AlbumSerializer, AlbumDetailsSerializer, PhotoSerializer, \
-    PhotoWithDistanceSerializer, ProfileLinkSerializer
-from ajapaik.ajapaik.curator_drivers.finna import finna_find_photo_by_url
-from ajapaik.ajapaik.models import Album, AlbumPhoto, Photo, PhotoSceneSuggestion, Points, Profile, Licence, \
-    PhotoLike, PhotoViewpointElevationSuggestion, ProfileDisplayNameChange, ProfileMergeToken, GeoTag, \
+from ajapaik.ajapaik.models import Album, AlbumPhoto, Photo, PhotoSceneSuggestion, Points, Licence, \
+    PhotoLike, PhotoViewpointElevationSuggestion, GeoTag, \
     ImageSimilarity, Transcription, TranscriptionFeedback, PhotoFlipSuggestion, PhotoInvertSuggestion, \
-    PhotoRotationSuggestion, MuisCollection
-from ajapaik.ajapaik.utils import merge_profiles
+    PhotoRotationSuggestion, Profile, ProfileDisplayNameChange
+from ajapaik.ajapaik.serializers import AlbumSerializer, AlbumDetailsSerializer, \
+    PhotoWithDistanceSerializer, APIPhotoSerializer
+from ajapaik.ajapaik.socialaccount.providers.wikimedia_commons.views import WikimediaCommonsOAuth2Adapter
+from ajapaik.ajapaik.utils import find_finna_photo_by_url
+from ajapaik.ajapaik_profile.serializers import ProfileLinkSerializer
 from ajapaik.utils import can_action_be_done, suggest_photo_edit
 
 log = logging.getLogger(__name__)
@@ -77,18 +76,12 @@ RESPONSE_STATUSES = {
 # Translations
 MISSING_PARAMETER_FLIP_INVERT_ROTATE = _('Add at least flip, invert or rotate parameter to the request')
 MISSING_PARAMETER_SCENE_VIEWPOINT_ELEVATION = _('Add at least scene or viewpoint_elevation parameter to the request')
-PROFILE_MERGE_SUCCESS = _('Contributions and settings from the other account were added to current')
-EXPIRED_TOKEN = _('Expired token')
-INVALID_TOKEN = _('Invalid token')
 MISSING_PARAMETER_PHOTO_IDS = _('Missing parameter photo_ids')
 NO_PHOTO_WITH_ID = _('No photo with id:')
 INVALID_PHOTO_ID = _('Parameter photo_id must be an positive integer')
-PROFILE_MERGE_LOGIN_PROMPT = _(
-    'Please login with a different account, you are currently logged in with the same account '
-    'that you are merging from')
 PLEASE_LOGIN = _('Please login')
 REPHOTO_UPLOAD_SETTINGS_SUCCESS = _('Rephoto upload settings have been saved')
-MISSING_PARAMETER_TOKEN = _('Required parameter, token is missing')
+
 TRANSCRIPTION_ALREADY_EXISTS = _('This transcription already exists, previous transcription was upvoted, thank you!')
 TRANSCRIPTION_ADDED = _('Transcription added, thank you!')
 TRANSCRIPTION_FEEDBACK_ADDED = _('Transcription feedback added, thank you!')
@@ -166,6 +159,7 @@ class Login(APIView):
             return login.user
         except:  # noqa
             return None
+
     def _authenticate_with_oauth2_access_token(self, adapter, request, access_token):
         '''
         Returns user by oauth2 access_token.
@@ -193,7 +187,6 @@ class Login(APIView):
         adapter = GoogleOAuth2Adapter(request)
         return self._authenticate_with_oauth2_access_token(adapter, request, access_token)
 
-
     def _authenticate_with_facebook(self, request, access_token):
         '''
         Returns user by facebook access_token.
@@ -208,7 +201,7 @@ class Login(APIView):
         adapter = WikimediaCommonsOAuth2Adapter(request)
         return self._authenticate_with_oauth2_access_token(adapter, request, access_token)
 
-    def post(self, request, format=None):
+    def post(self, request):
         form = forms.APILoginForm(request.data)
         user = None
 
@@ -242,8 +235,8 @@ class Login(APIView):
 
         elif login_type == forms.APILoginForm.LOGIN_TYPE_GOOGLE2:
             access_token = form.cleaned_data['password']
-            user = self._authenticate_with_google2( request._request,
-                                                    access_token)
+            user = self._authenticate_with_google2(request._request,
+                                                   access_token)
 
         elif login_type == forms.APILoginForm.LOGIN_TYPE_FACEBOOK:
             access_token = form.cleaned_data['password']
@@ -254,7 +247,7 @@ class Login(APIView):
             # TODO: Finish API endpoint for Wikimedia Commons login
             access_token = form.cleaned_data['password']
             user = self._authenticate_with_wikimedia_commons(request._request,
-                                                              access_token)
+                                                             access_token)
         if user is None:
             # We can't authenticate user with provided data.
             return Response({
@@ -274,6 +267,7 @@ class Login(APIView):
             'expires': request.session.get_expiry_age(),
         })
 
+
 class Register(APIView):
     '''
     API endpoint to register user.
@@ -282,7 +276,7 @@ class Register(APIView):
     permission_classes = (AllowAny,)
     authentication_classes = (CsrfExemptSessionAuthentication, BasicAuthentication)
 
-    def post(self, request, format=None):
+    def post(self, request):
         form = forms.APIRegisterForm(request.data)
         if form.is_valid():
             registration_type = form.cleaned_data['type']
@@ -374,13 +368,13 @@ class AjapaikAPIView(APIView):
                 del request.session['sessionid']
         return request
 
-    def post(self, request, format=None):
+    def post(self, request):
         body = request.body
         post = self._fix_latin1_query_param(request, body)
         request = self._reset_session_cookie(request)
         return self._handle_request(post, request.user, request)
 
-    def get(self, request, format=None):
+    def get(self, request):
         request = self._reset_session_cookie(request)
         return self._handle_request(request.GET, request.user, request)
 
@@ -429,10 +423,10 @@ class AlbumList(AjapaikAPIView):
 
         time_threshold = datetime.datetime.now(timezone.utc) - datetime.timedelta(days=90)
         albums = Album.objects \
-            .exclude(atype=Album.PERSON) \
-            .filter(created__gt=time_threshold) \
-            .filter(filter_rule) \
-            .order_by('-created')[:300]
+                     .exclude(atype=Album.PERSON) \
+                     .filter(created__gt=time_threshold) \
+                     .filter(filter_rule) \
+                     .order_by('-created')[:300]
         albums = AlbumDetailsSerializer.annotate_albums(albums)
 
         return Response({
@@ -487,14 +481,14 @@ class FinnaNearestPhotos(AjapaikAPIView):
 
         if photos:
             user_profile = user.profile if user.is_authenticated else None
-            photos = PhotoSerializer.annotate_photos(
+            photos = APIPhotoSerializer.annotate_photos(
                 photos,
                 user_profile
             )
 
             return Response({
                 'error': RESPONSE_STATUSES['OK'],
-                'photos': PhotoSerializer(
+                'photos': APIPhotoSerializer(
                     instance=photos,
                     many=True,
                     context={'request': request}
@@ -656,17 +650,17 @@ class AlbumNearestPhotos(AjapaikAPIView):
                 round(form.cleaned_data['latitude'], 4),
                 srid=4326
             )
-            latitude=form.cleaned_data['latitude']
-            longitude=form.cleaned_data['longitude']
+            latitude = form.cleaned_data['latitude']
+            longitude = form.cleaned_data['longitude']
             start = form.cleaned_data['start'] or 0
             end = start + (form.cleaned_data['limit'] or settings.API_DEFAULT_NEARBY_MAX_PHOTOS)
             if album:
                 photos = Photo.objects.filter(
                     Q(albums=album) | (Q(albums__subalbum_of=album) & ~Q(albums__atype=Album.AUTO)),
                     rephoto_of__isnull=True).filter(lat__isnull=False, lon__isnull=False,
-                    lon__lte=longitude+1, lon__gte=longitude-1,
-                    lat__lte=latitude+1, lat__gte=latitude-1,
-                    ).annotate(
+                                                    lon__lte=longitude + 1, lon__gte=longitude - 1,
+                                                    lat__lte=latitude + 1, lat__gte=latitude - 1,
+                                                    ).annotate(
                     distance=Distance(('geography'), ref_location)).filter(distance__lte=(D(m=nearby_range))).order_by(
                     'distance')[start:end]
 
@@ -682,18 +676,19 @@ class AlbumNearestPhotos(AjapaikAPIView):
                 })
             else:
                 # results are flattened to ids lists so that the serialisation stays fast
-                photos = Photo.objects.filter(rephoto_of__isnull=True, ).annotate(distance=GeometryDistance("geography", ref_location)).order_by("distance")[start:end]
-                photo_ids=photos.values_list('id', flat=True)
-                photos=Photo.objects.filter(id__in=photo_ids).order_by(GeometryDistance("geography", ref_location));
+                photos = Photo.objects.filter(rephoto_of__isnull=True, ).annotate(
+                    distance=GeometryDistance("geography", ref_location)).order_by("distance")[start:end]
+                photo_ids = photos.values_list('id', flat=True)
+                photos = Photo.objects.filter(id__in=photo_ids).order_by(GeometryDistance("geography", ref_location))
 
-                photos = PhotoSerializer.annotate_photos(
+                photos = APIPhotoSerializer.annotate_photos(
                     photos,
                     user_profile
                 )
 
                 return Response({
                     'error': RESPONSE_STATUSES['OK'],
-                    'photos': PhotoSerializer(
+                    'photos': APIPhotoSerializer(
                         instance=photos,
                         many=True,
                         context={'request': request}
@@ -729,7 +724,7 @@ class AlbumPhotoInformation(AjapaikAPIView):
     API endpoint to retrieve album details.
     '''
 
-    def get(self, _, album_id, photo_id):
+    def get(self, request, album_id, photo_id):
         album = get_object_or_404(Album, id=album_id)
         album_photo = AlbumPhoto.objects.filter(
             album_id=album_id,
@@ -761,21 +756,20 @@ class AlbumPhotos(AjapaikAPIView):
             start = form.cleaned_data['start'] or 0
             end = start + (form.cleaned_data['limit'] or settings.API_DEFAULT_NEARBY_MAX_PHOTOS)
 
-#           Old version
-#            photos = Photo.objects.filter(
-#                Q(albums=album)
-#                | (Q(albums__subalbum_of=album)
-#                   & ~Q(albums__atype=Album.AUTO)),
-#                rephoto_of__isnull=True
-#            )[start:end]
+            #           Old version
+            #            photos = Photo.objects.filter(
+            #                Q(albums=album)
+            #                | (Q(albums__subalbum_of=album)
+            #                   & ~Q(albums__atype=Album.AUTO)),
+            #                rephoto_of__isnull=True
+            #            )[start:end]
 
             # Speedup update 16.3.2022 -- Kimmo 
-            a=Album.objects.get(pk=album.id)
+            a = Album.objects.get(pk=album.id)
             qs = a.photos.filter(rephoto_of__isnull=True)
             for sa in a.subalbums.filter(atype__in=[Album.CURATED, Album.PERSON]):
                 qs = qs | sa.photos.filter(rephoto_of__isnull=True)
-            photos=qs[start:end]
-
+            photos = qs[start:end]
 
             response_data = {
                 'error': RESPONSE_STATUSES['OK']
@@ -811,14 +805,14 @@ class SourceDetails(AjapaikAPIView):
                 rephoto_of__isnull=True,
             )[start:end]
 
-            photos = PhotoSerializer.annotate_photos(
+            photos = APIPhotoSerializer.annotate_photos(
                 photos,
                 None
             )
 
             return Response({
                 'error': RESPONSE_STATUSES['OK'],
-                'photos': PhotoSerializer(
+                'photos': APIPhotoSerializer(
                     instance=photos,
                     many=True,
                     context={'request': request}
@@ -858,7 +852,7 @@ class RephotoUpload(APIView):
     permission_classes = (AllowAny,)
     authentication_classes = (CsrfExemptSessionAuthentication, BasicAuthentication)
 
-    def post(self, request, format=None):
+    def post(self, request):
         print('rephotoupload', file=sys.stderr)
         form = forms.ApiPhotoUploadForm(request.POST, request.FILES)
 
@@ -877,7 +871,7 @@ class RephotoUpload(APIView):
                     pk=id
                 ).first()
             else:
-                photo = finna_find_photo_by_url(id, user_profile)
+                photo = find_finna_photo_by_url(id, user_profile)
 
             if not photo:
                 print('rephotoupload failed', file=sys.stderr)
@@ -1002,7 +996,7 @@ class RephotoUpload(APIView):
 
             photos = Photo.objects.filter(pk=photo.id)
 
-            photos = PhotoSerializer.annotate_photos(
+            photos = APIPhotoSerializer.annotate_photos(
                 photos,
                 user_profile
             )
@@ -1010,7 +1004,7 @@ class RephotoUpload(APIView):
             return Response({
                 'error': RESPONSE_STATUSES['OK'],
                 'id': new_rephoto.pk,
-                'photos': PhotoSerializer(
+                'photos': APIPhotoSerializer(
                     instance=photos,
                     many=True,
                     context={'request': request}
@@ -1028,7 +1022,7 @@ class RephotoUploadSettings(AjapaikAPIView):
     API endpoint for saving rephoto upload settings
     '''
 
-    def post(self, request, format=None):
+    def post(self, request):
         try:
             profile = request.user.profile
             profile.wikimedia_commons_rephoto_upload_consent = request.POST['wikimedia_commons_rephoto_upload_consent']
@@ -1068,13 +1062,13 @@ class PhotoDetails(AjapaikAPIView):
                 rephoto_of__isnull=True
             )
             if photo:
-                photo = PhotoSerializer.annotate_photos(
+                photo = APIPhotoSerializer.annotate_photos(
                     photo,
                     user_profile
                 ).first()
                 response_data = {'error': RESPONSE_STATUSES['OK']}
                 response_data.update(
-                    PhotoSerializer(
+                    APIPhotoSerializer(
                         instance=photo, context={'request': request}
                     ).data
                 )
@@ -1104,7 +1098,7 @@ class FetchFinnaPhoto(AjapaikAPIView):
             # Limit only to Helsinki city museum photos for now
             m = re.search(r"https://(hkm\.|www\.)?finna.fi/Record/(hkm\..*?)( |\?|#|$)", id)
             if m:
-                photo = finna_find_photo_by_url(id, user_profile)
+                photo = find_finna_photo_by_url(id, user_profile)
                 if photo:
                     return Response({'error': RESPONSE_STATUSES['OK']})
                 else:
@@ -1135,7 +1129,7 @@ class ToggleUserFavoritePhoto(AjapaikAPIView):
                     pk=id
                 ).first()
             else:
-                photo = finna_find_photo_by_url(id, user_profile)
+                photo = find_finna_photo_by_url(id, user_profile)
 
             if user_profile and photo:
                 is_favorited = form.cleaned_data['favorited']
@@ -1189,7 +1183,7 @@ class UserFavoritePhotoList(AjapaikAPIView):
                 ref_location = Point(x=longitude, y=latitude, srid=4326)
                 photos = Photo.objects.filter(likes__profile=user_profile).annotate(
                     distance=Distance(('geography'), ref_location)) \
-                    .order_by('distance')[start:end]
+                             .order_by('distance')[start:end]
                 photos = PhotoWithDistanceSerializer.annotate_photos(photos, user.profile)
 
                 return Response({
@@ -1239,14 +1233,14 @@ class PhotosSearch(AjapaikAPIView):
                 photos = photos.annotate(distance=Distance(('geography'), ref_location)) \
                     .order_by('distance')
 
-            photos = PhotoSerializer.annotate_photos(
+            photos = APIPhotoSerializer.annotate_photos(
                 photos,
                 profile
             )
 
             return Response({
                 'error': RESPONSE_STATUSES['OK'],
-                'photos': PhotoSerializer(
+                'photos': APIPhotoSerializer(
                     instance=photos,
                     many=True,
                     context={'request': request}
@@ -1293,14 +1287,14 @@ class PhotosInAlbumSearch(AjapaikAPIView):
                 photos = photos.annotate(distance=Distance(('geography'), ref_location)) \
                     .order_by('distance')
 
-            photos = PhotoSerializer.annotate_photos(
+            photos = APIPhotoSerializer.annotate_photos(
                 photos,
                 profile
             )
 
             return Response({
                 'error': RESPONSE_STATUSES['OK'],
-                'photos': PhotoSerializer(
+                'photos': APIPhotoSerializer(
                     instance=photos,
                     many=True,
                     context={'request': request}
@@ -1338,14 +1332,14 @@ class UserRephotosSearch(AjapaikAPIView):
                     photos = photos.annotate(distance=Distance(('geography'), ref_location)) \
                         .order_by('distance')
 
-                photos = PhotoSerializer.annotate_photos(
+                photos = APIPhotoSerializer.annotate_photos(
                     photos,
                     user.profile
                 )
 
                 return Response({
                     'error': RESPONSE_STATUSES['OK'],
-                    'photos': PhotoSerializer(
+                    'photos': APIPhotoSerializer(
                         instance=photos,
                         many=True,
                         context={'request': request}
@@ -1394,14 +1388,14 @@ class AlbumsSearch(AjapaikAPIView):
                 'albums': []
             })
 
-    def post(self, request, format=None):
+    def post(self, request):
         user = request.user or None
         body = request.body
         post = self._fix_latin1_query_param(request, body)
 
         return self._handle_request(post, user, request)
 
-    def get(self, request, format=None):
+    def get(self, request):
         user = request.user or None
         return self._handle_request(request.GET, user, request)
 
@@ -1552,18 +1546,18 @@ class PhotosWithUserRephotos(AjapaikAPIView):
                 if lat and lon:
                     ref_location = Point(x=lon, y=lat, srid=4326)
                     photos = photos.annotate(distance=Distance(('geography'), ref_location)) \
-                        .order_by('distance')[start:end]
+                                 .order_by('distance')[start:end]
                 else:
                     photos = photos.order_by('rephotos__created')[start:end]
 
-                photos = PhotoSerializer.annotate_photos(
+                photos = APIPhotoSerializer.annotate_photos(
                     photos,
                     user.profile
                 )
 
                 return Response({
                     'error': RESPONSE_STATUSES['OK'],
-                    'photos': PhotoSerializer(
+                    'photos': APIPhotoSerializer(
                         instance=photos,
                         many=True,
                         context={'request': request}
@@ -1586,7 +1580,7 @@ class SubmitSimilarPhotos(AjapaikAPIView):
     API endpoint for posting similar photos.
     '''
 
-    def post(self, request, format=None):
+    def post(self, request):
         points = 0
         profile = request.user.profile
         data = json.loads(request.body.decode('utf-8'))
@@ -1622,7 +1616,7 @@ class Transcriptions(AjapaikAPIView):
     API endpoint for getting transcriptions for an image.
     '''
 
-    def get(self, request, photo_id, format=None):
+    def get(self, request, photo_id):
         transcriptions = Transcription.objects.filter(photo_id=photo_id).order_by('-created').values()
         ids = transcriptions.values_list('id', flat=True)
         feedback = TranscriptionFeedback.objects.filter(transcription_id__in=ids)
@@ -1640,7 +1634,7 @@ class Transcriptions(AjapaikAPIView):
         data = {'transcriptions': sorted(list(transcriptions), key=feedback_count, reverse=True)}
         return JsonResponse(data, safe=False)
 
-    def post(self, request, format=None):
+    def post(self, request):
         try:
             photo = get_object_or_404(Photo, id=request.POST['photo'])
             user = get_object_or_404(Profile, pk=request.user.profile.id)
@@ -1693,7 +1687,7 @@ class SubmitTranscriptionFeedback(AjapaikAPIView):
     API endpoint for confirming transcription for an image.
     '''
 
-    def post(self, request, format=None):
+    def post(self, request):
         try:
             if TranscriptionFeedback.objects.filter(transcription_id=request.POST['id'],
                                                     user_id=request.user.profile.id).exists():
@@ -1713,7 +1707,7 @@ class UserSettings(AjapaikAPIView):
     API endpoint for saving user settings
     '''
 
-    def post(self, request, format=None):
+    def post(self, request):
         try:
             profile = request.user.profile
             profile.preferred_language = request.POST['preferredLanguage']
@@ -1729,7 +1723,7 @@ class ChangeProfileDisplayName(AjapaikAPIView):
     API endpoint for changing user display name
     '''
 
-    def post(self, request, format=None):
+    def post(self, request):
         try:
             profile = request.user.profile
             profile.display_name = request.POST['display_name']
@@ -1742,48 +1736,12 @@ class ChangeProfileDisplayName(AjapaikAPIView):
             return JsonResponse({'error': _('Something went wrong')}, status=500)
 
 
-class MergeProfiles(AjapaikAPIView):
-    '''
-    API endpoint for merging two users' points, photos, annotations, datings, etc..
-    '''
-
-    def post(self, request, format=None):
-        reverse = request.POST['reverse']
-        token = request.POST['token']
-        if token is None:
-            return JsonResponse({'error': MISSING_PARAMETER_TOKEN}, status=400)
-        profile_merge_token = ProfileMergeToken.objects.filter(token=token).first()
-        if profile_merge_token is None:
-            return JsonResponse({'error': INVALID_TOKEN}, status=401)
-        if profile_merge_token.used is not None or (
-                profile_merge_token.created < (timezone.now() - datetime.timedelta(hours=1))):
-            return JsonResponse({'error': EXPIRED_TOKEN}, status=401)
-        if request.user and request.user.profile and request.user.profile.is_legit():
-            if request.user.profile.id != profile_merge_token.profile_id:
-                if reverse == 'true':
-                    merge_profiles(request.user.profile, profile_merge_token.profile)
-                    profile_merge_token.target_profile = request.user.profile
-                    profile_merge_token.source_profile = profile_merge_token.profile
-                else:
-                    merge_profiles(profile_merge_token.profile, request.user.profile)
-                    profile_merge_token.target_profile = profile_merge_token.profile
-                    profile_merge_token.source_profile = request.user.profile
-                    login(request, profile_merge_token.profile.user, backend=settings.AUTHENTICATION_BACKENDS[0])
-                profile_merge_token.used = datetime.datetime.now()
-                profile_merge_token.save()
-                return JsonResponse({'message': PROFILE_MERGE_SUCCESS})
-            else:
-                return JsonResponse({'message': PROFILE_MERGE_LOGIN_PROMPT})
-        else:
-            return JsonResponse({'error': PLEASE_LOGIN}, status=401)
-
-
 class PhotoSuggestion(AjapaikAPIView):
     '''
     API endpoints for getting photo scene category and updating it
     '''
 
-    def get(self, request, photo_id, format=None):
+    def get(self, request, photo_id):
         try:
             if request.user.is_anonymous:
                 return JsonResponse({'error': PLEASE_LOGIN}, status=401)
@@ -1830,7 +1788,7 @@ class PhotoSuggestion(AjapaikAPIView):
         except:  # noqa
             return JsonResponse({'error': _('Something went wrong')}, status=500)
 
-    def post(self, request, format=None):
+    def post(self, request):
         profile = request.user.profile
         data = json.loads(request.body.decode('utf-8'))
         scene = data['scene']
@@ -1885,27 +1843,12 @@ class PhotoSuggestion(AjapaikAPIView):
         return JsonResponse({'message': response})
 
 
-class MuisCollectionOperations(AjapaikAPIView):
-    '''
-    API Endpoint to import and blacklist Muis Collections
-    '''
-    def post(self, request, collection_id):
-        print('Done')
-        return JsonResponse({'message': 'Done'})
-
-    def delete(self, request, collection_id):
-        collection = MuisCollection.filter(id=collection_id)
-        collection.blacklisted = True
-        collection.save()
-        return JsonResponse({'message': 'Done'})
-
-
 class PhotoAppliedOperations(AjapaikAPIView):
     '''
     API endpoints for getting photo scene category and updating it
     '''
 
-    def get(self, request, photo_id, format=None):
+    def get(self, request, photo_id):
         try:
             if request.user.is_anonymous:
                 return JsonResponse({'error': PLEASE_LOGIN}, status=401)
@@ -1921,8 +1864,8 @@ class PhotoAppliedOperations(AjapaikAPIView):
             flip_suggestion = PhotoFlipSuggestion.objects.filter(photo=photo, proposer=request.user.profile).order_by(
                 '-created').first()
             invert_suggestion = PhotoInvertSuggestion.objects.filter(
-                    photo=photo, proposer=request.user.profile
-                ).order_by(
+                photo=photo, proposer=request.user.profile
+            ).order_by(
                 '-created').first()
             rotated_suggestion = PhotoRotationSuggestion.objects.filter(photo=photo,
                                                                         proposer=request.user.profile).order_by(
@@ -1945,12 +1888,18 @@ class PhotoAppliedOperations(AjapaikAPIView):
                 rotated_consensus = photo.rotated
 
             return JsonResponse(
-                {'flip': flip, 'flip_consensus': flip_consensus, 'invert': invert, 'invert_consensus': invert_consensus,
-                    'rotated': rotated, 'rotated_consensus': rotated_consensus})
+                {
+                    'flip': flip,
+                    'flip_consensus': flip_consensus,
+                    'invert': invert,
+                    'invert_consensus': invert_consensus,
+                    'rotated': rotated,
+                    'rotated_consensus': rotated_consensus}
+            )
         except:  # noqa
             return JsonResponse({'error': _('Something went wrong')}, status=500)
 
-    def post(self, request, format=None):
+    def post(self, request):
         profile = request.user.profile
         data = json.loads(request.body.decode('utf-8'))
         flip = data['flip']
@@ -1978,6 +1927,7 @@ class PhotoAppliedOperations(AjapaikAPIView):
         photo_flip_suggestions = []
         photo_rotated_suggestions = []
         photo_invert_suggestions = []
+        original_rotation = 0
 
         for photo_id in photo_ids:
             if not photo_id.isdigit():
@@ -2007,20 +1957,25 @@ class PhotoAppliedOperations(AjapaikAPIView):
                     photo_rotated_suggestions, 'rotated', rotated, Points, 20, Points.ROTATE_PHOTO,
                     PhotoRotationSuggestion, photo, profile, response, 'do_rotate')
             if flip is not None:
-                response, photo_flip_suggestions, foo, bar = suggest_photo_edit(photo_flip_suggestions, 'flip', flip,
-                                                                                Points, 40, Points.FLIP_PHOTO,
-                                                                                PhotoFlipSuggestion, photo, profile,
-                                                                                response, 'do_flip')
+                response, photo_flip_suggestions, _success, _points = suggest_photo_edit(photo_flip_suggestions, 'flip',
+                                                                                         flip,
+                                                                                         Points, 40, Points.FLIP_PHOTO,
+                                                                                         PhotoFlipSuggestion, photo,
+                                                                                         profile,
+                                                                                         response, 'do_flip')
 
             if not (invert is None):
-                response, photo_invert_suggestions, foo, bar = suggest_photo_edit(photo_invert_suggestions, 'invert',
-                                                                                  invert, Points, 20,
-                                                                                  Points.INVERT_PHOTO,
-                                                                                  PhotoInvertSuggestion, photo, profile,
-                                                                                  response, 'do_invert')
+                response, photo_invert_suggestions, _success, _points = suggest_photo_edit(photo_invert_suggestions,
+                                                                                           'invert',
+                                                                                           invert, Points, 20,
+                                                                                           Points.INVERT_PHOTO,
+                                                                                           PhotoInvertSuggestion, photo,
+                                                                                           profile,
+                                                                                           response, 'do_invert')
 
         PhotoFlipSuggestion.objects.bulk_create(photo_flip_suggestions)
         PhotoInvertSuggestion.objects.bulk_create(photo_invert_suggestions)
         PhotoRotationSuggestion.objects.bulk_create(photo_rotated_suggestions)
+
         return JsonResponse({'message': response,
                              'rotated_by_90': (was_rotate_successful and abs(rotated - original_rotation) % 180 == 90)})

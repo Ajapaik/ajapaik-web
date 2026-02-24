@@ -18,7 +18,7 @@
     <div class="full-pic" id="ajp-fullscreen-image-container">
         <div id="ajp-fullscreen-image-wrapper">
             <img id="ajp-fullscreen-image" style="display: none;" src="{{ fullscreen.url }}"
-                alt="{{ photo.get_display_text }}" title="{{ photo.get_display_text }}"/>
+                alt="{{ photo.display_text }}" title="{{ photo.display_text }}"/>
         </div>
     </div>
 </div>
@@ -26,10 +26,10 @@
     <div class="full-box rephoto-full-box">
         <div class="full-pic" id="ajp-rephoto-fullscreen-image-container">
             <img id="ajp-rephoto-full-screen-image" class="lazyload" style="display: none;"
-                alt="{{ photo.get_display_text }} {% trans "rephoto" %}"
-                src="{% url "image_full" rephoto.pk rephoto.get_pseudo_slug %}"
-                data-src="{% url "image_full" rephoto.pk rephoto.get_pseudo_slug %}"
-                title="{{ photo.get_display_text }} {% trans "rephoto" %}" />
+                alt="{{ photo.display_text }} {% trans "rephoto" %}"
+                src="{% url "image_full" rephoto.id rephoto.slug%}"
+                data-src="{% url "image_full" rephoto.id rephoto.slug%}"
+                title="{{ photo.display_text }} {% trans "rephoto" %}" />
         </div>
     </div>
 {% endif %}
@@ -43,18 +43,18 @@
         <div class="ajp-photoview-main-photo-wrapper" class="ajp-photo col-auto h-100 p-0 mr-3 mw-50">
             <div class="ajp-photo" id="ajp-photoview-main-photo-container">
                 <a class="fullscreen" id="ajp-fullscreen-link">
-                    <img id="ajp-photoview-main-photo" {% if rephoto %}class="ajp-max-48vw" {% endif %}alt="{{ photo.get_display_text }}"
-                        src="{% url 'image_thumb' photo.id 800 photo.get_pseudo_slug %}" />
+                    <img id="ajp-photoview-main-photo" {% if rephoto %}class="ajp-max-48vw" {% endif %}alt="{{ photo.display_text }}"
+                        src="{% url 'image_thumb' photo.id 800 photo.slug%}" />
                 </a>
                 {% if previous_photo %}
                     <a class="ajp-photo-modal-previous-button"
-                        href="{% url 'photo' previous_photo.pk previous_photo.get_pseudo_slug %}">
+                        href="{% url 'photo' previous_photo.id previous_photo.slug%}">
                         <span class="material-icons ajp-icon-48 notranslate">navigate_before</span>
                     </a>
                 {% endif %}
                 {% if next_photo %}
                     <a class="ajp-photo-modal-next-button"
-                        href="{% url 'photo' next_photo.pk next_photo.get_pseudo_slug %}">
+                        href="{% url 'photo' next_photo.id next_photo.slug%}">
                         <span class="material-icons ajp-icon-48 notranslate">navigate_next</span>
                     </a>
                 {% endif %}
@@ -79,17 +79,17 @@
                     {% endif %}
                     <span id="favorite-icon" class="ajp-like-count">{{ photo.like_count }}</span>
                 </button>
-                {% if photo.rephotos.all|length > 0 and similar_photo_count > 0 %}
+                {% if rephotos|length > 0 and similar_photos|length > 0 %}
                     <div class="ajp-image-bottom-right">
                         <button class="btn ajp-show-similar-photoview-overlay-button float-right"
                                 id="ajp-show-similar-photoview-overlay-button" {% if request.user_agent.is_pc %}style="display: none;"{% endif %}>
                             <span class="material-icons notranslate w-100">burst_mode</span>
-                            <span style="top:-10px; position: relative;">{% if similar_photo_count > 9 %}9+{% else %}{{ confirmed_similar_photo_count }}/{{ similar_photo_count }}{% endif %}</span>
+                            <span style="top:-10px; position: relative;">{% if similar_photos|length > 9 %}9+{% else %}{{ confirmed_similar_photo_count }}/{{ similar_photos|length }}{% endif %}</span>
                         </button>
                         <button class="btn ajp-show-rephotos-photoview-overlay-button float-right d-none"
                                 id="ajp-show-rephotos-photoview-overlay-button" {% if request.user_agent.is_pc %}style="display: none;"{% endif %}>
-                            {% if photo.rephotos.all|length < 10 %}
-                                <span class="material-icons notranslate">filter_{{ photo.rephotos.all|length }}</span>
+                            {% if rephotos|length < 10 %}
+                                <span class="material-icons notranslate">filter_{{ rephotos|length }}</span>
                             {% else %}
                                 <span class="material-icons notranslate">filter_9_plus</span>
                             {% endif %}</button>
@@ -110,7 +110,7 @@
                     <div id="ajp-photoview-rephoto-container">
                         <a class="fullscreen" id="ajp-rephoto-full-screen-link">
                             <img id="ajp-photoview-rephoto" class="ajp-max-48vw" alt="{{ photo.get_display_text }} {% trans "rephoto" %}"
-                                src="{% url 'image_thumb' rephoto.id 800 rephoto.get_pseudo_slug %}" />
+                                src="{% url 'image_thumb' rephoto.id 800 rephoto.slug%}" />
                         </a>
                         <button class="btn ajp-close-rephoto-overlay-button"
                             {% if request.user_agent.is_pc %}style="display: none;" {% endif %}><span
@@ -125,20 +125,20 @@
                 </div>
             </div>
         {% endif %}
-        {% if similar_photo_count > 0 %}
-            <div id="ajp-photoview-similar-photo-selection" class="col-auto px-0{% if rephoto or photo.rephotos.all|length > 0 %} d-none{% endif %}">
+        {% if similar_photos|length > 0 %}
+            <div id="ajp-photoview-similar-photo-selection" class="col-auto px-0{% if rephoto or rephotos|length > 0 %} d-none{% endif %}">
                 <div>
                     {% for similarity in similar_photos.all %}
                         <div class="row ajp-no-right-margin-row ajp-no-left-margin-row ajp-photoview-similar-image-row">
-                            <a class="w-100" href="{% url 'photo' similarity.to_photo.id similarity.to_photo.get_pseudo_slug %}">
-                                <img src="{% url 'image_thumb' similarity.to_photo.id 250 similarity.to_photo.get_pseudo_slug %}"
+                            <a class="w-100" href="{% url 'photo' similarity.to_photo.id similarity.to_photo.slug%}">
+                                <img src="{% url 'image_thumb' similarity.to_photo.id 250 similarity.to_photo.slug%}"
                                     class="img-fluid ajp-photoview-thumbnail"
                                     {% if similarity.similarity_type == 1 %}
-                                    alt="{{ similarity.to_photo.get_display_text }}  {% trans "similar photo" %}"
-                                    title="{{ similarity.to_photo.get_display_text }} {% trans "similar photo" %}"
+                                    alt="{{ similarity.to_photo.display_text }}  {% trans "similar photo" %}"
+                                    title="{{ similarity.to_photo.display_text }} {% trans "similar photo" %}"
                                     {% else %}
-                                    alt="{{ similarity.to_photo.get_display_text }}  {% trans "duplicate photo" %}"
-                                    title="{{ similarity.to_photo.get_display_text }} {% trans "duplicate photo" %}"
+                                    alt="{{ similarity.to_photo.display_text }}  {% trans "duplicate photo" %}"
+                                    title="{{ similarity.to_photo.display_text }} {% trans "duplicate photo" %}"
                                     {% endif %}/>
                             </a>
                             {% if similarity.confirmed == False %}
@@ -155,21 +155,21 @@
                 </div>
             </div>
         {% endif %}
-        {% if not rephoto and photo.rephotos.all|length > 0 %}
+        {% if not rephoto and rephotos|length > 0 %}
             <div id="ajp-photoview-rephoto-selection" class="col-xs-3">
-                {% for rephoto in photo.rephotos.all %}
+                {% for rephoto in rephotos %}
                     <div class="row ajp-no-right-margin-row ajp-no-left-margin-row">
-                        <a class="w-100" href="{% url 'photo' rephoto.id rephoto.get_pseudo_slug %}">
-                            <img src="{% url 'image_thumb' rephoto.id 250 rephoto.get_pseudo_slug %}"
+                        <a class="w-100" href="{% url 'photo' rephoto.id rephoto.slug%}">
+                            <img src="{% url 'image_thumb' rephoto.id 250 rephoto.slug%}"
                                 class="img-responsive col-xs-12 ajp-photoview-thumbnail"
-                                alt="{{ photo.get_display_text }} {% trans "rephoto" %}"
-                                title="{{ photo.get_display_text }} {% trans "rephoto" %}"/>
+                                alt="{{ photo.display_text }} {% trans "rephoto" %}"
+                                title="{{ photo.display_text }} {% trans "rephoto" %}"/>
                         </a>
                     </div>
                 {% endfor %}
             </div>
         {% endif %}
-        <div id="ajp-photo-modal-map-container" style="display:none;{% if similar_photo_count > 0 or photo.rephotos.all|length > 0 %}min-height:25vh;{% endif %}" class="col-auto float-right{% if rephoto %} d-none{% endif %} pl-0">
+        <div id="ajp-photo-modal-map-container" style="display:none;{% if similar_photos|length > 0 or rephotos|length > 0 %}min-height:25vh;{% endif %}" class="col-auto float-right{% if rephoto %} d-none{% endif %} pl-0">
             <div id="ajp-minimap-disabled-overlay"></div>
             <div id="ajp-photo-modal-map-canvas"></div>
         </div>
@@ -229,17 +229,17 @@
     {% if photo.azimuth %}
         window.photoModalPhotoAzimuth = {{ photo.azimuth | safe }};
     {% endif %}
-    {% if album.1 and album.2 %}
-        window.albumLat = {{ album.1 | safe }};
-        window.albumLon = {{ album.2 | safe }};
+    {% if album.lat and album.lon %}
+        window.albumLat = {{ album.lat | safe }};
+        window.albumLon = {{ album.lot | safe }};
     {% endif %}
     window.currentPhotoSourceName = "{{ photo.source.description }}";
-    window.currentPhotoSourceKey = "{{ photo.source_key }}";
-    window.currentPhotoSourceURL = "{{ photo.source_url }}";
+    window.currentPhotoSourceKey = "{{ photo.source.key }}";
+    window.currentPhotoSourceURL = "{{ photo.source.url }}";
     window.currentPhotoOriginalWidth = "{{ photo.width }}";
     window.currentPhotoOriginalHeight = "{{ photo.height }}";
     window.currentlyOpenPhotoId = "{{ photo.id }}";
-    window.originalPhotoAbsoluteURL = "{{ photo.get_absolute_url }}";
+    window.originalPhotoAbsoluteURL = "{{ photo.absolute_url }}";
     window.photoModalUserHasConfirmedThisLocation = {{ user_confirmed_this_location }};
     window.photoModalUserHasGeotaggedThisPhoto = {{ user_has_geotagged }};
     window.photoModalGeotaggingUserCount = {{ geotag_count }};
@@ -331,7 +331,7 @@
         });
         $(document).on('click', '.ajp-close-rephoto-overlay-button', function (e) {
             e.stopPropagation();
-            window.location.href = "/photo/" + "{{ photo.id }}" + "/{{ photo.get_pseudo_slug }}";
+            window.location.href = "/photo/" + "{{ photo.id }}" + "/{{ photo.slug}}";
         });
 
         $(document).on('click', '#ajp-show-similar-photoview-overlay-button', function () {

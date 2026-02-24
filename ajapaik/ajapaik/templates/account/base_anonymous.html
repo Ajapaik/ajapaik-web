@@ -5,32 +5,32 @@
     <div class="container">
         <div class="row pt-4">
             <div class="col-xs-12 col-sm-12 col-md-6 col-md-offset-3 col-lg-6 col-lg-offset-3 pt-5">
-              {% block body %}
-            {% if messages %}
-              <div>
-                <strong>{% trans "Messages" %}:</strong>
-                <ul>
-                  {% for message in messages %}
-                  <li>{{message}}</li>
-                  {% endfor %}
-                </ul>
-              </div>
-            {% endif %}
-            <div>
-              {% block content %}
-              {% endblock %}
-              {% endblock %}
-              {% block extra_body %}
-              {% endblock %}
-            </div>
-            {% if request.user.profile.is_legit %}
-              <div class='allauth-menu'>
-                <strong>{% trans "Menu" %} :</strong><br>
-                  <a href="{% url 'account_reset_password' %}">{% trans "Forgot password?" %}</a><br>
-                  <a href="{% url 'user_settings' %}">{% trans "User settings" %}</a><br>
-                  <a href="{% url 'account_logout' %}">{% trans "Sign out" %}</a>
-              </div>
-            {% endif %}
+                {% block body %}
+                    {% if messages %}
+                        <div>
+                            <strong>{% trans "Messages" %}:</strong>
+                            <ul>
+                                {% for message in messages %}
+                                    <li>{{ message }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% endif %}
+                    <div>
+                    {% block content %}
+                    {% endblock %}
+                {% endblock %}
+                {% block extra_body %}
+                {% endblock %}
+                </div>
+                {% if request.user.profile.is_legit %}
+                    <div class='allauth-menu'>
+                        <strong>{% trans "Menu" %} :</strong><br>
+                        <a href="{% url 'account_reset_password' %}">{% trans "Forgot password?" %}</a><br>
+                        <a href="{% url 'user_settings' %}">{% trans "User settings" %}</a><br>
+                        <a href="{% url 'account_logout' %}">{% trans "Sign out" %}</a>
+                    </div>
+                {% endif %}
             </div>
         </div>
     </div>

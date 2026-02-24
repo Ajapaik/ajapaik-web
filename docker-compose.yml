@@ -27,7 +27,7 @@ services:
   app:
     # TODO: Mount secrets
     build: .
-    image: laurielias/ajapaik-web:python-3.8.10
+    image: python-3.12-slim-bookworm
     container_name: ajapaik
     entrypoint: /usr/local/bin/docker-entrypoint-dev.sh
     # entrypoint: tail -f /dev/null

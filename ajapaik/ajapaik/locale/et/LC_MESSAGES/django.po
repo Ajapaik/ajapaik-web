@@ -1734,6 +1734,22 @@ msgstr "Näita kõrgekvaliteedilisi pilte"
 msgid "Sort by distance from you"
 msgstr "Sorteeri kauguse järgi sinust"
 
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:231
+msgid "Apply date filters"
+msgstr "Rakenda aasta filtrid"
+
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:231
+msgid "Remove date filters"
+msgstr "Eemalda aasta filtrid"
+
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:231
+msgid "Starting from"
+msgstr "Alates"
+
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:231
+msgid "Ending at"
+msgstr "Kuni"
+
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:241
 msgid "Sort by time and ..."
 msgstr "Sorteeri aja ja ... järgi"

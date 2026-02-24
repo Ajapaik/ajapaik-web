@@ -1,53 +1,53 @@
 {% verbatim %}
     <script id="ajp-frontpage-photo-template" type="text/x-tmpl">
-        <a target="_blank" href="{%=photoURL%}{%=o[0]%}/{%=o[14]%}" class="ajp-frontpage-image-container"
-        id="ajp-frontpage-image-container-{%=o[0]%}" data-id="{%=o[0]%}" onclick="return false;" rel="noopener">
-            <img alt="{%=o[3]%}" title="{%=o[3]%}" src="" data-src="{%=photoThumbURL%}{%=o[0]%}/400/{%=o[15]%}"
-                class="ajp-frontpage-image lazyload img-fluid" data-id="{%=o[0]%}"
-                width="{%=o[1]%}" height="{%=o[2]%}"/>
+        <a target="_blank" href="{%=photoURL%}{%=o.id%}/{%=o.slug%}" class="ajp-frontpage-image-container"
+        id="ajp-frontpage-image-container-{%=o.id%}" data-id="{%=o.id%}" onclick="return false;" rel="noopener">
+            <img alt="{%=o.display_text%}" title="{%=o.display_text%}" src="" data-src="{%=photoThumbURL%}{%=o.id%}/400/{%=o.slug%}"
+                class="ajp-frontpage-image lazyload img-fluid" data-id="{%=o.id%}"
+                width="{%=o.width%}" height="{%=o.height%}"/>
             {% if (userIsSocialConnected) { %}
-                <button class="ajp-thumbnail-selection-icon{% if (o[11] == 1) { %} ajp-thumbnail-selection-icon-blue{% } %}" data-id="{%=o[0]%}">
+                <button class="ajp-thumbnail-selection-icon{% if (o.geotag_count == 1) { %} ajp-thumbnail-selection-icon-blue{% } %}" data-id="{%=o.id%}">
                     <span class="material-icons notranslate">check_circle</span>
                 </button>
             {% } %}
             <div class="ajp-thumbnail-info-container">
-                {% if (o[6]) { %}
-                    {% if (o[4] && o[5]) { %}
-                        <div style="transform: rotate({%=o[6]%}deg);" class="ajp-frontpage-azimuth"
+                {% if (o.azimuth) { %}
+                    {% if (o.latitude && o.longitude) { %}
+                        <div style="transform: rotate({%=o.azimuth%}deg);" class="ajp-frontpage-azimuth"
                             title="{%=gettext('Picture has location and view direction info')%}">
                             <span class="material-icons notranslate">navigation</span>
                         </div>
                     {% } %}
                 {% } else { %}
-                    {% if (o[4] && o[5]) { %}
+                    {% if (o.latitude && o.longitude) { %}
                         <div class="ajp-frontpage-location-known"
                             title="{%=gettext('Picture has only location, no view direction')%}">
                         </div>
                     {% } %}
                 {% } %}
-                {% if (!o[4]) { %}
+                {% if (!o.latitude) { %}
                     <div class="ajp-frontpage-location-unknown" title="{%=gettext('Picture has no location info')%}"></div>
                 {% } %}
-                {% if (o[7] > 0) { %}
+                {% if (o.rephoto_count > 0) { %}
                     <div class="ajp-frontpage-rephoto-count
-                        ajp-frontpage-rephoto-count-{% if (o[7] < 9) { %}{%=o[7]%}{% } else { %}9-plus{% } %}"
+                        ajp-frontpage-rephoto-count-{% if (o.rephoto_count < 9) { %}{%=o.rephoto_count%}{% } else { %}9-plus{% } %}"
                         title="{%=gettext('Picture has rephotos')%}">
                     </div>
                 {% } %}
-                {% if (o[13] > 0) { %}
+                {% if (o.has_similar > 0) { %}
                     <div class="ajp-frontpage-similar-photo-count"
                         title="{%=gettext('Picture has similar photos')%}">
                     </div>
                 {% } %}
-                {% if (o[18]) { %}
+                {% if (o.high_quality) { %}
                     <div class="ajp-frontpage-high-quality-label"
                         title="{%=gettext('Picture is of high quality')%}">
                     </div>
                 {% } %}
-                <span class="ajp-frontpage-comments-count {% if (!o[8] || o[8] == 0) { %}d-none{% } %}" title="{%=gettext('Comments')%}">
+                <span class="ajp-frontpage-comments-count {% if (!o.comment_count || o.comment_count == 0) { %}d-none{% } %}" title="{%=gettext('Comments')%}">
                 </span>
             </div>
-            <div class="caption ajp-caption">{%=o[3]%}</div>
+            <div class="caption ajp-caption">{%=o.display_text%}</div>
         </a>
     </script>
 {% endverbatim %}

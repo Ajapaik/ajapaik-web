@@ -6,12 +6,13 @@
         <span class="photo">
             {% if p.fb_id %}
                 <img src="https://graph.facebook.com/v7.0/{{ p.fb_id }}/picture?type=square"
-                     alt="{% trans "User Facebook photo" %}"/>
-            {% elif p.google_plus_picture %}
-                <img src="{{ p.google_plus_picture }}" alt="{% trans "User Google photo" %}"/>
+                     alt="{% trans "User Facebook photo" %}" />
+                {% elif p.google_plus_picture %}
+                <img src="{{ p.google_plus_picture }}" alt="{% trans "User Google photo" %}" />
             {% endif %}
         </span>
         <span class="name"><a href="{% url 'user' p.pk %}">{{ p.get_display_name }}</a></span>
-        <span class="score">{% if p.custom_score != None %}{{ p.custom_score }}{% elif is_recent %}{{ p.score_recent_activity }}{% else %}{{ p.score }}{% endif %}</span>
+        <span class="score">{% if p.custom_score != None %}{{ p.custom_score }}{% elif is_recent %}
+            {{ p.score_recent_activity }}{% else %}{{ p.score }}{% endif %}</span>
     </li>
 {% endfor %}

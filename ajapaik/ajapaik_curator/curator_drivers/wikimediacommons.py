@@ -10,17 +10,6 @@ from requests import get
 from ajapaik.ajapaik.models import Photo, AlbumPhoto, Album
 
 
-def wikimediacommons_find_photo_by_url(record_url, profile):
-    photo = None
-    filename = re.search(r'https://commons.wikimedia.org/wiki/File:(.*?)(\?|\#|$)', record_url, re.IGNORECASE)
-    if filename:
-        filename = filename.group(1)
-        file_url = f'https://commons.wikimedia.org/wiki/File:{filename}'
-        photo = Photo.objects.filter(source_url=file_url, source__description='Wikimedia Commons').first()
-
-    return photo
-
-
 class CommonsDriver(object):
     def __init__(self):
         self.search_url = 'https://commons.wikimedia.org/w/api.php'

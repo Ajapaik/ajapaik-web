@@ -16,7 +16,7 @@ def set_feedback(
     feedback.object_detection_annotation = annotation
 
     if request.alternative_wiki_data_label_id is not None and len(request.alternative_wiki_data_label_id) > 0:
-        alternative_object_suggestion = object_annotation_common_service\
+        alternative_object_suggestion = object_annotation_common_service \
             .get_saved_label(request.alternative_wiki_data_label_id)
         feedback.alternative_object = alternative_object_suggestion
     else:

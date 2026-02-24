@@ -150,32 +150,32 @@ def test_can_action_be_done():
     profile_2 = Profile.objects.filter(pk=profile_2.id).first()
 
     _, flip_suggestions, _, _ = suggest_photo_edit(
-            [],
-            'flip',
-            True,
-            Points,
-            40,
-            Points.FLIP_PHOTO,
-            PhotoFlipSuggestion,
-            photo,
-            profile_2,
-            '',
-            'do_flip'
-        )
+        [],
+        'flip',
+        True,
+        Points,
+        40,
+        Points.FLIP_PHOTO,
+        PhotoFlipSuggestion,
+        photo,
+        profile_2,
+        '',
+        'do_flip'
+    )
     PhotoFlipSuggestion.objects.bulk_create(flip_suggestions)
     _, rotation_suggestions, _, _ = suggest_photo_edit(
-            [],
-            'rotated',
-            90,
-            Points,
-            20,
-            Points.ROTATE_PHOTO,
-            PhotoRotationSuggestion,
-            photo,
-            profile_2,
-            '',
-            'do_rotate'
-        )
+        [],
+        'rotated',
+        90,
+        Points,
+        20,
+        Points.ROTATE_PHOTO,
+        PhotoRotationSuggestion,
+        photo,
+        profile_2,
+        '',
+        'do_rotate'
+    )
     PhotoRotationSuggestion.objects.bulk_create(rotation_suggestions)
 
     user_3 = User.objects.create_user('user3', 'user3@user3.com', 'user3')

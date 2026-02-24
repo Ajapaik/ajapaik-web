@@ -16,9 +16,11 @@ class AddGetParameter(Node):
     def render(self, context):
         req = Variable('request').resolve(context)
         params = req.GET.copy()
+
         for key, value in self.values.items():
             params[key] = value.resolve(context)
-        return '?%s' % params.urlencode()
+
+        return f'?{params.urlencode()}'
 
 
 @register.tag

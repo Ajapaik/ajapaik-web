@@ -12,11 +12,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         media_root = f'{settings.MEDIA_ROOT}/'
-        if 1:
-            print("Remove exit from start of the script if you want really execute this")
-            exit(1)
         photos = Photo.objects.values('id', 'image', 'created', 'uploader_is_author', 'rephoto_of_id')
-#       photos = Photo.objects.all()[:5]
         for photo in photos:
             try:
                 m = re.search(r'uploads/.*?/', photo['image'])
@@ -88,7 +84,7 @@ class Command(BaseCommand):
                         exit("Updated filenames doesn't match")
                 else:
                     continue
-#                exit(1)
+            #                exit(1)
             except Exception as e:
                 print(e)
                 exit(1)

@@ -2,70 +2,87 @@
 <ul>
     {% if curated_pictures > 0 %}
         <li>
-            {% blocktrans count counter=curated_pictures %}curated <b>{{ curated_pictures }}</b> picture{% plural %}curated <b>{{ curated_pictures }}</b> pictures{% endblocktrans %}
+            {% blocktrans count counter=curated_pictures %}curated <b>{{ curated_pictures }}</b> picture{% plural %}
+                curated <b>{{ curated_pictures }}</b> pictures{% endblocktrans %}
         </li>
     {% endif %}
     {% if geotagged_pictures > 0 %}
         <li>
-            {% blocktrans count counter=geotagged_pictures %}suggested location for <b>{{ geotagged_pictures }}</b> picture{% plural %}suggested locations for <b>{{ geotagged_pictures }}</b> pictures{% endblocktrans %}
+            {% blocktrans count counter=geotagged_pictures %}suggested location for <b>{{ geotagged_pictures }}</b>
+                picture{% plural %}suggested locations for <b>{{ geotagged_pictures }}</b> pictures{% endblocktrans %}
         </li>
     {% endif %}
     {% if geotag_confirmations > 0 %}
         <li>
-            {% blocktrans count counter=geotag_confirmations %}confirmed location for <b>{{ geotag_confirmations }}</b> picture{% plural %}confirmed location for <b>{{ geotag_confirmations }}</b> pictures{% endblocktrans %}
+            {% blocktrans count counter=geotag_confirmations %}confirmed location for <b>{{ geotag_confirmations }}</b>
+                picture{% plural %}confirmed location for <b>{{ geotag_confirmations }}</b> pictures{% endblocktrans %}
         </li>
     {% endif %}
     {% if rephotos > 0 %}
         <li>
-            {% blocktrans with link=rephotos_link count counter=rephotographed_pictures %}made <b><a href="{{ link }}">{{ rephotos }} rephoto</a></b> for{% plural %}made <b><a href="{{ link }}">{{ rephotos }} rephotos</a></b> for{% endblocktrans %}
-            {% blocktrans count counter=rephotographed_pictures %}<b>{{ rephotographed_pictures }}</b> picture{% plural %}<b>{{ rephotographed_pictures }}</b> pictures{% endblocktrans %}
+            {% blocktrans with link=rephotos_link count counter=rephotographed_pictures %}made
+                <b><a href="{{ link }}">{{ rephotos }} rephoto</a></b> for{% plural %}made
+                <b><a href="{{ link }}">{{ rephotos }} rephotos</a></b> for{% endblocktrans %}
+            {% blocktrans count counter=rephotographed_pictures %}<b>{{ rephotographed_pictures }}</b> picture
+                {% plural %}<b>{{ rephotographed_pictures }}</b> pictures{% endblocktrans %}
         </li>
     {% endif %}
     {% if commented_pictures > 0 %}
         <li>
-            {% blocktrans count counter=commented_pictures %}commented on <b>{{ commented_pictures }}</b> picture{% plural %}commented on <b>{{ commented_pictures }}</b> pictures{% endblocktrans %}
+            {% blocktrans count counter=commented_pictures %}commented on <b>{{ commented_pictures }}</b> picture
+                {% plural %}commented on <b>{{ commented_pictures }}</b> pictures{% endblocktrans %}
         </li>
     {% endif %}
     {% if datings > 0 %}
         <li>
-            {% blocktrans count counter=datings %}specified date for <b>{{ datings }}</b> picture{% plural %}specified date for <b>{{ datings }}</b> pictures{% endblocktrans %}
+            {% blocktrans count counter=datings %}specified date for <b>{{ datings }}</b> picture{% plural %}specified
+                date for <b>{{ datings }}</b> pictures{% endblocktrans %}
         </li>
     {% endif %}
     {% if face_annotations > 0 %}
         <li>
-            {% blocktrans count counter=face_annotations %}annotated <b>{{ face_annotations }}</b> face on{% plural %}annotated <b>{{ face_annotations }}</b> faces on{% endblocktrans %}
-            {% blocktrans count counter=face_annotations_pictures %}<b>{{ face_annotations_pictures }}</b> picture{% plural %}<b>{{ face_annotations_pictures }}</b> pictures{% endblocktrans %}
+            {% blocktrans count counter=face_annotations %}annotated <b>{{ face_annotations }}</b> face on{% plural %}
+                annotated <b>{{ face_annotations }}</b> faces on{% endblocktrans %}
+            {% blocktrans count counter=face_annotations_pictures %}<b>{{ face_annotations_pictures }}</b> picture
+                {% plural %}<b>{{ face_annotations_pictures }}</b> pictures{% endblocktrans %}
         </li>
     {% endif %}
     {% if object_annotations > 0 %}
         <li>
-            {% blocktrans count counter=object_annotations %}annotated <b>{{ object_annotations }}</b> object on{% plural %}annotated <b>{{ object_annotations }}</b> objects on{% endblocktrans %}
-            {% blocktrans count counter=object_annotations_pictures %}<b>{{ object_annotations }}</b> picture{% plural %}<b>{{ object_annotations }}</b> pictures{% endblocktrans %}
+            {% blocktrans count counter=object_annotations %}annotated <b>{{ object_annotations }}</b> object on
+                {% plural %}annotated <b>{{ object_annotations }}</b> objects on{% endblocktrans %}
+            {% blocktrans count counter=object_annotations_pictures %}<b>{{ object_annotations }}</b> picture
+                {% plural %}<b>{{ object_annotations }}</b> pictures{% endblocktrans %}
         </li>
     {% endif %}
     {% if transcriptions > 0 %}
         <li>
-            {% blocktrans count counter=transcriptions %}added transcribed text on <b>{{ transcriptions }}</b> picture{% plural %}transcribed text on <b>{{ transcriptions }}</b> pictures{% endblocktrans %}
+            {% blocktrans count counter=transcriptions %}added transcribed text on <b>{{ transcriptions }}</b> picture
+                {% plural %}transcribed text on <b>{{ transcriptions }}</b> pictures{% endblocktrans %}
         </li>
     {% endif %}
     {% if similar_pictures > 0 %}
         <li>
-            {% blocktrans count counter=similar_pictures %}connected <b>{{ similar_pictures }}</b> similar picture{% plural %}connected <b>{{ similar_pictures }}</b> similar pictures{% endblocktrans %}
+            {% blocktrans count counter=similar_pictures %}connected <b>{{ similar_pictures }}</b> similar picture
+                {% plural %}connected <b>{{ similar_pictures }}</b> similar pictures{% endblocktrans %}
         </li>
     {% endif %}
-    {% if photolikes > 0 %}
+    {% if photo_likes > 0 %}
         <li>
-            {% blocktrans count counter=photolikes %}favorited <b>{{ photolikes }}</b> picture{% plural %}favorited <b>{{ photolikes }}</b> pictures{% endblocktrans %}
+            {% blocktrans count counter=photo_likes %}favorited <b>{{ photo_likes }}</b> picture{% plural %}favorited
+                <b>{{ photo_likes }}</b> pictures{% endblocktrans %}
         </li>
     {% endif %}
     {% if photo_suggestions > 0 %}
-    <li>
-        {% blocktrans count counter=photo_suggestions %}categorized <b>{{ photo_suggestions }}</b> picture{% plural %}categorized <b>{{ photo_suggestions }}</b> pictures{% endblocktrans %}
-    </li>
+        <li>
+            {% blocktrans count counter=photo_suggestions %}categorized <b>{{ photo_suggestions }}</b> picture
+                {% plural %}categorized <b>{{ photo_suggestions }}</b> pictures{% endblocktrans %}
+        </li>
     {% endif %}
     {% if user_points > 0 %}
         <li>
-            {% blocktrans count counter=user_points %}<b>{{ user_points }} point in total</b>{% plural %}<b>{{ user_points }}</b> points in total{% endblocktrans %}
+            {% blocktrans count counter=user_points %}<b>{{ user_points }} point in total</b>{% plural %}
+                <b>{{ user_points }}</b> points in total{% endblocktrans %}
         </li>
     {% endif %}
 </ul>

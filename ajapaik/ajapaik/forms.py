@@ -1,16 +1,14 @@
 from allauth.account.forms import SignupForm as AllauthSignupForm
-from captcha.fields import ReCaptchaField
+from django_recaptcha.fields import ReCaptchaField
+
 from dal import autocomplete
 from django import forms
-from django.conf import settings
 from django.db.models import Q
-from django.shortcuts import get_object_or_404
-from django.utils.translation import get_language_info, gettext_lazy as _
-from django_comments import get_model
+from django.utils.translation import gettext_lazy as _
 from django_comments_xtd.conf.defaults import COMMENT_MAX_LENGTH
 from django_comments_xtd.forms import XtdCommentForm
 
-from .models import (Album, Area, Dating, GeoTag, Licence, Photo, PhotoLike,
+from .models import (Album, Area, Dating, GeoTag, Photo, PhotoLike,
                      Profile, Video)
 
 
@@ -35,13 +33,6 @@ class SignupForm(AllauthSignupForm):
         user.last_name = self.cleaned_data['last_name']
         user.save()
         return user
-
-
-class APIAuthForm(forms.Form):
-    _s = forms.CharField(max_length=255)
-    _u = forms.IntegerField()
-    _l = forms.CharField(max_length=2, required=False)
-    _v = forms.FloatField(required=False)
 
 
 class APILoginForm(forms.Form):
@@ -130,27 +121,9 @@ class AlbumSelectionFilteringForm(forms.Form):
     film = forms.BooleanField(initial=False, required=False)
 
 
-class GalleryFilteringForm(forms.Form):
-    album = forms.ModelChoiceField(queryset=Album.objects.all(), required=False)
-    photo = forms.ModelChoiceField(queryset=Photo.objects.filter(rephoto_of__isnull=True), required=False)
-    photos = forms.CharField(required=False)
-    page = forms.IntegerField(min_value=1, initial=1, required=False)
-    order1 = forms.ChoiceField(choices=[('amount', 'amount'), ('time', 'time'), ('closest', 'closest')], initial='time',
-                               required=False)
-    order2 = forms.ChoiceField(
-        choices=[('comments', 'comments'), ('geotags', 'geotags'), ('rephotos', 'rephotos'), ('views', 'views'),
-                 ('likes', 'likes'), ('added', 'added'), ('datings', 'datings'), ('stills', 'stills'),
-                 ('transcriptions', 'transcriptions'), ('annotations', 'annotations'),
-                 ('similar_photos', 'similar_photos')],
-        initial='added',
-        required=False)
-    order3 = forms.ChoiceField(choices=[('reverse', 'reverse'), ], initial=None, required=False)
-    lat = forms.FloatField(min_value=-85.05115, max_value=85, required=False)
-    lon = forms.FloatField(min_value=-180, max_value=180, required=False)
-    q = forms.CharField(required=False)
-    myLikes = forms.BooleanField(required=False)
-    collections = forms.IntegerField(required=False)
-    rephotosBy = forms.ModelChoiceField(queryset=Profile.objects.all(), required=False)
+class BaseFilteringForm(forms.Form):
+    # Filtering
+    q = forms.CharField(max_length=255, required=False)
     people = forms.BooleanField(initial=False, required=False)
     backsides = forms.BooleanField(initial=False, required=False)
     interiors = forms.BooleanField(initial=False, required=False)
@@ -164,6 +137,32 @@ class GalleryFilteringForm(forms.Form):
     square = forms.BooleanField(initial=False, required=False)
     landscape = forms.BooleanField(initial=False, required=False)
     panoramic = forms.BooleanField(initial=False, required=False)
+    date_from = forms.DateField(initial=None, required=False)
+    date_to = forms.DateField(initial=None, required=False)
+
+    # Sorting
+    order1 = forms.ChoiceField(initial='time', choices=[('amount', 'amount'), ('time', 'time'), ('closest', 'closest')],
+                               required=False)
+    order2 = forms.ChoiceField(initial='added',
+                               choices=[('comments', 'comments'), ('geotags', 'geotags'), ('rephotos', 'rephotos'),
+                                        ('views', 'views'),
+                                        ('likes', 'likes'), ('added', 'added'), ('datings', 'datings'),
+                                        ('stills', 'stills'),
+                                        ('transcriptions', 'transcriptions'), ('annotations', 'annotations'),
+                                        ('similar_photos', 'similar_photos')],
+                               required=False)
+    order3 = forms.ChoiceField(choices=[('reverse', 'reverse'), ], initial=None, required=False)
+
+
+class GalleryFilteringForm(BaseFilteringForm):
+    album = forms.ModelChoiceField(queryset=Album.objects.all(), required=False)
+    photo = forms.ModelChoiceField(queryset=Photo.objects.filter(rephoto_of__isnull=True), required=False)
+    page = forms.IntegerField(min_value=1, initial=1, required=False)
+    lat = forms.FloatField(min_value=-85.05115, max_value=85, required=False)
+    lon = forms.FloatField(min_value=-180, max_value=180, required=False)
+    myLikes = forms.BooleanField(required=False)
+    collections = forms.IntegerField(required=False)
+    rephotosBy = forms.ModelChoiceField(queryset=Profile.objects.all(), required=False)
 
     def clean_page(self):
         page = self.cleaned_data['page']
@@ -188,20 +187,6 @@ class GalleryFilteringForm(forms.Form):
         if order3 is None:
             return self.fields['order3'].initial
         return order3
-
-
-class MapDataRequestForm(forms.Form):
-    album = forms.ModelChoiceField(queryset=Album.objects.all(), label=_('Choose album'), required=False)
-    area = forms.ModelChoiceField(queryset=Area.objects.all(), label=_('Choose area'), required=False)
-    limit_by_album = forms.BooleanField(initial=False, required=False)
-    sw_lat = forms.FloatField(min_value=-85.05115, max_value=85, required=False)
-    sw_lon = forms.FloatField(min_value=-180, max_value=180, required=False)
-    ne_lat = forms.FloatField(min_value=-85.05115, max_value=85, required=False)
-    ne_lon = forms.FloatField(min_value=-180, max_value=180, required=False)
-    starting = forms.DateField(required=False)
-    ending = forms.DateField(required=False)
-    count_limit = forms.IntegerField(min_value=1, required=False)
-    query_string = forms.CharField(max_length=255, required=False)
 
 
 class GameAlbumSelectionForm(forms.Form):
@@ -258,16 +243,6 @@ class AddAlbumForm(forms.Form):
     ), label=_('Choose parent album'), required=False)
 
 
-class PublicPhotoUploadForm(forms.Form):
-    institution = forms.CharField(max_length=255, required=False)
-    number = forms.CharField(max_length=100, required=False)
-    title = forms.CharField(max_length=255, required=False)
-    description = forms.CharField(max_length=2047, required=False)
-    date = forms.CharField(max_length=100, required=False)
-    url = forms.CharField(max_length=1023, required=False)
-    licence = forms.CharField(max_length=255, required=False)
-
-
 class CuratorPhotoUploadForm(forms.Form):
     id = forms.CharField(max_length=100)
     title = forms.CharField(required=False)
@@ -307,11 +282,6 @@ class SubmitGeotagForm(forms.ModelForm):
 
 class ConfirmGeotagForm(forms.Form):
     photo = forms.ModelChoiceField(queryset=Photo.objects.filter(rephoto_of__isnull=True))
-
-
-class FrontpagePagingForm(forms.Form):
-    album = forms.ModelChoiceField(queryset=Album.objects.filter(is_public=True), required=False)
-    page = forms.IntegerField(min_value=1, required=False)
 
 
 class ApiAlbumNearestPhotosForm(forms.Form):
@@ -416,100 +386,6 @@ class VideoStillCaptureForm(forms.Form):
     timestamp = forms.IntegerField()
 
 
-class UserPhotoUploadForm(forms.ModelForm):
-    def __init__(self, *args, **kwargs):
-        super(UserPhotoUploadForm, self).__init__(*args, **kwargs)
-        self.fields['licence'].queryset = Licence.objects.filter(is_public=True)
-
-    class Meta:
-        model = Photo
-        fields = ('image', 'description', 'uploader_is_author', 'author', 'licence')
-        labels = {
-            'image': _('Picture file'),
-            'description': _('Description'),
-            'uploader_is_author': _('I am the author'),
-            'author': _('Author'),
-            'licence': _('Licence or status of copyright')
-        }
-        help_texts = {
-            'image': _('Accepted formats are .png or .jpg files'),
-            'description': _('Add a short description of the picture'),
-            'author': _('Author of the picture (photographer, painter)'),
-            'licence': _(
-                '''Please select a licence to let other people know if and how they can reuse the material you upload.
-                \n\nIf you are the author, you can choose the licence (we recommend using open Creative Commons
-                 licences). If someone else created the work, you need to use the same licence and rights holder that it
-                 currently has.\n\nCurrently we are also accepting content with unclear copyright status,
-                please choose ‘Copyright not evaluated’ then.''')
-        }
-        widgets = {
-            'description': forms.Textarea(
-                attrs={'rows': 1, 'cols': 40, 'placeholder': _('Description of the picture')}),
-            'author': forms.TextInput(attrs={'placeholder': _('Author name')}),
-        }
-
-    def clean(self):
-        super(UserPhotoUploadForm, self).clean()
-        if not self.cleaned_data.get('image'):
-            self.errors['image'] = [_('Missing image')]
-        if not self.cleaned_data.get('description'):
-            self.errors['description'] = [_('Missing description')]
-        if not self.cleaned_data.get('uploader_is_author') and not self.cleaned_data.get('licence'):
-            self.errors['licence'] = [_('Missing licence')]
-
-
-class UserPhotoUploadAddAlbumForm(forms.ModelForm):
-    location = forms.CharField(max_length=255, required=False)
-
-    class Meta:
-        model = Album
-        fields = ('atype', 'subalbum_of', 'name', 'description', 'is_public', 'open', 'location', 'lat', 'lon')
-
-    def __init__(self, *args, **kwargs):
-        # TODO: Show person fields if applicable
-        self.profile = kwargs.pop('profile', None)
-        super(UserPhotoUploadAddAlbumForm, self).__init__(*args, **kwargs)
-        self.fields['subalbum_of'].label = _('Parent album')
-        self.fields['subalbum_of'].queryset = Album.objects.filter(atype=Album.CURATED) \
-            .filter(Q(open=True) | Q(profile=self.profile))
-        self.fields['location'].label = _('Location')
-        self.fields['location'].help_text = _('If this album is tied to a certain location, specify here')
-        self.fields['lat'].widget = forms.HiddenInput()
-        self.fields['lon'].widget = forms.HiddenInput()
-        self.fields['atype'].label = _('Album type')
-        self.fields['atype'].choices = [(Album.CURATED, _('Anything else')), (Album.PERSON, _('Person'))]
-        self.fields['name'].label = _('Name')
-        self.fields['description'].label = _('Description')
-        self.fields['is_public'].label = _('Is public')
-        self.fields['open'].label = _('Is open')
-
-
-class UserSettingsForm(forms.ModelForm):
-    class Meta:
-        model = Profile
-        fields = ('preferred_language', 'newsletter_consent')
-        languages = settings.LANGUAGES
-        translated_languages = []
-        for language in languages:
-            li = get_language_info(language[0])
-            translated_languages.append((language[0], (li['name_local'].capitalize())))
-        labels = {
-            'preferred_language': _('My preferred language is'),
-            'newsletter_consent': _('I wish to receive the newsletter')
-        }
-        widgets = {
-            'preferred_language': forms.Select(choices=translated_languages),
-            'newsletter_consent': forms.Select(choices=[(True, _('Yes')), (False, _('No'))]),
-        }
-
-    def clean(self):
-        super(UserSettingsForm, self).clean()
-        if not self.cleaned_data.get('preferred_language'):
-            self.errors['preferred_language'] = [_('Please specify your prefered language')]
-        if self.cleaned_data.get('newsletter_consent') is None:
-            self.errors['newsletter_consent'] = [_('Please specify whether you would like to receive the newsletter')]
-
-
 class RephotoUploadSettingsForm(forms.ModelForm):
     class Meta:
         model = Profile
@@ -526,15 +402,6 @@ class RephotoUploadSettingsForm(forms.ModelForm):
         if self.cleaned_data.get('wikimedia_commons_rephoto_upload_consent') is None:
             self.errors['wikimedia_commons_rephoto_upload_consent'] = [
                 _('Please specify whether you would like your rephotos to be uploaded to Wikimedia Commons as well')]
-
-
-class ChangeDisplayNameForm(forms.Form):
-    display_name = forms.CharField()
-
-    def clean(self):
-        super(ChangeDisplayNameForm, self).clean()
-        if self.cleaned_data.get('display_name') is None:
-            self.errors['display_name'] = [_('Please specify what would you like your display name to be')]
 
 
 class CuratorWholeSetAlbumsSelectionForm(forms.Form):
@@ -580,20 +447,6 @@ class CommentForm(XtdCommentForm):
                 }
             ),
             max_length=COMMENT_MAX_LENGTH)
-
-
-class EditCommentForm(forms.Form):
-    comment_id = forms.IntegerField()
-    text = forms.CharField()
-
-    def clean_comment_id(self):
-        self.comment = get_object_or_404(
-            get_model(), pk=self.cleaned_data['comment_id']
-        )
-
-    def clean(self):
-        if self.comment.comment == self.cleaned_data['text']:
-            forms.ValidationError(_('Nothing to change.'), code='same_text')
 
 
 class ApiFetchFinnaPhoto(forms.Form):

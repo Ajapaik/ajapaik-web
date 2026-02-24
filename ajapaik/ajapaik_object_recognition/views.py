@@ -51,7 +51,7 @@ def remove_annotation(request: HttpRequest, annotation_id: int) -> HttpResponse:
         return response.action_failed()
 
 
-def get_all_annotations(request, photo_id=None) -> HttpResponse:
+def get_all_annotations(request, photo_id) -> HttpResponse:
     if request.method != 'GET':
         return response.not_supported()
 

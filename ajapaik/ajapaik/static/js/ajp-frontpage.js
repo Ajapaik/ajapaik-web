@@ -31,8 +31,7 @@
             similarFullScreenImage = $('#ajp-similar-photo-full-screen-image'),
             openPhotoDrawer = function(content) {
                 photoModal.html(content);
-                photoModal
-                    .modal()
+                photoModal.modal()
                     .find('#ajp-modal-photo')
                     .on('load', function() {
                         let fullScreenImageWrapper = $('#ajp-fullscreen-image-wrapper');
@@ -63,7 +62,7 @@
                     });
             },
             syncStateToUrl = function() {
-                const currentUrl = window.URI(window.location.href);
+                let currentUrl = window.URI(window.location.href);
                 currentUrl
                     .removeSearch('photo')
                     .removeSearch('page')
@@ -274,7 +273,6 @@
                 window.total = response.total;
                 window.maxPage = response.max_page;
                 window.currentPage = response.page;
-                window.showPhotos = response.show_photos;
             },
             updateFrontpageAlbumsAsync = function() {
                 $('#ajp-loading-overlay').show();
@@ -426,13 +424,17 @@
         window.updateFrontpagePhotosAsync = function() {
             const targetDiv = $('#ajp-frontpage-historic-photos');
             targetDiv.removeClass('hidden ajp-invisible');
-            $('#ajp-loading-overlay').show();
             $('#ajp-album-filter-box').addClass('d-none');
             $('#ajp-photo-filter-box').removeClass('d-none');
             syncStateToUrl();
             $.ajax({
                 url: window.frontpageAsyncURL + window.location.search,
                 method: 'GET',
+                beforeSend: function() {
+                    $('#ajp-loading-overlay').show();
+                    // HACK!
+                    window.loadingPhotos = true;
+                },
                 success: function(response) {
                     setWindowPaginationParameters(response);
                     let collection;
@@ -535,6 +537,8 @@
                                 categoryMessage = 'No rephotos were found';
                             } else if (window.location.search.indexOf('myLikes=1') > 0) {
                                 categoryMessage = 'No liked pictures were found';
+                            } else if (window.location.search.indexOf('dateFrom=') > 0 || window.location.search.indexOf('date=') > 0) {
+                                categoryMessage = 'No pictures were found in date range';
                             } else {
                                 categoryMessage = 'No pictures were found';
                             }
@@ -576,10 +580,13 @@
                         historicPhotoGalleryDiv.justifiedGallery();
                     }
                     $('#ajp-loading-overlay').hide();
+                    // HACK!
+                    window.loadingPhotos = false;
                     $(window).scrollTop(0);
                 },
                 error: function() {
                     $('#ajp-loading-overlay').hide();
+                    window.loadingPhotos = false;
                 },
             });
         };
@@ -611,7 +618,7 @@
             window.location.href = '/?album=' + window.albumId;
         };
         window.startSuggestionLocation = function(photoId) {
-            let id = photoId ?? window.currentlyOpenPhotoId;
+            let id = photoId ?? window.currentlySelectedPhotoId;
             if (window.albumId) {
                 window.open(
                     '/geotag/?album=' + window.albumId + '&photo=' + id,

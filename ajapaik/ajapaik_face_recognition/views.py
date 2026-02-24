@@ -11,6 +11,7 @@ from django.utils import timezone
 from rest_framework.renderers import JSONRenderer
 
 from ajapaik.ajapaik.models import Album, AlbumPhoto, Points
+from ajapaik.ajapaik.serializers import PhotoFaceCategorizationSerializer
 from ajapaik.ajapaik_face_recognition.domain.face_annotation_feedback_request import FaceAnnotationFeedbackRequest
 from ajapaik.ajapaik_face_recognition.domain.face_annotation_remove_request import FaceAnnotationRemoveRequest
 from ajapaik.ajapaik_face_recognition.domain.face_annotation_update_request import FaceAnnotationUpdateRequest
@@ -282,7 +283,7 @@ def get_subject_data(request, rectangle_id=None):
 
     context = {
         'rectangle': rectangle,
-        'photo': rectangle.photo,
+        'photo': PhotoFaceCategorizationSerializer(rectangle.photo).data,
         'coordinates': rectangle.coordinates,
         'next_action': next_action,
         'has_consensus': has_consensus,

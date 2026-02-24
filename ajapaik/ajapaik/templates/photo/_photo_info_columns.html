@@ -1,7 +1,7 @@
 {% load i18n ajapaik_templatetags %}
 <div class="row text-left">
     <!-- start of old photo info -->
-    <div id="ajp-photo-modal-original-photo-info-column" class="col-lg-{% if photo.rephotos.all.0 or similar_photos.all.0 %}6{% else %}12{% endif %} col-md-12 col-xs-12">
+    <div id="ajp-photo-modal-original-photo-info-column" class="col-lg-{% if rephotos or similar_photos %}6{% else %}12{% endif %} col-md-12 col-xs-12">
         <!-- start of transcriber block -->
         {% include "transcriber/_transcriber.html" with is_modal=False %}
         <!-- end of transcriber block -->
@@ -11,53 +11,54 @@
     </div>
     <!-- end of old photo info -->
     <!-- start of new photo info -->
-    {% if photo.rephotos.all|length > 0 %}
-        {% with rephoto=photo.rephotos.all.0 %}
+    {{photo.similar_photos}}
+    {% if rephotos %}
+        {% with rephoto=rephotos.0 %}
         {% include "photo/_rephoto_description_container.html" %}
         {% endwith %}
     {% endif %}
     <!-- start of similar photo info -->
-    {% if similar_photos.all|length > 0 %}
+    {% if similar_photos %}
         <div id="ajp-photo-modal-similar-photo-info-column" class="col-lg-6 col-md-12 col-xs-12">
-            {% if similar_photos.all.0.to_photo.author %}
+            {% if similar_photos.0.to_photo.author %}
                 <div class="w-100">
-                    <strong id="ajp-photo-author">{{ similar_photos.all.0.to_photo.author }}</strong>
+                    <strong id="ajp-photo-author">{{ similar_photos.0.to_photo.author }}</strong>
                 </div>
             {% endif %}
-            {% if similar_photos.all.0.to_photo.get_display_text %}
-                <div id="ajp-photo-description" title="{{ similar_photos.all.0.to_photo.get_display_text }}">
-                    {% if similar_photos.all.0.to_photo.video %}
-                        <a href="{% url "frontpage" %}?album={{ similar_photos.all.0.to_photo.albums.all.0.id }}&video={{ similar_photos.all.0.to_photo.video.id }}&t=
-                                {{ similar_photos.all.0.to_photo.video_timestamp|div:1000 }}">{{ similar_photos.all.0.to_photo.get_display_text }}</a>
+            {% if similar_photos.0.to_photo.get_display_text %}
+                <div id="ajp-photo-description" title="{{ similar_photos.0.to_photo.get_display_text }}">
+                    {% if similar_photos.0.to_photo.video %}
+                        <a href="{% url "frontpage" %}?album={{ similar_photos.0.to_photo.albums.all.0.id }}&video={{ similar_photos.0.to_photo.video.id }}&t=
+                                {{ similar_photos.0.to_photo.video_timestamp|div:1000 }}">{{ similar_photos.0.to_photo.get_display_text }}</a>
                     {% else %}
-                        {{ similar_photos.all.0.to_photo.get_display_text }}
+                        {{ similar_photos.0.to_photo.get_display_text }}
                     {% endif %}
                 </div>
             {% endif %}
-            {% if similar_photos.all.0.to_photo.date %}
+            {% if similar_photos.0.to_photo.date %}
                 <div class="w-100">
-                    {{ similar_photos.all.0.to_photo.date }}
+                    {{ similar_photos.0.to_photo.date }}
                 </div>
-            {% elif similar_photos.all.0.to_photo.date_text %}
+            {% elif similar_photos.0.to_photo.date_text %}
                 <div class="w-100">
-                    {{ similar_photos.all.0.to_photo.date_text }}
+                    {{ similar_photos.0.to_photo.date_text }}
                 </div>
             {% endif %}
-            {% if similar_photos.all.0.to_photo.licence %}
-                {% include "photo/_licence.html" with licence=similar_photos.all.0.to_photo.licence %}
+            {% if similar_photos.0.to_photo.licence %}
+                {% include "photo/_licence.html" with licence=similar_photos.0.to_photo.licence %}
             {% endif %}
-            {% if similar_photos.all.0.to_photo.source_url %}
+            {% if similar_photos.0.to_photo.source_url %}
                 <div class="d-inline-block" id="ajp-photo-source">
-                    <a href="{{ similar_photos.all.0.to_photo.source_url }}"
+                    <a href="{{ similar_photos.0.to_photo.source_url }}"
                         target="_blank" rel="noopener nofollow">
-                        {{ similar_photos.all.0.to_photo.source.description }}{% if similar_photos.all.0.to_photo.source_key %}
-                            {{ similar_photos.all.0.to_photo.source_key }}{% endif %}
+                        {{ similar_photos.0.to_photo.source.description }}{% if similar_photos.0.to_photo.source_key %}
+                            {{ similar_photos.0.to_photo.source_key }}{% endif %}
                     </a>
                 </div>
-            {% elif similar_photos.all.0.to_photo.source.description %}
+            {% elif similar_photos.0.to_photo.source.description %}
                 <div class="d-inline-block" id="ajp-photo-source">
-                    {{ similar_photos.all.0.to_photo.source.description }}{% if similar_photos.all.0.to_photo.source_key %}
-                        {{ similar_photos.all.0.to_photo.source_key }}{% endif %}
+                    {{ similar_photos.0.to_photo.source.description }}{% if similar_photos.0.to_photo.source_key %}
+                        {{ similar_photos.0.to_photo.source_key }}{% endif %}
                 </div>
             {% endif %}
         </div>

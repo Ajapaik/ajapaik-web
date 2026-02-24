@@ -1,22 +1,22 @@
-$(document).ready(function () {
+$(document).ready(function() {
     var photo_id = window.currentlyOpenPhotoId; //  Just to make name shorter.
 
 
     // Simple Markdown editor toolbar
     // Using: https://github.com/sparksuite/simplemde-markdown-editor
-    var addToolbar = function (div) {
+    var addToolbar = function(div) {
         if ($(div)[0] !== undefined) {
             var simplemde = new SimpleMDE({
                 element: $(div)[0],
                 spellChecker: false,
-                hideIcons: ["side-by-side", "fullscreen", "guide"],
+                hideIcons: ['side-by-side', 'fullscreen', 'guide'],
                 forceSync: true,   // All the text is instantly copied to the original textarea div so the save works
             });
             $(div)[0].removeAttribute('required');
             $('.CodeMirror textarea').required = true;
             return simplemde;
         }
-    }
+    };
 
     addToolbar('#id_comment');
     var reply_toolbar = null;
@@ -24,54 +24,53 @@ $(document).ready(function () {
 
 
     // Disable hotkeys when typing message.
-    $('#ajp-comments-container').on('focus', 'textarea', function () {
+    $('#ajp-comments-container').on('focus', 'textarea', function() {
         window.hotkeysActive = false;
     });
-    $('#ajp-comments-container').on('blur', 'textarea', function () {
+    $('#ajp-comments-container').on('blur', 'textarea', function() {
         window.hotkeysActive = true;
     });
 
 
     // Fetching comment list when page is loaded and when new comment posted.
-    var fetchComments = function () {
-        var _setup_links_in_comments = function () {
+    var fetchComments = function() {
+        var _setup_links_in_comments = function() {
             $('#ajp-comment-list .comment-text a').attr('target', '_blank');
         };
 
         $.ajax({
             type: 'GET',
             url: '/comments/for/' + photo_id + '/',
-            success: function (response) {
+            success: function(response) {
                 $('#ajp-comment-list').html(response.content);
                 $('[data-toggle=confirmation]').confirmation({
                     rootSelector: '[data-toggle=confirmation]',
                 });
                 _setup_links_in_comments();
-            }
+            },
         });
     };
     fetchComments();
 
 
-    var post_comment = function (form) {
+    var post_comment = function(form) {
         $.ajax({
             type: 'POST',
             url: '/comments/post-one/' + photo_id + '/',
             data: form.serialize(),
             success: function(response) {
-                var error_div = form.find("div[data-comment-element='errors']");
+                var error_div = form.find('div[data-comment-element=\'errors\']');
                 var comment_textarea = form.find('textarea[name="comment"]');
 
                 if (response && response.comment && response.comment.length) {
                     error_div.html(response.comment[0]);
                     error_div.removeClass('d-none');
-                }
-                else {
+                } else {
                     error_div.addClass('d-none');
                     comment_textarea.val('');
                 }
                 fetchComments();
-            }
+            },
         });
     };
 
@@ -94,11 +93,11 @@ $(document).ready(function () {
                 url: '/comments/delete-one/',
                 data: {
                     csrfmiddlewaretoken: docCookies.getItem('csrftoken'),
-                    comment_id: comment_id
+                    comment_id: comment_id,
                 },
                 success: function(response) {
                     fetchComments();
-                }
+                },
             });
             event.preventDefault();
         }
@@ -121,7 +120,7 @@ $(document).ready(function () {
             reply_toolbar = addToolbar(reply_textarea);
         } else if (reply_toolbar.element !== reply_textarea) {
             reply_toolbar.toTextArea();
-            reply_toolbar = null
+            reply_toolbar = null;
             reply_toolbar = addToolbar(reply_textarea);
         }
 
@@ -172,7 +171,7 @@ $(document).ready(function () {
             edit_toolbar = addToolbar(comment_textarea);
         } else if (edit_toolbar.element !== comment_textarea) {
             edit_toolbar.toTextArea();
-            edit_toolbar = null
+            edit_toolbar = null;
             edit_toolbar = addToolbar(comment_textarea);
         }
 
@@ -204,9 +203,9 @@ $(document).ready(function () {
             type: 'POST',
             url: '/comments/edit-one/',
             data: form.serialize(),
-            success: function (response) {
+            success: function(response) {
                 fetchComments();
-            }
+            },
         });
         event.preventDefault();
     });

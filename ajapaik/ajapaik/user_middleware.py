@@ -1,5 +1,7 @@
 # http://docs.djangoproject.com/en/dev/topics/http/middleware/
 # http://docs.djangoproject.com/en/dev/topics/auth/
+import secrets
+import string
 from functools import partial
 
 from django.conf import settings
@@ -7,8 +9,6 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.utils.deprecation import MiddlewareMixin
-
-from ajapaik.ajapaik.models import Action
 
 
 def get_user(request):
@@ -34,17 +34,13 @@ def set_user(request, user):
 
 
 class UserMiddleware(MiddlewareMixin):
+
     def process_request(self, request):
         request.get_user = partial(get_user, request)
         request.set_user = partial(set_user, request)
-        request.log_action = partial(Action.log, request=request)
 
 
-class AuthBackend(MiddlewareMixin):
-    supports_object_permissions = False
-    supports_anonymous_user = False
-    supports_inactive_user = True
-
+class AuthBackend:
     def authenticate(self, request=None, username=None, password=None, user=None):
         if user is not None:
             return user
@@ -52,12 +48,8 @@ class AuthBackend(MiddlewareMixin):
             try:
                 user = User.objects.get(username=username)
                 if user.check_password(password):
-                    Action.log('user_middleware.login.success', {'username': username})
-
                     return user
                 else:
-                    Action.log('user_middleware.login.error', {'username': username})
-
                     return None
             except ObjectDoesNotExist:
                 return None
@@ -66,20 +58,17 @@ class AuthBackend(MiddlewareMixin):
             bot_username = f'_bot_{username}'
             try:
                 user = User.objects.get(username=bot_username)
-                Action.log('user_middleware.login.success', {'username': bot_username})
-
                 return user
             except ObjectDoesNotExist:
                 user = User.objects.create_user(username=bot_username)
                 user.save()
-                Action.log('user_middleware.create.bot', related_object=user)
 
                 return user
 
-        random_username = f'_{username[:25]}_{User.objects.make_random_password(length=3)}'
+        alphabet = string.ascii_letters + string.digits
+        random_username = f"_{username[:25]}_{''.join(secrets.choice(alphabet) for i in range(3))}"
         user = User.objects.create_user(username=random_username)
         user.save()
-        Action.log('user_middleware.create', related_object=user)
 
         return user
 

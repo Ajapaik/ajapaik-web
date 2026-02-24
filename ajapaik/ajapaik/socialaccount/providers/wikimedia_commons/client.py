@@ -17,13 +17,17 @@ class WikimediaCommonsOAuth2Client(OAuth2Client):
             'scope': self.scope,
             'response_type': 'code'
         }
+
         if self.state:
             params['state'] = self.state
+
         params.update(extra_params)
         sorted_params = OrderedDict()
+
         for param in sorted(params):
             sorted_params[param] = params[param]
-        return '%s?%s' % (authorization_url, urlencode(sorted_params))
+
+        return f'{authorization_url}?{urlencode(sorted_params)}'
 
     def get_access_token(self, code):
         data = {'client_id': self.consumer_key,

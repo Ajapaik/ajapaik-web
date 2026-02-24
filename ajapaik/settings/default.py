@@ -6,7 +6,7 @@ TEST_RUNNER = 'django.test.runner.DiscoverRunner'
 gettext = lambda s: s  # noqa
 
 MESSAGE_STORAGE = 'django.contrib.messages.storage.fallback.FallbackStorage'
-
+SILENCED_SYSTEM_CHECKS = ['django_recaptcha.recaptcha_test_key_error']
 DEBUG = False
 
 DEFER_JAVASCRIPT = False
@@ -23,27 +23,27 @@ CURATOR_EUROPEANA_ENABLED = False
 AJAPAIK_FACEBOOK_LINK = 'https://www.facebook.com/ajapaik'
 
 ABSOLUTE_PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '../..'))
-ABSOLUTE_TEMPLATES_PATH = '%s/templates' % ABSOLUTE_PROJECT_ROOT
+ABSOLUTE_TEMPLATES_PATH = f'{ABSOLUTE_PROJECT_ROOT}/templates'
 
 if ABSOLUTE_PROJECT_ROOT not in sys.path:
     sys.path.insert(0, ABSOLUTE_PROJECT_ROOT)
 
-STATIC_ROOT = '%s/static-collected' % ABSOLUTE_PROJECT_ROOT
-MEDIA_ROOT = '%s/media' % ABSOLUTE_PROJECT_ROOT
+STATIC_ROOT = f'{ABSOLUTE_PROJECT_ROOT}/static-collected'
+MEDIA_ROOT = f'{ABSOLUTE_PROJECT_ROOT}/media'
 VANALINNAD_ROOT = '/home/ajapaik/vanalinnad.mooo.com'
-STATIC_URL = '/static/'
-MEDIA_URL = '/media/'
+STATIC_URL = 'static/'
+MEDIA_URL = 'media/'
 
 ADMIN_MEDIA_PREFIX = f'{STATIC_URL}admin/'
 
 STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
 
 STATICFILES_DIRS = (
-    '%s/ajapaik/ajapaik/static' % ABSOLUTE_PROJECT_ROOT,
+    f'{ABSOLUTE_PROJECT_ROOT}/ajapaik/ajapaik/static',
 )
 
 LOCALE_PATHS = (
-    '%s/ajapaik/ajapaik/locale' % ABSOLUTE_PROJECT_ROOT,
+    f'{ABSOLUTE_PROJECT_ROOT}/ajapaik/ajapaik/locale',
 )
 
 ADMINS = (
@@ -54,7 +54,7 @@ MANAGERS = ADMINS
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'postgres',
         'USER': 'postgres',
         'PASSWORD': 'postgres',
@@ -82,7 +82,8 @@ LANGUAGES = (
 
 MODELTRANSLATION_LANGUAGES = ('et', 'lv', 'lt', 'en', 'ru', 'fi', 'sv', 'nl', 'de', 'no')
 MODELTRANSLATION_PREPOPULATE_LANGUAGE = 'et'
-MODELTRANSLATION_FALLBACK_LANGUAGES = ('lt', 'lv', 'fi', 'sv', 'no', 'nl', 'de', 'ru', 'en', 'et')
+MODELTRANSLATION_FALLBACK_LANGUAGES = {'default': ('en', 'et'), 'en': ('et',), 'et': ('en',), 'sv': ('no', 'en', 'et'),
+                                       'no': ('sv', 'en', 'et')}
 
 TARTUNLP_LANGUAGES = ('et', 'lv', 'lt', 'en', 'ru', 'de', 'fi')
 TARTUNLP_API_URL = 'https://api.tartunlp.ai/translation/v2'
@@ -117,7 +118,8 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'ajapaik.ajapaik.user_middleware.UserMiddleware',
     'django_user_agents.middleware.UserAgentMiddleware',
-    'django_hosts.middleware.HostsResponseMiddleware'
+    'django_hosts.middleware.HostsResponseMiddleware',
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
 DEFAULT_HOST = 'www'
@@ -168,7 +170,6 @@ INSTALLED_APPS = [
     'admin_tools.theming',
     'admin_tools.menu',
     'admin_tools.dashboard',
-    'captcha',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -195,8 +196,18 @@ INSTALLED_APPS = [
     'registration',
     'bootstrap4',
     'leaflet',
+    'ajapaik.ajapaik_auth',
+    'ajapaik.ajapaik_comments',
+    'ajapaik.ajapaik_curator',
+    'ajapaik.ajapaik_datings',
     'ajapaik.ajapaik_face_recognition',
+    'ajapaik.ajapaik_geotags',
+    'ajapaik.ajapaik_leaderboard',
+    'ajapaik.ajapaik_misc',
     'ajapaik.ajapaik_object_recognition',
+    'ajapaik.ajapaik_profile',
+    'ajapaik.ajapaik_similar_photos',
+    'ajapaik.ajapaik_upload',
     'django_user_agents',
     'corsheaders',
 
@@ -206,7 +217,8 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.facebook',
     'allauth.socialaccount.providers.google',
-    'ajapaik.ajapaik.socialaccount.providers.wikimedia_commons'
+    'ajapaik.ajapaik.socialaccount.providers.wikimedia_commons',
+    'django_recaptcha',
 ]
 
 # Note: Allauth login's next-parameter redirection doesn't understand wildcards in ALLOWED_HOSTS.
@@ -225,17 +237,17 @@ HAYSTACK_CONNECTIONS = {
     'default': {
         'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
         'URL': 'http://127.0.0.1:8983/solr/collection1',
+        'ADMIN_URL': 'http://127.0.0.1:8983/solr/admin/cores'
     },
 }
 
 HAYSTACK_ITERATOR_LOAD_PER_QUERY = 1000
+HAYSTACK_LIMIT_TO_REGISTERED_MODELS = True
 
 AUTHENTICATION_BACKENDS = (
     'ajapaik.ajapaik.user_middleware.AuthBackend',
     'allauth.account.auth_backends.AuthenticationBackend',
 )
-
-AUTH_PROFILE_MODULE = 'ajapaik.ajapaik.Profile'
 
 LOGIN_URL = '/admin/'
 
@@ -447,3 +459,8 @@ if os.getenv('GITHUB_WORKFLOW'):
     from .test import *  # noqa - Needed so that PyCharm won't replace it with pass
 
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+INTERNAL_IPS = [
+    # ...
+    "127.0.0.1",
+    # ...
+]
