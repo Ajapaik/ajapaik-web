@@ -139,7 +139,10 @@ class CuratorAlbumSelectionAlbumSerializer(serializers.ModelSerializer):
 
 
 class CuratorMyAlbumListAlbumSerializer(serializers.ModelSerializer):
-    photo_count = serializers.IntegerField(source='photos.count')
+    photo_count = serializers.SerializerMethodField()
+
+    def get_photo_count(self, obj):
+        return obj.photos.count()
 
     class Meta:
         model = Album

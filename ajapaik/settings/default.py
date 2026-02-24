@@ -17,8 +17,12 @@ FRONTPAGE_DEFAULT_ALBUM_PAGE_SIZE = 50
 DATING_POINTS = 150
 DATING_CONFIRMATION_POINTS = 50
 
-CURATOR_FLICKR_ENABLED = False
-CURATOR_EUROPEANA_ENABLED = False
+CURATOR_FLICKR_ENABLED = True
+CURATOR_EUROPEANA_ENABLED = True
+
+FLICKR_API_KEY = ''
+FLICKR_API_SECRET = ''
+EUROPEANA_API_KEY = ''
 
 AJAPAIK_FACEBOOK_LINK = 'https://www.facebook.com/ajapaik'
 
@@ -236,8 +240,8 @@ CORS_ALLOWED_ORIGIN_REGEXES = [
 HAYSTACK_CONNECTIONS = {
     'default': {
         'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
-        'URL': 'http://127.0.0.1:8983/solr/collection1',
-        'ADMIN_URL': 'http://127.0.0.1:8983/solr/admin/cores'
+        'URL': 'http://solr:8983/solr/collection1',
+        'ADMIN_URL': 'http://solr:8983/solr/admin/cores'
     },
 }
 

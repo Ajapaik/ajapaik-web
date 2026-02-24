@@ -21,6 +21,12 @@
                     <span class="badge curator-badge" id="ajp-curator-my-albums-size">0</span>
                 </a>
             </li>
+            <li role="presentation">
+                <a href="#ajp-curator-imports-tab" aria-controls="ajp-curator-imports-tab" role="tab"
+                    data-toggle="tab">{% trans "Imports" %}
+                    <span class="badge curator-badge" id="ajp-curator-imports-size">0</span>
+                </a>
+            </li>
         </ul>
     </div>
     <div class="tab-content">
@@ -28,8 +34,8 @@
             <div class="row">
                 <div class="col-xl-6 my-2">
                     <div class="input-group">
-                        <input type="text" class="form-control" id="ajp-curator-full-search" placeholder="{% trans "
-                            Full search" %}">
+                        <input type="text" class="form-control" id="ajp-curator-full-search"
+                            placeholder="{% trans 'Full search' %}">
                     </div>
                 </div>
                 <div class="col-xs-2 m-2">
@@ -42,69 +48,55 @@
                         {% trans "Load more" %}
                     </button>
                 </div>
-                <div class="col-xs-2 m-2" id="ajp-curator-fetch-all-row">
-                    <button type="button" class="btn btn-info btn-block" id="ajp-curator-fetch-all">
-                        {% trans "Fetch all results" %}
-                    </button>
+                <div class="col-xs-2 m-2" id="ajp-curator-fetch-all-row" style="display: none;">
                 </div>
                 <div class="col-xs-2 m-2">
                     <button type="button" class="btn btn-primary btn-block" id="ajp-curator-select-all">
                         {% trans "Select all" %}
                     </button>
                 </div>
-                <div class="input-group ml-2">
-                    <span class="m-2">
-                        <input type="checkbox" id="ajp-curator-search-filter-existing" checked="checked">
-                        {% trans "Filter existing" %}
-                    </span>
-                    <span class="m-2 d-none">
-                        <input type="checkbox" id="ajp-curator-search-use-muis">
-                        {% trans "MUIS" %}
-                    </span>
-                    <span class="m-2 d-none">
-                        <input type="checkbox" class="d-none" id="ajp-curator-search-use-digar">
-                        {% trans "DIGAR" %}
-                    </span>
-                    <span class="m-2 d-none">
-                        <input type="checkbox" class="d-none" id="ajp-curator-search-use-mka">
-                        {% trans "MKA" %}
-                    </span>
-                    <span class="m-2 d-none">
-                        <input type="checkbox" class="d-none" id="ajp-curator-search-use-etera">
-                        {% trans "ETERA" %}
-                    </span>
-                    <span class="m-2 d-none">
-                        <input type="checkbox" class="d-none" id="ajp-curator-search-use-utlib">
-                        {% trans "UTLIB" %}
-                    </span>
-                    <span class="m-2">
-                        <input type="checkbox" id="ajp-curator-search-use-fotis" checked>
-                        {% trans "Fotis" %}
-                    </span>
-                    <span class="m-2">
-                        <input type="checkbox" id="ajp-curator-search-reference-code-only">
-                        {% trans "Reference code only" %}
-                    </span>
-                    <span class="m-2">
-                        <input type="checkbox" id="ajp-curator-search-use-finna">
-                        {% trans "Finna" %}
-                    </span>
-                    <span class="m-2">
-                        <input type="checkbox" id="ajp-curator-search-use-commons">
-                        {% trans "Wikimedia Commons" %}
-                    </span>
-                    {% if CURATOR_EUROPEANA_ENABLED %}
-                    <span class="m-2">
-                        <input type="checkbox" id="ajp-curator-search-use-europeana">
-                        {% trans "Europeana" %}
-                    </span>
-                    {% endif %}
-                    {% if CURATOR_FLICKR_ENABLED %}
-                    <span class="m-2">
-                        <input type="checkbox" id="ajp-curator-search-use-flickr">
-                        {% trans "Flickr Commons" %}
-                    </span>
-                    {% endif %}
+                <div class="col-12 mt-3 ml-2">
+                    <div class="row">
+                        <div class="col-12">
+                            <span class="mr-3">
+                                <input type="checkbox" id="ajp-curator-search-filter-existing" checked="checked">
+                                {% trans "Ära näita ajapaigas olevaid pilte" %}
+                            </span>
+                            <span>
+                                <input type="checkbox" id="ajp-curator-search-reference-code-only">
+                                {% trans "Reference code only" %}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-12">
+                            <strong>{% trans "Allikad" %}:</strong>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <span class="mr-3">
+                                <input type="checkbox" id="ajp-curator-search-use-fotis" checked>
+                                {% trans "Fotis" %}
+                            </span>
+                            <span class="mr-3">
+                                <input type="checkbox" id="ajp-curator-search-use-finna">
+                                {% trans "Finna" %}
+                            </span>
+                            <span class="mr-3">
+                                <input type="checkbox" id="ajp-curator-search-use-commons">
+                                {% trans "Wikimedia Commons" %}
+                            </span>
+                            <span class="mr-3">
+                                <input type="checkbox" id="ajp-curator-search-use-europeana">
+                                {% trans "Europeana" %}
+                            </span>
+                            <span>
+                                <input type="checkbox" id="ajp-curator-search-use-flickr">
+                                {% trans "Flickr Commons" %}
+                            </span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -123,6 +115,7 @@
             </div>
         </div>
         <div role="tabpanel" class="tab-pane" id="ajp-curator-my-albums-tab"></div>
+        <div role="tabpanel" class="tab-pane" id="ajp-curator-imports-tab"></div>
     </div>
 </div>
 {% endif %}

@@ -51,8 +51,22 @@
             {% trans "Load more" %}
         </button>
     </div>
-    <div class="row" id="ajp-curator-selection"></div>
-    <div id="ajp-curator-my-albums" class="container"></div>
+    <div class="row" id="ajp-curator-selection" style="display: none;"></div>
+    <div id="ajp-curator-my-albums" class="container" style="display: none;"></div>
+    <div id="ajp-curator-imports-container" class="container pt-3" style="display: none;">
+        <table class="table table-striped" id="ajp-curator-imports-table">
+            <thead>
+                <tr>
+                    <th>{% trans "Time" %}</th>
+                    <th>{% trans "Image count" %}</th>
+                    <th>{% trans "Album" %}</th>
+                </tr>
+            </thead>
+            <tbody id="ajp-curator-imports-log">
+            </tbody>
+        </table>
+    </div>
+
     <div class="modal fade" id="ajp-curator-edit-my-album-modal">
         <form class="modal-dialog modal-lg">
             <div class="modal-content mt-5">
@@ -133,8 +147,7 @@
                     <div class="row pt-1">
                         <div class="col-12">
                             <span class="input-group-addon">
-                                <label for="ajp-curator-change-area-name">{% trans "Location" %}</label> ({% trans "Add
-                                the location if all pictures in the album are from the same area" %})
+                                <label for="ajp-curator-change-area-name">{% trans "Location" %}</label> ({% trans "Add the location if all pictures in the album are from the same area" %})
                             </span>
                             <input class="form-control" type="text" id="ajp-curator-change-area-name">
                             <input type="hidden" id="ajp-curator-change-area-name-hidden">
@@ -200,47 +213,39 @@
             resultIds = [],
             fullResultSet = {},
             driverPage = 1,
+            totalResultCount = 0,
+            uploadJobs = [],
             selectionDiv = $('#ajp-curator-selection'),
             resultDiv = $('#ajp-curator-search-results-list'),
             changeAreaLat,
-            changeAreaLng,
-            automateFetch = false;
+            changeAreaLng;
         window.selectedResults = {};
+        window.sessionProcessedIds = new Set();
         window.singleSelection = false;
         $(document).ready(function () {
             $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-                if ($(e.target).attr('href') === '#ajp-curator-selection-tab') {
+                const target = $(e.target).attr('href');
+                if (target === '#ajp-curator-selection-tab') {
                     buildSelectionDiv();
                     $('#ajp-curator-my-albums').hide();
                     $('#ajp-curator-search-results-container').hide();
                     $('#ajp-curator-selection').show();
-                    const ETERAResults = $('.ajp-curator-ETERA-result');
-                    if (ETERAResults.length > 0) {
-                        $.ajaxSetup({
-                            beforeSend: function (xhr) {
-                                xhr.setRequestHeader('Authorization', 'Bearer ' + ETERASession);
-                            }
-                        });
-                        $.each(ETERAResults, function (idx, item) {
-                            item = $(item);
-                            $.ajax({
-                                url: item.attr('data-src'),
-                                type: "GET",
-                                mimeType: 'text/plain; charset=x-user-defined',
-                                success: function (response) {
-                                    item.attr('src', 'data:image/jpeg;base64,' + base64Encode(response))
-                                }
-                            });
-                        });
-                    }
-                } else if ($(e.target).attr('href') === '#ajp-curator-results-tab') {
+                    $('#ajp-curator-imports-container').hide();
+                } else if (target === '#ajp-curator-results-tab') {
                     $('#ajp-curator-my-albums').hide();
                     $('#ajp-curator-search-results-container').show();
                     $('#ajp-curator-selection').hide();
-                } else if ($(e.target).attr('href') === '#ajp-curator-my-albums-tab') {
+                    $('#ajp-curator-imports-container').hide();
+                } else if (target === '#ajp-curator-imports-tab') {
+                    $('#ajp-curator-my-albums').hide();
+                    $('#ajp-curator-search-results-container').hide();
+                    $('#ajp-curator-selection').hide();
+                    $('#ajp-curator-imports-container').show();
+                } else if (target === '#ajp-curator-my-albums-tab') {
                     $('#ajp-curator-my-albums').show();
                     $('#ajp-curator-search-results-container').hide();
                     $('#ajp-curator-selection').hide();
+                    $('#ajp-curator-imports-container').hide();
                 }
             });
             const changeInput = document.getElementById('ajp-curator-change-area-name');
@@ -256,8 +261,32 @@
                 });
             }
             loadMyAlbums();
+            loadImportHistory();
             $('.ajp-navbar').autoHidingNavbar();
         });
+        const loadImportHistory = function () {
+            $.ajax({
+                type: "GET",
+                url: "{% url 'curator_import_list' %}",
+                success: function (response) {
+                    response.forEach(function (item) {
+                        // Check if job already exists in uploadJobs (don't duplicate if refresh logic is used)
+                        if (!uploadJobs.find(j => j.autoAlbumId === item.id)) {
+                            uploadJobs.push({
+                                id: new Date(item.created).getTime(),
+                                status: 'done',
+                                total: item.photo_count,
+                                uploaded: item.photo_count,
+                                errors: [],
+                                autoAlbumId: item.id,
+                                persistent: true
+                            });
+                        }
+                    });
+                    updateUploadProgress();
+                }
+            });
+        };
         $('#ajp-curator-full-search').on('keypress', function (e) {
             if (e.keyCode === 13) {
                 $('#ajp-curator-search-button').click();
@@ -265,7 +294,13 @@
         });
         const createResultElement = function (item) {
             fullResultSet[item.id] = item;
-            resultDiv.append(tmpl('ajp-curator-result-template', item));
+            const element = $(tmpl('ajp-curator-result-template', item));
+            if (window.sessionProcessedIds.has(item.id)) {
+                element.addClass('ajp-curator-processed-image');
+                element.css('opacity', '0.5');
+                element.off('click');
+            }
+            resultDiv.append(element);
         };
         const buildSelectionDiv = function () {
             selectionDiv.empty();
@@ -302,7 +337,7 @@
         $(document).on('click', '.ajp-curator-load-more', function () {
             $('#ajp-loading-overlay').show();
             driverPage += 1;
-            const slice = resultIds.slice(start, start + 200),
+            const slice = resultIds.slice(start, start + 100),
                 filterValue = $('#ajp-curator-search-filter-existing').prop('checked'),
                 useMUIS = $('#ajp-curator-search-use-muis').prop('checked'),
                 useMKA = $('#ajp-curator-search-use-mka').prop('checked'),
@@ -314,7 +349,7 @@
                 useDIGAR = $('#ajp-curator-search-use-digar').prop('checked'),
                 useUTLIB = $('#ajp-curator-search-use-utlib').prop('checked'),
                 useFotis = $('#ajp-curator-search-use-fotis').prop('checked');
-            start += 200;
+            start += 100;
             $.ajax({
                 type: "POST",
                 url: url,
@@ -338,19 +373,9 @@
                     csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
                 },
                 success: function (msg) {
-                    if (resultCount > start || (msg.result.page < msg.result.pages)) {
-                        $('.ajp-curator-load-more').show();
-                        $('#ajp-curator-load-more-row').show();
-                        if (automateFetch) {
-                            $('.ajp-curator-load-more').click();
-                        }
-                    } else {
-                        $('.ajp-curator-load-more').hide();
-                        $('#ajp-curator-load-more-row').hide();
-                        automateFetch = false;
-                    }
                     const counter = $('#ajp-curator-result-count'),
                         prev = parseInt(counter.html(), 10);
+
                     if (msg.result.firstRecordViews) {
                         counter.html(prev + msg.result.firstRecordViews.length);
                         for (let i = 0, l = msg.result.firstRecordViews.length; i < l; i += 1) {
@@ -358,6 +383,19 @@
                             createResultElement(item);
                         }
                     }
+
+                    if (msg.result.totalCount) {
+                        totalResultCount = msg.result.totalCount;
+                    }
+
+                    if (resultCount > start || (msg.result.page < msg.result.pages)) {
+                        $('.ajp-curator-load-more').show();
+                        $('#ajp-curator-load-more-row').show();
+                    } else {
+                        $('.ajp-curator-load-more').hide();
+                        $('#ajp-curator-load-more-row').hide();
+                    }
+
                     $('#ajp-loading-overlay').hide();
                     window.gtag('event', 'load_more_results_success', { 'category': 'Curator' });
                 },
@@ -443,7 +481,6 @@
                 type: "POST",
                 url: url,
                 data: {
-                    // testing: true,
                     fullSearch: $('#ajp-curator-full-search').val(),
                     filterExisting: filterValue,
                     useMUIS: useMUIS,
@@ -471,17 +508,21 @@
                     } else {
                         resultCount = 0;
                     }
+
+                    if (msg.result.totalCount) {
+                        totalResultCount = msg.result.totalCount;
+                    } else {
+                        totalResultCount = resultCount;
+                    }
+
                     $('#ajp-curator-result-count').html(msg.result.firstRecordViews.length);
-                    if (resultCount > 200 || (msg.result.page < msg.result.pages)) {
+
+                    if (resultCount > 100 || (msg.result.page < msg.result.pages)) {
                         $('.ajp-curator-load-more').show();
                         $('#ajp-curator-load-more-row').show();
-                        if (automateFetch) {
-                            $('.ajp-curator-load-more').click();
-                        }
                     } else {
                         $('.ajp-curator-load-more').hide();
                         $('#ajp-curator-load-more-row').hide();
-                        automateFetch = false;
                     }
                     for (let i = 0, l = msg.result.firstRecordViews.length; i < l; i += 1) {
                         const item = msg.result.firstRecordViews[i];
@@ -495,6 +536,48 @@
                 }
             });
         });
+        const updateUploadProgress = function () {
+            let totalToUpload = 0,
+                totalUploaded = 0,
+                activeJobs = 0;
+
+            uploadJobs.forEach(function (job) {
+                if (job.status === 'processing') {
+                    totalToUpload += job.total;
+                    totalUploaded += job.uploaded;
+                    activeJobs++;
+                }
+            });
+
+            // Render job log
+            const logBody = $('#ajp-curator-imports-log');
+            logBody.empty();
+            $('#ajp-curator-imports-size').html(uploadJobs.length);
+            uploadJobs.sort((a, b) => b.id - a.id).forEach(function (job, idx) {
+                const statusClass = job.status === 'processing' ? 'text-info' : (job.errors.length > 0 ? 'text-warning' : 'text-success');
+                let albumHtml = '';
+
+                if (job.autoAlbumId) {
+                    const albumLink = '/?album=' + job.autoAlbumId;
+                    albumHtml += '<a href="' + albumLink + '" target="_blank">' + window.gettext('Album') + '</a> ';
+                }
+
+                if (job.errors.length > 0) {
+                    albumHtml += '<div class="small text-danger" style="max-height: 100px; overflow-y: auto;">' + job.errors.join('<br>') + '</div>';
+                } else if (job.status === 'done' && !job.persistent && idx === 0) {
+                    // Show "Success" only for the latest completed job in the current session
+                    albumHtml += '<span class="text-success small">(' + window.gettext('Success') + ')</span>';
+                }
+
+                const progressHtml = job.status === 'processing' ? job.uploaded + ' / ' + job.total : job.total;
+                const row = $('<tr>' +
+                    '<td><span class="' + (job.status === 'processing' ? 'text-info' : '') + '">' + new Date(job.id).toLocaleString() + '</span></td>' +
+                    '<td class="' + (job.status === 'processing' ? 'text-info' : '') + '">' + progressHtml + '</td>' +
+                    '<td>' + albumHtml + '</td>' +
+                    '</tr>');
+                logBody.append(row);
+            });
+        };
         $(document).on('click', '.ajp-result-item', function () {
             const photo = $(this).data();
             const target = fullResultSet[photo.id];
@@ -747,30 +830,50 @@
             if (window.singleSelection) {
                 selection = window.singleSelection;
                 window.singleSelection = false;
+            } else {
+                // Clear the main selection immediately for background work
+                window.selectedResults = {};
+                $('#ajp-curator-selection-size').html(0);
+                $('.ajp-result-item').removeClass('ajp-curator-selected-image');
             }
-            $('#ajp-loading-overlay').show();
 
             const keys = Object.keys(selection);
-            let currentAutoAlbumId = null;
-            let pointsAwarded = 0;
+            const job = {
+                id: Date.now(),
+                status: 'processing',
+                total: keys.length,
+                uploaded: 0,
+                errors: [],
+                autoAlbumId: null,
+                points: 0
+            };
+            uploadJobs.push(job);
+
+            // Mark IDs as processed globally to prevent duplicates
+            keys.forEach(k => window.sessionProcessedIds.add(k));
+            $('.ajp-result-item').each(function () {
+                if (window.sessionProcessedIds.has($(this).data('id'))) {
+                    $(this).addClass('ajp-curator-processed-image').css('opacity', '0.5');
+                }
+            });
+
+            updateUploadProgress();
+
+            $('#ajp-choose-albums-modal').modal('hide');
+            // Select search tab automatically
+            $('a[href="#ajp-curator-results-tab"]').tab('show');
 
             const processOne = function (index) {
                 if (index >= keys.length) {
-                    $('#ajp-loading-overlay').hide();
+                    job.status = 'done';
+                    updateUploadProgress();
                     window.updateLeaderboard();
-                    $('#ajp-choose-albums-modal').modal('hide');
-                    const albumPlayLink = gameUrl + '?album=' + currentAutoAlbumId,
-                        feedbackModalDiv = $('#ajp-curator-feedback-modal');
-                    $('#ajp-curator-album-play-link').html(albumPlayLink).prop('href', albumPlayLink);
-                    $('#ajp-curator-points-awarded').html(pointsAwarded);
-                    $('#ajp-curator-add-album-name').val(null);
-                    $('#ajp-curator-add-album-description').val(null);
-                    $('#ajp-curator-add-area-name-d-none').val(null);
-                    $('#ajp-curator-create-new-album-checkbox').val(false);
-                    feedbackModalDiv.modal('show').on('shown.bs.modal', function () {
-                        $($(this).find('#ajp-curator-share-button-container')).empty().append(tmpl('ajp-curator-share-set-button', { gameLink: albumPlayLink }));
-                        window.FB.XFBML.parse();
-                    });
+                    loadMyAlbums();
+
+                    if (uploadJobs.filter(j => j.status === 'processing').length === 0) {
+                        // show legacy feedback only if it was the only/last job? 
+                        // maybe better to silent complete or use a notification
+                    }
                     window.gtag('event', 'photo_upload_batch_success', { 'category': 'Curator' });
                     return;
                 }
@@ -786,49 +889,41 @@
                         selection: JSON.stringify(singlePhotoSelection),
                         albums: albums,
                         eteraToken: ETERASession,
-                        autoAlbumId: currentAutoAlbumId,
+                        autoAlbumId: job.autoAlbumId,
                         csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
                     },
                     success: function (response) {
                         if (response.error) {
-                            $('#ajp-curator-upload-error').show();
-                            $('#ajp-curator-upload-error-message').html(response.error);
+                            console.error("Upload error for " + key, response.error);
+                            job.errors.push(response.error);
                         } else {
                             if (response.auto_album_id) {
-                                currentAutoAlbumId = response.auto_album_id;
+                                job.autoAlbumId = response.auto_album_id;
                             }
-                            pointsAwarded += (response.total_points_for_curating || 0);
+                            job.points += (response.total_points_for_curating || 0);
 
-                            for (const k in response.photos) {
-                                if (response.photos.hasOwnProperty(k)) {
-                                    const targetDiv = $($('#ajp-curator-selection-item-' + window.escapeSlash(window.formatId(k))).find('.ajp-curator-selection-feedback-row')[0]),
-                                        item = response.photos[k];
-                                    if (item.error) {
-                                        $(targetDiv.find('.alert-danger')[0]).html(item.error).show();
-                                    } else {
-                                        $(targetDiv.find('.alert-success')[0]).html(item.message).show();
-                                    }
-                                    if (item.message === 'OK') {
-                                        window.gtag('event', 'photo_upload_success', { 'category': 'Curator', 'key': k });
-                                    }
+                            // Check for individual photo errors in response.photos
+                            for (const photoKey in response.photos) {
+                                const photoResponse = response.photos[photoKey];
+                                if (photoResponse.error) {
+                                    job.errors.push(photoKey + ": " + photoResponse.error);
+                                } else {
+                                    job.uploaded++;
                                 }
                             }
                         }
+                        updateUploadProgress();
                         processOne(index + 1);
                     },
                     error: function () {
-                        const targetDiv = $($('#ajp-curator-selection-item-' + window.escapeSlash(window.formatId(key))).find('.ajp-curator-selection-feedback-row')[0]);
-                        $(targetDiv.find('.alert-danger')[0]).html(window.gettext('System error')).show();
+                        job.errors.push(window.gettext("Network error or timeout for ") + key);
+                        updateUploadProgress();
                         processOne(index + 1);
                     }
                 });
             };
 
             processOne(0);
-        });
-        $(document).on('click', '#ajp-curator-fetch-all', function () {
-            automateFetch = true;
-            $('#ajp-curator-search-button').click();
         });
     });
 </script>
