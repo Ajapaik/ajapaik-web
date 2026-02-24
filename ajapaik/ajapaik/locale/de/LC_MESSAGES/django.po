@@ -1425,12 +1425,6 @@ msgstr "Öffne ein Album (jeder kann Bilder hinzufügen)"
 msgid "Visible (shown in selection)"
 msgstr "Sichtbar (in Auswahl angezeigt)"
 
-#: ajapaik/ajapaik/templates/curator/curator.html:123
-#| msgid "Search for an existing album"
-#, fuzzy
-msgid "!!FUZZY!!Search for an existing album"
-msgstr "Suche nach einem vorhandenen Album"
-
 #: ajapaik/ajapaik/templates/curator/curator_search_controls.html:9
 msgid "Search"
 msgstr "Suche"
