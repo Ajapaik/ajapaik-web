@@ -830,9 +830,9 @@ class Photo(Model):
             for object_recognition_rectangle in object_recognition_rectangles:
                 top, right, bottom, left = \
                     object_recognition_rectangle.y1, \
-                    object_recognition_rectangle.x2, \
-                    object_recognition_rectangle.y2, \
-                    object_recognition_rectangle.x1
+                        object_recognition_rectangle.x2, \
+                        object_recognition_rectangle.y2, \
+                        object_recognition_rectangle.x1
                 object_recognition_rectangle.x2 = self.width - left
                 object_recognition_rectangle.x1 = self.width - right
                 object_recognition_rectangle.save()
@@ -1109,7 +1109,9 @@ class Photo(Model):
 
         kwargs = {**kwargs, 'force_insert': False}
 
-        if self.lat and self.lon and (self.geography.x != self.lon or self.geography.y != self.lat):
+        if self.lat and self.lon and (
+                self.geography is None or self.geography.x != self.lon or self.geography.y != self.lat
+        ):
             self.geography = Point(x=self.lon, y=self.lat, srid=4326)
             self.reverse_geocode_location()
 
@@ -1458,8 +1460,8 @@ class Points(Model):
     bulk = BulkUpdateManager()
 
     GEOTAG, REPHOTO, PHOTO_UPLOAD, PHOTO_CURATION, PHOTO_RECURATION, DATING, DATING_CONFIRMATION, FILM_STILL, \
-    ANNOTATION, CONFIRM_SUBJECT, CONFIRM_IMAGE_SIMILARITY, SUGGESTION_SUBJECT_AGE, SUGGESTION_SUBJECT_GENDER, \
-    TRANSCRIBE, CATEGORIZE_SCENE, ADD_VIEWPOINT_ELEVATION, FLIP_PHOTO, ROTATE_PHOTO, INVERT_PHOTO = range(19)
+        ANNOTATION, CONFIRM_SUBJECT, CONFIRM_IMAGE_SIMILARITY, SUGGESTION_SUBJECT_AGE, SUGGESTION_SUBJECT_GENDER, \
+        TRANSCRIBE, CATEGORIZE_SCENE, ADD_VIEWPOINT_ELEVATION, FLIP_PHOTO, ROTATE_PHOTO, INVERT_PHOTO = range(19)
     ACTION_CHOICES = (
         (GEOTAG, _('Geotag')),
         (REPHOTO, _('Rephoto')),

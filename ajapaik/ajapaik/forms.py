@@ -1,12 +1,12 @@
 from allauth.account.forms import SignupForm as AllauthSignupForm
-from django_recaptcha.fields import ReCaptchaField
-
 from dal import autocomplete
 from django import forms
+from django.conf import settings
 from django.db.models import Q
 from django.utils.translation import gettext_lazy as _
 from django_comments_xtd.conf.defaults import COMMENT_MAX_LENGTH
 from django_comments_xtd.forms import XtdCommentForm
+from django_recaptcha.fields import ReCaptchaField
 
 from .models import (Album, Area, Dating, GeoTag, Photo, PhotoLike,
                      Profile, Video)
@@ -24,9 +24,11 @@ class SignupForm(AllauthSignupForm):
     last_name = forms.CharField(label=_('Last name'), max_length=30)
     password1 = forms.CharField(label=_('Password'), widget=forms.PasswordInput)
     password2 = forms.CharField(label=_('Password confirmation'), widget=forms.PasswordInput)
-    captcha = ReCaptchaField()
+    field_order = ['email', 'first_name', 'last_name', 'password1', 'password2']
 
-    field_order = ['email', 'first_name', 'last_name', 'password1', 'password2', 'captcha']
+    if settings.RECAPTCHA_ENABLED:
+        captcha = ReCaptchaField()
+        field_order.append('captcha')
 
     def signup(self, request, user):
         user.first_name = self.cleaned_data['first_name']

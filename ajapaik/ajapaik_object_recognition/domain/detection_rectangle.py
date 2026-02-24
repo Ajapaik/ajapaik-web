@@ -23,7 +23,7 @@ class DetectionRectangle:
         self.gender = get_if_key_present(init, 'gender')
         self.subjectId = get_if_key_present(init, 'subject_id')
         self.subjectName = get_if_key_present(init, 'subject_name')
-        self.wikiDataId = get_if_key_present(init, 'wiki_data_id')
+        self.wikiDataId = get_if_key_present(init, 'wikidata_id')
         self.translations = get_if_key_present(init, 'translations')
         self.isEditable = get_if_key_present(init, 'is_editable')
         self.hasUserGivenFeedback = get_if_key_present(init, 'has_user_given_feedback')

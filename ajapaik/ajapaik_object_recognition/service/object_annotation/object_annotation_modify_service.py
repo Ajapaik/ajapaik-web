@@ -5,7 +5,7 @@ from ajapaik.ajapaik_object_recognition.service.object_annotation import object_
 
 
 def update_object_annotation(user_id: int, request: ObjectAnnotationUpdateRequest):
-    if request.wiki_data_label_id is None:
+    if request.wikidata_label_id is None:
         raise Exception('Object ID must be provided')
 
     annotation = ObjectDetectionAnnotation.objects.get(pk=request.rectangle_id)
@@ -13,7 +13,7 @@ def update_object_annotation(user_id: int, request: ObjectAnnotationUpdateReques
     if not object_annotation_utils.is_object_annotation_editable(user_id, annotation):
         return False
 
-    detection_class = object_annotation_common_service.get_saved_label(request.wiki_data_label_id)
+    detection_class = object_annotation_common_service.get_saved_label(request.wikidata_label_id)
 
     annotation.detected_object = detection_class
 

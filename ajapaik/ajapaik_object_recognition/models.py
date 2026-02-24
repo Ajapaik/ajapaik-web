@@ -13,13 +13,13 @@ class ObjectDetectionModel(models.Model):
 
 class ObjectAnnotationClass(models.Model):
     alias = models.TextField(max_length=200, null=True)
-    wiki_data_id = models.TextField(max_length=30)
+    wikidata_id = models.TextField(max_length=30)
     translations = models.TextField()
     detection_model = models.ForeignKey(ObjectDetectionModel, on_delete=CASCADE)
 
     def __str__(self):
         english_translation = self.translations
-        return f'{self.wiki_data_id}: {english_translation}'
+        return f'{self.wikidata_id}: {english_translation}'
 
 
 class ObjectDetectionAnnotation(models.Model):

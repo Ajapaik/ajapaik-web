@@ -54,7 +54,7 @@ def map_object_rectangle_to_rectangle(object_annotation: ObjectDetectionAnnotati
     previous_feedback = object_annotation.feedback.filter(user_id=user_id).order_by('-created_on').first()
     previous_feedback_object = previous_feedback.alternative_object if previous_feedback is not None else None
 
-    alternative_object_id = previous_feedback_object.wiki_data_id if previous_feedback_object is not None else None
+    alternative_object_id = previous_feedback_object.wikidata_id if previous_feedback_object is not None else None
     alternative_object_translations = previous_feedback_object.translations \
         if previous_feedback_object is not None \
         else None
@@ -69,7 +69,7 @@ def map_object_rectangle_to_rectangle(object_annotation: ObjectDetectionAnnotati
         'y1': object_annotation.y1,
         'x2': object_annotation.x2,
         'y2': object_annotation.y2,
-        'wiki_data_id': object_annotation.detected_object.wiki_data_id,
+        'wikidata_id': object_annotation.detected_object.wikidata_id,
         'translations': object_annotation.detected_object.translations,
         'is_editable': object_annotation_utils.is_object_annotation_editable(
             user_id,

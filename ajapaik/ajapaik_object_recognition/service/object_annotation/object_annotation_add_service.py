@@ -13,15 +13,15 @@ from ajapaik.ajapaik_object_recognition.service.object_annotation.object_annotat
 
 
 def add_annotation(add_detection_annotation: AddDetectionAnnotation, request: HttpRequest):
-    wiki_data_label_id = add_detection_annotation.wiki_data_label_id
+    wikidata_label_id = add_detection_annotation.wikidata_label_id
     subject_id = add_detection_annotation.subject_id
 
     photo_id = add_detection_annotation.photo_id
 
-    if wiki_data_label_id is None and add_detection_annotation.is_saving_object:
+    if wikidata_label_id is None and add_detection_annotation.is_saving_object:
         raise Exception('Object ID has to be provided for object annotation adding')
 
-    if wiki_data_label_id is not None and len(wiki_data_label_id) > 0:
+    if wikidata_label_id is not None and len(wikidata_label_id) > 0:
         save_new_object_annotation(add_detection_annotation)
     else:
         photo = Photo.objects.get(pk=photo_id)
@@ -61,7 +61,7 @@ def add_subject_data(new_face_annotation_id, add_detection_annotation: AddDetect
 
 
 def save_new_object_annotation(add_detection_annotation: AddDetectionAnnotation):
-    saved_label = get_saved_label(add_detection_annotation.wiki_data_label_id)
+    saved_label = get_saved_label(add_detection_annotation.wikidata_label_id)
 
     photo_id = add_detection_annotation.photo_id
     user_id = add_detection_annotation.user_id

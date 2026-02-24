@@ -87,7 +87,7 @@ def leaderboard(request, album_id=None):
     context = {
         'is_top_50': False,
         'title': _('Leaderboard'),
-        'hostname': request.build_absolute_uri('/'),
+        'hostname': f"{request.scheme}://{request.get_host()}",
         'leaderboard': general_leaderboard,
         'album_leaderboard': album_leaderboard,
         'ajapaik_facebook_link': settings.AJAPAIK_FACEBOOK_LINK
@@ -100,7 +100,7 @@ def all_time_leaderboard(request):
     atl = _get_all_time_leaderboard50(request.get_user().profile.pk)
     template = ['', 'leaderboard/_block_leaderboard.html', 'leaderboard/leaderboard.html'][is_ajax(request) and 1 or 2]
     context = {
-        'hostname': request.build_absolute_uri('/'),
+        'hostname': f"{request.scheme}://{request.get_host()}",
         'all_time_leaderboard': atl,
         'title': _('Leaderboard'),
         'is_top_50': True
@@ -136,7 +136,7 @@ def top50(request, album_id=None):
         'album_name': album_name,
         'album_leaderboard': album_leaderboard,
         'all_time_leaderboard': general_leaderboard,
-        'hostname': request.build_absolute_uri('/'),
+        'hostname': f"{request.scheme}://{request.get_host()}",
         'title': _('Leaderboard'),
         'is_top_50': True,
         'ajapaik_facebook_link': settings.AJAPAIK_FACEBOOK_LINK

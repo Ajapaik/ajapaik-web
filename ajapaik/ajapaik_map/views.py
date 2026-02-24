@@ -74,7 +74,7 @@ def mapview(request, photo_id=None, rephoto_id=None):
     context = {'last_geotagged_photo_id': last_geotagged_photo_id,
                'total_photo_count': total_photo_count, 'geotagging_user_count': geotagging_user_count,
                'geotagged_photo_count': geotagged_photo_count, 'albums': albums,
-               'hostname': request.build_absolute_uri('/'),
+               'hostname': request.get_host(),
                'selected_photo': selected_photo, 'selected_rephoto': selected_rephoto, 'is_mapview': True,
                'ajapaik_facebook_link': settings.AJAPAIK_FACEBOOK_LINK, 'album': None, 'user_has_likes': user_has_likes,
                'user_has_rephotos': user_has_rephotos, 'q': request.GET.get('q')}

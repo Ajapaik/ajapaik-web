@@ -52,7 +52,7 @@ def curator(request):
         'description': _('Search for old photos, add them to Ajapaik, '
                          'determine their locations and share the resulting album!'),
         'curator_random_images': curator_random_images,
-        'hostname': request.build_absolute_uri('/'),
+        'hostname': f"{request.scheme}://{request.get_host()}",
         'is_curator': True,
         'CURATOR_FLICKR_ENABLED': settings.CURATOR_FLICKR_ENABLED,
         'CURATOR_EUROPEANA_ENABLED': settings.CURATOR_EUROPEANA_ENABLED,
