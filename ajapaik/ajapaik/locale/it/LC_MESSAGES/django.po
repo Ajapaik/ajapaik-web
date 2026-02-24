@@ -2,10 +2,12 @@
 # Exported from translatewiki.net
 #
 # Author: Ajeje Brazorf
+# Author: Asteralee
 # Author: Beta16
 # Author: CarloBerg
 # Author: Champ0999
 # Author: CloeRiva
+# Author: Dream Indigo
 # Author: EditGio
 # Author: GseSro
 # Author: JackLantern
@@ -16,7 +18,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2025-12-25 12:00:18+0000\n"
+"PO-Revision-Date: 2026-02-23 12:00:20+0000\n"
 "X-POT-Import-Date: 2024-07-09 05:10:19+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -348,7 +350,7 @@ msgstr "Donna"
 
 #: ajapaik/ajapaik/models.py:281 ajapaik/ajapaik_face_recognition/forms.py:21
 msgid "Gender"
-msgstr "Sesso"
+msgstr "Genere"
 
 #: ajapaik/ajapaik/models.py:283
 msgid "Wikidata identifier"
@@ -1831,7 +1833,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/geotaggers/_geotaggers_modal_content.html:18
 msgid "Modified"
-msgstr ""
+msgstr "Modificato"
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:14
 msgid "Ajapaik is crowdsourcing additional metadata about pictorial heritage. Ajapaik is mostly hosting old photos, but there are also paintings, graphic art and historic films on Ajapaik."
@@ -2689,7 +2691,7 @@ msgstr "Salta"
 
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:99
 msgid "Currently the gender is"
-msgstr "Attualmente il sesso è"
+msgstr "Attualmente il genere è"
 
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:101
 msgid "Currently the age is"
