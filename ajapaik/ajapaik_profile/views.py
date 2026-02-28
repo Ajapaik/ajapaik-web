@@ -118,8 +118,7 @@ def user_settings_modal(request):
 
 
 def user_settings(request):
-    profile = hasattr(request.user, 'profile') and request.user.profile or None
-
+    profile: Profile | None = hasattr(request.user, 'profile') and request.user.profile or None
     if not profile:
         return render(request, 'user/settings/user_settings.html', context={})
 
@@ -133,22 +132,24 @@ def user_settings(request):
     context = {'profile': profile}
     token = request.GET.get('token')
     if token:
-        token = ProfileMergeToken.objects.filter(token=token, used=None,
-                                                 created__gte=datetime.date.today() - datetime.timedelta(
-                                                     hours=1)).first()
+        token = ProfileMergeToken.objects.filter(
+            token=token,
+            used=None,
+            created__gte=datetime.date.today() - datetime.timedelta(hours=1),
+        ).first()
     else:
         initial = True
 
     if token is None:
         invalid = not initial
         if profile.is_legit():
-            token = ProfileMergeToken(token=str(uuid4()), profile=profile)
+            token = ProfileMergeToken.objects.create(token=str(uuid4()), profile=profile)
             token.save()
         else:
             context['next'] = request.path
     else:
         context['token_profile_social_accounts'] = SocialAccount.objects.filter(user_id=token.profile.user_id)
-        context['link'] = reverse('user', args=(token.profile_id,))
+        context['link'] = reverse('user', args=(token.profile_id))
 
     context['next'] = f'{request.path}?token={token.token}'
     display_name_form = ChangeDisplayNameForm(data={'display_name': profile.display_name})
@@ -157,50 +158,51 @@ def user_settings(request):
 
     if request.user.has_usable_password():
         password_accordion = {"id": 4, "heading": _("Change password"), "template": "account/password_change_form.html",
-                              "form": ChangePasswordForm(), "show_merge_section": None}
+                              "form": ChangePasswordForm()}
     else:
         password_accordion = {"id": 4, "heading": "Set password", "template": "account/password_set_form.html",
-                              "form": SetPasswordForm(), "show_merge_section": None}
+                              "form": SetPasswordForm()}
     context['accordions'] = [
         {"id": 1,
          "heading": _("Change display name"),
          "template": "user/display_name/change_display_name.html",
          "form": display_name_form,
-         "show_merge_section": None
          },
         {"id": 2,
          "heading": _("Newsletter and language settings"),
          "template": "user/settings/_user_settings_modal_content.html",
          "form": user_settings_form,
-         "show_merge_section": None
          },
         {"id": 3,
          "heading": _("E-mail addresses"),
          "template": "account/email_content.html",
          "form": AddEmailForm(),
-         "show_merge_section": None
          },
         password_accordion,
         {"id": 5,
          "heading": _("Account Connections"),
          "template": "socialaccount/connections_content.html",
-         "form": social_account_form, "show_merge_section": None
+         "form": social_account_form,
          },
         {"id": 6,
          "heading": _("Merge another Ajapaik account with current one"),
-         "template": "user/merge/merge_accounts.html", "form": None
+         "template": "user/merge/merge_accounts.html",
+         "form": None,
+         "show_merge_section": bool(token)
          }
     ]
-    return render(request, 'user/settings/user_settings.html',
-                  {
-                      **context,
-                      'invalid': invalid,
-                      'initial': initial,
-                      'show_accordion': show_accordion,
-                      'me': reverse('me'),
-                      'profile_social_accounts': SocialAccount.objects.filter(user_id=request.user.id),
-                      'token': token
-                  })
+    return render(
+        request, 'user/settings/user_settings.html',
+        {
+            **context,
+            'invalid': invalid,
+            'initial': initial,
+            'show_accordion': show_accordion,
+            'me': reverse('me'),
+            'profile_social_accounts': SocialAccount.objects.filter(user_id=request.user.id),
+            'token': token
+        }
+    )
 
     return render(request, 'user/display_name/change_display_name.html', context)
 
