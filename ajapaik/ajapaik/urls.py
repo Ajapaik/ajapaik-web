@@ -180,7 +180,7 @@ urlpatterns += [
     path('api/v1/photo/suggestion/', api.PhotoSuggestion.as_view(), name='api_photo_suggestion'),
     path('api/v1/photo/suggestion/<int:photo_id>/', api.PhotoSuggestion.as_view(), name='api_photo_suggestion'),
     path('api/v1/photo/state/', api.PhotoDetails.as_view()),
-    path('api/v1/photo/activity-log/', api.PhotoActivityLog.as_view()),
+    path('api/v1/photo/activity-log/', api.PhotoActivityLog.as_view(), name='api_photo_activity_log'),
     path('api/v1/photo/upload/', api.RephotoUpload.as_view(), name='api_photo_upload'),
     path('api/v1/photo/upload/settings', api.RephotoUploadSettings.as_view(),
          name='api_submit_rephoto_upload_settings'),

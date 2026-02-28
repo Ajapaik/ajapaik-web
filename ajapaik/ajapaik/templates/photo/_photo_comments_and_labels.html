@@ -38,13 +38,39 @@
     </div>
     {% endif %}
     <!-- end of albums block -->
-    <!-- start of comment block -->
-    <div class="row pt-3" id="ajp-comment-container">
-        <div class="col-md-12" id="ajp-comment-list"></div>
-        <div class="col-md-12 pl-1" id="ajp-new-comment-form-container">
-            {% render_comment_form for photo_obj %}
+    <!-- start of activity/comments tabs -->
+    <div class="row pt-3">
+        <div class="col-md-12">
+            <ul class="nav nav-tabs" role="tablist" id="ajp-activity-tabs">
+                <li role="presentation" class="active">
+                    <a href="#ajp-activity-log" aria-controls="ajp-activity-log" role="tab" data-toggle="tab">{% trans "Activity" %}</a>
+                </li>
+                <li role="presentation">
+                    <a href="#ajp-comments-tab" aria-controls="ajp-comments-tab" role="tab" data-toggle="tab">{% trans "Comments" %}</a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="ajp-activity-log">
+                    <div id="ajp-activity-log-list" class="pt-2">
+                        <div class="text-center">
+                            <span class="material-icons notranslate ajp-text-gray">sync</span>
+                            {% trans "Loading..." %}
+                        </div>
+                    </div>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="ajp-comments-tab">
+                    <div id="ajp-comment-container">
+                        <div class="col-md-12" id="ajp-comment-list"></div>
+                        <div class="col-md-12 pl-1" id="ajp-new-comment-form-container">
+                            {% render_comment_form for photo_obj %}
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+    <!-- end of activity/comments tabs -->
+    <!-- start of comment block (legacy, hidden) -->
     <!-- end of comment block -->
     <!-- start of toolbox block -->
         {% if not request.user_agent.is_pc %}
@@ -65,6 +91,63 @@
 {% block specific_js %}
     <script>
         $(document).ready(function () {
+            function loadActivityLog() {
+                const photoId = window.currentlyOpenPhotoId || {{ photo.id }};
+                if (!window.photoActivityLogURL) {
+                    return;
+                }
+                $.ajax({
+                    url: window.photoActivityLogURL + '?id=' + photoId,
+                    success: function (response) {
+                        if (response.error || !response.activities) {
+                            $('#ajp-activity-log-list').html('<div class="text-muted">{% trans "No activity yet" %}</div>');
+                            return;
+                        }
+                        const activities = response.activities;
+                        if (activities.length === 0) {
+                            $('#ajp-activity-log-list').html('<div class="text-muted">{% trans "No activity yet" %}</div>');
+                            return;
+                        }
+                        let html = '<ul class="list-unstyled">';
+                        activities.forEach(function(item) {
+                            const date = item.created ? new Date(item.created).toLocaleDateString() : '';
+                            if (item.type === 'geotag') {
+                                const statusIcon = item.is_correct === true ? '✓' : (item.is_correct === false ? '✗' : '?');
+                                const statusClass = item.is_correct === true ? 'text-success' : (item.is_correct === false ? 'text-danger' : 'text-muted');
+                                html += '<li class="mb-2"><span class="' + statusClass + '">' + statusIcon + '</span> ';
+                                html += '<span class="text-muted">' + date + '</span> - ';
+                                html += item.user ? item.user : '{% trans "Unknown" %}';
+                                html += ': <span class="ajp-text-small">{% trans "Geotag" %}</span></li>';
+                            } else if (item.type === 'dating') {
+                                html += '<li class="mb-2">📅 <span class="text-muted">' + date + '</span> - ';
+                                html += item.user ? item.user : '{% trans "Unknown" %}';
+                                html += ': <span class="ajp-text-small">' + item.date_start + (item.date_end ? ' - ' + item.date_end : '') + '</span></li>';
+                            } else if (item.type === 'comment') {
+                                html += '<li class="mb-2">💬 <span class="text-muted">' + date + '</span> - ';
+                                html += item.text + '</li>';
+                            } else if (item.type === 'activity') {
+                                html += '<li class="mb-2">⭐ <span class="text-muted">' + date + '</span> - ';
+                                html += item.user ? item.user : '{% trans "Unknown" %}';
+                                html += ': <span class="ajp-text-small">' + item.action + '</span> (' + item.points + 'p)</li>';
+                            }
+                        });
+                        html += '</ul>';
+                        $('#ajp-activity-log-list').html(html);
+                    },
+                    error: function() {
+                        $('#ajp-activity-log-list').html('<div class="text-muted">{% trans "Failed to load activity" %}</div>');
+                    }
+                });
+            }
+
+            loadActivityLog();
+
+            $('#ajp-activity-tabs a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+                if ($(e.target).attr('href') === '#ajp-activity-log') {
+                    loadActivityLog();
+                }
+            });
+
             let container = $('#ajp-modal-body').size() > 0 ? '#ajp-modal-body' : 'body';
             $(".ajp-photo-album-link").each(function() {
                 let anchorLink = $(this);
