@@ -1975,8 +1975,12 @@ input[type=search]::-webkit-search-cancel-button {
     font-size: 12px;
     margin-left: 5px;
     margin-right: 5px;
+    left: -18px;
 }
 
+.curator-badge {
+    left: -8px;
+}
 
 #ajp-frontpage-container {
     top: 54px;
