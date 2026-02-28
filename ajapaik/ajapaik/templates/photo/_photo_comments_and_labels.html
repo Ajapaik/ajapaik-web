@@ -97,11 +97,38 @@
 {% block specific_js %}
     <script>
         $(document).ready(function () {
-            function loadActivityLog() {
+            function loadActivityLog(filterType) {
                 const photoId = window.currentlyOpenPhotoId || {{ photo.id }};
                 if (!window.photoActivityLogURL) {
                     return;
                 }
+                
+                const actionIcons = {
+                    0: 'add_location',       // GEOTAG
+                    1: 'photo_camera',      // REPHOTO
+                    2: 'add_photo_alternate', // PHOTO_UPLOAD
+                    3: 'edit',              // PHOTO_CURATION
+                    4: 'edit',              // PHOTO_RECURATION
+                    5: 'event',             // DATING
+                    6: 'event',             // DATING_CONFIRMATION
+                    7: 'movie',             // FILM_STILL
+                    8: 'person',            // ANNOTATION
+                    9: 'person',            // CONFIRM_SUBJECT
+                    10: 'compare',           // CONFIRM_IMAGE_SIMILARITY
+                    11: 'person',           // SUGGESTION_SUBJECT_AGE
+                    12: 'person',           // SUGGESTION_SUBJECT_GENDER
+                    13: 'edit_note',        // TRANSCRIBE
+                    14: 'category',         // CATEGORIZE_SCENE
+                    15: 'terrain',           // ADD_VIEWPOINT_ELEVATION
+                    16: 'flip',              // FLIP_PHOTO
+                    17: 'rotate_right',      // ROTATE_PHOTO
+                    18: 'invert_colors'      // INVERT_PHOTO
+                };
+                
+                function getActionIcon(actionCode) {
+                    return actionIcons[actionCode] || 'star';
+                }
+                
                 $.ajax({
                     url: window.photoActivityLogURL + '?id=' + photoId,
                     success: function (response) {
@@ -109,7 +136,15 @@
                             $('#ajp-activity-log-list').html('<div class="text-muted">{% trans "No activity yet" %}</div>');
                             return;
                         }
-                        const activities = response.activities;
+                        let activities = response.activities;
+                        
+                        // Filter activities based on tab
+                        if (filterType === 'comments') {
+                            activities = activities.filter(function(a) { return a.type === 'comment'; });
+                        } else {
+                            activities = activities.filter(function(a) { return a.type !== 'comment'; });
+                        }
+                        
                         if (activities.length === 0) {
                             $('#ajp-activity-log-list').html('<div class="text-muted">{% trans "No activity yet" %}</div>');
                             return;
@@ -138,8 +173,9 @@
                                 html += '<span class="text-muted mr-2">' + date + '</span>';
                                 html += '<span>' + item.text + '</span></li>';
                             } else if (item.type === 'activity') {
+                                const icon = getActionIcon(item.action_code);
                                 html += '<li class="mb-2 d-flex align-items-center">';
-                                html += '<span class="material-icons notranslate ajp-text-gray mr-2">star</span>';
+                                html += '<span class="material-icons notranslate ajp-text-gray mr-2">' + icon + '</span>';
                                 html += '<span class="text-muted mr-2">' + date + '</span>';
                                 html += '<span>' + (item.user || '{% trans "Unknown" %}') + '</span>';
                                 html += ': <span class="ajp-text-small">' + item.action + '</span> (' + item.points + 'p)</li>';
@@ -154,11 +190,13 @@
                 });
             }
 
-            loadActivityLog();
+            loadActivityLog('all');
 
             $('#ajp-activity-tabs a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
                 if ($(e.target).attr('href') === '#ajp-activity-log') {
-                    loadActivityLog();
+                    loadActivityLog('all');
+                } else if ($(e.target).attr('href') === '#ajp-comments-tab') {
+                    loadActivityLog('comments');
                 }
             });
 
