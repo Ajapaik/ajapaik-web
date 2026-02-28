@@ -1141,12 +1141,35 @@ class PhotoActivityLog(AjapaikAPIView):
                 'user': user_name,
                 'user_id': point.user.id if point.user else None,
                 'created': point.created.isoformat() if point.created else None,
-                'points': point.points,
             }
             if point.album:
                 activity_data['album_id'] = point.album.id
                 activity_data['album_name'] = point.album.name
             activities.append(activity_data)
+
+        scene_suggestions = PhotoSceneSuggestion.objects.filter(photo=photo).select_related('proposer').order_by('-created')[:20]
+        for suggestion in scene_suggestions:
+            user_name = suggestion.proposer.get_display_name if suggestion.proposer else None
+            scene_label = suggestion.get_scene_display() if suggestion.scene is not None else 'Unknown'
+            activities.append({
+                'type': 'scene_suggestion',
+                'user': user_name,
+                'user_id': suggestion.proposer.id if suggestion.proposer else None,
+                'scene': scene_label,
+                'created': suggestion.created.isoformat() if suggestion.created else None,
+            })
+
+        viewpoint_suggestions = PhotoViewpointElevationSuggestion.objects.filter(photo=photo).select_related('proposer').order_by('-created')[:20]
+        for suggestion in viewpoint_suggestions:
+            user_name = suggestion.proposer.get_display_name if suggestion.proposer else None
+            viewpoint_label = suggestion.get_viewpoint_elevation_display() if suggestion.viewpoint_elevation is not None else 'Unknown'
+            activities.append({
+                'type': 'viewpoint_suggestion',
+                'user': user_name,
+                'user_id': suggestion.proposer.id if suggestion.proposer else None,
+                'viewpoint': viewpoint_label,
+                'created': suggestion.created.isoformat() if suggestion.created else None,
+            })
 
         likes = PhotoLike.objects.filter(photo=photo).select_related('profile').order_by('-created')[:20]
         for like in likes:
@@ -1161,9 +1184,11 @@ class PhotoActivityLog(AjapaikAPIView):
 
         comments = PhotoComment.objects.filter(photo=photo).order_by('-created')[:50]
         for comment in comments:
+            user_name = comment.user.get_display_name() if comment.user else (comment.fb_user_id or 'Anonymous')
             activities.append({
                 'type': 'comment',
                 'text': comment.text[:200] + ('...' if len(comment.text) > 200 else ''),
+                'user': user_name,
                 'user_id': comment.fb_user_id,
                 'created': comment.created.isoformat() if comment.created else None,
             })

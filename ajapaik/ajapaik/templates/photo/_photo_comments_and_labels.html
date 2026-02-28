@@ -173,7 +173,8 @@
                                 html += '<li class="mb-2 d-flex align-items-center">';
                                 html += '<span class="material-icons notranslate ajp-text-gray mr-2">chat_bubble</span>';
                                 html += '<span class="text-muted mr-2">' + date + '</span>';
-                                html += '<span>' + item.text + '</span></li>';
+                                html += '<span>' + (item.user || '{% trans "Unknown" %}') + '</span>';
+                                html += ': <span class="ajp-text-small">' + item.text + '</span></li>';
                             } else if (item.type === 'like') {
                                 const likeIcon = item.level === 2 ? 'favorite' : 'thumb_up';
                                 html += '<li class="mb-2 d-flex align-items-center">';
@@ -181,6 +182,18 @@
                                 html += '<span class="text-muted mr-2">' + date + '</span>';
                                 html += '<span>' + (item.user || '{% trans "Unknown" %}') + '</span>';
                                 html += '</li>';
+                            } else if (item.type === 'scene_suggestion') {
+                                html += '<li class="mb-2 d-flex align-items-center">';
+                                html += '<span class="material-icons notranslate ajp-text-gray mr-2">category</span>';
+                                html += '<span class="text-muted mr-2">' + date + '</span>';
+                                html += '<span>' + (item.user || '{% trans "Unknown" %}') + '</span>';
+                                html += ': <span class="ajp-text-small">{% trans "categorised as" %} ' + item.scene + '</span></li>';
+                            } else if (item.type === 'viewpoint_suggestion') {
+                                html += '<li class="mb-2 d-flex align-items-center">';
+                                html += '<span class="material-icons notranslate ajp-text-gray mr-2">terrain</span>';
+                                html += '<span class="text-muted mr-2">' + date + '</span>';
+                                html += '<span>' + (item.user || '{% trans "Unknown" %}') + '</span>';
+                                html += ': <span class="ajp-text-small">{% trans "marked viewpoint" %} ' + item.viewpoint + '</span></li>';
                             } else if (item.type === 'activity') {
                                 const icon = getActionIcon(item.action_code);
                                 let albumLink = '';
@@ -191,7 +204,7 @@
                                 html += '<span class="material-icons notranslate ajp-text-gray mr-2">' + icon + '</span>';
                                 html += '<span class="text-muted mr-2">' + date + '</span>';
                                 html += '<span>' + (item.user || '{% trans "Unknown" %}') + '</span>';
-                                html += ': <span class="ajp-text-small">' + item.action + '</span>' + albumLink + ' (' + item.points + 'p)</li>';
+                                html += ': <span class="ajp-text-small">' + item.action + '</span>' + albumLink + '</li>';
                             }
                         });
                         html += '</ul>';
