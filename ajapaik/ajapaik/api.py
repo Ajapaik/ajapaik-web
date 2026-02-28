@@ -1795,52 +1795,54 @@ class PhotoSuggestion(AjapaikAPIView):
         viewpoint_elevation = data['viewpointElevation']
         photo_ids = data['photoIds']
         response = ''
+        try:
+            if photo_ids is None:
+                return JsonResponse({'error': MISSING_PARAMETER_PHOTO_IDS}, status=400)
 
-        if photo_ids is None:
-            return JsonResponse({'error': MISSING_PARAMETER_PHOTO_IDS}, status=400)
+            if (scene is None or scene == 'undefined') and (
+                    viewpoint_elevation is None or viewpoint_elevation == 'undefined'):
+                return JsonResponse({'error': MISSING_PARAMETER_SCENE_VIEWPOINT_ELEVATION}, status=400)
 
-        if (scene is None or scene == 'undefined') and (
-                viewpoint_elevation is None or viewpoint_elevation == 'undefined'):
-            return JsonResponse({'error': MISSING_PARAMETER_SCENE_VIEWPOINT_ELEVATION}, status=400)
+            scene_suggestion_choice = None
+            for choice in PhotoSceneSuggestion.SCENE_CHOICES:
+                if choice[1] == scene:
+                    scene_suggestion_choice = choice[0]
 
-        scene_suggestion_choice = None
-        for choice in PhotoSceneSuggestion.SCENE_CHOICES:
-            if choice[1] == scene:
-                scene_suggestion_choice = choice[0]
+            photo_viewpoint_elevation_suggestion_choice = None
+            for choice in PhotoViewpointElevationSuggestion.VIEWPOINT_ELEVATION_CHOICES:
+                if choice[1] == viewpoint_elevation:
+                    photo_viewpoint_elevation_suggestion_choice = choice[0]
 
-        photo_viewpoint_elevation_suggestion_choice = None
-        for choice in PhotoViewpointElevationSuggestion.VIEWPOINT_ELEVATION_CHOICES:
-            if choice[1] == viewpoint_elevation:
-                photo_viewpoint_elevation_suggestion_choice = choice[0]
+            photo_scene_suggestions = []
+            photo_viewpoint_elevation_suggestions = []
 
-        photo_scene_suggestions = []
-        photo_viewpoint_elevation_suggestions = []
+            for photo_id in photo_ids:
+                if not photo_id.isdigit():
+                    return JsonResponse({'error': INVALID_PHOTO_ID}, status=400)
 
-        for photo_id in photo_ids:
-            if not photo_id.isdigit():
-                return JsonResponse({'error': INVALID_PHOTO_ID}, status=400)
+                photo = Photo.objects.filter(id=photo_id).first()
+                if photo is None:
+                    return JsonResponse({'error': f'{NO_PHOTO_WITH_ID} {photo_id}'}, status=404)
 
-            photo = Photo.objects.filter(id=photo_id).first()
-            if photo is None:
-                return JsonResponse({'error': f'{NO_PHOTO_WITH_ID} {photo_id}'}, status=404)
+                if scene_suggestion_choice is not None:
+                    response, photo_scene_suggestions, _, _ = suggest_photo_edit(photo_scene_suggestions, 'scene',
+                                                                                 scene_suggestion_choice, Points, 20,
+                                                                                 Points.CATEGORIZE_SCENE,
+                                                                                 PhotoSceneSuggestion, photo, profile,
+                                                                                 response, None)
 
-            if scene_suggestion_choice is not None:
-                response, photo_scene_suggestions, _, _ = suggest_photo_edit(photo_scene_suggestions, 'scene',
-                                                                             scene_suggestion_choice, Points, 20,
-                                                                             Points.CATEGORIZE_SCENE,
-                                                                             PhotoSceneSuggestion, photo, profile,
-                                                                             response, None)
+                if photo_viewpoint_elevation_suggestion_choice is not None:
+                    response, photo_viewpoint_elevation_suggestions, _, _ = suggest_photo_edit(
+                        photo_viewpoint_elevation_suggestions, 'viewpoint_elevation',
+                        photo_viewpoint_elevation_suggestion_choice, Points, 20, Points.ADD_VIEWPOINT_ELEVATION,
+                        PhotoViewpointElevationSuggestion, photo, profile, response, None)
 
-            if photo_viewpoint_elevation_suggestion_choice is not None:
-                response, photo_viewpoint_elevation_suggestions, _, _ = suggest_photo_edit(
-                    photo_viewpoint_elevation_suggestions, 'viewpoint_elevation',
-                    photo_viewpoint_elevation_suggestion_choice, Points, 20, Points.ADD_VIEWPOINT_ELEVATION,
-                    PhotoViewpointElevationSuggestion, photo, profile, response, None)
+            PhotoSceneSuggestion.objects.bulk_create(photo_scene_suggestions)
+            PhotoViewpointElevationSuggestion.objects.bulk_create(photo_viewpoint_elevation_suggestions)
 
-        PhotoSceneSuggestion.objects.bulk_create(photo_scene_suggestions)
-        PhotoViewpointElevationSuggestion.objects.bulk_create(photo_viewpoint_elevation_suggestions)
-
-        return JsonResponse({'message': response})
+            return JsonResponse({'message': response})
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=500)
 
 
 class PhotoAppliedOperations(AjapaikAPIView):
