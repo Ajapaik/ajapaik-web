@@ -31,6 +31,9 @@ function submitCategorySuggestion(photoIds, isMultiSelect) {
       }
       $.notify(data.message, { type: 'success' });
       $('#ajp-loading-overlay').hide();
+      if (window.refreshActivityLog) {
+        window.refreshActivityLog('all');
+      }
     })
     .catch((error) => {
       $('#ajp-loading-overlay').hide();

@@ -1075,6 +1075,9 @@ $('.ajp-navbar').autoHidingNavbar();
               window.currentlySelectedPhotoId || window.currentlyOpenPhotoId;
             if (photoId) {
               window.refreshPhotoAlbums(photoId);
+              if (window.refreshActivityLog) {
+                window.refreshActivityLog('all');
+              }
             }
           }
           window.loadSelectableAlbums();
