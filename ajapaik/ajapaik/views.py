@@ -61,22 +61,11 @@ def image_thumb(request, photo_id=None, thumb_size=400, pseudo_slug=None):
     else:
         thumb_size = 1024
 
-    #    p = get_object_or_404(Photo.objects.filter(id=photo_id).prefetch_related('rephoto_of').only('image', 'rephoto_of',
-    #                                                                                                'rephoto_of__image'),
-    #                         id=photo_id)
-    # p = get_object_or_404(Photo, id=photo_id)
-    p = Photo.objects.filter(id=photo_id).prefetch_related('rephoto_of').only(
-        'id', 'image', 'rephoto_of', 'rephoto_of__image',
-        'lat',
-        'lon',
-        'flip',
-        'rotated',
-        'height',
-    ).first()
+    p = Photo.objects.get(id=photo_id)
 
     thumb_str = f'{str(thumb_size)}x{str(thumb_size)}'
 
-    if p.rephoto_of:
+    if p.rephoto_of_id:
         original_thumb = get_thumbnail(p.rephoto_of.image, thumb_str, upscale=False)
         thumb_str = f'{str(original_thumb.size[0])}x{str(original_thumb.size[1])}'
         # TODO: see if restricting Pillow version fixes this
