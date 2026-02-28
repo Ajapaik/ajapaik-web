@@ -1997,38 +1997,40 @@ class Profile(Model):
         other.datings.update(profile=self)
         other.dating_confirmations.update(profile=self)
 
-    def update_rephoto_score(self):
-        photo_ids_rephotographed_by_this_user = Photo.objects.filter(rephoto_of__isnull=False, user_id=45472669).only(
-            'rephoto_of_id').values_list('rephoto_of_id', flat=True)
-        original_photos = Photo.objects.filter(
-            id__in=set(photo_ids_rephotographed_by_this_user)).prefetch_related('rephotos')
 
-        user_rephoto_score = 0
-
-        for p in original_photos:
-            rephotos_by_this_user = p.rephotos.filter(user_id=self.user_id).order_by('-created')
-            oldest_rephoto = p.rephotos.order_by('-created').first()
-            oldest_rephoto_is_from_this_user = oldest_rephoto in rephotos_by_this_user
-
-            # First rephoto of user gets more points than subsequent ones. First Rephoto ever gets an additional 250p
-            current_score = 1250 if oldest_rephoto_is_from_this_user else 1000
-            for rp in rephotos_by_this_user:
-                # Check that we have a record in the scoring table
-                if not Points.objects.filter(action=Points.REPHOTO, photo=rp).exists():
-                    new_record = Points(
-                        user=self,
-                        action=Points.REPHOTO,
-                        photo=rp,
-                        points=current_score,
-                        created=rp.created
-                    )
-                    new_record.save()
-                user_rephoto_score += current_score
-                # Add 250 points for any subsequent rephotos
-                current_score = 250
-
-        self.score_rephoto = user_rephoto_score
-        self.save(update_fields=['score_rephoto'])
+def update_rephoto_score(self):
+    photo_ids_rephotographed_by_this_user = Photo.objects.filter(rephoto_of__isnull=False,
+                                                                 user_id=self.id).only(
+        'rephoto_of_id').values_list('rephoto_of_id', flat=True)
+    original_photos = Photo.objects.prefetch_related("rephotos").filter(
+        id__in=set(photo_ids_rephotographed_by_this_user)).prefetch_related('rephotos')
+    points_to_create = []
+    for p in original_photos:
+        rp_id_created_mapping = dict(
+            p.rephotos.filter(user_id=self.id).order_by('-created').values_list("id", "created"))
+        oldest_rephoto = p.rephotos.order_by('-created').first()
+        oldest_rephoto_is_from_this_user = oldest_rephoto.id in rp_id_created_mapping
+        # First rephoto of user gets more points than subsequent ones. First Rephoto ever gets an additional 250p
+        current_score = 1250 if oldest_rephoto_is_from_this_user else 1000
+        points_to_create = []
+        existing_points_photo_ids = Points.objects.filter(
+            photo_id__in=rp_id_created_mapping, action=Points.REPHOTO
+        ).values_list("photo_id", flat=True)
+        for rp_id in set(rp_id_created_mapping) - set(existing_points_photo_ids):
+            # Check that we have a record in the scoring table
+            if not Points.objects.filter(action=Points.REPHOTO, photo_id=rp_id).exists():
+                points_to_create.append(Points(
+                    user=self,
+                    action=Points.REPHOTO,
+                    photo_id=rp_id,
+                    points=current_score,
+                    created=rp_id_created_mapping[rp_id]
+                ))
+            # Add 250 points for any subsequent rephotos
+            current_score = 250
+    Points.objects.bulk_create(points_to_create)
+    self.score_rephoto = self.points.filter(action=Points.REPHOTO).aggregate(Sum('points'))['points__sum'] or 0
+    self.save(update_fields=['score_rephoto'])
 
     def set_calculated_fields(self):
         all_time_score = self.points.aggregate(Sum('points', default=0))['points__sum']
