@@ -47,7 +47,8 @@ from ajapaik.ajapaik import forms
 from ajapaik.ajapaik.models import Album, AlbumPhoto, Photo, PhotoSceneSuggestion, Points, Licence, \
     PhotoLike, PhotoViewpointElevationSuggestion, GeoTag, Dating, \
     ImageSimilarity, Transcription, TranscriptionFeedback, PhotoFlipSuggestion, PhotoInvertSuggestion, \
-    PhotoRotationSuggestion, Profile, ProfileDisplayNameChange, PhotoComment
+    PhotoRotationSuggestion, Profile, ProfileDisplayNameChange, PhotoComment, MyXtdComment
+from ajapaik.ajapaik_face_recognition.models import FaceRecognitionRectangle
 from ajapaik.ajapaik.serializers import AlbumSerializer, AlbumDetailsSerializer, \
     PhotoWithDistanceSerializer, APIPhotoSerializer
 from ajapaik.ajapaik.socialaccount.providers.wikimedia_commons.views import WikimediaCommonsOAuth2Adapter
@@ -1182,15 +1183,44 @@ class PhotoActivityLog(AjapaikAPIView):
                 'created': like.created.isoformat() if like.created else None,
             })
 
-        comments = PhotoComment.objects.filter(photo=photo).order_by('-created')[:50]
-        for comment in comments:
-            user_name = comment.user.get_display_name() if comment.user else (comment.fb_user_id or 'Anonymous')
+        # PhotoComment is for FB comments
+        fb_comments = PhotoComment.objects.filter(photo=photo).order_by('-created')[:50]
+        for comment in fb_comments:
             activities.append({
                 'type': 'comment',
                 'text': comment.text[:200] + ('...' if len(comment.text) > 200 else ''),
-                'user': user_name,
+                'user': comment.fb_user_id or 'Facebook User',
                 'user_id': comment.fb_user_id,
                 'created': comment.created.isoformat() if comment.created else None,
+            })
+
+        # MyXtdComment is for Ajapaik user comments
+        xtd_comments = MyXtdComment.objects.filter(
+            object_pk=str(photo.id),
+            is_removed=False
+        ).select_related('user').order_by('-submit_date')[:50]
+        for comment in xtd_comments:
+            user_name = comment.user.profile.get_display_name() if comment.user and hasattr(comment.user, 'profile') else (comment.user.username if comment.user else 'Anonymous')
+            activities.append({
+                'type': 'comment',
+                'text': comment.comment[:200] + ('...' if len(comment.comment) > 200 else ''),
+                'user': user_name,
+                'user_id': comment.user.id if comment.user else None,
+                'created': comment.submit_date.isoformat() if comment.submit_date else None,
+            })
+
+        # Face annotations
+        face_annotations = FaceRecognitionRectangle.objects.filter(
+            photo=photo,
+            deleted=None
+        ).select_related('user').order_by('-created')[:20]
+        for annotation in face_annotations:
+            user_name = annotation.user.get_display_name() if annotation.user else 'System'
+            activities.append({
+                'type': 'face_annotation',
+                'user': user_name,
+                'user_id': annotation.user.id if annotation.user else None,
+                'created': annotation.created.isoformat() if annotation.created else None,
             })
 
         activities.sort(key=lambda x: x['created'] or '', reverse=True)

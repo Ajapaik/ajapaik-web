@@ -197,6 +197,12 @@
                                 html += '<span class="text-muted mr-2">' + date + '</span>';
                                 html += '<span>' + (item.user || '{% trans "Unknown" %}') + '</span>';
                                 html += ': <span class="ajp-text-small">{% trans "marked viewpoint" %} ' + item.viewpoint + '</span></li>';
+                            } else if (item.type === 'face_annotation') {
+                                html += '<li class="mb-2 d-flex align-items-center">';
+                                html += '<span class="material-icons notranslate ajp-text-gray mr-2">person</span>';
+                                html += '<span class="text-muted mr-2">' + date + '</span>';
+                                html += '<span>' + (item.user || '{% trans "Unknown" %}') + '</span>';
+                                html += ': <span class="ajp-text-small">{% trans "added face" %}</span></li>';
                             } else if (item.type === 'activity') {
                                 // Skip CATEGORIZE_SCENE and ADD_VIEWPOINT_ELEVATION as we show scene/viewpoint suggestions instead
                                 if (item.action_code === 14 || item.action_code === 15) {
