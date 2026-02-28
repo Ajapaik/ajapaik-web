@@ -5,13 +5,14 @@ from typing import Union
 from django.conf import settings
 from django.contrib.gis.db.models.functions import GeometryDistance
 from django.contrib.gis.geos import Point
-from django.db.models import Count, F
+from django.db.models import Count, F, Exists, OuterRef
 from haystack.inputs import AutoQuery
 from haystack.query import SearchQuerySet
 
 from ajapaik.ajapaik.models import Photo, Album, AlbumPhoto
 from ajapaik.ajapaik.types import GalleryResults, UserMini, PaginationParameters
 from ajapaik.ajapaik.utils import get_pagination_parameters
+from ajapaik.ajapaik_face_recognition.models import FaceRecognitionRectangle
 
 
 def _is_default_ordering(order1: str, order2: str, order3: Union[str, None]) -> bool:
@@ -60,15 +61,11 @@ def get_filtered_data_for_gallery(
 
     if album:
         sa_ids = [album.id, *album.subalbums.exclude(atype=Album.AUTO).values_list('id', flat=True)]
-        photos = photos.prefetch_related(albums__in=sa_ids)
-
-        # In QuerySet "albums__in" is 1:M JOIN so images will show up
-        # multiple times in results so this needs to be distinct(). Distinct is slow.
-        photos = photos.distinct()
+        photos.annotate(in_album=Exists(AlbumPhoto.objects.filter(photo_id=OuterRef("pk"), album_id__in=sa_ids)))
 
     if cleaned_data['people']:
-        photos = photos.filter(face_recognition_rectangles__isnull=False,
-                               face_recognition_rectangles__deleted=None)
+        rects = FaceRecognitionRectangle.objects.filter(photo_id=OuterRef("pk"), deleted__isnull=True)
+        photos = photos.annotate(has_people=Exists(rects)).filter(has_people=True)
 
     if cleaned_data['backsides']:
         photos = photos.exclude(front_of_id=None)
