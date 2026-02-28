@@ -1,6 +1,7 @@
 import hashlib
 import os
 from math import cos, sin, radians, atan2, sqrt
+from typing import Any
 
 from django.utils import timezone
 from django.utils.translation import gettext as _
@@ -87,31 +88,37 @@ def average_angle(angles):
     return atan2(y, x)
 
 
-def distance_in_meters(lon1, lat1, lon2, lat2):
+def distance_in_meters(lon1: float, lat1: float, lon2: float, lat2: float) -> float:
     lat_coeff = cos(radians((lat1 + lat2) / 2.0))
     return (2 * 6350e3 * 3.1415 / 360) * sqrt((lat1 - lat2) ** 2 + ((lon1 - lon2) * lat_coeff) ** 2)
 
 
-def most_frequent(List):
+def most_frequent(lst: list[Any]) -> Any | None:
+    if lst == []:
+        return None
+
     counter = 0
-    num = List[0]
-    uniques = list(set(List))
+    num = lst[0]
+    uniques = list(set(lst))
 
     for i in uniques:
-        current_frequency = List.count(i)
+        current_frequency = lst.count(i)
         if (current_frequency >= counter):
             counter = current_frequency
             num = i
     return num
 
 
-def least_frequent(List):
+def least_frequent(lst: list[Any]) -> Any | None:
+    if lst == []:
+        return None
+
     counter = None
-    num = List[0]
-    uniques = list(set(List))
+    num = lst[0]
+    uniques = list(set(lst))
 
     for i in uniques:
-        current_frequency = List.count(i)
+        current_frequency = lst.count(i)
         if not counter or current_frequency < counter:
             counter = current_frequency
             num = i
@@ -157,7 +164,7 @@ def suggest_photo_edit(photo_suggestions, key, new_value, Points, score, action_
 
     if new_value is None:
         return _('You must specify a new value when making a suggestion'), \
-               photo_suggestions, was_action_successful, points
+            photo_suggestions, was_action_successful, points
 
     previous_suggestion = model.objects.filter(photo=photo, proposer=profile).order_by('-created').first()
     if previous_suggestion and getattr(previous_suggestion, key) == new_value:

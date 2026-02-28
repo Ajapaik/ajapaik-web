@@ -119,6 +119,7 @@ urlpatterns = [
     path('curator-search/', curator_views.curator_search, name='curator_search'),
     path('curator-upload/', curator_views.curator_photo_upload_handler,
          name='curator_photo_upload_handler'),
+    path('curator-import-list/', curator_views.curator_import_list, name='curator_import_list'),
     path('public-album-create-handler/', views.public_add_album, name='public_add_album'),
     path('public-area-create-handler/', views.public_add_area),
     path('muis-import/', views.muis_import, name='muis_import'),

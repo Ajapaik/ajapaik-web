@@ -45,7 +45,7 @@
             </div>
         </div>
     </div>
-    <div id="ajp-curator-search-results-container">
+    <div id="ajp-curator-search-results">
         <div id="ajp-curator-search-results-list"></div>
         <button type="button" class="btn btn-primary btn-block mt-2 ajp-curator-load-more">
             {% trans "Load more" %}
@@ -153,6 +153,7 @@
             </div>
         </form>
     </div>
+    <div id="ajp-curator-imports" class="container"></div>
     {% else %}
     {% include "authentication/_login.html" with type="curator" %}
     {% endif %}
@@ -212,7 +213,7 @@
                 if ($(e.target).attr('href') === '#ajp-curator-selection-tab') {
                     buildSelectionDiv();
                     $('#ajp-curator-my-albums').hide();
-                    $('#ajp-curator-search-results-container').hide();
+                    $('#ajp-curator-search-results').hide();
                     $('#ajp-curator-selection').show();
                     const ETERAResults = $('.ajp-curator-ETERA-result');
                     if (ETERAResults.length > 0) {
@@ -235,12 +236,19 @@
                     }
                 } else if ($(e.target).attr('href') === '#ajp-curator-results-tab') {
                     $('#ajp-curator-my-albums').hide();
-                    $('#ajp-curator-search-results-container').show();
+                    $('#ajp-curator-search-results').show();
                     $('#ajp-curator-selection').hide();
+                    $('#ajp-curator-imports').hide();
                 } else if ($(e.target).attr('href') === '#ajp-curator-my-albums-tab') {
                     $('#ajp-curator-my-albums').show();
-                    $('#ajp-curator-search-results-container').hide();
+                    $('#ajp-curator-search-results').hide();
                     $('#ajp-curator-selection').hide();
+                    $('#ajp-curator-imports').hide();
+                } else if ($(e.target).attr('href') === '#ajp-curator-imports-tab') {
+                    $('#ajp-curator-my-albums').hide();
+                    $('#ajp-curator-search-results').hide();
+                    $('#ajp-curator-selection').hide();
+                    $('#ajp-curator-imports').show();
                 }
             });
             const changeInput = document.getElementById('ajp-curator-change-area-name');
@@ -256,6 +264,7 @@
                 });
             }
             loadMyAlbums();
+            loadMyImports();
             $('.ajp-navbar').autoHidingNavbar();
         });
         $('#ajp-curator-full-search').on('keypress', function (e) {
@@ -290,12 +299,35 @@
                     $('#ajp-curator-my-albums-size').html(responseLength);
                     for (let i = 0; i < responseLength; i += 1) {
                         response[i].link = '/?album=' + response[i].id;
-                        targetDiv.append(tmpl('ajp-curator-my-album-template', response[i]));
+                        targetDiv.append(tmpl('ajp-curator-album-template', response[i]));
                     }
                     window.gtag('event', 'load_my_albums_success', { 'category': 'Curator' });
                 },
                 error: function () {
                     window.gtag('event', 'load_my_albums_error', { 'category': 'Curator' });
+                }
+            });
+        };
+        const loadMyImports = function () {
+            $.ajax({
+                type: "POST",
+                url: "{% url 'curator_import_list' %}",
+                data: {
+                    csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
+                },
+                success: function (response) {
+                    const targetDiv = $('#ajp-curator-imports'),
+                        responseLength = response.length;
+                    targetDiv.empty();
+                    $('#ajp-curator-imports-size').html(responseLength);
+                    for (let i = 0; i < responseLength; i += 1) {
+                        response[i].link = '/?album=' + response[i].id;
+                        targetDiv.append(tmpl('ajp-curator-album-template', response[i]));
+                    }
+                    window.gtag('event', 'load_imports_success', { 'category': 'Curator' });
+                },
+                error: function () {
+                    window.gtag('event', 'load_imports_error', { 'category': 'Curator' });
                 }
             });
         };
@@ -733,6 +765,7 @@
                     changeAreaLng = null;
                     $('#ajp-curator-change-area-name').val(null);
                     loadMyAlbums();
+                    loadMyImports();
                     window.gtag('event', 'album_edit_success', { 'category': 'Curator' });
                 },
                 error: function () {

@@ -117,7 +117,8 @@ body > nav > div > div.navbar-collapse.navbar-left.collapse.in > ul > li > #ajp-
     height: 100%;
 }
 
-.ajp-body-frontpage, .ajp-body-photoview {
+.ajp-body-frontpage,
+.ajp-body-photoview {
     overflow-y: scroll;
     overflow-x: hidden;
 }
@@ -1622,6 +1623,7 @@ a[href^="http: //maps.google.com/maps"] {
     0% {
         transform: rotate(0deg);
     }
+
     100% {
         transform: rotate(360deg);
     }
@@ -1965,16 +1967,14 @@ input[type=search]::-webkit-search-cancel-button {
     padding: 5px 10px;
 }
 
-.badge, .curator-badge {
+.badge,
+.curator-badge {
     position: relative;
     background-color: black;
     color: white;
-    left: -18px;
     font-size: 12px;
-}
-
-.curator-badge {
-    left: -8px;
+    margin-left: 5px;
+    margin-right: 5px;
 }
 
 
@@ -2072,7 +2072,8 @@ input[type=search]::-webkit-search-cancel-button {
 }
 
 @media (max-width: 992px) {
-    #ajp-brand-dummy, .navbar-brand {
+    #ajp-brand-dummy,
+    .navbar-brand {
         display: none;
     }
 }

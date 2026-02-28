@@ -12,7 +12,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.core.files.base import ContentFile
 from django.db.models import Q, F
 from django.db.transaction import atomic
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.urls import reverse
 from django.utils import timezone
@@ -119,11 +119,29 @@ def curator_search(request):
 def curator_my_album_list(request):
     user_profile = request.get_user().profile
     serializer = CuratorMyAlbumListAlbumSerializer(
-        Album.objects.filter(Q(profile=user_profile, atype__in=[Album.CURATED, Album.PERSON])).order_by('-created'),
+        Album.objects.filter(profile_id=user_profile.id, atype__in=[Album.CURATED, Album.PERSON],
+                             is_public=True).order_by('-created'),
         many=True
     )
 
-    return HttpResponse(JSONRenderer().render(serializer.data), content_type='application/json')
+    return JsonResponse(serializer.data, safe=False)
+
+
+def curator_import_list(request):
+    user_profile = request.get_user().profile
+    # Filter for AUTO albums created by this user
+    albums = Album.objects.filter(profile=user_profile, atype=Album.AUTO).order_by('-created')
+
+    data = []
+    for album in albums:
+        data.append({
+            'id': album.id,
+            'name': album.name,
+            'created': album.created.isoformat(),
+            'photo_count': album.photos.count()
+        })
+
+    return JsonResponse(data, safe=False)
 
 
 def curator_selectable_albums(request):
@@ -226,12 +244,20 @@ def curator_photo_upload_handler(request):
     institution = None
 
     # UGLY! WE should only create in ATOMIC blocks...
-    default_album = Album.objects.create(
-        name=f'{str(profile.id)}-{str(timezone.now())}',
-        atype=Album.AUTO,
-        profile=profile,
-        is_public=False,
-    )
+    auto_album_id = request.POST.get('autoAlbumId')
+    default_album = None
+    if auto_album_id:
+        default_album = Album.objects.filter(pk=auto_album_id, profile=profile, atype=Album.AUTO).first()
+
+    if not default_album:
+        default_album = Album.objects.create(
+            name=f'{str(profile.id)}-{str(timezone.now())}',
+            atype=Album.AUTO,
+            profile=profile,
+            is_public=False,
+        )
+
+    context['auto_album_id'] = default_album.pk
 
     all_curating_points = []
     awarded_curator_points = []
