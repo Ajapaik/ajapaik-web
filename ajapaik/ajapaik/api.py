@@ -1103,6 +1103,11 @@ class PhotoActivityLog(AjapaikAPIView):
             return Response({
                 'error': RESPONSE_STATUSES['INVALID_PARAMETERS']
             })
+        except Exception as e:
+            return Response({
+                'error': RESPONSE_STATUSES['INVALID_PARAMETERS'],
+                'message': str(e)
+            })
 
         activities = []
         
