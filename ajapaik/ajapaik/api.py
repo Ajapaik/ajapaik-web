@@ -47,7 +47,7 @@ from ajapaik.ajapaik import forms
 from ajapaik.ajapaik.models import Album, AlbumPhoto, Photo, PhotoSceneSuggestion, Points, Licence, \
     PhotoLike, PhotoViewpointElevationSuggestion, GeoTag, \
     ImageSimilarity, Transcription, TranscriptionFeedback, PhotoFlipSuggestion, PhotoInvertSuggestion, \
-    PhotoRotationSuggestion, Profile, ProfileDisplayNameChange
+    PhotoRotationSuggestion, Profile, ProfileDisplayNameChange, PhotoComment
 from ajapaik.ajapaik.serializers import AlbumSerializer, AlbumDetailsSerializer, \
     PhotoWithDistanceSerializer, APIPhotoSerializer
 from ajapaik.ajapaik.socialaccount.providers.wikimedia_commons.views import WikimediaCommonsOAuth2Adapter
@@ -1081,6 +1081,59 @@ class PhotoDetails(AjapaikAPIView):
             return Response({
                 'error': RESPONSE_STATUSES['INVALID_PARAMETERS']
             })
+
+
+class PhotoActivityLog(AjapaikAPIView):
+    '''
+    API endpoint to retrieve photo activity log (points + comments).
+    '''
+    permission_classes = (AllowAny,)
+
+    def _handle_request(self, data, user, request):
+        photo_id = data.get('id')
+        if not photo_id:
+            return Response({
+                'error': RESPONSE_STATUSES['MISSING_PARAMETERS']
+            })
+
+        try:
+            photo = Photo.objects.get(pk=photo_id)
+        except Photo.DoesNotExist:
+            return Response({
+                'error': RESPONSE_STATUSES['INVALID_PARAMETERS']
+            })
+
+        activities = []
+        
+        points_actions = Points.objects.filter(photo=photo).select_related('user').order_by('-created')[:50]
+        for point in points_actions:
+            action_name = point.get_action_display()
+            activities.append({
+                'type': 'activity',
+                'action': action_name,
+                'action_code': point.action,
+                'user': point.user.display_name if point.user else None,
+                'user_id': point.user.id if point.user else None,
+                'created': point.created.isoformat() if point.created else None,
+                'points': point.points,
+            })
+
+        comments = PhotoComment.objects.filter(photo=photo).order_by('-created')[:50]
+        for comment in comments:
+            activities.append({
+                'type': 'comment',
+                'text': comment.text[:200] + ('...' if len(comment.text) > 200 else ''),
+                'user_id': comment.fb_user_id,
+                'created': comment.created.isoformat() if comment.created else None,
+            })
+
+        activities.sort(key=lambda x: x['created'] or '', reverse=True)
+
+        return Response({
+            'error': RESPONSE_STATUSES['OK'],
+            'activities': activities[:100],
+            'photo_id': photo_id,
+        })
 
 
 class FetchFinnaPhoto(AjapaikAPIView):
