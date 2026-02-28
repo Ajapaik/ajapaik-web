@@ -98,8 +98,11 @@
     <script>
         $(document).ready(function () {
             window.refreshActivityLog = function (filterType) {
-                const photoId = window.currentlyOpenPhotoId || {{ photo.id }};
-                if (!window.photoActivityLogURL) {
+                var photoId = window.currentlyOpenPhotoId || window.currentlySelectedPhotoId;
+                if (!photoId) {
+                    photoId = {{ photo.id }};
+                }
+                if (!window.photoActivityLogURL || !photoId) {
                     return;
                 }
                 
