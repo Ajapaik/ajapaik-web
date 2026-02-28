@@ -45,13 +45,13 @@
                 <li role="presentation" class="active">
                     <a href="#ajp-activity-log" aria-controls="ajp-activity-log" role="tab" data-toggle="tab" class="border rounded px-3 py-2">
                         <span class="material-icons notranslate align-middle mr-1">history</span>
-                        {% trans "Activity" %}
+                        {% trans "All activity" %}
                     </a>
                 </li>
                 <li role="presentation">
                     <a href="#ajp-comments-tab" aria-controls="ajp-comments-tab" role="tab" data-toggle="tab" class="border rounded px-3 py-2">
                         <span class="material-icons notranslate align-middle mr-1">chat</span>
-                        {% trans "Comments" %}
+                        {% trans "Comments only" %}
                     </a>
                 </li>
             </ul>
@@ -119,26 +119,27 @@
                             const date = item.created ? new Date(item.created).toLocaleDateString() : '';
                             if (item.type === 'geotag') {
                                 const statusIcon = item.is_correct === true ? 'check_circle' : (item.is_correct === false ? 'cancel' : 'help');
-                                const statusClass = item.is_correct === true ? 'text-success' : (item.is_correct === false ? 'text-danger' : 'text-muted');
+                                const statusClass = item.is_correct === true ? 'ajp-text-green' : (item.is_correct === false ? 'ajp-text-red' : 'ajp-text-gray');
                                 html += '<li class="mb-2 d-flex align-items-center">';
-                                html += '<span class="material-icons notranslate ' + statusClass + ' mr-2">' + statusIcon + '</span>';
+                                html += '<span class="material-icons notranslate ajp-text-gray mr-2">add_location</span>';
+                                html += '<span class="material-icons notranslate ' + statusClass + ' mr-2" style="font-size: 16px;">' + statusIcon + '</span>';
                                 html += '<span class="text-muted mr-2">' + date + '</span>';
                                 html += '<span>' + (item.user || '{% trans "Unknown" %}') + '</span>';
-                                html += ': <span class="ajp-text-small">{% trans "Geotag" %}</span></li>';
+                                html += '</li>';
                             } else if (item.type === 'dating') {
                                 html += '<li class="mb-2 d-flex align-items-center">';
-                                html += '<span class="material-icons notranslate text-primary mr-2">event</span>';
+                                html += '<span class="material-icons notranslate ajp-text-gray mr-2">event</span>';
                                 html += '<span class="text-muted mr-2">' + date + '</span>';
                                 html += '<span>' + (item.user || '{% trans "Unknown" %}') + '</span>';
                                 html += ': <span class="ajp-text-small">' + item.date_start + (item.date_end ? ' - ' + item.date_end : '') + '</span></li>';
                             } else if (item.type === 'comment') {
                                 html += '<li class="mb-2 d-flex align-items-center">';
-                                html += '<span class="material-icons notranslate text-info mr-2">chat_bubble</span>';
+                                html += '<span class="material-icons notranslate ajp-text-gray mr-2">chat_bubble</span>';
                                 html += '<span class="text-muted mr-2">' + date + '</span>';
                                 html += '<span>' + item.text + '</span></li>';
                             } else if (item.type === 'activity') {
                                 html += '<li class="mb-2 d-flex align-items-center">';
-                                html += '<span class="material-icons notranslate text-warning mr-2">star</span>';
+                                html += '<span class="material-icons notranslate ajp-text-gray mr-2">star</span>';
                                 html += '<span class="text-muted mr-2">' + date + '</span>';
                                 html += '<span>' + (item.user || '{% trans "Unknown" %}') + '</span>';
                                 html += ': <span class="ajp-text-small">' + item.action + '</span> (' + item.points + 'p)</li>';
