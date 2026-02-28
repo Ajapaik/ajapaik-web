@@ -141,9 +141,8 @@
                         // Filter activities based on tab
                         if (filterType === 'comments') {
                             activities = activities.filter(function(a) { return a.type === 'comment'; });
-                        } else {
-                            activities = activities.filter(function(a) { return a.type !== 'comment'; });
                         }
+                        // For 'all', show everything (including comments)
                         
                         if (activities.length === 0) {
                             $('#ajp-activity-log-list').html('<div class="text-muted">{% trans "No activity yet" %}</div>');
