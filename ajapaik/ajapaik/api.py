@@ -1107,9 +1107,10 @@ class PhotoActivityLog(AjapaikAPIView):
         
         geotags = GeoTag.objects.filter(photo=photo).select_related('user').order_by('-created')[:20]
         for geotag in geotags:
+            user_name = geotag.user.get_display_name if geotag.user else None
             activities.append({
                 'type': 'geotag',
-                'user': geotag.user.display_name if geotag.user else None,
+                'user': user_name,
                 'user_id': geotag.user.id if geotag.user else None,
                 'lat': geotag.lat,
                 'lon': geotag.lon,
@@ -1119,9 +1120,10 @@ class PhotoActivityLog(AjapaikAPIView):
 
         datings = photo.datings.all().select_related('profile').order_by('-created')[:20]
         for dating in datings:
+            user_name = dating.profile.get_display_name if dating.profile else None
             activities.append({
                 'type': 'dating',
-                'user': dating.profile.display_name if dating.profile else None,
+                'user': user_name,
                 'user_id': dating.profile.id if dating.profile else None,
                 'date_start': dating.start.isoformat() if dating.start else None,
                 'date_end': dating.end.isoformat() if dating.end else None,
@@ -1131,11 +1133,12 @@ class PhotoActivityLog(AjapaikAPIView):
         points_actions = Points.objects.filter(photo=photo).select_related('user').order_by('-created')[:50]
         for point in points_actions:
             action_name = point.get_action_display()
+            user_name = point.user.get_display_name if point.user else None
             activities.append({
                 'type': 'activity',
                 'action': action_name,
                 'action_code': point.action,
-                'user': point.user.display_name if point.user else None,
+                'user': user_name,
                 'user_id': point.user.id if point.user else None,
                 'created': point.created.isoformat() if point.created else None,
                 'points': point.points,

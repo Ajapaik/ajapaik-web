@@ -41,12 +41,18 @@
     <!-- start of activity/comments tabs -->
     <div class="row pt-3">
         <div class="col-md-12">
-            <ul class="nav nav-tabs" role="tablist" id="ajp-activity-tabs">
+            <ul class="nav nav-tabs border-bottom border-secondary" role="tablist" id="ajp-activity-tabs">
                 <li role="presentation" class="active">
-                    <a href="#ajp-activity-log" aria-controls="ajp-activity-log" role="tab" data-toggle="tab">{% trans "Activity" %}</a>
+                    <a href="#ajp-activity-log" aria-controls="ajp-activity-log" role="tab" data-toggle="tab" class="border rounded px-3 py-2">
+                        <span class="material-icons notranslate align-middle mr-1">history</span>
+                        {% trans "Activity" %}
+                    </a>
                 </li>
                 <li role="presentation">
-                    <a href="#ajp-comments-tab" aria-controls="ajp-comments-tab" role="tab" data-toggle="tab">{% trans "Comments" %}</a>
+                    <a href="#ajp-comments-tab" aria-controls="ajp-comments-tab" role="tab" data-toggle="tab" class="border rounded px-3 py-2">
+                        <span class="material-icons notranslate align-middle mr-1">chat</span>
+                        {% trans "Comments" %}
+                    </a>
                 </li>
             </ul>
             <div class="tab-content">
@@ -112,22 +118,29 @@
                         activities.forEach(function(item) {
                             const date = item.created ? new Date(item.created).toLocaleDateString() : '';
                             if (item.type === 'geotag') {
-                                const statusIcon = item.is_correct === true ? '✓' : (item.is_correct === false ? '✗' : '?');
+                                const statusIcon = item.is_correct === true ? 'check_circle' : (item.is_correct === false ? 'cancel' : 'help');
                                 const statusClass = item.is_correct === true ? 'text-success' : (item.is_correct === false ? 'text-danger' : 'text-muted');
-                                html += '<li class="mb-2"><span class="' + statusClass + '">' + statusIcon + '</span> ';
-                                html += '<span class="text-muted">' + date + '</span> - ';
-                                html += item.user ? item.user : '{% trans "Unknown" %}';
+                                html += '<li class="mb-2 d-flex align-items-center">';
+                                html += '<span class="material-icons notranslate ' + statusClass + ' mr-2">' + statusIcon + '</span>';
+                                html += '<span class="text-muted mr-2">' + date + '</span>';
+                                html += '<span>' + (item.user || '{% trans "Unknown" %}') + '</span>';
                                 html += ': <span class="ajp-text-small">{% trans "Geotag" %}</span></li>';
                             } else if (item.type === 'dating') {
-                                html += '<li class="mb-2">📅 <span class="text-muted">' + date + '</span> - ';
-                                html += item.user ? item.user : '{% trans "Unknown" %}';
+                                html += '<li class="mb-2 d-flex align-items-center">';
+                                html += '<span class="material-icons notranslate text-primary mr-2">event</span>';
+                                html += '<span class="text-muted mr-2">' + date + '</span>';
+                                html += '<span>' + (item.user || '{% trans "Unknown" %}') + '</span>';
                                 html += ': <span class="ajp-text-small">' + item.date_start + (item.date_end ? ' - ' + item.date_end : '') + '</span></li>';
                             } else if (item.type === 'comment') {
-                                html += '<li class="mb-2">💬 <span class="text-muted">' + date + '</span> - ';
-                                html += item.text + '</li>';
+                                html += '<li class="mb-2 d-flex align-items-center">';
+                                html += '<span class="material-icons notranslate text-info mr-2">chat_bubble</span>';
+                                html += '<span class="text-muted mr-2">' + date + '</span>';
+                                html += '<span>' + item.text + '</span></li>';
                             } else if (item.type === 'activity') {
-                                html += '<li class="mb-2">⭐ <span class="text-muted">' + date + '</span> - ';
-                                html += item.user ? item.user : '{% trans "Unknown" %}';
+                                html += '<li class="mb-2 d-flex align-items-center">';
+                                html += '<span class="material-icons notranslate text-warning mr-2">star</span>';
+                                html += '<span class="text-muted mr-2">' + date + '</span>';
+                                html += '<span>' + (item.user || '{% trans "Unknown" %}') + '</span>';
                                 html += ': <span class="ajp-text-small">' + item.action + '</span> (' + item.points + 'p)</li>';
                             }
                         });
