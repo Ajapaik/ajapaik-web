@@ -172,13 +172,24 @@
                                 html += '<span class="material-icons notranslate ajp-text-gray mr-2">chat_bubble</span>';
                                 html += '<span class="text-muted mr-2">' + date + '</span>';
                                 html += '<span>' + item.text + '</span></li>';
+                            } else if (item.type === 'like') {
+                                const likeIcon = item.level === 2 ? 'favorite' : 'thumb_up';
+                                html += '<li class="mb-2 d-flex align-items-center">';
+                                html += '<span class="material-icons notranslate ajp-text-gray mr-2">' + likeIcon + '</span>';
+                                html += '<span class="text-muted mr-2">' + date + '</span>';
+                                html += '<span>' + (item.user || '{% trans "Unknown" %}') + '</span>';
+                                html += '</li>';
                             } else if (item.type === 'activity') {
                                 const icon = getActionIcon(item.action_code);
+                                let albumLink = '';
+                                if ((item.action_code === 3 || item.action_code === 4) && item.album_id && item.album_name) {
+                                    albumLink = ' - <a href="/album/' + item.album_id + '">' + item.album_name + '</a>';
+                                }
                                 html += '<li class="mb-2 d-flex align-items-center">';
                                 html += '<span class="material-icons notranslate ajp-text-gray mr-2">' + icon + '</span>';
                                 html += '<span class="text-muted mr-2">' + date + '</span>';
                                 html += '<span>' + (item.user || '{% trans "Unknown" %}') + '</span>';
-                                html += ': <span class="ajp-text-small">' + item.action + '</span> (' + item.points + 'p)</li>';
+                                html += ': <span class="ajp-text-small">' + item.action + '</span>' + albumLink + ' (' + item.points + 'p)</li>';
                             }
                         });
                         html += '</ul>';

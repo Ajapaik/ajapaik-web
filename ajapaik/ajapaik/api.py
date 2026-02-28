@@ -1130,11 +1130,11 @@ class PhotoActivityLog(AjapaikAPIView):
                 'created': dating.created.isoformat() if dating.created else None,
             })
 
-        points_actions = Points.objects.filter(photo=photo).select_related('user').order_by('-created')[:50]
+        points_actions = Points.objects.filter(photo=photo).select_related('user', 'album').order_by('-created')[:50]
         for point in points_actions:
             action_name = point.get_action_display()
             user_name = point.user.get_display_name if point.user else None
-            activities.append({
+            activity_data = {
                 'type': 'activity',
                 'action': action_name,
                 'action_code': point.action,
@@ -1142,6 +1142,21 @@ class PhotoActivityLog(AjapaikAPIView):
                 'user_id': point.user.id if point.user else None,
                 'created': point.created.isoformat() if point.created else None,
                 'points': point.points,
+            }
+            if point.album:
+                activity_data['album_id'] = point.album.id
+                activity_data['album_name'] = point.album.name
+            activities.append(activity_data)
+
+        likes = PhotoLike.objects.filter(photo=photo).select_related('profile').order_by('-created')[:20]
+        for like in likes:
+            user_name = like.profile.get_display_name if like.profile else None
+            activities.append({
+                'type': 'like',
+                'user': user_name,
+                'user_id': like.profile.id if like.profile else None,
+                'level': like.level,
+                'created': like.created.isoformat() if like.created else None,
             })
 
         comments = PhotoComment.objects.filter(photo=photo).order_by('-created')[:50]
