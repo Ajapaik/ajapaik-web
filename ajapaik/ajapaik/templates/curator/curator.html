@@ -147,7 +147,8 @@
                     <div class="row pt-1">
                         <div class="col-12">
                             <span class="input-group-addon">
-                                <label for="ajp-curator-change-area-name">{% trans "Location" %}</label> ({% trans "Add the location if all pictures in the album are from the same area" %})
+                                <label for="ajp-curator-change-area-name">{% trans "Location" %}</label> ({% trans "Add
+                                the location if all pictures in the album are from the same area" %})
                             </span>
                             <input class="form-control" type="text" id="ajp-curator-change-area-name">
                             <input type="hidden" id="ajp-curator-change-area-name-hidden">
@@ -218,7 +219,8 @@
             selectionDiv = $('#ajp-curator-selection'),
             resultDiv = $('#ajp-curator-search-results-list'),
             changeAreaLat,
-            changeAreaLng;
+            changeAreaLng,
+            tabId = Math.random().toString(36).substring(2, 15);
         window.selectedResults = {};
         window.sessionProcessedIds = new Set();
         window.singleSelection = false;
@@ -264,6 +266,36 @@
             loadImportHistory();
             $('.ajp-navbar').autoHidingNavbar();
         });
+        const getQueue = function () {
+            try {
+                return JSON.parse(localStorage.getItem('AJAPAIK_CURATOR_QUEUE') || '[]');
+            } catch (e) {
+                return [];
+            }
+        };
+
+        const setQueue = function (queue) {
+            localStorage.setItem('AJAPAIK_CURATOR_QUEUE', JSON.stringify(queue));
+        };
+
+        const updateHeartbeat = function (jobId) {
+            const queue = getQueue();
+            const job = queue.find(j => j.id === jobId);
+            if (job) {
+                job.lastSeen = Date.now();
+                setQueue(queue);
+            }
+        };
+
+        const cleanQueue = function () {
+            const now = Date.now();
+            const queue = getQueue().filter(j => {
+                // Remove jobs that haven't updated their heartbeat for 30 seconds
+                return (now - j.lastSeen) < 30000;
+            });
+            setQueue(queue);
+        };
+
         const loadImportHistory = function () {
             $.ajax({
                 type: "GET",
@@ -569,10 +601,10 @@
                     albumHtml += '<span class="text-success small">(' + window.gettext('Success') + ')</span>';
                 }
 
-                const progressHtml = job.status === 'processing' ? job.uploaded + ' / ' + job.total : job.total;
+                const progressHtml = job.status === 'processing' ? job.uploaded + ' / ' + job.total : (job.status === 'waiting' ? window.gettext('Waiting...') : job.total);
                 const row = $('<tr>' +
-                    '<td><span class="' + (job.status === 'processing' ? 'text-info' : '') + '">' + new Date(job.id).toLocaleString() + '</span></td>' +
-                    '<td class="' + (job.status === 'processing' ? 'text-info' : '') + '">' + progressHtml + '</td>' +
+                    '<td><span class="' + (job.status === 'processing' || job.status === 'waiting' ? 'text-info' : '') + '">' + new Date(job.id).toLocaleString() + '</span></td>' +
+                    '<td class="' + (job.status === 'processing' || job.status === 'waiting' ? 'text-info' : '') + '">' + progressHtml + '</td>' +
                     '<td>' + albumHtml + '</td>' +
                     '</tr>');
                 logBody.append(row);
@@ -845,9 +877,20 @@
                 uploaded: 0,
                 errors: [],
                 autoAlbumId: null,
-                points: 0
+                points: 0,
+                tabId: tabId
             };
             uploadJobs.push(job);
+
+            // Add to global queue
+            const queue = getQueue();
+            queue.push({
+                id: job.id,
+                tabId: tabId,
+                lastSeen: Date.now(),
+                status: 'waiting'
+            });
+            setQueue(queue);
 
             // Mark IDs as processed globally to prevent duplicates
             keys.forEach(k => window.sessionProcessedIds.add(k));
@@ -864,8 +907,31 @@
             $('a[href="#ajp-curator-results-tab"]').tab('show');
 
             const processOne = function (index) {
+                // Check if it's our turn in the global queue
+                cleanQueue();
+                const queue = getQueue();
+                const head = queue[0];
+
+                if (!head || head.id !== job.id) {
+                    job.status = 'waiting';
+                    updateUploadProgress();
+                    setTimeout(() => processOne(index), 2000);
+                    return;
+                }
+
+                // We are at the head, ensure status is processing and update heartbeat
+                if (job.status !== 'processing') {
+                    job.status = 'processing';
+                    head.status = 'processing';
+                }
+                updateHeartbeat(job.id);
+
                 if (index >= keys.length) {
                     job.status = 'done';
+                    // Remove from global queue
+                    const finalQueue = getQueue().filter(j => j.id !== job.id);
+                    setQueue(finalQueue);
+
                     updateUploadProgress();
                     window.updateLeaderboard();
                     loadMyAlbums();
@@ -917,6 +983,9 @@
                     },
                     error: function () {
                         job.errors.push(window.gettext("Network error or timeout for ") + key);
+                        // Also remove from global queue if it's the last photo or we want to allow next job to start?
+                        // Actually, if we continue processOne(index + 1), we are still the head.
+                        // So we only remove if it's the absolute end.
                         updateUploadProgress();
                         processOne(index + 1);
                     }
