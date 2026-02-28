@@ -28,7 +28,8 @@ def get_filtered_data_for_gallery(
         page_size=None
 ) -> GalleryResults:
     start_time = time()
-    photos = Photo.objects.filter(rephoto_of__isnull=True, **photo_filters)
+    # Why do we need to prefetch likes here?
+    photos = Photo.objects.filter(rephoto_of__isnull=True, **photo_filters).prefetch_related("likes")
     page_size = page_size or settings.FRONTPAGE_DEFAULT_PAGE_SIZE
 
     album = cleaned_data['album']
@@ -62,7 +63,7 @@ def get_filtered_data_for_gallery(
         sa_ids = [album.id, *album.subalbums.exclude(atype=Album.AUTO).values_list('id', flat=True)]
         photos = photos.filter(albums__in=sa_ids)
 
-        # In QuerySet "albums__in" is 1:M JOIN  so images will show up
+        # In QuerySet "albums__in" is 1:M JOIN so images will show up
         # multiple times in results so this needs to be distinct(). Distinct is slow.
         photos = photos.distinct()
 
@@ -115,10 +116,10 @@ def get_filtered_data_for_gallery(
         sqs_ids = SearchQuerySet().models(Photo).filter(content=AutoQuery(q)).values_list("pk", flat=True)
         photos = photos.filter(pk__in=sqs_ids, rephoto_of__isnull=True)
 
-    # In some cases it is faster to get number of photos before we annotate new columns to it
-    albumsize_before_sorting = None
+    # In some cases it is faster to get the number of photos before we annotate new columns to it
+    album_size_before_sorting = None
     if not album:
-        albumsize_before_sorting = Photo.objects.filter(pk__in=photos).cached_count(str(cleaned_data))
+        album_size_before_sorting = Photo.objects.filter(pk__in=photos).cached_count(str(cleaned_data))
 
     photos_with_comments = None
     photos_with_rephotos = None
@@ -256,7 +257,7 @@ def get_filtered_data_for_gallery(
 
     if page:
         # Note seeking (start:end) has been done when results are limited using photo_ids above
-        total = albumsize_before_sorting or len(photo_ids)
+        total = album_size_before_sorting or len(photo_ids)
         start, end, max_page, page = get_pagination_parameters(page, total, page_size)
         pagination_parameters = PaginationParameters(
             start=start,

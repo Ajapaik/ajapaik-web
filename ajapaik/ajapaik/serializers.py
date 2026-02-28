@@ -190,11 +190,9 @@ class PhotoSerializer(PhotoRepresentationSerializer):
     slug = serializers.SerializerMethodField()
 
     def get_favorited(self, instance: Photo):
-        print("get favorited")
         return instance.likes.exists()
 
     def get_high_quality(self, instance: Photo):
-        print("get high_quality")
         if instance.height:
             return instance.height > 1080
 
