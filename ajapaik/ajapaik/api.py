@@ -1024,7 +1024,7 @@ class RephotoUploadSettings(AjapaikAPIView):
 
     def post(self, request):
         try:
-            profile = request.user.profile
+            profile = request.get_user().profile
             profile.wikimedia_commons_rephoto_upload_consent = request.POST['wikimedia_commons_rephoto_upload_consent']
             profile.save()
             return JsonResponse({'message': REPHOTO_UPLOAD_SETTINGS_SUCCESS})
@@ -1582,7 +1582,7 @@ class SubmitSimilarPhotos(AjapaikAPIView):
 
     def post(self, request):
         points = 0
-        profile = request.user.profile
+        profile = request.get_user().profile
         data = json.loads(request.body.decode('utf-8'))
         photos = data['photos']
         photos2 = data['photos']
@@ -1636,8 +1636,9 @@ class Transcriptions(AjapaikAPIView):
 
     def post(self, request):
         try:
+            profile = request.get_user().profile
             photo = get_object_or_404(Photo, id=request.POST['photo'])
-            user = get_object_or_404(Profile, pk=request.user.profile.id)
+            user = get_object_or_404(Profile, pk=profile.id)
             count = Transcription.objects.filter(photo=photo, text=request.POST['text']).count()
             text = request.POST['text']
 
@@ -1689,12 +1690,13 @@ class SubmitTranscriptionFeedback(AjapaikAPIView):
 
     def post(self, request):
         try:
+            profile = request.get_user().profile
             if TranscriptionFeedback.objects.filter(transcription_id=request.POST['id'],
-                                                    user_id=request.user.profile.id).exists():
+                                                    user_id=profile.id).exists():
                 return JsonResponse({'message': TRANSCRIPTION_FEEDBACK_ALREADY_GIVEN})
             else:
                 TranscriptionFeedback(
-                    user=get_object_or_404(Profile, pk=request.user.profile.id),
+                    user=get_object_or_404(Profile, pk=profile.id),
                     transcription=get_object_or_404(Transcription, id=request.POST['id'])
                 ).save()
                 return JsonResponse({'message': TRANSCRIPTION_FEEDBACK_ADDED})
@@ -1709,7 +1711,7 @@ class UserSettings(AjapaikAPIView):
 
     def post(self, request):
         try:
-            profile = request.user.profile
+            profile = request.get_user().profile
             profile.preferred_language = request.POST['preferredLanguage']
             profile.newsletter_consent = request.POST['newsletterConsent']
             profile.save()
@@ -1725,7 +1727,7 @@ class ChangeProfileDisplayName(AjapaikAPIView):
 
     def post(self, request):
         try:
-            profile = request.user.profile
+            profile = request.get_user().profile
             profile.display_name = request.POST['display_name']
             profile.save()
             profile_display_name_change = ProfileDisplayNameChange(display_name=request.POST['display_name'],
@@ -1791,7 +1793,7 @@ class PhotoSuggestion(AjapaikAPIView):
 
     def post(self, request):
         try:
-            profile = request.user.profile
+            profile = request.get_user().profile
             data = json.loads(request.body.decode('utf-8'))
             scene = data['scene']
             viewpoint_elevation = data['viewpointElevation']
@@ -1902,7 +1904,7 @@ class PhotoAppliedOperations(AjapaikAPIView):
             return JsonResponse({'error': _('Something went wrong')}, status=500)
 
     def post(self, request):
-        profile = request.user.profile
+        profile = request.get_user().profile
         data = json.loads(request.body.decode('utf-8'))
         flip = data['flip']
         invert = data['invert']

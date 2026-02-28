@@ -15,6 +15,7 @@ from ajapaik.ajapaik_object_recognition.service.object_annotation.object_annotat
 def add_annotation(add_detection_annotation: AddDetectionAnnotation, request: HttpRequest) -> None:
     wikidata_label_id = add_detection_annotation.wikidata_label_id
     subject_id = add_detection_annotation.subject_id
+    profile = request.get_user().profile
 
     photo_id = add_detection_annotation.photo_id
 
@@ -25,12 +26,12 @@ def add_annotation(add_detection_annotation: AddDetectionAnnotation, request: Ht
         save_new_object_annotation(add_detection_annotation)
     else:
         photo = Photo.objects.get(pk=photo_id)
-        new_face_annotation_id = add_person_rectangle(request.POST.copy(), photo, request.user.id)
+        new_face_annotation_id = add_person_rectangle(request.POST.copy(), photo, profile.id)
 
         add_subject_data(new_face_annotation_id, add_detection_annotation, request)
 
         if subject_id is not None and subject_id > 0:
-            save_detected_face(new_face_annotation_id, subject_id, request.user.profile)
+            save_detected_face(new_face_annotation_id, subject_id, profile)
 
 
 def save_detected_face(new_rectangle_id: int, subject_id: int, user_profile: Profile) -> None:

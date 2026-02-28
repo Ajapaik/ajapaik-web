@@ -68,17 +68,18 @@ def user_upload_add_album(request):
     context = {
         'ajapaik_facebook_link': settings.AJAPAIK_FACEBOOK_LINK
     }
+    profile = request.get_user().profile
 
     if request.method == 'POST':
-        form = UserPhotoUploadAddAlbumForm(request.POST, profile=request.user.profile)
+        form = UserPhotoUploadAddAlbumForm(request.POST, profile=profile)
 
         if form.is_valid():
             album = form.save(commit=False)
-            album.profile = request.user.profile
+            album.profile = profile
             album.save()
             context['message'] = _('Album created')
     else:
-        form = UserPhotoUploadAddAlbumForm(profile=request.user.profile)
+        form = UserPhotoUploadAddAlbumForm(profile=profile)
 
     context['form'] = form
 

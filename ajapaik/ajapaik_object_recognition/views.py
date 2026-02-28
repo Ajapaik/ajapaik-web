@@ -41,7 +41,8 @@ def remove_annotation(request: HttpRequest, annotation_id: int) -> HttpResponse:
     if request.method != 'DELETE':
         return response.not_supported()
 
-    annotation_remove_request = AnnotationRemove(annotation_id, request.user.profile.id)
+    profile = request.get_user().profile
+    annotation_remove_request = AnnotationRemove(annotation_id, profile.id)
 
     has_deleted_successfully = object_annotation_delete_service.remove_annotation(annotation_remove_request)
 
@@ -72,10 +73,12 @@ def get_object_annotation_classes(request: HttpRequest) -> HttpResponse:
 
 
 def add_feedback(request, annotation_id):
+    profile = request.get_user().profile
+
     if request.method == 'POST':
         add_object_detection_feedback = AddObjectDetectionFeedback(
             QueryDict(request.body),
-            request.user.profile.id,
+            profile.id,
             annotation_id
         )
 
@@ -83,7 +86,7 @@ def add_feedback(request, annotation_id):
 
         return response.success()
     elif request.method == 'DELETE':
-        remove_object_annotation_feedback = RemoveObjectAnnotationFeedback(annotation_id, request.user.profile.id)
+        remove_object_annotation_feedback = RemoveObjectAnnotationFeedback(annotation_id, profile.id)
         object_annotation_feedback_service.remove_feedback(remove_object_annotation_feedback)
 
         return response.success()
