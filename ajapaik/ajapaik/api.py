@@ -1903,7 +1903,6 @@ class PhotoAppliedOperations(AjapaikAPIView):
             return JsonResponse({'error': _('Something went wrong')}, status=500)
 
     def post(self, request):
-        try:
         profile = request.user.profile
         data = json.loads(request.body.decode('utf-8'))
         flip = data['flip']
