@@ -61,7 +61,7 @@ def image_thumb(request, photo_id=None, thumb_size=400, pseudo_slug=None):
     else:
         thumb_size = 1024
 
-    p = Photo.objects.get(id=photo_id)
+    p = Photo.objects.filter(id=photo_id).only("id", "image", "rephoto_of_id", "height", "width").first()
 
     thumb_str = f'{str(thumb_size)}x{str(thumb_size)}'
 
