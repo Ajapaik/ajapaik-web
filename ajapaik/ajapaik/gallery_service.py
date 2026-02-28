@@ -61,7 +61,10 @@ def get_filtered_data_for_gallery(
 
     if album:
         sa_ids = [album.id, *album.subalbums.exclude(atype=Album.AUTO).values_list('id', flat=True)]
-        photos.annotate(in_album=Exists(AlbumPhoto.objects.filter(photo_id=OuterRef("pk"), album_id__in=sa_ids)))
+        photos.annotate(
+            in_album=Exists(AlbumPhoto.objects.filter(photo_id=OuterRef("pk"), album_id__in=sa_ids))).filter(
+            in_album=True
+        )
 
     if cleaned_data['people']:
         rects = FaceRecognitionRectangle.objects.filter(photo_id=OuterRef("pk"), deleted__isnull=True)
