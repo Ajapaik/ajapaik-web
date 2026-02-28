@@ -1215,18 +1215,21 @@ class PhotoActivityLog(AjapaikAPIView):
             })
 
         # Face annotations
-        face_annotations = FaceRecognitionRectangle.objects.filter(
-            photo=photo,
-            deleted=None
-        ).select_related('user').order_by('-created')[:20]
-        for annotation in face_annotations:
-            user_name = annotation.user.get_display_name() if annotation.user else 'System'
-            activities.append({
-                'type': 'face_annotation',
-                'user': user_name,
-                'user_id': annotation.user.id if annotation.user else None,
-                'created': annotation.created.isoformat() if annotation.created else None,
-            })
+        try:
+            face_annotations = FaceRecognitionRectangle.objects.filter(
+                photo=photo,
+                deleted=None
+            ).select_related('user').order_by('-created')[:20]
+            for annotation in face_annotations:
+                user_name = annotation.user.get_display_name() if annotation.user else 'System'
+                activities.append({
+                    'type': 'face_annotation',
+                    'user': user_name,
+                    'user_id': annotation.user.id if annotation.user else None,
+                    'created': annotation.created.isoformat() if annotation.created else None,
+                })
+        except Exception as e:
+            pass  # Face recognition not available
 
         activities.sort(key=lambda x: x['created'] or '', reverse=True)
 
