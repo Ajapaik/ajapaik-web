@@ -198,6 +198,10 @@
                                 html += '<span>' + (item.user || '{% trans "Unknown" %}') + '</span>';
                                 html += ': <span class="ajp-text-small">{% trans "marked viewpoint" %} ' + item.viewpoint + '</span></li>';
                             } else if (item.type === 'activity') {
+                                // Skip CATEGORIZE_SCENE and ADD_VIEWPOINT_ELEVATION as we show scene/viewpoint suggestions instead
+                                if (item.action_code === 14 || item.action_code === 15) {
+                                    return; // skip this item
+                                }
                                 const icon = getActionIcon(item.action_code);
                                 let albumLink = '';
                                 if ((item.action_code === 3 || item.action_code === 4) && item.album_id && item.album_name) {
