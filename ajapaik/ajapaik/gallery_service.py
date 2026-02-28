@@ -59,7 +59,7 @@ def get_filtered_data_for_gallery(
     # FILTERING BELOW THIS LINE
 
     if album:
-        sa_ids = [album.id, *list(album.subalbums.exclude(atype=Album.AUTO))]
+        sa_ids = [album.id, *album.subalbums.exclude(atype=Album.AUTO).values_list('id', flat=True)]
         photos = photos.filter(albums__in=sa_ids)
 
         # In QuerySet "albums__in" is 1:M JOIN  so images will show up
@@ -112,8 +112,8 @@ def get_filtered_data_for_gallery(
         photos = photos.filter(datings__end__lte=date_to)
 
     if q:
-        sqs = SearchQuerySet().models(Photo).filter(content=AutoQuery(q))
-        photos = photos.filter(pk__in=[r.pk for r in sqs], rephoto_of__isnull=True)
+        sqs_ids = SearchQuerySet().models(Photo).filter(content=AutoQuery(q)).values_list("pk", flat=True)
+        photos = photos.filter(pk__in=sqs_ids, rephoto_of__isnull=True)
 
     # In some cases it is faster to get number of photos before we annotate new columns to it
     albumsize_before_sorting = None
