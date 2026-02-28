@@ -379,6 +379,20 @@ def photo_selection(request):
     if form.is_valid():
         if form.cleaned_data['clear']:
             request.session['photo_selection'] = {}
+        elif form.cleaned_data['ids']:
+            ids_str = form.cleaned_data['ids']
+            try:
+                photo_ids = [int(x) for x in ids_str.split(',') if x.isdigit()]
+            except (ValueError, TypeError):
+                photo_ids = []
+            helper = request.session['photo_selection']
+            for photo_id in photo_ids:
+                photo_id_str = str(photo_id)
+                if photo_id_str not in helper:
+                    helper[photo_id_str] = True
+                else:
+                    del helper[photo_id_str]
+            request.session['photo_selection'] = helper
         elif form.cleaned_data['id']:
             photo_id = str(form.cleaned_data['id'].id)
             helper = request.session['photo_selection']
@@ -389,6 +403,28 @@ def photo_selection(request):
             request.session['photo_selection'] = helper
 
     return HttpResponse(json.dumps(request.session['photo_selection']), content_type='application/json')
+
+
+def get_photo_albums(request):
+    photo_id = request.GET.get('photo_id')
+    if not photo_id:
+        return HttpResponse(json.dumps({'error': 'No photo_id provided'}), content_type='application/json')
+    
+    try:
+        photo = Photo.objects.get(pk=photo_id)
+    except Photo.DoesNotExist:
+        return HttpResponse(json.dumps({'error': 'Photo not found'}), content_type='application/json')
+    
+    albums = photo.albums.filter(atype=Album.CURATED).values('id', 'name')
+    album_list = list(albums)
+    
+    collection_albums = photo.albums.filter(atype=Album.COLLECTION).values('id', 'name')
+    collection_list = list(collection_albums)
+    
+    return HttpResponse(
+        json.dumps({'albums': album_list, 'collection_albums': collection_list}),
+        content_type='application/json'
+    )
 
 
 def list_photo_selection(request):

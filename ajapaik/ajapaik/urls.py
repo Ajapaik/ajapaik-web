@@ -103,6 +103,7 @@ urlpatterns = [
          name='image_thumb'),
     path('photo-full/<int:photo_id>/<slug:pseudo_slug>/', views.image_full, name='image_full'),
     path('photo-selection/', views.photo_selection, name='photo_selection'),
+    path('photo-albums/', views.get_photo_albums, name='get_photo_albums'),
     path('view-selection/', views.list_photo_selection, name='list_photo_selection'),
     path('upload-selection/', views.upload_photo_selection, name='upload_photo_selection'),
     path('', views.frontpage, name='frontpage'),

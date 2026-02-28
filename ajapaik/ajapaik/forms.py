@@ -345,6 +345,7 @@ class ApiUserMeForm(forms.Form):
 
 class PhotoSelectionForm(forms.Form):
     id = forms.ModelChoiceField(queryset=Photo.objects.all(), required=False)
+    ids = forms.CharField(required=False)
     clear = forms.BooleanField(initial=False, required=False)
 
 
