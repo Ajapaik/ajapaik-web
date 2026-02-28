@@ -4,6 +4,9 @@ function getRemoveAnnotationFunction(annotationId, popoverId) {
   var onSuccess = function () {
     togglePopover(popoverId);
     refreshAnnotations();
+    if (window.refreshActivityLog) {
+      window.refreshActivityLog('all');
+    }
   };
 
   return function () {
@@ -15,6 +18,9 @@ function getModifySubmitFunction(annotationId, popoverId) {
   var onSuccess = function () {
     togglePopover(popoverId);
     refreshAnnotations();
+    if (window.refreshActivityLog) {
+      window.refreshActivityLog('all');
+    }
   };
 
   return function (event) {

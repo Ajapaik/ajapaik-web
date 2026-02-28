@@ -75,7 +75,12 @@ function getRectangleSubmitFunction(popoverId) {
       y2: scaledRectangle.y2,
     };
 
-    addNewDetectionAnnotation(payload, refreshAnnotations);
+    addNewDetectionAnnotation(payload, function () {
+      refreshAnnotations();
+      if (window.refreshActivityLog) {
+        window.refreshActivityLog('all');
+      }
+    });
   };
 }
 
