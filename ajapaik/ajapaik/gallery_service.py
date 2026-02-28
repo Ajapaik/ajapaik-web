@@ -60,7 +60,7 @@ def get_filtered_data_for_gallery(
 
     if album:
         sa_ids = [album.id, *album.subalbums.exclude(atype=Album.AUTO).values_list('id', flat=True)]
-        photos = photos.filter(albums__in=sa_ids)
+        photos = photos.prefetch_related(albums__in=sa_ids)
 
         # In QuerySet "albums__in" is 1:M JOIN so images will show up
         # multiple times in results so this needs to be distinct(). Distinct is slow.
@@ -71,7 +71,7 @@ def get_filtered_data_for_gallery(
                                face_recognition_rectangles__deleted=None)
 
     if cleaned_data['backsides']:
-        photos = photos.exclude(front_of=None)
+        photos = photos.exclude(front_of_id=None)
 
     if cleaned_data['interiors']:
         photos = photos.filter(scene=0)
@@ -100,15 +100,19 @@ def get_filtered_data_for_gallery(
         photos = photos.filter(aspect_ratio__gte=2.0)
 
     if my_likes_only:
+        photos.prefetch_related("likes")
         photos = photos.filter(likes__profile=profile)
 
     if rephoto_album_author:
+        photos.prefetch_related("rephotos")
         photos = photos.filter(rephotos__user_id=rephoto_album_author.id)
 
     if date_from:
+        photos.prefetch_related("datings")
         photos = photos.filter(datings__start__gte=date_from)
 
     if date_to:
+        photos.prefetch_related("datings")
         photos = photos.filter(datings__end__lte=date_to)
 
     if q:
@@ -118,7 +122,7 @@ def get_filtered_data_for_gallery(
     # In some cases it is faster to get the number of photos before we annotate new columns to it
     album_size_before_sorting = None
     if not album:
-        album_size_before_sorting = Photo.objects.filter(pk__in=photos).cached_count(str(cleaned_data))
+        album_size_before_sorting = photos.cached_count(str(cleaned_data))
 
     photos_with_comments = None
     photos_with_rephotos = None
@@ -248,14 +252,19 @@ def get_filtered_data_for_gallery(
     if not cleaned_data['backsides'] and not order2 == 'transcriptions':
         photos = photos.filter(back_of__isnull=True)
 
-    photo_ids = list(photos.values_list('id', flat=True))
-
-    if requested_photo and requested_photo.id in photo_ids:
-        photo_count_before_requested = photo_ids.index(requested_photo.id)
-        page = ceil(float(photo_count_before_requested) / float(page_size))
+    photo_ids = None
+    if requested_photo and requested_photo.id:
+        exists = photos.filter(id=requested_photo.id).exists()
+        if exists:
+            photo_ids = photos.values_list("id", flat=True)
+            photo_count_before_requested = photo_ids.index(requested_photo.id)
+            page = ceil(float(photo_count_before_requested) / float(page_size))
 
     if page:
         # Note seeking (start:end) has been done when results are limited using photo_ids above
+        if not photo_ids:
+            photo_ids = photos.values_list('id', flat=True)
+
         total = album_size_before_sorting or len(photo_ids)
         start, end, max_page, page = get_pagination_parameters(page, total, page_size)
         pagination_parameters = PaginationParameters(

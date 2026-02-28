@@ -318,7 +318,7 @@ def frontpage_async_data(request):
     data = get_filtered_data_for_gallery(profile, form.cleaned_data)
     output = GalleryResultsSerializer(data, context={"request": request}).data
 
-    return HttpResponse(json.dumps(output), content_type='application/json')
+    return JsonResponse(output)
 
 
 def frontpage_async_albums(request):

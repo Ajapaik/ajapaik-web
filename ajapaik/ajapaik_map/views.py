@@ -115,8 +115,12 @@ def map_objects_by_bounding_box(request):
         del form.cleaned_data["album"]
         form.cleaned_data["album"] = None
 
-    data = get_filtered_data_for_gallery(profile, cleaned_data=form.cleaned_data, page_size=count_limit or 10000,
-                                         photo_filters=photo_filters)
+    data = get_filtered_data_for_gallery(
+        profile,
+        cleaned_data=form.cleaned_data,
+        page_size=count_limit or 10000,
+        photo_filters=photo_filters
+    )
 
     return JsonResponse({
         'photos': PhotoMapMarkerSerializer(data.photos, many=True,
