@@ -28,8 +28,7 @@ def get_filtered_data_for_gallery(
         page_size=None
 ) -> GalleryResults:
     start_time = time()
-    # Why do we need to prefetch likes here?
-    photos = Photo.objects.filter(rephoto_of__isnull=True, **photo_filters).prefetch_related("likes")
+    photos = Photo.objects.filter(rephoto_of__isnull=True, **photo_filters)
     page_size = page_size or settings.FRONTPAGE_DEFAULT_PAGE_SIZE
 
     album = cleaned_data['album']
@@ -290,7 +289,7 @@ def get_filtered_data_for_gallery(
         videos=[],
         photo=requested_photo,
         fb_share_photos=fb_share_photos,
-        photos=photos.prefetch_related("source"),
+        photos=photos.prefetch_related("source", "likes"),
         photos_with_comments=photos_with_comments,
         photos_with_rephotos=photos_with_rephotos,
         my_likes_only=my_likes_only,
