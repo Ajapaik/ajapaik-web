@@ -531,7 +531,7 @@ def photo_slug(request, photo_id=None, pseudo_slug=None):
         if request.GET.get('isSelection'):
             is_selection = True
     else:
-        template = 'photo/photoview.html'
+        template = 'photo/photo_view.html'
 
     if not photo_obj.get_display_text:
         title = 'Unknown photo'

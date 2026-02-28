@@ -25,11 +25,11 @@ def _is_default_ordering(order1: str, order2: str, order3: Union[str, None]) -> 
 def get_filtered_data_for_gallery(
         profile,
         cleaned_data: dict,
-        photo_filters: dict = {},
+        photo_filters: dict | None = None,
         page_size=None
 ) -> GalleryResults:
     start_time = time()
-    photos = Photo.objects.filter(rephoto_of__isnull=True, **photo_filters)
+    photos = Photo.objects.filter(rephoto_of__isnull=True, **photo_filters if photo_filters else {})
     page_size = page_size or settings.FRONTPAGE_DEFAULT_PAGE_SIZE
 
     album = cleaned_data['album']

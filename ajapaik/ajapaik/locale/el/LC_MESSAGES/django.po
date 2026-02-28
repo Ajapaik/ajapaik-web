@@ -699,7 +699,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/_toolbox.html:10
 #: ajapaik/ajapaik/templates/common/game.html:55
-#: ajapaik/ajapaik/templates/photo/photoview.html:62
+#: ajapaik/ajapaik/templates/photo/photo_view.html:62
 msgid "Pick the shooting location!"
 msgstr ""
 
@@ -2027,21 +2027,21 @@ msgid "Approximate address"
 msgstr ""
 
 #: ajapaik/ajapaik/templates/photo/_photo_modal.html:46
-#: ajapaik/ajapaik/templates/photo/photoview.html:69
+#: ajapaik/ajapaik/templates/photo/photo_view.html:69
 msgid "See the other side of photo"
 msgstr ""
 
 #: ajapaik/ajapaik/templates/photo/_photo_modal.html:81
 #: ajapaik/ajapaik/templates/photo/_photo_modal.html:82
-#: ajapaik/ajapaik/templates/photo/photoview.html:137
-#: ajapaik/ajapaik/templates/photo/photoview.html:138
+#: ajapaik/ajapaik/templates/photo/photo_view.html:137
+#: ajapaik/ajapaik/templates/photo/photo_view.html:138
 msgid "similar photo"
 msgstr ""
 
 #: ajapaik/ajapaik/templates/photo/_photo_modal.html:84
 #: ajapaik/ajapaik/templates/photo/_photo_modal.html:85
-#: ajapaik/ajapaik/templates/photo/photoview.html:140
-#: ajapaik/ajapaik/templates/photo/photoview.html:141
+#: ajapaik/ajapaik/templates/photo/photo_view.html:140
+#: ajapaik/ajapaik/templates/photo/photo_view.html:141
 msgid "duplicate photo"
 msgstr ""
 
@@ -2049,11 +2049,11 @@ msgstr ""
 msgid "Date taken"
 msgstr ""
 
-#: ajapaik/ajapaik/templates/photo/photoview.html:29
-#: ajapaik/ajapaik/templates/photo/photoview.html:32
-#: ajapaik/ajapaik/templates/photo/photoview.html:112
-#: ajapaik/ajapaik/templates/photo/photoview.html:165
-#: ajapaik/ajapaik/templates/photo/photoview.html:166
+#: ajapaik/ajapaik/templates/photo/photo_view.html:29
+#: ajapaik/ajapaik/templates/photo/photo_view.html:32
+#: ajapaik/ajapaik/templates/photo/photo_view.html:112
+#: ajapaik/ajapaik/templates/photo/photo_view.html:165
+#: ajapaik/ajapaik/templates/photo/photo_view.html:166
 msgid "rephoto"
 msgstr ""
 

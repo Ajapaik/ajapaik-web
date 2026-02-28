@@ -1,5 +1,3 @@
-version: '3'
-
 # Meant for local development
 services:
   db:

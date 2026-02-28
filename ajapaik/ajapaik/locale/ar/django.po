@@ -791,7 +791,7 @@ msgstr "بعض الألبومات القريبة"
 
 #: ajapaik/ajapaik/templates/info/_info_modal_content.html:121
 #: ajapaik/ajapaik/templates/photo/_photo_modal.html:330
-#: ajapaik/ajapaik/templates/photo/photoview.html:191
+#: ajapaik/ajapaik/templates/photo/photo_view.html:191
 msgid "Share"
 msgstr "مشاركة"
 
@@ -866,7 +866,7 @@ msgstr "انقر للاختيار"
 
 #: ajapaik/ajapaik/templates/_mode_select.html:19
 #: ajapaik/ajapaik/templates/photo/_photo_modal.html:371
-#: ajapaik/ajapaik/templates/photo/photoview.html:219
+#: ajapaik/ajapaik/templates/photo/photo_view.html:219
 msgid "Album details"
 msgstr "تفاصيل الألبوم"
 
@@ -923,23 +923,23 @@ msgstr "مؤلف مجهول"
 
 #: ajapaik/ajapaik/templates/photo/_photo_modal.html:304
 #: ajapaik/ajapaik/templates/common/game.html:53
-#: ajapaik/ajapaik/templates/photo/photoview.html:48
-#: ajapaik/ajapaik/templates/photo/photoview.html:173
+#: ajapaik/ajapaik/templates/photo/photo_view.html:48
+#: ajapaik/ajapaik/templates/photo/photo_view.html:173
 msgid "Pick the shooting location!"
 msgstr "اختيار موقع التصوير!"
 
 #: ajapaik/ajapaik/templates/photo/_photo_modal.html:310
-#: ajapaik/ajapaik/templates/photo/photoview.html:179
+#: ajapaik/ajapaik/templates/photo/photo_view.html:179
 msgid "Date this image"
 msgstr "تاريخ هذه الصورة"
 
 #: ajapaik/ajapaik/templates/photo/_photo_modal.html:315
-#: ajapaik/ajapaik/templates/photo/photoview.html:183
+#: ajapaik/ajapaik/templates/photo/photo_view.html:183
 msgid "Add rephoto"
 msgstr "إضافة إعادة تصوير"
 
 #: ajapaik/ajapaik/templates/photo/_photo_modal.html:318
-#: ajapaik/ajapaik/templates/photo/photoview.html:186
+#: ajapaik/ajapaik/templates/photo/photo_view.html:186
 msgid "Tag a new face - clicking this button will enable you to draw a face rectangle on the main image"
 msgstr "وسم وجه جديد: سيمكنك النقر فوق هذا الزر من رسم مستطيل للوجه على الصورة الرئيسية"
 
@@ -948,14 +948,14 @@ msgid "Discuss"
 msgstr "مناقشة"
 
 #: ajapaik/ajapaik/templates/photo/_photo_modal.html:356
-#: ajapaik/ajapaik/templates/photo/photoview.html:211
+#: ajapaik/ajapaik/templates/photo/photo_view.html:211
 msgid "Picture belongs to album"
 msgid_plural "Picture belongs to albums:"
 msgstr[0] "الصورة تنتمي إلى ألبوم"
 msgstr[1] "الصورة تنتمي إلى ألبومات:"
 
 #: ajapaik/ajapaik/templates/photo/_photo_modal.html:375
-#: ajapaik/ajapaik/templates/photo/photoview.html:223
+#: ajapaik/ajapaik/templates/photo/photo_view.html:223
 msgid "Curator"
 msgstr "الأمين"
 
@@ -1473,11 +1473,11 @@ msgstr "استيراد من المجموعات العامة"
 msgid "Upload yourself"
 msgstr "ارفع بنفسك"
 
-#: ajapaik/ajapaik/templates/photo/photoview.html:21
-#: ajapaik/ajapaik/templates/photo/photoview.html:23
-#: ajapaik/ajapaik/templates/photo/photoview.html:92
-#: ajapaik/ajapaik/templates/photo/photoview.html:145
-#: ajapaik/ajapaik/templates/photo/photoview.html:146
+#: ajapaik/ajapaik/templates/photo/photo_view.html:21
+#: ajapaik/ajapaik/templates/photo/photo_view.html:23
+#: ajapaik/ajapaik/templates/photo/photo_view.html:92
+#: ajapaik/ajapaik/templates/photo/photo_view.html:145
+#: ajapaik/ajapaik/templates/photo/photo_view.html:146
 msgid "rephoto"
 msgstr "إعادة التصوير"
 

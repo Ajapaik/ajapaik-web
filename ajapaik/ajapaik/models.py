@@ -1751,7 +1751,7 @@ class Video(Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('videoslug', args=(self.id, self.slug))
+        return reverse('video_slug', args=(self.id, self.slug))
 
 
 class MyXtdComment(XtdComment):
