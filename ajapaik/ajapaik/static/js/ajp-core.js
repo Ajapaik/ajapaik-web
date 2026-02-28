@@ -1631,6 +1631,9 @@ $('.ajp-navbar').autoHidingNavbar();
         }
         $likeCount.html(response.likeCount);
         $('#ajp-frontpage-show-liked-link').removeClass('disabled');
+        if (window.refreshActivityLog) {
+          window.refreshActivityLog('all');
+        }
       }
     );
   });

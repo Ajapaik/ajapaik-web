@@ -97,7 +97,7 @@
 {% block specific_js %}
     <script>
         $(document).ready(function () {
-            function loadActivityLog(filterType) {
+            window.refreshActivityLog = function (filterType) {
                 const photoId = window.currentlyOpenPhotoId || {{ photo.id }};
                 if (!window.photoActivityLogURL) {
                     return;
@@ -201,13 +201,13 @@
                 });
             }
 
-            loadActivityLog('all');
+            window.refreshActivityLog('all');
 
             $('#ajp-activity-tabs a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
                 if ($(e.target).attr('href') === '#ajp-activity-log') {
-                    loadActivityLog('all');
+                    window.refreshActivityLog('all');
                 } else if ($(e.target).attr('href') === '#ajp-comments-tab') {
-                    loadActivityLog('comments');
+                    window.refreshActivityLog('comments');
                 }
             });
 
