@@ -17,13 +17,14 @@ def user_upload(request):
     if request.method == 'POST':
         form = UserPhotoUploadForm(request.POST, request.FILES)
         albums = request.POST.getlist('albums')
+        profile = request.get_user().profile
 
         if form.is_valid() and albums and len(albums) > 0:
             photo = form.save(commit=False)
-            photo.user = request.user.profile
+            photo.user = profile
 
             if photo.uploader_is_author:
-                photo.author = request.user.profile.get_display_name
+                photo.author = profile.get_display_name
                 photo.licence = Licence.objects.get(id=17)  # CC BY 4.0
 
             photo.save()
@@ -45,7 +46,7 @@ def user_upload(request):
                     AlbumPhoto(photo=photo,
                                album=Album.objects.filter(id=album.id).first(),
                                type=AlbumPhoto.UPLOADED,
-                               profile=request.user.profile
+                               profile=profile
                                ))
 
             AlbumPhoto.objects.bulk_create(album_photos)
