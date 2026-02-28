@@ -45,7 +45,7 @@ from sorl.thumbnail import get_thumbnail
 
 from ajapaik.ajapaik import forms
 from ajapaik.ajapaik.models import Album, AlbumPhoto, Photo, PhotoSceneSuggestion, Points, Licence, \
-    PhotoLike, PhotoViewpointElevationSuggestion, GeoTag, \
+    PhotoLike, PhotoViewpointElevationSuggestion, GeoTag, Dating, \
     ImageSimilarity, Transcription, TranscriptionFeedback, PhotoFlipSuggestion, PhotoInvertSuggestion, \
     PhotoRotationSuggestion, Profile, ProfileDisplayNameChange, PhotoComment
 from ajapaik.ajapaik.serializers import AlbumSerializer, AlbumDetailsSerializer, \
@@ -1085,7 +1085,7 @@ class PhotoDetails(AjapaikAPIView):
 
 class PhotoActivityLog(AjapaikAPIView):
     '''
-    API endpoint to retrieve photo activity log (points + comments).
+    API endpoint to retrieve photo activity log (points + comments + suggestions).
     '''
     permission_classes = (AllowAny,)
 
@@ -1105,6 +1105,29 @@ class PhotoActivityLog(AjapaikAPIView):
 
         activities = []
         
+        geotags = GeoTag.objects.filter(photo=photo).select_related('user').order_by('-created')[:20]
+        for geotag in geotags:
+            activities.append({
+                'type': 'geotag',
+                'user': geotag.user.display_name if geotag.user else None,
+                'user_id': geotag.user.id if geotag.user else None,
+                'lat': geotag.lat,
+                'lon': geotag.lon,
+                'is_correct': geotag.is_correct,
+                'created': geotag.created.isoformat() if geotag.created else None,
+            })
+
+        datings = photo.datings.all().select_related('profile').order_by('-created')[:20]
+        for dating in datings:
+            activities.append({
+                'type': 'dating',
+                'user': dating.profile.display_name if dating.profile else None,
+                'user_id': dating.profile.id if dating.profile else None,
+                'date_start': dating.start.isoformat() if dating.start else None,
+                'date_end': dating.end.isoformat() if dating.end else None,
+                'created': dating.created.isoformat() if dating.created else None,
+            })
+
         points_actions = Points.objects.filter(photo=photo).select_related('user').order_by('-created')[:50]
         for point in points_actions:
             action_name = point.get_action_display()
