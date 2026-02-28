@@ -9,7 +9,6 @@ from functools import cached_property
 from io import StringIO
 from json import loads
 from math import degrees
-from time import sleep
 from urllib.request import urlopen
 
 import numpy
@@ -45,7 +44,6 @@ from django_comments_xtd.models import XtdComment, LIKEDIT_FLAG, DISLIKEDIT_FLAG
 from geopy.distance import great_circle
 from haystack import connections
 from pandas import DataFrame, Series
-from requests import get
 from sklearn.cluster import DBSCAN
 from sorl.thumbnail import get_thumbnail, delete
 
@@ -1045,7 +1043,6 @@ class Photo(Model):
         return data
 
     def reverse_geocode_location(self):
-        url = f'https://maps.googleapis.com/maps/api/geocode/json?latlng=%0.5f,%0.5f&key={settings.GOOGLE_API_KEY}'
         lat = None
         lon = None
 
@@ -1062,26 +1059,9 @@ class Photo(Model):
         if lat and lon:
             cached_response = GoogleMapsReverseGeocode.objects.filter(lat='{:.5f}'.format(lat),
                                                                       lon='{:.5f}'.format(lon)).first()
-            if cached_response:
-                response = cached_response.response
-            else:
-                sleep(0.2)
-                response = get(url % (lat, lon))
-                decoded_response = loads(response.text)
-                if decoded_response['status'] == 'OK' or decoded_response['status'] == 'ZERO_RESULTS':
-                    GoogleMapsReverseGeocode(
-                        lat='{:.5f}'.format(lat),
-                        lon='{:.5f}'.format(lon),
-                        response=response.text
-                    ).save()
-                response = decoded_response
-
-            if response['status'] == 'OK':
+            if response := cached_response and cached_response["status"] == "OK":
                 most_accurate_result = response['results'][0]
                 self.address = most_accurate_result['formatted_address']
-
-            elif response['status'] == 'OVER_QUERY_LIMIT':
-                return
 
     def set_backside(self, opposite):
         self.front_of = opposite
