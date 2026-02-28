@@ -1741,7 +1741,7 @@ class PhotoSuggestion(AjapaikAPIView):
     API endpoints for getting photo scene category and updating it
     '''
 
-    def get(self, request, photo_id):
+    def get(self, request, photo_id: int):
         try:
             if request.user.is_anonymous:
                 return JsonResponse({'error': PLEASE_LOGIN}, status=401)
@@ -1752,7 +1752,7 @@ class PhotoSuggestion(AjapaikAPIView):
             viewpoint_elevation = 'undefined'
             viewpoint_elevation_consensus = 'undefined'
             viewpoint_elevation_suggestion = PhotoViewpointElevationSuggestion.objects \
-                .filter(photo=photo, proposer=request.user.profile).order_by('-created').first()
+                .filter(photo_id=photo.id, proposer=request.user.profile).order_by('-created').first()
             if viewpoint_elevation_suggestion:
                 if viewpoint_elevation_suggestion.viewpoint_elevation == 0:
                     viewpoint_elevation = 'Ground'
@@ -1761,8 +1761,9 @@ class PhotoSuggestion(AjapaikAPIView):
                 if viewpoint_elevation_suggestion.viewpoint_elevation == 2:
                     viewpoint_elevation = 'Aerial'
 
-            scene_suggestion = PhotoSceneSuggestion.objects.filter(photo=photo, proposer=request.user.profile).order_by(
-                '-created').first()
+            scene_suggestion = PhotoSceneSuggestion.objects.filter(
+                photo_id=photo.id, proposer_id=request.user.profile.id
+            ).order_by('-created').first()
 
             if scene_suggestion:
                 if scene_suggestion.scene == 0:
@@ -1824,23 +1825,9 @@ class PhotoSuggestion(AjapaikAPIView):
             if photo is None:
                 return JsonResponse({'error': f'{NO_PHOTO_WITH_ID} {photo_id}'}, status=404)
 
-            if scene_suggestion_choice is not None:
-                response, photo_scene_suggestions, _, _ = suggest_photo_edit(photo_scene_suggestions, 'scene',
-                                                                             scene_suggestion_choice, Points, 20,
-                                                                             Points.CATEGORIZE_SCENE,
-                                                                             PhotoSceneSuggestion, photo, profile,
-                                                                             response, None)
+            return JsonResponse({'message': 'Testing'})
 
-            if photo_viewpoint_elevation_suggestion_choice is not None:
-                response, photo_viewpoint_elevation_suggestions, _, _ = suggest_photo_edit(
-                    photo_viewpoint_elevation_suggestions, 'viewpoint_elevation',
-                    photo_viewpoint_elevation_suggestion_choice, Points, 20, Points.ADD_VIEWPOINT_ELEVATION,
-                    PhotoViewpointElevationSuggestion, photo, profile, response, None)
-
-        PhotoSceneSuggestion.objects.bulk_create(photo_scene_suggestions)
-        PhotoViewpointElevationSuggestion.objects.bulk_create(photo_viewpoint_elevation_suggestions)
-
-        return JsonResponse({'message': response})
+        return JsonResponse({'message': 'Testing2'})
 
 
 class PhotoAppliedOperations(AjapaikAPIView):
