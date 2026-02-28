@@ -1,12 +1,11 @@
 import datetime
 import itertools
-import json
 
 import requests
 import roman
 from django.conf import settings
 
-from ajapaik.ajapaik.models import Album, GeoTag, GoogleMapsReverseGeocode, Location, Photo, LocationPhoto, Dating
+from ajapaik.ajapaik.models import Album, GeoTag, Location, Photo, LocationPhoto, Dating
 
 century_suffixes = [
     'saj x',
@@ -441,6 +440,7 @@ def get_muis_date_and_prefix(date, is_later_date):
 def add_geotag_from_address_to_photo(photo, locations):
     locations.sort()
     locations = list(locations for locations, _ in itertools.groupby(locations))
+    location_object = None
     for location in locations:
         search_string = ''
         parent_location_object = None
@@ -467,36 +467,10 @@ def add_geotag_from_address_to_photo(photo, locations):
             search_string += sublocation[0]
             parent_location_object = location_object
 
-    if location_object.google_reverse_geocode:
+    if location_object and location_object.google_reverse_geocode:
         lat = location_object.google_reverse_geocode.lat
         lon = location_object.google_reverse_geocode.lon
         address = location_object.google_reverse_geocode.response.get('results')[0].get('formatted_address')
-    else:
-        # $$$ in the start and end of text signifies unstructured data (coordinates, instructions about location, etc.)
-        search_string = search_string.strip("$ ")
-        google_geocode_url = f'https://maps.googleapis.com/maps/api/geocode/json?' \
-                             f'address={search_string}' \
-                             f'&key={settings.UNRESTRICTED_GOOGLE_MAPS_API_KEY}'
-        google_response_json = requests.get(google_geocode_url).text
-        google_response_parsed = json.loads(google_response_json)
-        status = google_response_parsed.get('status', None)
-
-        if not status == 'OK':
-            return photo
-
-        # Google was able to answer some geolocation for this description
-        address = google_response_parsed.get('results')[0].get('formatted_address')
-        lat_lng = google_response_parsed.get('results')[0].get('geometry').get('location')
-
-        if not lat_lng:
-            return photo
-
-        lat = lat_lng['lat']
-        lon = lat_lng['lng']
-        google_maps_reverse_geocode = GoogleMapsReverseGeocode(lat=lat, lon=lon, response=google_response_parsed)
-        google_maps_reverse_geocode.save()
-        location_object.google_reverse_geocode = google_maps_reverse_geocode
-        location_object.save()
 
     if photo.lat is None:
         photo.lat = lat
