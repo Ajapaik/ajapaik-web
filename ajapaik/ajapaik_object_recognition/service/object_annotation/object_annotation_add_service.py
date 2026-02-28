@@ -12,7 +12,7 @@ from ajapaik.ajapaik_object_recognition.service.object_annotation.object_annotat
     get_saved_label
 
 
-def add_annotation(add_detection_annotation: AddDetectionAnnotation, request: HttpRequest):
+def add_annotation(add_detection_annotation: AddDetectionAnnotation, request: HttpRequest) -> None:
     wikidata_label_id = add_detection_annotation.wikidata_label_id
     subject_id = add_detection_annotation.subject_id
 
@@ -30,12 +30,12 @@ def add_annotation(add_detection_annotation: AddDetectionAnnotation, request: Ht
         add_subject_data(new_face_annotation_id, add_detection_annotation, request)
 
         if subject_id is not None and subject_id > 0:
-            save_detected_face(new_face_annotation_id, subject_id, request.user.id, request.user.profile)
+            save_detected_face(new_face_annotation_id, subject_id, request.user.profile)
 
 
-def save_detected_face(new_rectangle_id, person_id, user_id, user_profile):
+def save_detected_face(new_rectangle_id: int, subject_id: int, user_profile: Profile) -> None:
     new_rectangle = FaceRecognitionRectangle.objects.get(pk=new_rectangle_id)
-    person_album = Album.objects.get(pk=person_id)
+    person_album = Album.objects.get(pk=subject_id)
     if (person_album and not AlbumPhoto.objects.filter(photo=new_rectangle.photo, album=person_album).exists()):
         albumPhoto = AlbumPhoto(album=person_album, photo=new_rectangle.photo, type=AlbumPhoto.FACE_TAGGED,
                                 profile=user_profile)
@@ -43,10 +43,12 @@ def save_detected_face(new_rectangle_id, person_id, user_id, user_profile):
         person_album.set_calculated_fields()
         person_album.save()
 
-    save_subject_object(person_album, new_rectangle, user_id, user_profile)
+    save_subject_object(person_album, new_rectangle, user_profile)
 
 
-def add_subject_data(new_face_annotation_id, add_detection_annotation: AddDetectionAnnotation, request: HttpRequest):
+def add_subject_data(
+        new_face_annotation_id, add_detection_annotation: AddDetectionAnnotation, request: HttpRequest
+) -> None:
     is_gender_sent = add_detection_annotation.gender is not None and add_detection_annotation.gender < GENDER_NOT_SURE
     is_age_sent = add_detection_annotation.age_group is not None and add_detection_annotation.age_group < AGE_NOT_SURE
 
@@ -60,7 +62,7 @@ def add_subject_data(new_face_annotation_id, add_detection_annotation: AddDetect
         AddSubjectData.add_subject_data(add_additional_subject_data, request)
 
 
-def save_new_object_annotation(add_detection_annotation: AddDetectionAnnotation):
+def save_new_object_annotation(add_detection_annotation: AddDetectionAnnotation) -> None:
     saved_label = get_saved_label(add_detection_annotation.wikidata_label_id)
 
     photo_id = add_detection_annotation.photo_id

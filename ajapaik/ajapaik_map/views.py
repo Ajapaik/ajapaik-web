@@ -43,7 +43,7 @@ def mapview(request, photo_id=None, rephoto_id=None):
         selected_photo = Photo.objects.filter(pk=photo_id).first()
     else:
         if selected_rephoto:
-            selected_photo = Photo.objects.filter(pk=selected_rephoto.rephoto_of.id).first()
+            selected_photo = Photo.objects.filter(pk=selected_rephoto.rephoto_of_id).first()
 
     if selected_photo and album is None:
         photo_album_ids = AlbumPhoto.objects.filter(photo_id=selected_photo.id).values_list('album_id', flat=True)
@@ -96,7 +96,7 @@ def map_objects_by_bounding_box(request):
     if not form.is_valid():
         return JsonResponse({'status': 400})
 
-    profile = request.user.profile
+    profile = request.get_user().profile
     limit_by_album = form.cleaned_data['limit_by_album']
     sw_lat = form.cleaned_data['sw_lat']
     sw_lon = form.cleaned_data['sw_lon']

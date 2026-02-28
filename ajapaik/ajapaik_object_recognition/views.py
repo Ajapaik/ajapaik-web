@@ -19,7 +19,7 @@ def add_annotation(request: HttpRequest) -> HttpResponse:
     if request.method != 'POST':
         return response.not_supported()
 
-    add_detection_annotation = AddDetectionAnnotation(QueryDict(request.body), request.user.id)
+    add_detection_annotation = AddDetectionAnnotation(QueryDict(request.body), request.user.profile.id)
 
     object_annotation_add_service.add_annotation(add_detection_annotation, request)
 
@@ -32,7 +32,7 @@ def update_annotation(request: HttpRequest) -> HttpResponse:
 
     object_annotation_update_request = ObjectAnnotationUpdateRequest(QueryDict(request.body))
 
-    object_annotation_modify_service.update_object_annotation(request.user.id, object_annotation_update_request)
+    object_annotation_modify_service.update_object_annotation(request.user.profile.id, object_annotation_update_request)
 
     return response.success()
 
@@ -41,7 +41,7 @@ def remove_annotation(request: HttpRequest, annotation_id: int) -> HttpResponse:
     if request.method != 'DELETE':
         return response.not_supported()
 
-    annotation_remove_request = AnnotationRemove(annotation_id, request.user.id)
+    annotation_remove_request = AnnotationRemove(annotation_id, request.user.profile.id)
 
     has_deleted_successfully = object_annotation_delete_service.remove_annotation(annotation_remove_request)
 
@@ -55,7 +55,9 @@ def get_all_annotations(request, photo_id) -> HttpResponse:
     if request.method != 'GET':
         return response.not_supported()
 
-    all_rectangles = object_annotation_get_service.get_all_annotations(request.user.id, photo_id)
+    profile = request.get_user().profile
+
+    all_rectangles = object_annotation_get_service.get_all_annotations(profile.id, photo_id)
 
     return response.success(all_rectangles)
 
@@ -73,7 +75,7 @@ def add_feedback(request, annotation_id):
     if request.method == 'POST':
         add_object_detection_feedback = AddObjectDetectionFeedback(
             QueryDict(request.body),
-            request.user.id,
+            request.user.profile.id,
             annotation_id
         )
 
@@ -81,7 +83,7 @@ def add_feedback(request, annotation_id):
 
         return response.success()
     elif request.method == 'DELETE':
-        remove_object_annotation_feedback = RemoveObjectAnnotationFeedback(annotation_id, request.user.id)
+        remove_object_annotation_feedback = RemoveObjectAnnotationFeedback(annotation_id, request.user.profile.id)
         object_annotation_feedback_service.remove_feedback(remove_object_annotation_feedback)
 
         return response.success()

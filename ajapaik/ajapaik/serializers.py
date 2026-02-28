@@ -121,8 +121,8 @@ class CuratorAlbumInfoSerializer(serializers.ModelSerializer):
     parent_album_id = serializers.SerializerMethodField()
     parent_album_name = serializers.SerializerMethodField()
 
-    def get_parent_album_id(self, obj):
-        return obj.subalbum_of.id if obj.subalbum_of else None
+    def get_parent_album_id(self, obj: Album) -> None:
+        return obj.subalbum_of_id
 
     def get_parent_album_name(self, obj):
         return obj.subalbum_of.name if obj.subalbum_of else None

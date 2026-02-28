@@ -1743,7 +1743,7 @@ class PhotoSuggestion(AjapaikAPIView):
 
     def get(self, request, photo_id):
         try:
-            if request.user.is_anonymous:
+            if request.get_user().is_anonymous:
                 return JsonResponse({'error': PLEASE_LOGIN}, status=401)
 
             photo = get_object_or_404(Photo, id=photo_id)
@@ -1752,7 +1752,7 @@ class PhotoSuggestion(AjapaikAPIView):
             viewpoint_elevation = 'undefined'
             viewpoint_elevation_consensus = 'undefined'
             viewpoint_elevation_suggestion = PhotoViewpointElevationSuggestion.objects \
-                .filter(photo=photo, proposer=request.user.profile).order_by('-created').first()
+                .filter(photo=photo, proposer=request.get_user().profile).order_by('-created').first()
             if viewpoint_elevation_suggestion:
                 if viewpoint_elevation_suggestion.viewpoint_elevation == 0:
                     viewpoint_elevation = 'Ground'
@@ -1761,7 +1761,8 @@ class PhotoSuggestion(AjapaikAPIView):
                 if viewpoint_elevation_suggestion.viewpoint_elevation == 2:
                     viewpoint_elevation = 'Aerial'
 
-            scene_suggestion = PhotoSceneSuggestion.objects.filter(photo=photo, proposer=request.user.profile).order_by(
+            scene_suggestion = PhotoSceneSuggestion.objects.filter(photo=photo,
+                                                                   proposer=request.get_user().profile).order_by(
                 '-created').first()
 
             if scene_suggestion:
@@ -1853,7 +1854,7 @@ class PhotoAppliedOperations(AjapaikAPIView):
 
     def get(self, request, photo_id):
         try:
-            if request.user.is_anonymous:
+            if request.get_user().is_anonymous:
                 return JsonResponse({'error': PLEASE_LOGIN}, status=401)
 
             photo = get_object_or_404(Photo, id=photo_id)
@@ -1863,15 +1864,13 @@ class PhotoAppliedOperations(AjapaikAPIView):
             invert_consensus = 'undefined'
             rotated = 'undefined'
             rotated_consensus = 'undefined'
+            profile = request.get_user().profile
 
-            flip_suggestion = PhotoFlipSuggestion.objects.filter(photo=photo, proposer=request.user.profile).order_by(
+            flip_suggestion = PhotoFlipSuggestion.objects.filter(photo=photo, proposer=profile).order_by(
                 '-created').first()
-            invert_suggestion = PhotoInvertSuggestion.objects.filter(
-                photo=photo, proposer=request.user.profile
-            ).order_by(
+            invert_suggestion = PhotoInvertSuggestion.objects.filter(photo=photo, proposer=profile).order_by(
                 '-created').first()
-            rotated_suggestion = PhotoRotationSuggestion.objects.filter(photo=photo,
-                                                                        proposer=request.user.profile).order_by(
+            rotated_suggestion = PhotoRotationSuggestion.objects.filter(photo=photo, proposer=profile).order_by(
                 '-created').first()
 
             if flip_suggestion and flip_suggestion.flip:

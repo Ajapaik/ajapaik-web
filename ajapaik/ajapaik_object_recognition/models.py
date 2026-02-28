@@ -40,7 +40,7 @@ class ObjectDetectionAnnotation(models.Model):
     deleted_on = models.DateTimeField(null=True)
 
     def __str__(self):
-        return f'Detected {self.detected_object.__str__()} on photo {self.photo.id} at ' \
+        return f'Detected {self.detected_object.__str__()} on photo {self.photo_id} at ' \
                f'x1: {self.x1}, y1: {self.y1}, x2: {self.x2}, y2: {self.y2}'
 
 
@@ -60,9 +60,9 @@ class ObjectAnnotationFeedback(models.Model):
         string_label = ''
 
         if self.confirmation:
-            string_label += f'Confirmed annotation {self.object_detection_annotation.id}'
+            string_label += f'Confirmed annotation {self.object_detection_annotation_id}'
         else:
-            string_label += f'Rejected annotation {self.object_detection_annotation.id}'
+            string_label += f'Rejected annotation {self.object_detection_annotation_id}'
 
         if self.alternative_object is not None:
             string_label += f', alternative object suggested: {self.alternative_object.__str__()}'

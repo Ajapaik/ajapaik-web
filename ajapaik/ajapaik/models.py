@@ -1333,17 +1333,17 @@ class ImageSimilarity(Model):
 
                 if self.similarity_type == 0:
                     has_similar = ImageSimilarity.objects.filter(
-                        Q(from_photo_id=image_similarity.from_photo.id) &
-                        Q(to_photo_id=image_similarity.to_photo.id) &
+                        Q(from_photo_id=image_similarity.from_photo_id) &
+                        Q(to_photo_id=image_similarity.to_photo_id) &
                         Q(similarity_type__gt=0)).first() is not None
                     image_similarity.from_photo.has_similar = has_similar
                     image_similarity.to_photo.has_similar = has_similar
 
         image_similarity.save()
         image_similarity.to_photo.has_similar = ImageSimilarity.objects.filter(
-            from_photo_id=image_similarity.from_photo.id).exclude(similarity_type=0).first() is not None
+            from_photo_id=image_similarity.from_photo_id).exclude(similarity_type=0).first() is not None
         image_similarity.from_photo.has_similar = ImageSimilarity.objects.filter(
-            from_photo_id=image_similarity.to_photo.id).exclude(similarity_type=0).first() is not None
+            from_photo_id=image_similarity.to_photo_id).exclude(similarity_type=0).first() is not None
         image_similarity.from_photo.save()
         image_similarity.to_photo.save()
         suggestion.save()
