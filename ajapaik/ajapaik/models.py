@@ -1062,7 +1062,7 @@ class Photo(Model):
             if cached_response and cached_response.response.get("status") == "OK":
                 results = cached_response.response.get("results", [])
                 if len(results) > 0:
-                    most_accurate_result = cached_response["response"]['results'][0]
+                    most_accurate_result = results[0]
                     self.address = most_accurate_result['formatted_address']
 
     def set_backside(self, opposite):
