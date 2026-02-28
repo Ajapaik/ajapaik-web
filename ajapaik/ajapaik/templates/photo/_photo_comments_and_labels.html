@@ -106,6 +106,9 @@
                     return;
                 }
                 
+                // Store current photo ID for this log instance
+                window._activityLogCurrentPhotoId = photoId;
+                
                 const actionIcons = {
                     0: 'add_location',       // GEOTAG
                     1: 'photo_camera',      // REPHOTO
@@ -218,6 +221,15 @@
 
             window.refreshActivityLog('all');
 
+            // Refresh activity log when modal is shown with new photo
+            $(document).on('shown.bs.modal', '.modal', function() {
+                var modalPhotoId = window.currentlyOpenPhotoId || window.currentlySelectedPhotoId;
+                if (modalPhotoId && modalPhotoId != window._activityLogCurrentPhotoId) {
+                    window.refreshActivityLog('all');
+                }
+            });
+
+            // Also check on tab switch
             $('#ajp-activity-tabs a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
                 if ($(e.target).attr('href') === '#ajp-activity-log') {
                     window.refreshActivityLog('all');
