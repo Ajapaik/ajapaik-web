@@ -1,5 +1,5 @@
 from allauth.account.forms import SignupForm as AllauthSignupForm
-from captcha.fields import ReCaptchaField
+from django_recaptcha.fields import ReCaptchaField
 from dal import autocomplete
 from django import forms
 from django.conf import settings

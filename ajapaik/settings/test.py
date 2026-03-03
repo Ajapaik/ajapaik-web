@@ -13,5 +13,5 @@ DATABASES = {
    }
 }
 
-SILENCED_SYSTEM_CHECKS = ['captcha.recaptcha_test_key_error']
+SILENCED_SYSTEM_CHECKS = ['django_recaptcha.recaptcha_test_key_error']
 GOOGLE_MAPS_API_KEY = "GOOGLE_MAPS_API_KEY"

@@ -168,7 +168,7 @@ INSTALLED_APPS = [
     'admin_tools.theming',
     'admin_tools.menu',
     'admin_tools.dashboard',
-    'captcha',
+    'django_recaptcha',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
