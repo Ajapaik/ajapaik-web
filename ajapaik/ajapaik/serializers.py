@@ -1,7 +1,8 @@
 import logging
 
 from django.contrib.sites.models import Site
-from django.db.models import Count
+from django.db import models
+from django.db.models import Count, Case, When, Value, Q, BooleanField
 from django.urls import reverse
 from django.utils import timezone
 from rest_framework import serializers
@@ -548,7 +549,7 @@ class APIPhotoSerializer(serializers.ModelSerializer):
             .prefetch_related('rephotos') \
             .annotate(rephotos_count=Count('rephotos')) \
             .annotate(uploads_count=Count(Case(When(rephotos__user=user_profile, then=1),
-                                               output_field=IntegerField()))) \
+                                               output_field=models.IntegerField()))) \
             .annotate(likes_count=Count('likes')) \
             .annotate(favorited=Case(When(Q(likes__profile=user_profile) & Q(likes__profile__isnull=False),
                                           then=Value(True)), default=Value(False), output_field=BooleanField()))
