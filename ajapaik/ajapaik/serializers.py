@@ -8,7 +8,7 @@ from django.utils import timezone
 from rest_framework import serializers
 from rest_framework_dataclasses.serializers import DataclassSerializer
 
-from .models import Album, Dating, Video, Photo, ImageSimilarity, Source, Licence
+from .models import Album, Dating, Video, Photo, ImageSimilarity, Source, Licence, Profile
 from .types import GalleryResults
 
 log = logging.getLogger(__name__)
@@ -267,13 +267,13 @@ class PhotoDetailsSerializer(PhotoRepresentationSerializer):
     source = SourceSerializer()
     licence = LicenceSerializer()
 
-    def get_date_text(self, instance):
+    def get_date_text(self, instance: Photo) -> str:
         if instance.date:
             return instance.date.strftime('%d-%m-%Y')
         else:
             return instance.date_text
 
-    def get_full_image(self, instance):
+    def get_full_image(self, instance: Photo):
         request = self.context['request']
         image_name = str(instance.image)
         prefix = 'uploads/'
@@ -284,19 +284,19 @@ class PhotoDetailsSerializer(PhotoRepresentationSerializer):
         iiif_jpeg = request.build_absolute_uri(f'/iiif/work/iiif/ajapaik/{image_name}.tif/full/max/0/default.jpg')
         return iiif_jpeg
 
-    def get_thumb_url(self, instance):
+    def get_thumb_url(self, instance: Photo):
         request = self.context['request']
         relative_url = reverse('image_thumb', args=(instance.id, 1024, instance.get_pseudo_slug))
 
         return request.build_absolute_uri(relative_url)
 
-    def get_date(self, instance):
+    def get_date(self, instance: Photo) -> str:
         if instance.date:
             return instance.date.strftime('%d-%m-%Y')
         else:
             return instance.date_text
 
-    def get_source(self, instance):
+    def get_source(self, instance: Photo):
         if instance.source:
             source_key = instance.source_key or ''
             return {
@@ -308,24 +308,34 @@ class PhotoDetailsSerializer(PhotoRepresentationSerializer):
                 'url': instance.source_url,
             }
 
-    def get_rephotos(self, instance):
+    def get_rephotos(self, instance: Photo):
         return RephotoSerializer(
             instance=instance.rephotos.all(),
             many=True,
             context={'request': self.context['request']},
         ).data
 
-    def get_in_selection(self, instance):
+    def get_in_selection(self, instance: Photo) -> bool:
         return instance.id in self.context['request'].session.get('photo_selection', [])
 
-    def get_like_count(self, instance):
+    def get_like_count(self, instance: Photo) -> int:
         return instance.likes.count()
 
-    def get_user_likes(self, instance):
-        return instance.likes.filter(level=1).exists()
+    def get_user_likes(self, instance: Photo) -> bool:
+        profile = get_profile_from_context(self.context)
+        if not profile:
+            return False
 
-    def get_user_loves(self, instance):
-        return instance.likes.filter(level=2).exists()
+        # Example: return whether the current user has liked this object
+        return instance.likes.filter(profile=profile, level=1).exists()
+
+    def get_user_loves(self, instance: Photo) -> bool:
+        profile = get_profile_from_context(self.context)
+        if not profile:
+            return False
+
+        # Example: return whether the current user has liked this object
+        return instance.likes.filter(profile=profile, level=2).exists()
 
     class Meta(PhotoRepresentationSerializer.Meta):
         model = Photo
@@ -344,97 +354,22 @@ class PhotoDetailsSerializer(PhotoRepresentationSerializer):
         )
 
 
-class PhotoDetailsSerializer(PhotoRepresentationSerializer):
-    lon = serializers.FloatField()
-    lat = serializers.FloatField()
-    full_image = serializers.SerializerMethodField()
-    source = serializers.SerializerMethodField()
-    rephotos = serializers.SerializerMethodField()
-    slug = serializers.SerializerMethodField()
-    date_text = serializers.SerializerMethodField()
-    in_selection = serializers.SerializerMethodField()
-    like_count = serializers.SerializerMethodField()
-    user_likes = serializers.SerializerMethodField()
-    user_loves = serializers.SerializerMethodField()
-    thumb_url = serializers.SerializerMethodField()
-    source = SourceSerializer()
-    licence = LicenceSerializer()
+def get_profile_from_context(context) -> Profile | None:
+    request = context.get("request")
 
-    def get_date_text(self, instance):
-        if instance.date:
-            return instance.date.strftime('%d-%m-%Y')
-        else:
-            return instance.date_text
+    if not request:
+        return None
 
-    def get_full_image(self, instance):
-        request = self.context['request']
-        image_name = str(instance.image)
-        prefix = 'uploads/'
+    user = request.get_user()
 
-        if image_name.startswith(prefix):
-            image_name = image_name[len(prefix):]
+    if not user:
+        return None
 
-        iiif_jpeg = request.build_absolute_uri(f'/iiif/work/iiif/ajapaik/{image_name}.tif/full/max/0/default.jpg')
-        return iiif_jpeg
+    profile = user.profile
+    if not profile:
+        return None
 
-    def get_thumb_url(self, instance):
-        request = self.context['request']
-        relative_url = reverse('image_thumb', args=(instance.id, 1024, instance.get_pseudo_slug))
-
-        return request.build_absolute_uri(relative_url)
-
-    def get_date(self, instance):
-        if instance.date:
-            return instance.date.strftime('%d-%m-%Y')
-        else:
-            return instance.date_text
-
-    def get_source(self, instance):
-        if instance.source:
-            source_key = instance.source_key or ''
-            return {
-                'url': instance.source_url,
-                'name': f'{instance.source.description} {source_key}'.strip(),
-            }
-        else:
-            return {
-                'url': instance.source_url,
-            }
-
-    def get_rephotos(self, instance):
-        return RephotoSerializer(
-            instance=instance.rephotos.all(),
-            many=True,
-            context={'request': self.context['request']},
-        ).data
-
-    def get_in_selection(self, instance):
-        return instance.id in self.context['request'].session.get('photo_selection', [])
-
-    def get_like_count(self, instance):
-        return instance.likes.count()
-
-    def get_user_likes(self, instance):
-        return instance.likes.filter(level=1).exists()
-
-    def get_user_loves(self, instance):
-        return instance.likes.filter(level=2).exists()
-
-    class Meta(PhotoRepresentationSerializer.Meta):
-        model = Photo
-        fields = (
-            *PhotoRepresentationSerializer.Meta.fields, 'image', 'full_image', 'width', 'height', 'title', 'date',
-            'author', 'source', 'azimuth', 'rephotos',
-            'lat', 'lon', 'description',
-            'slug', 'comment_count',
-            'title',
-            'address',
-            'source_key',
-            'source_url',
-            'source',
-            'licence',
-            'in_selection', 'like_count', 'user_likes', 'user_loves', 'absolute_url', 'date_text', 'thumb_url'
-        )
+    return profile
 
 
 class PhotoWithDistanceSerializer(PhotoSerializer):
