@@ -3,6 +3,7 @@ from random import randint
 from django.contrib.gis.geos import Point
 from django.core.management.base import BaseCommand
 from django.db.models import Sum
+from django.utils.timezone import now
 
 from ajapaik.ajapaik.models import Photo, Album, ImageSimilarity
 
@@ -14,6 +15,8 @@ class Command(BaseCommand):
 
         # Actual update loop
         albums = Album.objects.exclude(atype__in=[Album.AUTO, Album.FAVORITES])
+        print(f"Updating {albums.count()} albums, start time: {now()}")
+
         for a in albums:
             modified_fields = [
                 'photo_count_with_subalbums',
@@ -86,3 +89,5 @@ class Command(BaseCommand):
                 modified_fields.append('cover_photo_flipped')
 
             a.light_save(update_fields=modified_fields)
+
+        print(f"Finished updating albums, end time: {now()}")
