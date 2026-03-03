@@ -85,4 +85,4 @@ class Command(BaseCommand):
                 a.cover_photo_flipped = random_photo.flip
                 modified_fields.append('cover_photo_flipped')
 
-            a.light_save(modified_fields=modified_fields)
+            a.light_save(update_fields=modified_fields)
