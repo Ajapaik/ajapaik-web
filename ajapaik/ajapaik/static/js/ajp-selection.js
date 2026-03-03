@@ -1,9 +1,9 @@
-(function($) {
+(function ($) {
     'use strict';
     /*jslint nomen: true*/
     /*jslint browser: true*/
     /*global docCookies*/
-    $(document).ready(function() {
+    $(document).ready(function () {
         // TODO: Made in a rush, clean up when there's time
         var areaLat,
             areaLng;
@@ -12,18 +12,20 @@
         window.selectionPhotoInverted = false;
         $('#ajp-selection-middle-panel').find('.panel-body').sortable();
         window.updateLeaderboard();
-        var openPhotoDrawer = function(content) {
+        var openPhotoDrawer = function (content) {
             var fullScreenImage = $('#ajp-fullscreen-image');
-            $('#ajp-photo-modal').html(content).modal().find('#ajp-modal-photo').on('load', function() {
+            $('#ajp-photo-modal').html(content).modal().find('#ajp-modal-photo').on('load', function () {
                 fullScreenImage.attr('data-src', window.photoModalFullscreenImageUrl).attr('alt', window.currentPhotoDescription);
-                window.FB.XFBML.parse($('#ajp-photo-modal-like').get(0));
+                if (window.FB && window.FB.XFBML) {
+                    window.FB.XFBML.parse($('#ajp-photo-modal-like').get(0));
+                }
             });
         };
-        window.loadPhoto = function(id) {
+        window.loadPhoto = function (id) {
             $.ajax({
                 cache: false,
                 url: '/photo/' + id + '/?isSelection=1',
-                success: function(result) {
+                success: function (result) {
                     openPhotoDrawer(result);
                     var imgContainer = $('#ajp-frontpage-image-container-' + id),
                         nextId = imgContainer.next().data('id'),
@@ -52,16 +54,16 @@
             return data;
         };
 
-        window.selectionAddSimilarity = function(similarityType) {
+        window.selectionAddSimilarity = function (similarityType) {
             $('#ajp-loading-overlay').show();
-            $.get('/photo-selection/', function(response) {
+            $.get('/photo-selection/', function (response) {
                 var photos = [];
                 for (var key in response) {
                     photos.push(key);
                 }
                 fetch(similarPhotosUrl, {
                     method: 'POST',
-                    beforeSend: function(xhr) {
+                    beforeSend: function (xhr) {
                         xhr.setRequestHeader('X-CSRFTOKEN', window.docCookies.getItem('csrftoken'));
                     },
                     headers: {
@@ -75,63 +77,64 @@
 
                 })
                     .then(handleErrorsSimilar)
-                    .then(function(response) {
+                    .then(function (response) {
                         let points = response.points;
                         let message = response && points > 0
                             ? interpolate(ngettext(
-                                    'You have gained %s point',
-                                    'You have gained %s points',
-                                    points,
-                                ),
+                                'You have gained %s point',
+                                'You have gained %s points',
+                                points,
+                            ),
                                 [points],
                             )
                             : gettext('Your suggestion has been changed');
                         $.notify(message, { type: 'success' });
                         $('#ajp-loading-overlay').hide();
                     }).catch((error) => {
-                    $('#ajp-loading-overlay').hide();
-                    $.notify(gettext('Something went wrong, please check your connection. If the issue persists please contact us on Tawk.to'), { type: 'danger' });
-                });
+                        $('#ajp-loading-overlay').hide();
+                        $.notify(gettext('Something went wrong, please check your connection. If the issue persists please contact us on Tawk.to'), { type: 'danger' });
+                    });
             });
         };
-        $(document).on('click', '.ajp-photo-selection-thumbnail-link', function(e) {
+        $(document).on('click', '.ajp-photo-selection-thumbnail-link', function (e) {
             e.preventDefault();
             window.loadPhoto($(this).data('id'));
         });
-        $(document).on('mouseenter', '.ajp-photo-selection-thumbnail-link', function() {
+        $(document).on('mouseenter', '.ajp-photo-selection-thumbnail-link', function () {
             $(this).find('.ajp-remove-from-selection-button').show();
         });
-        $(document).on('mouseenter', '.ajp-photo-selection-thumbnail', function() {
+        $(document).on('mouseenter', '.ajp-photo-selection-thumbnail', function () {
             $(this).parent().find('.ajp-remove-from-selection-button').show();
         });
-        $(document).on('mouseout', '.ajp-photo-selection-thumbnail', function() {
+        $(document).on('mouseout', '.ajp-photo-selection-thumbnail', function () {
             $(this).parent().find('.ajp-remove-from-selection-button').hide();
         });
-        $(document).on('mouseenter', '.ajp-remove-from-selection-button', function() {
+        $(document).on('mouseenter', '.ajp-remove-from-selection-button', function () {
             $(this).show();
         });
-        $(document).on('mouseout', '.ajp-remove-from-selection-button', function() {
+        $(document).on('mouseout', '.ajp-remove-from-selection-button', function () {
             $(this).hide();
         });
-        $(document).on('click', '#ajp-photo-selection-clear-selection-button', function() {
+        $(document).on('click', '#ajp-photo-selection-clear-selection-button', function () {
             var data = {
                 clear: true,
                 csrfmiddlewaretoken: docCookies.getItem('csrftoken'),
             };
-            $.post(window.photoSelectionURL, data, function() {
+            $.post(window.photoSelectionURL, data, function (response) {
+                localStorage.setItem('ajp_photo_selection_sync_trigger', Date.now());
                 window.location.reload();
             });
         });
-        $(document).on('click', '#ajp-photo-selection-add-similarity', function() {
+        $(document).on('click', '#ajp-photo-selection-add-similarity', function () {
             selectionAddSimilarity(1);
         });
-        $(document).on('click', '#ajp-photo-selection-add-duplicate', function() {
+        $(document).on('click', '#ajp-photo-selection-add-duplicate', function () {
             selectionAddSimilarity(2);
         });
-        window.closePhotoDrawer = function() {
+        window.closePhotoDrawer = function () {
             $('#ajp-photo-modal').modal('hide');
         };
-        window.startSuggestionLocation = function() {
+        window.startSuggestionLocation = function () {
             if (window.albumId) {
                 window.open('/geotag/?album=' + window.albumId + '&photo=' + window.currentlyOpenPhotoId, '_blank');
             } else {
@@ -142,7 +145,7 @@
         if (input) {
             var options = {};
             var autocomplete = new window.google.maps.places.Autocomplete(input, options);
-            window.google.maps.event.addListener(autocomplete, 'place_changed', function() {
+            window.google.maps.event.addListener(autocomplete, 'place_changed', function () {
                 var place = autocomplete.getPlace();
                 $('#ajp-curator-add-area-name-hidden').val(place.name);
                 areaLat = place.geometry.location.lat();
@@ -152,7 +155,7 @@
                 });
             });
         }
-        $(document).on('click', '.ajp-remove-from-selection-button', function(e) {
+        $(document).on('click', '.ajp-remove-from-selection-button', function (e) {
             e.stopPropagation();
             e.preventDefault();
             var $this = $(this),
@@ -160,7 +163,7 @@
                     id: $this.data('id'),
                     csrfmiddlewaretoken: docCookies.getItem('csrftoken'),
                 };
-            $.post(window.photoSelectionURL, data, function(response) {
+            $.post(window.photoSelectionURL, data, function (response) {
                 var len = Object.keys(response).length,
                     target = $('#ajp-header-selection-indicator');
                 if (len < 2) {
@@ -179,6 +182,7 @@
                     target.addClass('d-none');
                 }
                 target.find('div').html(len);
+                localStorage.setItem('ajp_photo_selection_sync_trigger', Date.now());
             });
             $this.parent().parent().remove();
         });
@@ -189,8 +193,8 @@
         submitCategoryContent += submitCategoryActionButtonTemplate;
         let submitCategoryTitle = gettext('Categorize scene');
 
-        window.submitCategories = function() {
-            $.get('/photo-selection/', function(response) {
+        window.submitCategories = function () {
+            $.get('/photo-selection/', function (response) {
                 let photos = [];
                 for (var key in response) {
                     photos.push(key);
@@ -213,8 +217,8 @@
 
         let pictureEditTitle = gettext('Edit');
 
-        window.submitPictureEdits = function() {
-            $.get('/photo-selection/', function(response) {
+        window.submitPictureEdits = function () {
+            $.get('/photo-selection/', function (response) {
                 let photos = [];
                 for (var key in response) {
                     photos.push(key);
