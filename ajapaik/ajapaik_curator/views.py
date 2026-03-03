@@ -118,12 +118,15 @@ def curator_search(request):
 
 def curator_my_album_list(request):
     user_profile = request.get_user().profile
-    serializer = CuratorMyAlbumListAlbumSerializer(
-        Album.objects.filter(Q(profile=user_profile, atype__in=[Album.CURATED, Album.PERSON])).order_by('-created'),
-        many=True
-    )
-
-    return HttpResponse(JSONRenderer().render(serializer.data), content_type='application/json')
+    albums = Album.objects.filter(Q(profile=user_profile, atype__in=[Album.CURATED, Album.PERSON])).order_by('-created')
+    data = []
+    for a in albums:
+        data.append({
+            'id': a.id,
+            'name': a.name,
+            'photo_count': a.photo_count
+        })
+    return HttpResponse(json.dumps(data), content_type='application/json')
 
 
 def curator_selectable_albums(request):

@@ -502,6 +502,18 @@ class PhotoManager(EstimatedCountManager):
 class Photo(Model):
     objects = PhotoManager()
 
+    @staticmethod
+    def photo_ids_from_session(request):
+        if 'photo_ids' in request.session:
+            return request.session['photo_ids']
+        return []
+
+    @staticmethod
+    def selection_ids_from_session(request):
+        if 'selection_ids' in request.session:
+            return request.session['selection_ids']
+        return []
+
     # Removed sorl ImageField because of https://github.com/mariocesar/sorl-thumbnail/issues/295
     image = ImageField(_('Image'), upload_to='uploads', blank=True, null=True, max_length=255, height_field='height',
                        width_field='width')

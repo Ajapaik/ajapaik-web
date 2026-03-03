@@ -2,7 +2,7 @@
 import json
 import logging
 import urllib
-from time import time
+import time
 from typing import Union
 from urllib.request import build_opener
 from xml.etree import ElementTree as ET
@@ -373,45 +373,54 @@ def frontpage_async_albums(request):
 
 
 def photo_selection(request):
-    form = PhotoSelectionForm(request.POST)
-    if 'photo_selection' not in request.session:
-        request.session['photo_selection'] = {}
-    if form.is_valid():
-        if form.cleaned_data['clear']:
-            request.session['photo_selection'] = {}
-        elif form.cleaned_data['id']:
-            photo_id = str(form.cleaned_data['id'].id)
-            helper = request.session['photo_selection']
-            if photo_id not in request.session['photo_selection']:
-                helper[photo_id] = True
-            else:
-                del helper[photo_id]
-            request.session['photo_selection'] = helper
+    photo_ids = Photo.photo_ids_from_session(request)
+    photo_ids.sort()
 
-    return HttpResponse(json.dumps(request.session['photo_selection']), content_type='application/json')
+    if request.method == 'POST':
+        if 'photo_id' in request.POST:
+            try:
+                photo_id = int(request.POST['photo_id'])
+                if photo_id in photo_ids:
+                    photo_ids.remove(photo_id)
+                else:
+                    photo_ids.append(photo_id)
+                photo_ids.sort()
+                request.session['photo_ids'] = photo_ids
+                request.session['photo_selection_ts'] = int(time.time() * 1000)
+            except ValueError:
+                pass
 
+        if 'clear' in request.POST:
+            request.session['photo_ids'] = []
+            request.session['photo_selection_ts'] = int(time.time() * 1000)
+
+    return HttpResponse(json.dumps({
+        'photo_ids': photo_ids,
+        'ts': request.session.get('photo_selection_ts', 0)
+    }), content_type='application/json')
 
 def list_photo_selection(request):
-    photos = None
+    photo_ids = Photo.photo_ids_from_session(request)
     at_least_one_photo_has_location = False
     count_with_location = 0
     whole_set_albums_selection_form = CuratorWholeSetAlbumsSelectionForm()
-    if 'photo_selection' in request.session:
-        photos = Photo.objects.filter(pk__in=request.session['photo_selection']).values_list('id', 'width', 'height',
-                                                                                             'flip', 'description',
-                                                                                             'lat', 'lon')
-        photos = [list(each) for each in photos]
-        for p in photos:
-            if p[5] and p[6]:
-                at_least_one_photo_has_location = True
-                count_with_location += 1
-            p[1], p[2] = calculate_thumbnail_size_max_height(p[1], p[2], 300)
+
+    photos_qs = Photo.objects.filter(pk__in=photo_ids)
+    photos = []
+    for p in photos_qs:
+        if p.lat and p.lon:
+            at_least_one_photo_has_location = True
+            count_with_location += 1
+        p.width, p.height = calculate_thumbnail_size_max_height(p.width, p.height, 300)
+        photos.append(p)
+
     context = {
         'is_selection': True,
         'photos': photos,
         'at_least_one_photo_has_location': at_least_one_photo_has_location,
         'count_with_location': count_with_location,
-        'whole_set_albums_selection_form': whole_set_albums_selection_form
+        'whole_set_albums_selection_form': whole_set_albums_selection_form,
+        'selection_ts': request.session.get('photo_selection_ts', 0)
     }
 
     return render(request, 'photo/selection/photo_selection.html', context)
@@ -464,6 +473,15 @@ def upload_photo_selection(request):
         profile.set_calculated_fields()
         profile.save()
         context['message'] = _('Recuration successful')
+
+        if len(photo_ids) == 1:
+            photo_obj = Photo.objects.get(pk=photo_ids[0])
+            context['albums'] = []
+            for ap in photo_obj.albumphoto_set.all():
+                context['albums'].append({
+                    'id': ap.album.id,
+                    'name': ap.album.name
+                })
     else:
         context['error'] = _('Faulty data submitted')
 
