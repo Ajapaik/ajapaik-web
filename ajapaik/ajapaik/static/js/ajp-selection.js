@@ -107,18 +107,15 @@
         $(document).on('mouseout', '.ajp-photo-selection-thumbnail', function () {
             $(this).parent().find('.ajp-remove-from-selection-button').hide();
         });
-        $(document).on('mouseenter', '.ajp-remove-from-selection-button', function () {
-            $(this).show();
-        });
-        $(document).on('mouseout', '.ajp-remove-from-selection-button', function () {
-            $(this).hide();
-        });
         $(document).on('click', '#ajp-photo-selection-clear-selection-button', function () {
             var data = {
                 clear: true,
                 csrfmiddlewaretoken: docCookies.getItem('csrftoken'),
             };
-            $.post(window.photoSelectionURL, data, function () {
+            $.post(window.photoSelectionURL, data, function (response) {
+                if (response.ts) {
+                    localStorage.setItem('photo_selection_ts', response.ts);
+                }
                 window.location.reload();
             });
         });
@@ -152,36 +149,6 @@
                 });
             });
         }
-        $(document).on('click', '.ajp-remove-from-selection-button', function (e) {
-            e.stopPropagation();
-            e.preventDefault();
-            var $this = $(this),
-                data = {
-                    photo_id: $this.data('id'),
-                    csrfmiddlewaretoken: docCookies.getItem('csrftoken'),
-                };
-            $.post(window.photoSelectionURL, data, function (response) {
-                var len = response.photo_selection ? response.photo_selection.length : 0,
-                    target = $('#ajp-header-selection-indicator');
-                if (len < 2) {
-                    $('#ajp-photo-selection-add-similarity').addClass('d-none');
-                    $('#ajp-photo-selection-add-duplicate').addClass('d-none');
-                }
-                if (len < 1) {
-                    $('#ajp-photo-selection-create-album-button').addClass('d-none');
-                    $('#ajp-photo-selection-clear-selection-button').addClass('d-none');
-                    $('#ajp-photo-selection-categorize-scenes-button').addClass('d-none');
-                    $('#ajp-photo-selection-edit-pictures-button').addClass('d-none');
-                }
-                if (len > 0) {
-                    target.removeClass('d-none');
-                } else {
-                    target.addClass('d-none');
-                }
-                target.find('div').html(len);
-            });
-            $this.parent().parent().remove();
-        });
 
         let container = 'body';
         let submitCategoryContent = `<div class='d-flex mb-4' style='justify-content:center;'><div class='d-flex' style='flex-direction:column;align-items:center;'><button onclick='clickSceneCategoryButton(this.id);' id='interior-button' class='btn mr-2 btn-light' style='display:grid;'><span class='material-icons notranslate ajp-icon-48'>hotel</span><span>` + gettext('Interior') + `</span></button></div><div class='d-flex' style='flex-direction:column;align-items:center;'><button onclick='clickSceneCategoryButton(this.id);' id='exterior-button' class='btn ml-2 btn-light' style='display:grid;'><span class='material-icons ajp-icon-48 notranslate'>home</span><span>` + gettext('Exterior') + `</span></button></div></div><div class='d-flex'><div class='d-flex' style='flex-direction:column;align-items:center;'><button onclick='clickViewpointElevationCategoryButton(this.id);' id='ground-button' class='btn mr-2 btn-light' style='display:grid;'><span class='material-icons notranslate ajp-icon-48'>nature_people</span><span>` + gettext('Ground') + `</span></button></div><div class='d-flex' style='flex-direction:column;align-items:center;'><button onclick='clickViewpointElevationCategoryButton(this.id);' id='raised-button' class='btn mr-2 btn-light' style='display:grid;'><span class='material-icons notranslate ajp-icon-48'>location_city</span><span>` + gettext('Raised') + `</span></button></div><div class='d-flex' style='flex-direction:column;align-items:center;'><button onclick='clickViewpointElevationCategoryButton(this.id);' id='aerial-button' class='btn ml-2 d-grid btn-light' style='display:grid;'><span class='material-icons ajp-icon-48 notranslate'>flight</span><span>` + gettext('Aerial') + `</span></button></div></div>`;

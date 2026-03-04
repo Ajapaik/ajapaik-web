@@ -1167,10 +1167,40 @@ $('.ajp-navbar').autoHidingNavbar();
         window.FB.XFBML.parse($('#ajp-rephoto-comments').get(0));
         window.FB.XFBML.parse($('#ajp-original-photo-comments').get(0));
     });
+    const updateSelectionUI = (count) => {
+        const target = $('#ajp-header-selection-indicator');
+        if (count > 0) {
+            target.removeClass('d-none');
+        } else {
+            target.addClass('d-none');
+        }
+        target.find('div').html(count);
+
+        if (count < 2) {
+            $('#ajp-photo-selection-add-similarity').addClass('d-none');
+            $('#ajp-photo-selection-add-duplicate').addClass('d-none');
+        } else {
+            $('#ajp-photo-selection-add-similarity').removeClass('d-none');
+            $('#ajp-photo-selection-add-duplicate').removeClass('d-none');
+        }
+        if (count < 1) {
+            $('#ajp-photo-selection-create-album-button').addClass('d-none');
+            $('#ajp-photo-selection-clear-selection-button').addClass('d-none');
+            $('#ajp-photo-selection-categorize-scenes-button').addClass('d-none');
+            $('#ajp-photo-selection-edit-pictures-button').addClass('d-none');
+        } else {
+            $('#ajp-photo-selection-create-album-button').removeClass('d-none');
+            $('#ajp-photo-selection-clear-selection-button').removeClass('d-none');
+            $('#ajp-photo-selection-categorize-scenes-button').removeClass('d-none');
+            $('#ajp-photo-selection-edit-pictures-button').removeClass('d-none');
+        }
+    };
+
     $(document).on('click', '.ajp-thumbnail-selection-icon', function (e) {
+        e.preventDefault();
         e.stopPropagation();
         const $this = $(this);
-        const photoId = $this.data('id');
+        const photoId = String($this.data('id'));
         const isSelected = !$this.hasClass('ajp-thumbnail-selection-icon-blue');
 
         const updateUI = (id, selected) => {
@@ -1187,10 +1217,12 @@ $('.ajp-navbar').autoHidingNavbar();
 
         let idsToToggle = [photoId];
         if (e.shiftKey && window.lastSelectedPhotoId) {
-            const allPhotos = $('.ajp-thumbnail-selection-icon').map(function () {
-                return $(this).data('id');
+            const container = $(this).closest('.panel-body, #ajp-photo-selection-gallery, .ajp-frontpage-historic-photos, #ajp-curator-imports, .row');
+            const allIcons = container.find('.ajp-thumbnail-selection-icon');
+            const allPhotos = allIcons.map(function () {
+                return String($(this).data('id'));
             }).get();
-            const start = allPhotos.indexOf(window.lastSelectedPhotoId);
+            const start = allPhotos.indexOf(String(window.lastSelectedPhotoId));
             const end = allPhotos.indexOf(photoId);
             if (start !== -1 && end !== -1) {
                 idsToToggle = allPhotos.slice(Math.min(start, end), Math.max(start, end) + 1);
@@ -1204,6 +1236,7 @@ $('.ajp-navbar').autoHidingNavbar();
 
         if (idsToToggle.length > 1) {
             data.selection = JSON.stringify(idsToToggle);
+            data.action = isSelected ? 'add' : 'remove';
         } else {
             data.photo_id = idsToToggle[0];
         }
@@ -1212,13 +1245,7 @@ $('.ajp-navbar').autoHidingNavbar();
 
         $.post(window.photoSelectionURL, data, function (response) {
             const count = response.photo_selection ? response.photo_selection.length : 0;
-            const target = $('#ajp-header-selection-indicator');
-            if (count > 0) {
-                target.removeClass('d-none');
-            } else {
-                target.addClass('d-none');
-            }
-            target.find('div').html(count);
+            updateSelectionUI(count);
             if (response.ts) {
                 localStorage.setItem('photo_selection_ts', response.ts);
             }
@@ -1245,13 +1272,7 @@ $('.ajp-navbar').autoHidingNavbar();
                     }
                 });
                 const count = selectedIds.length;
-                const target = $('#ajp-header-selection-indicator');
-                if (count > 0) {
-                    target.removeClass('d-none');
-                } else {
-                    target.addClass('d-none');
-                }
-                target.find('div').html(count);
+                updateSelectionUI(count);
 
                 if (window.isSelection && count < $('.ajp-frontpage-image-container').length) {
                     $('.ajp-frontpage-image-container').each(function () {

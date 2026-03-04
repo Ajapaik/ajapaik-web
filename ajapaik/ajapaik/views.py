@@ -368,12 +368,20 @@ def photo_selection(request):
         if 'selection' in request.POST:
             try:
                 ids_to_toggle = json.loads(request.POST['selection'])
+                action = request.POST.get('action')
                 for photo_id in ids_to_toggle:
                     photo_id = int(photo_id)
-                    if photo_id in photo_ids:
-                        photo_ids.remove(photo_id)
+                    if action == 'add':
+                        if photo_id not in photo_ids:
+                            photo_ids.append(photo_id)
+                    elif action == 'remove':
+                        if photo_id in photo_ids:
+                            photo_ids.remove(photo_id)
                     else:
-                        photo_ids.append(photo_id)
+                        if photo_id in photo_ids:
+                            photo_ids.remove(photo_id)
+                        else:
+                            photo_ids.append(photo_id)
                 photo_ids.sort()
                 request.session['photo_selection'] = photo_ids
                 request.session['photo_selection_ts'] = int(time.time() * 1000)

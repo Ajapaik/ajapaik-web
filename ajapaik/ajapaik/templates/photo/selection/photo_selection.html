@@ -52,7 +52,7 @@
         <div class="panel panel-default" id="ajp-selection-middle-panel">
             <div class="row panel-body">
                 {% for photo in photos %}
-                <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2 p-2 m-3 text-center"
+                <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2 p-2 m-3 text-center ajp-frontpage-image-container"
                     style="border-left: 1px solid grey; border-right: 1px solid grey; border-top: 1px solid grey; border-bottom: 1px solid grey;border-radius: 5px;background: white; min-height: 330px;"
                     id="ajp-frontpage-image-container-{{ photo.id }}" data-id="{{ photo.id }}">
                     <a href="{% url 'photo' photo.id %}"
@@ -60,7 +60,11 @@
                         <img src="{% url 'image_thumb' photo.id 250 %}" data-src="{% url 'image_thumb' photo.id 250 %}"
                             width="{{ photo.width }}" height="{{ photo.height }}" alt="{{ photo.id }}"
                             class="img-fluid ajp-photo-selection-thumbnail lazyload">
-                        <div class="ajp-remove-from-selection-button" data-id="{{ photo.id }}"></div>
+                        <button
+                            class="ajp-thumbnail-selection-icon ajp-thumbnail-selection-icon-blue ajp-remove-from-selection-button"
+                            data-id="{{ photo.id }}">
+                            <span class="material-icons notranslate">check_circle</span>
+                        </button>
                     </a>
                 </div>
                 {% endfor %}
