@@ -386,7 +386,7 @@ def photo_selection(request):
                     else:
                         photo_ids.append(photo_id)
                 photo_ids.sort()
-                request.session['photo_ids'] = photo_ids
+                request.session['photo_selection'] = photo_ids
                 request.session['photo_selection_ts'] = int(time.time() * 1000)
             except (ValueError, TypeError):
                 pass
@@ -398,17 +398,17 @@ def photo_selection(request):
                 else:
                     photo_ids.append(photo_id)
                 photo_ids.sort()
-                request.session['photo_ids'] = photo_ids
+                request.session['photo_selection'] = photo_ids
                 request.session['photo_selection_ts'] = int(time.time() * 1000)
             except ValueError:
                 pass
 
         if 'clear' in request.POST:
-            request.session['photo_ids'] = []
+            request.session['photo_selection'] = []
             request.session['photo_selection_ts'] = int(time.time() * 1000)
 
     return HttpResponse(json.dumps({
-        'photo_ids': photo_ids,
+        'photo_selection': photo_ids,
         'ts': request.session.get('photo_selection_ts', 0)
     }), content_type='application/json')
 

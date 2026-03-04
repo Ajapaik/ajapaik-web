@@ -1211,7 +1211,7 @@ $('.ajp-navbar').autoHidingNavbar();
         idsToToggle.forEach(id => updateUI(id, isSelected));
 
         $.post(window.photoSelectionURL, data, function (response) {
-            const count = response.photo_ids ? response.photo_ids.length : 0;
+            const count = response.photo_selection ? response.photo_selection.length : 0;
             const target = $('#ajp-header-selection-indicator');
             if (count > 0) {
                 target.removeClass('d-none');
@@ -1232,7 +1232,7 @@ $('.ajp-navbar').autoHidingNavbar();
     window.addEventListener('storage', function (e) {
         if (e.key === 'photo_selection_ts') {
             $.get(window.photoSelectionURL, function (response) {
-                const selectedIds = response.photo_ids || [];
+                const selectedIds = response.photo_selection || [];
                 $('.ajp-thumbnail-selection-icon').each(function () {
                     const id = $(this).data('id');
                     if (selectedIds.includes(id)) {
