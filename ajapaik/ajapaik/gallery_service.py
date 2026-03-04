@@ -188,7 +188,7 @@ def get_filtered_data_for_gallery(
                 photos = photos.order_by(F('first_rephoto').asc(nulls_last=True))
             else:
                 photos = photos.order_by(F('latest_rephoto').desc(nulls_last=True))
-            photos_with_rephotos = photos.filter(first_rephoto__isnull=False)
+            photos_with_rephotos = photos.filter(rephoto_count__gt=0)
         elif order2 == 'comments':
             if order3 == 'reverse':
                 photos = photos.order_by(F('first_comment').asc(nulls_last=True))

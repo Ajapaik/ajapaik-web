@@ -12,8 +12,9 @@
         <div class="row panel-body d-inline-flex">
             {% if photos|length > 0 %}
             <div class="col-auto mb-3 pr-0">
-                <button id="ajp-photo-selection-create-album-button" type="button" class="btn btn-success">{% trans "Add
-                    to album" %}</button>
+                <button id="ajp-photo-selection-create-album-button" type="button" class="btn btn-success">
+                    {% trans "Add to album" %}
+                </button>
             </div>
             {% endif %}
             {% if photos|length > 1 %}
@@ -25,16 +26,19 @@
             {% endif %}
             {% if photos|length > 0 %}
             <div class="col-auto mb-3 pr-0">
-                <button id="ajp-photo-selection-categorize-scenes-button" type="button" class="btn btn-success">{% trans
-                    "Add categories to picture(s)" %}</button>
+                <button id="ajp-photo-selection-categorize-scenes-button" type="button" class="btn btn-success">
+                    {% trans "Add categories to picture(s)" %}
+                </button>
             </div>
             <div class="col-auto mb-3 pr-0">
-                <button id="ajp-photo-selection-edit-pictures-button" type="button" class="btn btn-success">{% trans
-                    "Flip, rotate and invert picture(s)" %}</button>
+                <button id="ajp-photo-selection-edit-pictures-button" type="button" class="btn btn-success">
+                    {% trans "Flip, rotate and invert picture(s)" %}
+                </button>
             </div>
             <div class="col-auto mb-3 pr-0">
-                <button id="ajp-photo-selection-clear-selection-button" type="button" class="btn btn-danger">{% trans
-                    "Clear selection" %}</button>
+                <button id="ajp-photo-selection-clear-selection-button" type="button" class="btn btn-danger">
+                    {% trans "Clear selection" %}
+                </button>
             </div>
             {% endif %}
         </div>
