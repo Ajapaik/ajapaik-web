@@ -388,6 +388,7 @@ def photo_selection(request):
                 photo_ids.sort()
                 request.session['photo_selection'] = photo_ids
                 request.session['photo_selection_ts'] = int(time.time() * 1000)
+                request.session.modified = True
             except (ValueError, TypeError):
                 pass
         elif 'photo_id' in request.POST:
@@ -400,12 +401,14 @@ def photo_selection(request):
                 photo_ids.sort()
                 request.session['photo_selection'] = photo_ids
                 request.session['photo_selection_ts'] = int(time.time() * 1000)
+                request.session.modified = True
             except ValueError:
                 pass
 
         if 'clear' in request.POST:
             request.session['photo_selection'] = []
             request.session['photo_selection_ts'] = int(time.time() * 1000)
+            request.session.modified = True
 
     return HttpResponse(json.dumps({
         'photo_selection': photo_ids,
@@ -490,7 +493,7 @@ def upload_photo_selection(request):
         if len(photo_ids) == 1:
             photo_obj = Photo.objects.get(pk=photo_ids[0])
             context['albums'] = []
-            for ap in photo_obj.albumphoto_set.all():
+            for ap in photo_obj.albumphoto.all():
                 context['albums'].append({
                     'id': ap.album.id,
                     'name': ap.album.name

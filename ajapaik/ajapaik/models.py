@@ -505,7 +505,7 @@ class Photo(Model):
     @staticmethod
     def photo_ids_from_session(request):
         if 'photo_selection' in request.session:
-            return request.session['photo_selection']
+            return list(request.session['photo_selection'])
         return []
 
     @staticmethod
