@@ -2,7 +2,7 @@
     <script id="ajp-frontpage-photo-template" type="text/x-tmpl">
         <a target="_blank" href="{%=photoURL%}{%=o.id%}/{%=o.slug%}" class="ajp-frontpage-image-container"
         id="ajp-frontpage-image-container-{%=o.id%}" data-id="{%=o.id%}" onclick="return false;" rel="noopener">
-            <img alt="{%=o.display_text%}" title="{%=o.display_text%}" src="" data-src="{%=photoThumbURL%}{%=o.id%}/400/{%=o.slug%}"
+            <img alt="{%=o.display_text%}" title="{%=o.display_text%}" src="" data-src="{%=photoThumbURL%}{%=o.id%}/400/{%=o.slug%}/"
                 class="ajp-frontpage-image lazyload img-fluid" data-id="{%=o.id%}"
                 width="{%=o.width%}" height="{%=o.height%}"/>
             {% if (userIsSocialConnected) { %}

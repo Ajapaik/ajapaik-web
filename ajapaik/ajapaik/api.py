@@ -1024,7 +1024,7 @@ class RephotoUploadSettings(AjapaikAPIView):
 
     def post(self, request):
         try:
-            profile = request.user.profile
+            profile = request.get_user().profile
             profile.wikimedia_commons_rephoto_upload_consent = request.POST['wikimedia_commons_rephoto_upload_consent']
             profile.save()
             return JsonResponse({'message': REPHOTO_UPLOAD_SETTINGS_SUCCESS})
@@ -1582,7 +1582,7 @@ class SubmitSimilarPhotos(AjapaikAPIView):
 
     def post(self, request):
         points = 0
-        profile = request.user.profile
+        profile = request.get_user().profile
         data = json.loads(request.body.decode('utf-8'))
         photos = data['photos']
         photos2 = data['photos']
@@ -1636,8 +1636,9 @@ class Transcriptions(AjapaikAPIView):
 
     def post(self, request):
         try:
+            profile = request.get_user().profile
             photo = get_object_or_404(Photo, id=request.POST['photo'])
-            user = get_object_or_404(Profile, pk=request.user.profile.id)
+            user = get_object_or_404(Profile, pk=profile.id)
             count = Transcription.objects.filter(photo=photo, text=request.POST['text']).count()
             text = request.POST['text']
 
@@ -1689,12 +1690,13 @@ class SubmitTranscriptionFeedback(AjapaikAPIView):
 
     def post(self, request):
         try:
+            profile = request.get_user().profile
             if TranscriptionFeedback.objects.filter(transcription_id=request.POST['id'],
-                                                    user_id=request.user.profile.id).exists():
+                                                    user_id=profile.id).exists():
                 return JsonResponse({'message': TRANSCRIPTION_FEEDBACK_ALREADY_GIVEN})
             else:
                 TranscriptionFeedback(
-                    user=get_object_or_404(Profile, pk=request.user.profile.id),
+                    user=get_object_or_404(Profile, pk=profile.id),
                     transcription=get_object_or_404(Transcription, id=request.POST['id'])
                 ).save()
                 return JsonResponse({'message': TRANSCRIPTION_FEEDBACK_ADDED})
@@ -1709,7 +1711,7 @@ class UserSettings(AjapaikAPIView):
 
     def post(self, request):
         try:
-            profile = request.user.profile
+            profile = request.get_user().profile
             profile.preferred_language = request.POST['preferredLanguage']
             profile.newsletter_consent = request.POST['newsletterConsent']
             profile.save()
@@ -1725,7 +1727,7 @@ class ChangeProfileDisplayName(AjapaikAPIView):
 
     def post(self, request):
         try:
-            profile = request.user.profile
+            profile = request.get_user().profile
             profile.display_name = request.POST['display_name']
             profile.save()
             profile_display_name_change = ProfileDisplayNameChange(display_name=request.POST['display_name'],
@@ -1743,7 +1745,7 @@ class PhotoSuggestion(AjapaikAPIView):
 
     def get(self, request, photo_id):
         try:
-            if request.user.is_anonymous:
+            if request.get_user().is_anonymous:
                 return JsonResponse({'error': PLEASE_LOGIN}, status=401)
 
             photo = get_object_or_404(Photo, id=photo_id)
@@ -1752,7 +1754,7 @@ class PhotoSuggestion(AjapaikAPIView):
             viewpoint_elevation = 'undefined'
             viewpoint_elevation_consensus = 'undefined'
             viewpoint_elevation_suggestion = PhotoViewpointElevationSuggestion.objects \
-                .filter(photo=photo, proposer=request.user.profile).order_by('-created').first()
+                .filter(photo=photo, proposer=request.get_user().profile).order_by('-created').first()
             if viewpoint_elevation_suggestion:
                 if viewpoint_elevation_suggestion.viewpoint_elevation == 0:
                     viewpoint_elevation = 'Ground'
@@ -1761,7 +1763,8 @@ class PhotoSuggestion(AjapaikAPIView):
                 if viewpoint_elevation_suggestion.viewpoint_elevation == 2:
                     viewpoint_elevation = 'Aerial'
 
-            scene_suggestion = PhotoSceneSuggestion.objects.filter(photo=photo, proposer=request.user.profile).order_by(
+            scene_suggestion = PhotoSceneSuggestion.objects.filter(photo=photo,
+                                                                   proposer=request.get_user().profile).order_by(
                 '-created').first()
 
             if scene_suggestion:
@@ -1789,58 +1792,61 @@ class PhotoSuggestion(AjapaikAPIView):
             return JsonResponse({'error': _('Something went wrong')}, status=500)
 
     def post(self, request):
-        profile = request.user.profile
-        data = json.loads(request.body.decode('utf-8'))
-        scene = data['scene']
-        viewpoint_elevation = data['viewpointElevation']
-        photo_ids = data['photoIds']
-        response = ''
+        try:
+            profile = request.get_user().profile
+            data = json.loads(request.body.decode('utf-8'))
+            scene = data['scene']
+            viewpoint_elevation = data['viewpointElevation']
+            photo_ids = data['photoIds']
+            response = ''
 
-        if photo_ids is None:
-            return JsonResponse({'error': MISSING_PARAMETER_PHOTO_IDS}, status=400)
+            if photo_ids is None:
+                return JsonResponse({'error': MISSING_PARAMETER_PHOTO_IDS}, status=400)
 
-        if (scene is None or scene == 'undefined') and (
-                viewpoint_elevation is None or viewpoint_elevation == 'undefined'):
-            return JsonResponse({'error': MISSING_PARAMETER_SCENE_VIEWPOINT_ELEVATION}, status=400)
+            if (scene is None or scene == 'undefined') and (
+                    viewpoint_elevation is None or viewpoint_elevation == 'undefined'):
+                return JsonResponse({'error': MISSING_PARAMETER_SCENE_VIEWPOINT_ELEVATION}, status=400)
 
-        scene_suggestion_choice = None
-        for choice in PhotoSceneSuggestion.SCENE_CHOICES:
-            if choice[1] == scene:
-                scene_suggestion_choice = choice[0]
+            scene_suggestion_choice = None
+            for choice in PhotoSceneSuggestion.SCENE_CHOICES:
+                if choice[1] == scene:
+                    scene_suggestion_choice = choice[0]
 
-        photo_viewpoint_elevation_suggestion_choice = None
-        for choice in PhotoViewpointElevationSuggestion.VIEWPOINT_ELEVATION_CHOICES:
-            if choice[1] == viewpoint_elevation:
-                photo_viewpoint_elevation_suggestion_choice = choice[0]
+            photo_viewpoint_elevation_suggestion_choice = None
+            for choice in PhotoViewpointElevationSuggestion.VIEWPOINT_ELEVATION_CHOICES:
+                if choice[1] == viewpoint_elevation:
+                    photo_viewpoint_elevation_suggestion_choice = choice[0]
 
-        photo_scene_suggestions = []
-        photo_viewpoint_elevation_suggestions = []
+            photo_scene_suggestions = []
+            photo_viewpoint_elevation_suggestions = []
 
-        for photo_id in photo_ids:
-            if not photo_id.isdigit():
-                return JsonResponse({'error': INVALID_PHOTO_ID}, status=400)
+            for photo_id in photo_ids:
+                if not photo_id.isdigit():
+                    return JsonResponse({'error': INVALID_PHOTO_ID}, status=400)
 
-            photo = Photo.objects.filter(id=photo_id).first()
-            if photo is None:
-                return JsonResponse({'error': f'{NO_PHOTO_WITH_ID} {photo_id}'}, status=404)
+                photo = Photo.objects.filter(id=photo_id).first()
+                if photo is None:
+                    return JsonResponse({'error': f'{NO_PHOTO_WITH_ID} {photo_id}'}, status=404)
 
-            if scene_suggestion_choice is not None:
-                response, photo_scene_suggestions, _, _ = suggest_photo_edit(photo_scene_suggestions, 'scene',
-                                                                             scene_suggestion_choice, Points, 20,
-                                                                             Points.CATEGORIZE_SCENE,
-                                                                             PhotoSceneSuggestion, photo, profile,
-                                                                             response, None)
+                if scene_suggestion_choice is not None:
+                    response, photo_scene_suggestions, _, _ = suggest_photo_edit(photo_scene_suggestions, 'scene',
+                                                                                 scene_suggestion_choice, Points, 20,
+                                                                                 Points.CATEGORIZE_SCENE,
+                                                                                 PhotoSceneSuggestion, photo, profile,
+                                                                                 response, None)
 
-            if photo_viewpoint_elevation_suggestion_choice is not None:
-                response, photo_viewpoint_elevation_suggestions, _, _ = suggest_photo_edit(
-                    photo_viewpoint_elevation_suggestions, 'viewpoint_elevation',
-                    photo_viewpoint_elevation_suggestion_choice, Points, 20, Points.ADD_VIEWPOINT_ELEVATION,
-                    PhotoViewpointElevationSuggestion, photo, profile, response, None)
+                if photo_viewpoint_elevation_suggestion_choice is not None:
+                    response, photo_viewpoint_elevation_suggestions, _, _ = suggest_photo_edit(
+                        photo_viewpoint_elevation_suggestions, 'viewpoint_elevation',
+                        photo_viewpoint_elevation_suggestion_choice, Points, 20, Points.ADD_VIEWPOINT_ELEVATION,
+                        PhotoViewpointElevationSuggestion, photo, profile, response, None)
 
-        PhotoSceneSuggestion.objects.bulk_create(photo_scene_suggestions)
-        PhotoViewpointElevationSuggestion.objects.bulk_create(photo_viewpoint_elevation_suggestions)
+            PhotoSceneSuggestion.objects.bulk_create(photo_scene_suggestions)
+            PhotoViewpointElevationSuggestion.objects.bulk_create(photo_viewpoint_elevation_suggestions)
 
-        return JsonResponse({'message': response})
+            return JsonResponse({'message': response})
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=500)
 
 
 class PhotoAppliedOperations(AjapaikAPIView):
@@ -1850,7 +1856,7 @@ class PhotoAppliedOperations(AjapaikAPIView):
 
     def get(self, request, photo_id):
         try:
-            if request.user.is_anonymous:
+            if request.get_user().is_anonymous:
                 return JsonResponse({'error': PLEASE_LOGIN}, status=401)
 
             photo = get_object_or_404(Photo, id=photo_id)
@@ -1860,15 +1866,13 @@ class PhotoAppliedOperations(AjapaikAPIView):
             invert_consensus = 'undefined'
             rotated = 'undefined'
             rotated_consensus = 'undefined'
+            profile = request.get_user().profile
 
-            flip_suggestion = PhotoFlipSuggestion.objects.filter(photo=photo, proposer=request.user.profile).order_by(
+            flip_suggestion = PhotoFlipSuggestion.objects.filter(photo=photo, proposer=profile).order_by(
                 '-created').first()
-            invert_suggestion = PhotoInvertSuggestion.objects.filter(
-                photo=photo, proposer=request.user.profile
-            ).order_by(
+            invert_suggestion = PhotoInvertSuggestion.objects.filter(photo=photo, proposer=profile).order_by(
                 '-created').first()
-            rotated_suggestion = PhotoRotationSuggestion.objects.filter(photo=photo,
-                                                                        proposer=request.user.profile).order_by(
+            rotated_suggestion = PhotoRotationSuggestion.objects.filter(photo=photo, proposer=profile).order_by(
                 '-created').first()
 
             if flip_suggestion and flip_suggestion.flip:
@@ -1900,7 +1904,7 @@ class PhotoAppliedOperations(AjapaikAPIView):
             return JsonResponse({'error': _('Something went wrong')}, status=500)
 
     def post(self, request):
-        profile = request.user.profile
+        profile = request.get_user().profile
         data = json.loads(request.body.decode('utf-8'))
         flip = data['flip']
         invert = data['invert']

@@ -13,12 +13,12 @@ from ajapaik.ajapaik.models import Video, Photo, Source, AlbumPhoto, Points
 from ajapaik.ajapaik.utils import is_ajax
 
 
-def videoslug(request, video_id, pseudo_slug=None):
+def video_slug(request, video_id, pseudo_slug=None):
     video = get_object_or_404(Video, pk=video_id)
     if is_ajax(request):
         template = 'video/_video_modal.html'
     else:
-        template = 'video/videoview.html'
+        template = 'video/video_view.html'
 
     return render(request, template, {'video': video, })
 

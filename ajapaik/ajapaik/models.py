@@ -9,7 +9,6 @@ from functools import cached_property
 from io import StringIO
 from json import loads
 from math import degrees
-from time import sleep
 from urllib.request import urlopen
 
 import numpy
@@ -30,9 +29,10 @@ from django.core.exceptions import ObjectDoesNotExist, ValidationError
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db.models import CASCADE, DateField, FileField, Lookup, Transform, Q, F, Sum, Index, Model, OneToOneField, \
-    CharField, TextField, DateTimeField, PositiveIntegerField, BooleanField, ForeignKey
+    CharField, TextField, DateTimeField, PositiveIntegerField, BooleanField, ForeignKey, OuterRef, Exists, Count
 from django.db.models import JSONField
 from django.db.models.fields import Field
+from django.db.models.functions import Coalesce
 from django.db.models.query import QuerySet
 from django.db.models.signals import post_save
 from django.template.defaultfilters import slugify
@@ -44,7 +44,6 @@ from django_comments_xtd.models import XtdComment, LIKEDIT_FLAG, DISLIKEDIT_FLAG
 from geopy.distance import great_circle
 from haystack import connections
 from pandas import DataFrame, Series
-from requests import get
 from sklearn.cluster import DBSCAN
 from sorl.thumbnail import get_thumbnail, delete
 
@@ -291,6 +290,14 @@ class Album(Model):
     class Meta:
         db_table = 'project_album'
 
+    @classmethod
+    def from_db(cls, db, field_names, values):
+        instance = super().from_db(db, field_names, values)
+        # Snapshot original coordinate values without triggering any ORM lookups or descriptors.
+        instance.original_lat = instance.__dict__.get("lat") if "lat" in field_names else None
+        instance.original_lon = instance.__dict__.get("lon") if "lon" in field_names else None
+        return instance
+
     def __str__(self):
         if self.as_json:
             return json.dumps({
@@ -303,15 +310,10 @@ class Album(Model):
 
         return self.name
 
-    def __init__(self, *args, **kwargs):
-        super(Album, self).__init__(*args, **kwargs)
-        self.original_lat = self.lat
-        self.original_lon = self.lon
-
     def save(self, *args, update_fields=None, force_insert=False, **kwargs):
         # We should not have such complex logic in save methods, because currently we perform save multiple times
         # which results in objects.create not working, since we can only save with `force_insert=True` only once
-        # but our complicated save methods calls it multiple times.
+        # but our complicated save method calls it multiple times.
         if not self.id or force_insert:
             super(Album, self).save(*args, update_fields=update_fields, force_insert=force_insert, **kwargs)
 
@@ -344,118 +346,109 @@ class Album(Model):
         connections['default'].get_unified_index().get_index(Album).update_object(self)
 
     def get_historic_photos_queryset_with_subalbums(self):
-        sa_ids = [self.id]
-
-        for sa in self.subalbums.filter(atype__in=[Album.CURATED, Album.PERSON]):
-            sa_ids.append(sa.id)
-
-        qs = Photo.objects.filter(rephoto_of__isnull=True).prefetch_related('albumphoto').filter(
-            albumphoto__album__in=sa_ids)
-
-        return qs.distinct('id')
+        sa_ids = [self.id] + list(
+            self.subalbums.filter(atype__in=[Album.CURATED, Album.PERSON])
+            .values_list("id", flat=True)
+        )
+        return (
+            Photo.objects.filter(
+                rephoto_of__isnull=True,
+                albumphoto__album_id__in=sa_ids,
+            )
+            .distinct("id")
+        )
 
     def get_geotagged_historic_photo_queryset_with_subalbums(self):
-        qs = self.get_historic_photos_queryset_with_subalbums().filter(lat__isnull=False, lon__isnull=False)
-        return qs.distinct('id')
+        return (
+            self.get_historic_photos_queryset_with_subalbums()
+            .filter(lat__isnull=False, lon__isnull=False)
+        )
 
     def get_rephotos_queryset_with_subalbums(self):
-        historic_photo_qs = self.get_historic_photos_queryset_with_subalbums().only('id').order_by()
-        qs = Photo.objects.filter(rephoto_of__isnull=False,
-                                  rephoto_of__in=historic_photo_qs.values('id').order_by()).order_by()
-
-        return qs.distinct('pk')
+        historic_photos = self.get_historic_photos_queryset_with_subalbums().filter(id=OuterRef("rephoto_of_id"))
+        return Photo.objects.filter(rephoto_of__isnull=False).filter(Exists(historic_photos))
 
     # All photos = historical photos + rephotos
     def get_all_photos_queryset_with_subalbums(self):
-        historic_photo_qs = self.get_historic_photos_queryset_with_subalbums().order_by()
-        rephoto_qs = Photo.objects.filter(rephoto_of__isnull=False,
-                                          rephoto_of__in=historic_photo_qs.values('id').order_by()).values(
-            'id').distinct('id').order_by()
-
-        historic_photo_list = list(historic_photo_qs.values_list('id', flat=True))
-
-        for p in rephoto_qs:
-            historic_photo_list.append(p['id'])
-
-        qs = Photo.objects.filter(id__in=historic_photo_list)
-        return qs.distinct('pk')
+        sa_ids = [self.id] + list(
+            self.subalbums.filter(atype__in=[Album.CURATED, Album.PERSON])
+            .values_list("id", flat=True)
+        )
+        historic_ids = Photo.objects.filter(
+            rephoto_of__isnull=True,
+            albumphoto__album_id__in=sa_ids,
+        ).values_list("id", flat=True)
+        rephoto_ids = Photo.objects.filter(
+            rephoto_of__isnull=False,
+            rephoto_of__in=historic_ids,
+        ).values_list("id", flat=True)
+        all_ids = historic_ids.union(rephoto_ids)
+        return Photo.objects.filter(id__in=all_ids)
 
     def get_comment_count_with_subalbums(self):
-        historic_photo_qs = self.get_historic_photos_queryset_with_subalbums() \
-            .filter(Q(comment_count__gt=0) | Q(first_rephoto__isnull=False)) \
-            .distinct('id').order_by()
-        photo_list = list(historic_photo_qs.values_list('id', flat=True))
-        rephoto_qs = Photo.objects.filter(comment_count__gt=0, rephoto_of__isnull=False,
-                                          rephoto_of__in=photo_list).values('id').distinct('id').order_by()
-
-        # Rephotos are included to stats because they were included in pre 2021-10-17 stats too
-        for p in rephoto_qs:
-            photo_list.append(p['id'])
-
-        count = Photo.objects.filter(id__in=photo_list, comment_count__gt=0).order_by().aggregate(Sum('comment_count'))[
-            'comment_count__sum']
-
-        if count == None:
-            return 0
-        else:
-            return count
+        historic = self.get_historic_photos_queryset_with_subalbums().filter(
+            Q(comment_count__gt=0) | Q(first_rephoto__isnull=False)
+        ).values("pk")  # subquery of IDs
+        historic_sum = Photo.objects.filter(
+            pk__in=historic,
+            comment_count__gt=0,
+        ).aggregate(total=Coalesce(Sum("comment_count"), 0))["total"]
+        rephoto_sum = Photo.objects.filter(
+            comment_count__gt=0,
+            rephoto_of__isnull=False,
+            rephoto_of_id__in=historic,
+        ).aggregate(total=Coalesce(Sum("comment_count"), 0))["total"]
+        return historic_sum + rephoto_sum
 
     def get_confirmed_similar_photo_count_with_subalbums(self):
-        qs = self.get_all_photos_queryset_with_subalbums().order_by()
+        qs = self.get_all_photos_queryset_with_subalbums()
         photo_ids = qs.values_list('pk', flat=True)
         count = ImageSimilarity.objects.filter(
-            from_photo__in=photo_ids, confirmed=True).only('pk').distinct('pk').order_by().count()
+            from_photo__in=photo_ids, confirmed=True).only('pk').distinct('pk').count()
         return count
 
     def get_similar_photo_count_with_subalbums(self):
-        qs = self.get_all_photos_queryset_with_subalbums().order_by()
+        qs = self.get_all_photos_queryset_with_subalbums()
         photo_ids = qs.values_list('pk', flat=True)
-        count = ImageSimilarity.objects.filter(from_photo__in=photo_ids).only('pk').distinct('pk').order_by().count()
+        count = ImageSimilarity.objects.filter(from_photo__in=photo_ids).only('pk').distinct('pk').count()
         return count
 
     def set_calculated_fields_new(self):
-        self.photo_count_with_subalbums = self.get_historic_photos_queryset_with_subalbums().only(
-            'pk').order_by().count()
-        self.rephoto_count_with_subalbums = self.get_rephotos_queryset_with_subalbums().only('pk').order_by().count()
-        self.geotagged_photo_count_with_subalbums = self.get_geotagged_historic_photo_queryset_with_subalbums().only(
-            'pk').order_by().count()
+        self.photo_count_with_subalbums = self.get_historic_photos_queryset_with_subalbums().order_by().count()
+        self.geotagged_photo_count_with_subalbums = self.get_geotagged_historic_photo_queryset_with_subalbums().order_by().count()
+        self.rephoto_count_with_subalbums = self.get_rephotos_queryset_with_subalbums().order_by().count()
         self.comments_count_with_subalbums = self.get_comment_count_with_subalbums()
-        self.similar_photo_count_with_subalbums = self.get_similar_photo_count_with_subalbums()
         self.confirmed_similar_photo_count_with_subalbums = self.get_confirmed_similar_photo_count_with_subalbums()
+        self.similar_photo_count_with_subalbums = self.get_similar_photo_count_with_subalbums()
 
     def set_calculated_fields(self):
         historic_photo_qs = self.get_historic_photos_queryset_with_subalbums()
-        historic_photos_list = list(historic_photo_qs.values_list('id', flat=True))
-
-        self.photo_count_with_subalbums = len(historic_photos_list)
-        self.geotagged_photo_count_with_subalbums = historic_photo_qs.filter(lat__isnull=False,
-                                                                             lon__isnull=False).order_by().count()
-
-        ### IMPORTANT: add rephotos to historical photos list it to keep backwards compability with older stats
-
-        rephoto_qs = Photo.objects.filter(rephoto_of__in=historic_photos_list).distinct('id').values('id').order_by()
-        all_photos_list = historic_photos_list
-        for p in rephoto_qs:
-            all_photos_list.append(p['id'])
-
-        ### Finally calculate rephoto count
-        self.rephoto_count_with_subalbums = len(all_photos_list) - self.photo_count_with_subalbums
-
-        # Comment count
-        comment_count = \
-            Photo.objects.filter(id__in=all_photos_list, comment_count__gt=0).order_by().aggregate(
-                Sum('comment_count'))[
-                'comment_count__sum']
-        if comment_count == None:
-            self.comments_count_with_subalbums = 0
-        else:
-            self.comments_count_with_subalbums = comment_count
-
-        # Similar photos and confirmed similar photos count
-        imagesimilarity_qs = ImageSimilarity.objects.filter(from_photo__in=all_photos_list).only('pk').distinct(
-            'pk').order_by()
-        self.similar_photo_count_with_subalbums = imagesimilarity_qs.count()
-        self.confirmed_similar_photo_count_with_subalbums = imagesimilarity_qs.filter(confirmed=True).count()
+        # Avoid building a list just to count
+        self.photo_count_with_subalbums = historic_photo_qs.count()
+        self.geotagged_photo_count_with_subalbums = historic_photo_qs.filter(
+            lat__isnull=False, lon__isnull=False
+        ).count()
+        # Materialize historic IDs once
+        historic_ids = list(historic_photo_qs.values_list('id', flat=True))
+        # Materialize rephoto IDs in one go (no Python loop over dicts)
+        rephoto_ids = list(
+            Photo.objects.filter(rephoto_of__in=historic_ids)
+            .values_list('id', flat=True)
+        )
+        all_ids = historic_ids + rephoto_ids
+        self.rephoto_count_with_subalbums = len(rephoto_ids)
+        self.comments_count_with_subalbums = Photo.objects.filter(
+            id__in=all_ids, comment_count__gt=0
+        ).aggregate(
+            total=Coalesce(Sum('comment_count'), 0)
+        )["total"]
+        # Similar photos: total + confirmed in one query
+        sim_aggs = ImageSimilarity.objects.filter(from_photo__in=all_ids).aggregate(
+            total=Count("pk", distinct=True),
+            confirmed=Count("pk", filter=Q(confirmed=True), distinct=True),
+        )
+        self.similar_photo_count_with_subalbums = sim_aggs["total"]
+        self.confirmed_similar_photo_count_with_subalbums = sim_aggs["confirmed"]
 
     def light_save(self, *args, **kwargs):
         super(Album, self).save(*args, **kwargs)
@@ -477,8 +470,8 @@ class Album(Model):
                 current_value = getattr(self, key)
                 if not current_value:
                     headers = {'Content-Type': 'application/json', 'x-api-key': 'public', 'application': 'ajapaik'}
-                    json = {'text': getattr(self, translation_source), 'tgt': each}
-                    response = requests.post(settings.TARTUNLP_API_URL, headers=headers, json=json).json()
+                    _json = {'text': getattr(self, translation_source), 'tgt': each}
+                    response = requests.post(settings.TARTUNLP_API_URL, headers=headers, json=_json).json()
                     setattr(self, key, response['result'])
                     translation_done = True
 
@@ -842,9 +835,9 @@ class Photo(Model):
             for object_recognition_rectangle in object_recognition_rectangles:
                 top, right, bottom, left = \
                     object_recognition_rectangle.y1, \
-                    object_recognition_rectangle.x2, \
-                    object_recognition_rectangle.y2, \
-                    object_recognition_rectangle.x1
+                        object_recognition_rectangle.x2, \
+                        object_recognition_rectangle.y2, \
+                        object_recognition_rectangle.x1
                 object_recognition_rectangle.x2 = self.width - left
                 object_recognition_rectangle.x1 = self.width - right
                 object_recognition_rectangle.save()
@@ -1062,7 +1055,6 @@ class Photo(Model):
         return data
 
     def reverse_geocode_location(self):
-        url = f'https://maps.googleapis.com/maps/api/geocode/json?latlng=%0.5f,%0.5f&key={settings.GOOGLE_API_KEY}'
         lat = None
         lon = None
 
@@ -1079,26 +1071,11 @@ class Photo(Model):
         if lat and lon:
             cached_response = GoogleMapsReverseGeocode.objects.filter(lat='{:.5f}'.format(lat),
                                                                       lon='{:.5f}'.format(lon)).first()
-            if cached_response:
-                response = cached_response.response
-            else:
-                sleep(0.2)
-                response = get(url % (lat, lon))
-                decoded_response = loads(response.text)
-                if decoded_response['status'] == 'OK' or decoded_response['status'] == 'ZERO_RESULTS':
-                    GoogleMapsReverseGeocode(
-                        lat='{:.5f}'.format(lat),
-                        lon='{:.5f}'.format(lon),
-                        response=response.text
-                    ).save()
-                response = decoded_response
-
-            if response['status'] == 'OK':
-                most_accurate_result = response['results'][0]
-                self.address = most_accurate_result['formatted_address']
-
-            elif response['status'] == 'OVER_QUERY_LIMIT':
-                return
+            if cached_response and cached_response.response.get("status") == "OK":
+                results = cached_response.response.get("results", [])
+                if len(results) > 0:
+                    most_accurate_result = results[0]
+                    self.address = most_accurate_result['formatted_address']
 
     def set_backside(self, opposite):
         self.front_of = opposite
@@ -1121,7 +1098,9 @@ class Photo(Model):
 
         kwargs = {**kwargs, 'force_insert': False}
 
-        if self.lat and self.lon and (self.geography.x != self.lon or self.geography.y != self.lat):
+        if self.lat and self.lon and (
+                self.geography is None or self.geography.x != self.lon or self.geography.y != self.lat
+        ):
             self.geography = Point(x=self.lon, y=self.lat, srid=4326)
             self.reverse_geocode_location()
 
@@ -1217,8 +1196,8 @@ class Photo(Model):
 
                 if not current_value:
                     headers = {'Content-Type': 'application/json', 'x-api-key': 'public', 'application': 'ajapaik'}
-                    json = {'text': getattr(self, translation_source), 'tgt': each}
-                    response = requests.post(settings.TARTUNLP_API_URL, headers=headers, json=json).json()
+                    _json = {'text': getattr(self, translation_source), 'tgt': each}
+                    response = requests.post(settings.TARTUNLP_API_URL, headers=headers, json=_json).json()
                     setattr(self, key, response['result'])
                     translation_done = True
 
@@ -1344,13 +1323,13 @@ class ImageSimilarity(Model):
             return 0, None
 
     def __update__(self, qs):
-        imageSimilarity = qs.first()
-        imageSimilarity.confirmed = self.confirmed
-        imageSimilarity.user_last_modified = self.user_last_modified
-        qs.exclude(id=imageSimilarity.id).delete()
-        suggestion = ImageSimilaritySuggestion(image_similarity=imageSimilarity, proposer=self.user_last_modified,
+        image_similarity = qs.first()
+        image_similarity.confirmed = self.confirmed
+        image_similarity.user_last_modified = self.user_last_modified
+        qs.exclude(id=image_similarity.id).delete()
+        suggestion = ImageSimilaritySuggestion(image_similarity=image_similarity, proposer=self.user_last_modified,
                                                similarity_type=self.similarity_type)
-        suggestions = ImageSimilaritySuggestion.objects.filter(image_similarity_id=imageSimilarity.id).order_by(
+        suggestions = ImageSimilaritySuggestion.objects.filter(image_similarity_id=image_similarity.id).order_by(
             'proposer_id', '-created').all().distinct('proposer_id')
 
         if self.similarity_type is not None:
@@ -1362,23 +1341,23 @@ class ImageSimilarity(Model):
                     and suggestions.filter(similarity_type=self.similarity_type).count() >= (
                     suggestions.filter(similarity_type=first_suggestion).count() - 1):
                 suggestion.proposer = self.user_last_modified
-                imageSimilarity.similarity_type = self.similarity_type
+                image_similarity.similarity_type = self.similarity_type
 
                 if self.similarity_type == 0:
                     has_similar = ImageSimilarity.objects.filter(
-                        Q(from_photo_id=imageSimilarity.from_photo.id) &
-                        Q(to_photo_id=imageSimilarity.to_photo.id) &
+                        Q(from_photo_id=image_similarity.from_photo_id) &
+                        Q(to_photo_id=image_similarity.to_photo_id) &
                         Q(similarity_type__gt=0)).first() is not None
-                    imageSimilarity.from_photo.has_similar = has_similar
-                    imageSimilarity.to_photo.has_similar = has_similar
+                    image_similarity.from_photo.has_similar = has_similar
+                    image_similarity.to_photo.has_similar = has_similar
 
-        imageSimilarity.save()
-        imageSimilarity.to_photo.has_similar = ImageSimilarity.objects.filter(
-            from_photo_id=imageSimilarity.from_photo.id).exclude(similarity_type=0).first() is not None
-        imageSimilarity.from_photo.has_similar = ImageSimilarity.objects.filter(
-            from_photo_id=imageSimilarity.to_photo.id).exclude(similarity_type=0).first() is not None
-        imageSimilarity.from_photo.save()
-        imageSimilarity.to_photo.save()
+        image_similarity.save()
+        image_similarity.to_photo.has_similar = ImageSimilarity.objects.filter(
+            from_photo_id=image_similarity.from_photo_id).exclude(similarity_type=0).first() is not None
+        image_similarity.from_photo.has_similar = ImageSimilarity.objects.filter(
+            from_photo_id=image_similarity.to_photo_id).exclude(similarity_type=0).first() is not None
+        image_similarity.from_photo.save()
+        image_similarity.to_photo.save()
         suggestion.save()
 
         if suggestions.filter(proposer=self.user_last_modified).count() < 1:
@@ -1406,12 +1385,12 @@ class ImageSimilarity(Model):
 
     @staticmethod
     def add_or_update(photo_obj, photo_obj2, confirmed=False, similarity_type=None, profile=None):
-        imageSimilarity = ImageSimilarity(None, from_photo=photo_obj, to_photo=photo_obj2, confirmed=confirmed,
-                                          similarity_type=similarity_type, user_last_modified=profile)
-        imageSimilarity2 = ImageSimilarity(None, from_photo=photo_obj2, to_photo=photo_obj, confirmed=confirmed,
+        image_similarity = ImageSimilarity(None, from_photo=photo_obj, to_photo=photo_obj2, confirmed=confirmed,
                                            similarity_type=similarity_type, user_last_modified=profile)
-        points = imageSimilarity.__add_or_update__()
-        points += imageSimilarity2.__add_or_update__()
+        image_similarity2 = ImageSimilarity(None, from_photo=photo_obj2, to_photo=photo_obj, confirmed=confirmed,
+                                            similarity_type=similarity_type, user_last_modified=profile)
+        points = image_similarity.__add_or_update__()
+        points += image_similarity2.__add_or_update__()
         return points
 
 
@@ -1470,8 +1449,8 @@ class Points(Model):
     bulk = BulkUpdateManager()
 
     GEOTAG, REPHOTO, PHOTO_UPLOAD, PHOTO_CURATION, PHOTO_RECURATION, DATING, DATING_CONFIRMATION, FILM_STILL, \
-    ANNOTATION, CONFIRM_SUBJECT, CONFIRM_IMAGE_SIMILARITY, SUGGESTION_SUBJECT_AGE, SUGGESTION_SUBJECT_GENDER, \
-    TRANSCRIBE, CATEGORIZE_SCENE, ADD_VIEWPOINT_ELEVATION, FLIP_PHOTO, ROTATE_PHOTO, INVERT_PHOTO = range(19)
+        ANNOTATION, CONFIRM_SUBJECT, CONFIRM_IMAGE_SIMILARITY, SUGGESTION_SUBJECT_AGE, SUGGESTION_SUBJECT_GENDER, \
+        TRANSCRIBE, CATEGORIZE_SCENE, ADD_VIEWPOINT_ELEVATION, FLIP_PHOTO, ROTATE_PHOTO, INVERT_PHOTO = range(19)
     ACTION_CHOICES = (
         (GEOTAG, _('Geotag')),
         (REPHOTO, _('Rephoto')),
@@ -1604,9 +1583,8 @@ class GeoTag(Model):
         importer = self.user.get_display_name if self.user else 'Ajapaik'
         photo = self.photo
 
-        if importer:
-            # Django admin may crash with too long names
-            return f'{str(self.id)} - {str(photo.id)} - {photo.get_display_text[:50]} - {importer}'
+        # Django admin may crash with too long names
+        return f'{str(self.id)} - {str(photo.id)} - {photo.get_display_text[:50]} - {importer}'
 
 
 class LocationPhoto(Model):
@@ -1787,7 +1765,7 @@ class Video(Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('videoslug', args=(self.id, self.slug))
+        return reverse('video_slug', args=(self.id, self.slug))
 
 
 class MyXtdComment(XtdComment):
@@ -2014,37 +1992,37 @@ class Profile(Model):
         other.dating_confirmations.update(profile=self)
 
     def update_rephoto_score(self):
-        photo_ids_rephotographed_by_this_user = Photo.objects.filter(
-            rephoto_of__isnull=False, user_id=self.user_id).select_related('rephoto_of').only(
-            'rephoto_of').values_list('rephoto_of', flat=True)
-        original_photos = Photo.objects.filter(
+        photo_ids_rephotographed_by_this_user = Photo.objects.filter(rephoto_of__isnull=False,
+                                                                     user_id=self.id).only(
+            'rephoto_of_id').values_list('rephoto_of_id', flat=True)
+        original_photos = Photo.objects.prefetch_related("rephotos").filter(
             id__in=set(photo_ids_rephotographed_by_this_user)).prefetch_related('rephotos')
-
-        user_rephoto_score = 0
-
+        points_to_create = []
         for p in original_photos:
-            rephotos_by_this_user = p.rephotos.filter(user_id=self.user_id).order_by('-created')
+            rp_id_created_mapping = dict(
+                p.rephotos.filter(user_id=self.id).order_by('-created').values_list("id", "created"))
             oldest_rephoto = p.rephotos.order_by('-created').first()
-            oldest_rephoto_is_from_this_user = oldest_rephoto in rephotos_by_this_user
-
+            oldest_rephoto_is_from_this_user = oldest_rephoto.id in rp_id_created_mapping
             # First rephoto of user gets more points than subsequent ones. First Rephoto ever gets an additional 250p
             current_score = 1250 if oldest_rephoto_is_from_this_user else 1000
-            for rp in rephotos_by_this_user:
+            points_to_create = []
+            existing_points_photo_ids = Points.objects.filter(
+                photo_id__in=rp_id_created_mapping, action=Points.REPHOTO
+            ).values_list("photo_id", flat=True)
+            for rp_id in set(rp_id_created_mapping) - set(existing_points_photo_ids):
                 # Check that we have a record in the scoring table
-                if not Points.objects.filter(action=Points.REPHOTO, photo=rp).exists():
-                    new_record = Points(
+                if not Points.objects.filter(action=Points.REPHOTO, photo_id=rp_id).exists():
+                    points_to_create.append(Points(
                         user=self,
                         action=Points.REPHOTO,
-                        photo=rp,
+                        photo_id=rp_id,
                         points=current_score,
-                        created=rp.created
-                    )
-                    new_record.save()
-                user_rephoto_score += current_score
+                        created=rp_id_created_mapping[rp_id]
+                    ))
                 # Add 250 points for any subsequent rephotos
                 current_score = 250
-
-        self.score_rephoto = user_rephoto_score
+        Points.objects.bulk_create(points_to_create)
+        self.score_rephoto = self.points.filter(action=Points.REPHOTO).aggregate(Sum('points'))['points__sum'] or 0
         self.save(update_fields=['score_rephoto'])
 
     def set_calculated_fields(self):

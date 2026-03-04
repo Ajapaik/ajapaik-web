@@ -12,7 +12,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.core.files.base import ContentFile
 from django.db.models import Q, F
 from django.db.transaction import atomic
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.urls import reverse
 from django.utils import timezone
@@ -52,7 +52,7 @@ def curator(request):
         'description': _('Search for old photos, add them to Ajapaik, '
                          'determine their locations and share the resulting album!'),
         'curator_random_images': curator_random_images,
-        'hostname': request.build_absolute_uri('/'),
+        'hostname': f"{request.scheme}://{request.get_host()}",
         'is_curator': True,
         'CURATOR_FLICKR_ENABLED': settings.CURATOR_FLICKR_ENABLED,
         'CURATOR_EUROPEANA_ENABLED': settings.CURATOR_EUROPEANA_ENABLED,
@@ -129,6 +129,23 @@ def curator_my_album_list(request):
     return HttpResponse(json.dumps(data), content_type='application/json')
 
 
+def curator_import_list(request):
+    user_profile = request.get_user().profile
+    # Filter for AUTO albums created by this user
+    albums = Album.objects.filter(profile=user_profile, atype=Album.AUTO).order_by('-created')
+
+    data = []
+    for album in albums:
+        data.append({
+            'id': album.id,
+            'name': album.name,
+            'created': album.created.isoformat(),
+            'photo_count': album.photos.count()
+        })
+
+    return JsonResponse(data, safe=False)
+
+
 def curator_selectable_albums(request):
     user_profile = request.get_user().profile
     serializer = CuratorAlbumSelectionAlbumSerializer(
@@ -194,6 +211,7 @@ def curator_photo_upload_handler(request):
     etera_token = request.POST.get('eteraToken')
     curator_album_selection_form = CuratorWholeSetAlbumsSelectionForm(request.POST)
     selection_json = request.POST.get('selection')
+    source_id = None
 
     if selection_json:
         selection = json.loads(selection_json)
@@ -210,36 +228,39 @@ def curator_photo_upload_handler(request):
         context = {
             'error': error
         }
-
         return HttpResponse(json.dumps(context), content_type='application/json')
 
     total_points_for_curating = 0
     general_albums = Album.objects.filter(id__in=request.POST.getlist('albums'))
-
-    if general_albums:
-        context['album_id'] = general_albums[0].pk
-    else:
-        context['album_id'] = None
+    context['album_id'] = general_albums[0].pk if general_albums else None
 
     # 15 => unknown copyright
     unknown_licence = Licence.objects.get(pk=15)
     flickr_licence = Licence.objects.filter(url='https://www.flickr.com/commons/usage/').first()
     import_blacklist_service = ImportBlacklistService()
 
-    institution = None
-
     # UGLY! WE should only create in ATOMIC blocks...
-    default_album = Album.objects.create(
-        name=f'{str(profile.id)}-{str(timezone.now())}',
-        atype=Album.AUTO,
-        profile=profile,
-        is_public=False,
-    )
+    auto_album_id = request.POST.get('autoAlbumId')
+    if auto_album_id:
+        default_album = Album.objects.filter(pk=auto_album_id, profile=profile, atype=Album.AUTO).first()
+    else:
+        default_album = Album.objects.create(
+            name=f'{str(profile.id)}-{str(timezone.now())}',
+            atype=Album.AUTO,
+            profile=profile,
+            is_public=False,
+        )
+
+    context['auto_album_id'] = default_album.pk
 
     all_curating_points = []
     awarded_curator_points = []
 
-    # DO We really need to support importing from two different sources at the same time.
+    source_names_ids = dict(Source.objects.values_list('name', 'id'))
+    source_description_ids = dict(Source.objects.values_list('description', 'id'))
+    licence_name_ids = dict(Licence.objects.values_list('name', 'id'))
+    licence_url_ids = dict(Licence.objects.values_list('url', 'id'))
+
     for k, v in selection.items():
         upload_form = CuratorPhotoUploadForm(v)
 
@@ -251,6 +272,9 @@ def curator_photo_upload_handler(request):
             return HttpResponse(json.dumps(context), content_type='application/json')
 
         source_key = upload_form.cleaned_data['identifyingNumber']
+        institution = upload_form.cleaned_data.get("institution")
+        licence = upload_form.cleaned_data.get('licence')
+        licence_url = upload_form.cleaned_data.get('licenceUrl')
 
         if source_key and import_blacklist_service.is_blacklisted(source_key):
             context['photos'][k] = {
@@ -259,42 +283,28 @@ def curator_photo_upload_handler(request):
             context['photos'][k]['success'] = False
             continue
 
-        institution_changed = institution != upload_form.cleaned_data['institution']
-        licence = None
+        if institution == 'Flickr Commons':
+            licence_id = flickr_licence.id
+        elif institution and institution.split(',')[0] == 'ETERA':
+            institution = 'TLÜAR ETERA'
+        elif not institution and licence:  # For Finna
+            licence_id = licence_name_ids.get(licence) or licence_url_ids.get(licence_url)
 
-        if institution_changed:
-            institution = upload_form.cleaned_data['institution']
-
-            if not institution:
-                licence = unknown_licence
-                source = Source.objects.get(name='AJP')
-
-            elif institution == 'Flickr Commons':
-                licence = flickr_licence
-
-            elif institution and institution.split(',')[0] == 'ETERA':
-                institution = 'TLÜAR ETERA'
-
-        # For Finna
-        elif not institution and upload_form.cleaned_data['licence']:
-            licence = Licence.objects.filter(
-                Q(name=upload_form.cleaned_data['licence']) | Q(url=upload_form.cleaned_data['licenceUrl'])).first()
-
-            if not licence:
-                if upload_form.cleaned_data['licence'] != upload_form.cleaned_data['licenceUrl']:
-                    licence_name = upload_form.cleaned_data['licence']
-                else:
-                    licence_name = _get_licence_name_from_url(upload_form.cleaned_data['licenceUrl'])
+            if not licence_id:
+                licence_name = licence if licence != licence_url else _get_licence_name_from_url(licence_url)
 
                 licence = Licence(name=licence_name, url=upload_form.cleaned_data['licenceUrl'])
                 licence.save()
+        else:
+            licence = unknown_licence
+            source_id = source_names_ids.get('AJP')
 
-        if institution_changed and institution:
-            source = Source.objects.filter(description=institution).first()
+        if upload_form.cleaned_data.get("institution") and institution:
+            source_id = source_description_ids.get(institution)
 
-            if not source:
-                Source.objects.create(name=institution, description=institution)
-                source = Source.objects.get(name=institution, description=institution)
+            if not source_id:
+                source_id = Source.objects.create(name=institution, description=institution).id
+                source_description_ids[institution] = source_id
 
         if not licence:
             licence = unknown_licence
@@ -323,7 +333,7 @@ def curator_photo_upload_handler(request):
                     f'nlib-digar:{upload_form.cleaned_data["identifyingNumber"]}'
                 muis_media_id = 1
 
-            existing_photos = Photo.objects.filter(source=source, external_id=muis_id)
+            existing_photos = Photo.objects.filter(source_id=source_id, external_id=muis_id)
             if muis_media_id:
                 existing_photo = existing_photos.filter(external_sub_id=muis_media_id).first()
             else:
@@ -358,7 +368,7 @@ def curator_photo_upload_handler(request):
                             user=profile,
                             author=upload_form.cleaned_data['creators'],
                             description=upload_form.cleaned_data['title'].rstrip(),
-                            source=source,
+                            source_id=source_id,
                             types=upload_form.cleaned_data['types'] if upload_form.cleaned_data['types'] else None,
                             keywords=upload_form.cleaned_data['keywords'].strip() if upload_form.cleaned_data[
                                 'keywords'] else None,

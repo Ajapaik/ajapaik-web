@@ -1,4 +1,3 @@
-import math
 from datetime import datetime, timedelta
 from json import dumps, loads
 
@@ -17,9 +16,11 @@ class FotisDriver(object):
                                 '&filter[or][][author][like]=%s' \
                                 '&filter[or][][location][like]=%s' \
                                 '&filter[or][][person][like]=%s' \
+                                '&per-page=100' \
                                 '&page=%s'
         self.ref_search_url = 'https://www.ra.ee/fotis/api/index.php/v1/photo' \
                               '?filter[reference_code][like]=%s' \
+                              '&per-page=100' \
                               '&page=%s'
 
     def search(self, cleaned_data, max_results=20):
@@ -40,7 +41,7 @@ class FotisDriver(object):
         # Ensure we always return a dictionary consistent with expected structure
         return {
             'records': results,
-            'pageSize': 20,
+            'pageSize': 100,
             'page': int(response_headers.get('X-Pagination-Current-Page', page)),
             'pageCount': int(response_headers.get('X-Pagination-Page-Count', 1))
         }
@@ -80,7 +81,7 @@ class FotisDriver(object):
                     'cachedThumbnailUrl': p['_links']['image']['href'],
                     # HACK: new image url for image files without the black strip below
                     'imageUrl': f'https://www.meediateek.ee/photo/full?id={p["id"]}',
-                    'urlToRecord': p['_links']['view']['href'],
+                    'urlToRecord': f'https://www.meediateek.ee/photo/view?id={p["id"]}',
                     'creators': p['author'],
                     'persons': transform_fotis_persons_response(persons_str) if persons_str else [],
                     'start_date': start_date.isoformat() if start_date else None,

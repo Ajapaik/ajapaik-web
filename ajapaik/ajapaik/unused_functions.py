@@ -4,7 +4,7 @@ from allauth.socialaccount.models import SocialAccount, SocialToken
 
 def upload_photo_to_wikimedia_commons(request, path):
     social_token = None
-    if request.user and request.user.profile:
+    if request.user and request.get_user().profile:
         social_account = SocialAccount.objects.filter(user=request.user).first()
         social_token = SocialToken.objects.filter(account=social_account, expires_at__gt=datetime.date.today()).last()
     if social_token:

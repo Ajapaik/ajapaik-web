@@ -43,7 +43,7 @@ def mapview(request, photo_id=None, rephoto_id=None):
         selected_photo = Photo.objects.filter(pk=photo_id).first()
     else:
         if selected_rephoto:
-            selected_photo = Photo.objects.filter(pk=selected_rephoto.rephoto_of.id).first()
+            selected_photo = Photo.objects.filter(pk=selected_rephoto.rephoto_of_id).first()
 
     if selected_photo and album is None:
         photo_album_ids = AlbumPhoto.objects.filter(photo_id=selected_photo.id).values_list('album_id', flat=True)
@@ -74,7 +74,7 @@ def mapview(request, photo_id=None, rephoto_id=None):
     context = {'last_geotagged_photo_id': last_geotagged_photo_id,
                'total_photo_count': total_photo_count, 'geotagging_user_count': geotagging_user_count,
                'geotagged_photo_count': geotagged_photo_count, 'albums': albums,
-               'hostname': request.build_absolute_uri('/'),
+               'hostname': request.get_host(),
                'selected_photo': selected_photo, 'selected_rephoto': selected_rephoto, 'is_mapview': True,
                'ajapaik_facebook_link': settings.AJAPAIK_FACEBOOK_LINK, 'album': None, 'user_has_likes': user_has_likes,
                'user_has_rephotos': user_has_rephotos, 'q': request.GET.get('q')}
@@ -96,7 +96,7 @@ def map_objects_by_bounding_box(request):
     if not form.is_valid():
         return JsonResponse({'status': 400})
 
-    profile = request.user.profile
+    profile = request.get_user().profile
     limit_by_album = form.cleaned_data['limit_by_album']
     sw_lat = form.cleaned_data['sw_lat']
     sw_lon = form.cleaned_data['sw_lon']
@@ -115,8 +115,12 @@ def map_objects_by_bounding_box(request):
         del form.cleaned_data["album"]
         form.cleaned_data["album"] = None
 
-    data = get_filtered_data_for_gallery(profile, cleaned_data=form.cleaned_data, page_size=count_limit or 10000,
-                                         photo_filters=photo_filters)
+    data = get_filtered_data_for_gallery(
+        profile,
+        cleaned_data=form.cleaned_data,
+        page_size=count_limit or 10000,
+        photo_filters=photo_filters
+    )
 
     return JsonResponse({
         'photos': PhotoMapMarkerSerializer(data.photos, many=True,

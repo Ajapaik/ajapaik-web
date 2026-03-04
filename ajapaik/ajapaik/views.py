@@ -61,22 +61,11 @@ def image_thumb(request, photo_id=None, thumb_size=400, pseudo_slug=None):
     else:
         thumb_size = 1024
 
-    #    p = get_object_or_404(Photo.objects.filter(id=photo_id).prefetch_related('rephoto_of').only('image', 'rephoto_of',
-    #                                                                                                'rephoto_of__image'),
-    #                         id=photo_id)
-    # p = get_object_or_404(Photo, id=photo_id)
-    p = Photo.objects.filter(id=photo_id).prefetch_related('rephoto_of').only(
-        'id', 'image', 'rephoto_of', 'rephoto_of__image',
-        'lat',
-        'lon',
-        'flip',
-        'rotated',
-        'height',
-    ).first()
+    p = Photo.objects.filter(id=photo_id).only("id", "image", "rephoto_of_id", "height", "width").first()
 
     thumb_str = f'{str(thumb_size)}x{str(thumb_size)}'
 
-    if p.rephoto_of:
+    if p.rephoto_of_id:
         original_thumb = get_thumbnail(p.rephoto_of.image, thumb_str, upscale=False)
         thumb_str = f'{str(original_thumb.size[0])}x{str(original_thumb.size[1])}'
         # TODO: see if restricting Pillow version fixes this
@@ -295,7 +284,7 @@ def frontpage(request):
         'is_frontpage': True,
         'title': _get_gallery_view_name(data.rephoto_album_author.name if data.rephoto_album_author else None,
                                         data.album.name if data.album else None),
-        'hostname': request.build_absolute_uri('/'),
+        'hostname': f"{request.scheme}://{request.get_host()}",
         'ajapaik_facebook_link': settings.AJAPAIK_FACEBOOK_LINK,
         'facebook_share_photos': PhotoMiniSerializer(data.fb_share_photos, many=True).data,
         'album': GalleryAlbumSerializer(data.album).data if data.album else None,
@@ -329,7 +318,7 @@ def frontpage_async_data(request):
     data = get_filtered_data_for_gallery(profile, form.cleaned_data)
     output = GalleryResultsSerializer(data, context={"request": request}).data
 
-    return HttpResponse(json.dumps(output), content_type='application/json')
+    return JsonResponse(output)
 
 
 def frontpage_async_albums(request):
@@ -576,7 +565,7 @@ def photo_slug(request, photo_id=None, pseudo_slug=None):
         if request.GET.get('isSelection'):
             is_selection = True
     else:
-        template = 'photo/photoview.html'
+        template = 'photo/photo_view.html'
 
     if not photo_obj.get_display_text:
         title = 'Unknown photo'
@@ -734,7 +723,7 @@ def photo_slug(request, photo_id=None, pseudo_slug=None):
         'title': title,
         'description': desc,
         'rephoto': PhotoSerializer(rephoto, context={'request': request}).data if rephoto else None,
-        'hostname': request.build_absolute_uri('/'),
+        'hostname': f"{request.scheme}://{request.get_host()}",
         'first_geotaggers': first_geotaggers,
         'is_photoview': True,
         'ajapaik_facebook_link': settings.AJAPAIK_FACEBOOK_LINK,

@@ -17,13 +17,14 @@ def user_upload(request):
     if request.method == 'POST':
         form = UserPhotoUploadForm(request.POST, request.FILES)
         albums = request.POST.getlist('albums')
+        profile = request.get_user().profile
 
         if form.is_valid() and albums and len(albums) > 0:
             photo = form.save(commit=False)
-            photo.user = request.user.profile
+            photo.user = profile
 
             if photo.uploader_is_author:
-                photo.author = request.user.profile.get_display_name
+                photo.author = profile.get_display_name
                 photo.licence = Licence.objects.get(id=17)  # CC BY 4.0
 
             photo.save()
@@ -45,7 +46,7 @@ def user_upload(request):
                     AlbumPhoto(photo=photo,
                                album=Album.objects.filter(id=album.id).first(),
                                type=AlbumPhoto.UPLOADED,
-                               profile=request.user.profile
+                               profile=profile
                                ))
 
             AlbumPhoto.objects.bulk_create(album_photos)
@@ -68,17 +69,18 @@ def user_upload_add_album(request):
     context = {
         'ajapaik_facebook_link': settings.AJAPAIK_FACEBOOK_LINK
     }
+    profile = request.get_user().profile
 
     if request.method == 'POST':
-        form = UserPhotoUploadAddAlbumForm(request.POST, profile=request.user.profile)
+        form = UserPhotoUploadAddAlbumForm(request.POST, profile=profile)
 
         if form.is_valid():
             album = form.save(commit=False)
-            album.profile = request.user.profile
+            album.profile = profile
             album.save()
             context['message'] = _('Album created')
     else:
-        form = UserPhotoUploadAddAlbumForm(profile=request.user.profile)
+        form = UserPhotoUploadAddAlbumForm(profile=profile)
 
     context['form'] = form
 

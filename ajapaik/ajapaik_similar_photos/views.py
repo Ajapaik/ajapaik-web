@@ -60,7 +60,7 @@ def compare_photos_generic(request, photo_id=None, photo_id_2=None, view='compar
     if not next_pair:
         next_action = request.build_absolute_uri(reverse('photo', args=(photo_obj.id, photo_obj.get_pseudo_slug)))
     else:
-        next_action = request.build_absolute_uri(reverse(view, args=(next_pair.from_photo.id, next_pair.to_photo.id)))
+        next_action = request.build_absolute_uri(reverse(view, args=(next_pair.from_photo_id, next_pair.to_photo_id)))
 
     context = {
         'is_compare_photo': True,

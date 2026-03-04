@@ -464,3 +464,4 @@ INTERNAL_IPS = [
     "127.0.0.1",
     # ...
 ]
+RECAPTCHA_ENABLED = True

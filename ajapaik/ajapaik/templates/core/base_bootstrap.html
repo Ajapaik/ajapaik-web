@@ -146,7 +146,7 @@
         {% endif %}
         {% if selected_photo %}
             <meta property="og:image"
-                  content="{{ hostname }}{% url "image_full" selected_photo.pk selected_photo.slug %}">
+                  content="{{ hostname }}{{ selected_photo.absolute_url }}">
             <meta property="og:image:type" content="image/jpeg" />
             <meta property="og:image:width" content="{{ selected_photo.width }}" />
             <meta property="og:image:height" content="{{ selected_photo.height }}" />
@@ -154,7 +154,7 @@
             {% if not is_photoview and not is_game %}
                 {% if rephoto %}
                     <meta property="og:image"
-                          content="{{ hostname }}{% url "image_full" rephoto.id rephoto.slug %}" />
+                          content="{{ hostname }}{{ rephoto.absolute_url }}" />
                     <meta property="og:image:type" content="image/jpeg" />
                     <meta property="og:image:width" content="{{ rephoto.2 }}" />
                     <meta property="og:image:height" content="{{ rephoto.3 }}" />
@@ -451,7 +451,8 @@
     {# we probably don't need jquery-ui, if we rework that, we will no longer need datetimepicker #}
     {# we need to reduce the weight to accommodate mobile #}
     <script src="{% url 'javascript-catalog' %}?_={% now "U" %}"></script>
-    {% if not is_frontpage and not is_photoview or is_game or is_mapview %}
+    {# Don't bother trying to simplify this - it can be expensive, too bad django template does not support ()' #}
+    {% if not is_frontpage and not is_photoview and is_game or not is_frontpage and not is_photoview and is_mapview %}
         <script
             src="https://maps.google.com/maps/api/js?v=3&amp;libraries=places,visualization&key={{ google_maps_api_key }}"></script>
     {% else %}

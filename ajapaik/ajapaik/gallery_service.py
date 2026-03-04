@@ -5,13 +5,14 @@ from typing import Union
 from django.conf import settings
 from django.contrib.gis.db.models.functions import GeometryDistance
 from django.contrib.gis.geos import Point
-from django.db.models import Count, F
+from django.db.models import Count, F, Exists, OuterRef
 from haystack.inputs import AutoQuery
 from haystack.query import SearchQuerySet
 
 from ajapaik.ajapaik.models import Photo, Album, AlbumPhoto
 from ajapaik.ajapaik.types import GalleryResults, UserMini, PaginationParameters
 from ajapaik.ajapaik.utils import get_pagination_parameters
+from ajapaik.ajapaik_face_recognition.models import FaceRecognitionRectangle
 
 
 def _is_default_ordering(order1: str, order2: str, order3: Union[str, None]) -> bool:
@@ -24,11 +25,11 @@ def _is_default_ordering(order1: str, order2: str, order3: Union[str, None]) -> 
 def get_filtered_data_for_gallery(
         profile,
         cleaned_data: dict,
-        photo_filters: dict = {},
+        photo_filters: dict | None = None,
         page_size=None
 ) -> GalleryResults:
     start_time = time()
-    photos = Photo.objects.filter(rephoto_of__isnull=True, **photo_filters)
+    photos = Photo.objects.filter(rephoto_of__isnull=True, **photo_filters if photo_filters else {})
     page_size = page_size or settings.FRONTPAGE_DEFAULT_PAGE_SIZE
 
     album = cleaned_data['album']
@@ -57,21 +58,19 @@ def get_filtered_data_for_gallery(
             photos = photos.exclude(albums__in=[38516])
 
     # FILTERING BELOW THIS LINE
-
     if album:
-        sa_ids = [album.id, *list(album.subalbums.exclude(atype=Album.AUTO))]
-        photos = photos.filter(albums__in=sa_ids)
-
-        # In QuerySet "albums__in" is 1:M JOIN  so images will show up
-        # multiple times in results so this needs to be distinct(). Distinct is slow.
-        photos = photos.distinct()
+        sa_ids = [album.id, *album.subalbums.exclude(atype=Album.AUTO).values_list('id', flat=True)]
+        photos = photos.annotate(
+            in_album=Exists(AlbumPhoto.objects.filter(photo_id=OuterRef("pk"), album_id__in=sa_ids))).filter(
+            in_album=True
+        )
 
     if cleaned_data['people']:
-        photos = photos.filter(face_recognition_rectangles__isnull=False,
-                               face_recognition_rectangles__deleted=None)
+        rects = FaceRecognitionRectangle.objects.filter(photo_id=OuterRef("pk"), deleted__isnull=True)
+        photos = photos.annotate(has_people=Exists(rects)).filter(has_people=True)
 
     if cleaned_data['backsides']:
-        photos = photos.exclude(front_of=None)
+        photos = photos.exclude(front_of_id=None)
 
     if cleaned_data['interiors']:
         photos = photos.filter(scene=0)
@@ -100,25 +99,29 @@ def get_filtered_data_for_gallery(
         photos = photos.filter(aspect_ratio__gte=2.0)
 
     if my_likes_only:
+        photos.prefetch_related("likes")
         photos = photos.filter(likes__profile=profile)
 
     if rephoto_album_author:
+        photos.prefetch_related("rephotos")
         photos = photos.filter(rephotos__user_id=rephoto_album_author.id)
 
     if date_from:
+        photos.prefetch_related("datings")
         photos = photos.filter(datings__start__gte=date_from)
 
     if date_to:
+        photos.prefetch_related("datings")
         photos = photos.filter(datings__end__lte=date_to)
 
     if q:
-        sqs = SearchQuerySet().models(Photo).filter(content=AutoQuery(q))
-        photos = photos.filter(pk__in=[r.pk for r in sqs], rephoto_of__isnull=True)
+        sqs_ids = SearchQuerySet().models(Photo).filter(content=AutoQuery(q)).values_list("pk", flat=True)
+        photos = photos.filter(pk__in=sqs_ids, rephoto_of__isnull=True)
 
-    # In some cases it is faster to get number of photos before we annotate new columns to it
-    albumsize_before_sorting = None
+    # In some cases it is faster to get the number of photos before we annotate new columns to it
+    album_size_before_sorting = None
     if not album:
-        albumsize_before_sorting = Photo.objects.filter(pk__in=photos).cached_count(str(cleaned_data))
+        album_size_before_sorting = photos.cached_count(str(cleaned_data))
 
     photos_with_comments = None
     photos_with_rephotos = None
@@ -136,13 +139,13 @@ def get_filtered_data_for_gallery(
                 photos = photos.order_by('comment_count')
             else:
                 photos = photos.order_by('-comment_count')
-            photos_with_comments = photos.filter(comment_count__gt=0).count()
+            photos_with_comments = photos.filter(comment_count__gt=0)
         elif order2 == 'rephotos':
             if order3 == 'reverse':
                 photos = photos.order_by('rephoto_count')
             else:
                 photos = photos.order_by('-rephoto_count')
-            photos_with_rephotos = photos.filter(rephoto_count__gt=0).count()
+            photos_with_rephotos = photos.filter(rephoto_count__gt=0)
         elif order2 == 'geotags':
             if order3 == 'reverse':
                 photos = photos.order_by('geotag_count')
@@ -185,13 +188,13 @@ def get_filtered_data_for_gallery(
                 photos = photos.order_by(F('first_rephoto').asc(nulls_last=True))
             else:
                 photos = photos.order_by(F('latest_rephoto').desc(nulls_last=True))
-            photos_with_rephotos = photos.filter(first_rephoto__isnull=False).count()
+            photos_with_rephotos = photos.filter(first_rephoto__isnull=False)
         elif order2 == 'comments':
             if order3 == 'reverse':
                 photos = photos.order_by(F('first_comment').asc(nulls_last=True))
             else:
                 photos = photos.order_by(F('latest_comment').desc(nulls_last=True))
-            photos_with_comments = photos.filter(comment_count__gt=0).count()
+            photos_with_comments = photos.filter(comment_count__gt=0)
         elif order2 == 'geotags':
             if order3 == 'reverse':
                 photos = photos.order_by(F('first_geotag').asc(nulls_last=True))
@@ -248,15 +251,20 @@ def get_filtered_data_for_gallery(
     if not cleaned_data['backsides'] and not order2 == 'transcriptions':
         photos = photos.filter(back_of__isnull=True)
 
-    photo_ids = list(photos.values_list('id', flat=True))
-
-    if requested_photo and requested_photo.id in photo_ids:
-        photo_count_before_requested = photo_ids.index(requested_photo.id)
-        page = ceil(float(photo_count_before_requested) / float(page_size))
+    photo_ids = None
+    if requested_photo and requested_photo.id:
+        exists = photos.filter(id=requested_photo.id).exists()
+        if exists:
+            photo_ids = photos.values_list("id", flat=True)
+            photo_count_before_requested = list(photo_ids).index(requested_photo.id)
+            page = ceil(float(photo_count_before_requested) / float(page_size))
 
     if page:
         # Note seeking (start:end) has been done when results are limited using photo_ids above
-        total = albumsize_before_sorting or len(photo_ids)
+        if not photo_ids:
+            photo_ids = photos.values_list('id', flat=True)
+
+        total = album_size_before_sorting or len(photo_ids)
         start, end, max_page, page = get_pagination_parameters(page, total, page_size)
         pagination_parameters = PaginationParameters(
             start=start,
@@ -289,7 +297,7 @@ def get_filtered_data_for_gallery(
         videos=[],
         photo=requested_photo,
         fb_share_photos=fb_share_photos,
-        photos=photos.prefetch_related("source"),
+        photos=photos.prefetch_related("source", "likes"),
         photos_with_comments=photos_with_comments,
         photos_with_rephotos=photos_with_rephotos,
         my_likes_only=my_likes_only,

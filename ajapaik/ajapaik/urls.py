@@ -77,7 +77,7 @@ urlpatterns = [
          name='photo_upload_modal'),
     path('photo/<int:photo_id>/', views.photo_slug, name='photo'),
     path('photo/<int:photo_id>/<slug:pseudo_slug>/', views.photo_slug, name='photo'),
-    path('video/<int:video_id>/<slug:pseudo_slug>/', video_views.videoslug, name='videoslug'),
+    path('video/<int:video_id>/<slug:pseudo_slug>/', video_views.video_slug, name='video_slug'),
     path('video-still/', video_views.generate_still_from_video),
     # Legacy URLs
     path('foto_thumb/', views.redirect_view),
@@ -119,6 +119,7 @@ urlpatterns = [
     path('curator-search/', curator_views.curator_search, name='curator_search'),
     path('curator-upload/', curator_views.curator_photo_upload_handler,
          name='curator_photo_upload_handler'),
+    path('curator-import-list/', curator_views.curator_import_list, name='curator_import_list'),
     path('public-album-create-handler/', views.public_add_album, name='public_add_album'),
     path('public-area-create-handler/', views.public_add_area),
     path('muis-import/', views.muis_import, name='muis_import'),

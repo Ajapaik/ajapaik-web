@@ -2,28 +2,28 @@ import json
 
 import requests
 
-WIKI_DATA_URL = 'https://www.wikidata.org/w/api.php'
+WIKIDATA_URL = 'https://www.wikidata.org/w/api.php'
 
-WIKI_DATA_ACTION_TRANSLATE = 'wbgetentities'
-WIKI_DATA_FORMAT = 'json'
+WIKIDATA_ACTION_TRANSLATE = 'wbgetentities'
+WIKIDATA_FORMAT = 'json'
 
 TRANSLATIONS_IN_USE = 'et|ru|en'
 FALLBACK_TRANSLATION = 'en'
 
 
 def get_label_translation(label_id):
-    global WIKI_DATA_URL, WIKI_DATA_FORMAT, WIKI_DATA_ACTION_TRANSLATE, FALLBACK_TRANSLATION
+    global WIKIDATA_URL, WIKIDATA_FORMAT, WIKIDATA_ACTION_TRANSLATE, FALLBACK_TRANSLATION
 
     params = {
-        'action': WIKI_DATA_ACTION_TRANSLATE,
-        'format': WIKI_DATA_FORMAT,
+        'action': WIKIDATA_ACTION_TRANSLATE,
+        'format': WIKIDATA_FORMAT,
         'ids': label_id,
         'languages': TRANSLATIONS_IN_USE,
         'origin': '*',
         'props': 'labels'
     }
 
-    result = requests.get(url=WIKI_DATA_URL, params=params)
+    result = requests.get(url=WIKIDATA_URL, params=params)
 
     translations = result.json()['entities'][label_id]['labels']
 

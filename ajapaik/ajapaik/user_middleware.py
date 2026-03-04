@@ -14,16 +14,16 @@ from django.utils.deprecation import MiddlewareMixin
 def get_user(request):
     if request.user and request.user.is_authenticated:
         return request.user
+
+    if any(s in request.META.get('HTTP_USER_AGENT', []) for s in settings.BOT_USER_AGENTS):
+        user = authenticate(request=request, username=settings.BOT_USERNAME)
     else:
-        if any(s in request.META.get('HTTP_USER_AGENT', []) for s in settings.BOT_USER_AGENTS):
-            user = authenticate(request=request, username=settings.BOT_USERNAME)
-        else:
-            session_id = request.session._get_or_create_session_key()
-            user = authenticate(request=request, username=session_id)
+        session_id = request.session._get_or_create_session_key()
+        user = authenticate(request=request, username=session_id)
 
-        login(request=request, user=user, backend='allauth.account.auth_backends.AuthenticationBackend')
+    login(request=request, user=user, backend='allauth.account.auth_backends.AuthenticationBackend')
 
-        return user
+    return user
 
 
 def set_user(request, user):
