@@ -190,8 +190,16 @@ class PhotoSerializer(PhotoRepresentationSerializer):
     slug = serializers.SerializerMethodField()
 
     def get_favorited(self, instance: Photo):
-        print("get favorited")
-        return instance.likes.exists()
+        if hasattr(instance, 'favorited'):
+            return instance.favorited
+
+        request = self.context.get('request')
+        user = request.user if request else None
+        if user and user.is_authenticated:
+            return instance.likes.filter(profile=user.profile).exists()
+
+        return False
+
 
     def get_high_quality(self, instance: Photo):
         print("get high_quality")

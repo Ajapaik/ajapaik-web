@@ -371,13 +371,26 @@ def frontpage_async_albums(request):
         context['albums'] = serializer.data
     return HttpResponse(json.dumps(context), content_type='application/json')
 
-
+@ensure_csrf_cookie
 def photo_selection(request):
     photo_ids = Photo.photo_ids_from_session(request)
-    photo_ids.sort()
 
     if request.method == 'POST':
-        if 'photo_id' in request.POST:
+        if 'selection' in request.POST:
+            try:
+                ids_to_toggle = json.loads(request.POST['selection'])
+                for photo_id in ids_to_toggle:
+                    photo_id = int(photo_id)
+                    if photo_id in photo_ids:
+                        photo_ids.remove(photo_id)
+                    else:
+                        photo_ids.append(photo_id)
+                photo_ids.sort()
+                request.session['photo_ids'] = photo_ids
+                request.session['photo_selection_ts'] = int(time.time() * 1000)
+            except (ValueError, TypeError):
+                pass
+        elif 'photo_id' in request.POST:
             try:
                 photo_id = int(request.POST['photo_id'])
                 if photo_id in photo_ids:

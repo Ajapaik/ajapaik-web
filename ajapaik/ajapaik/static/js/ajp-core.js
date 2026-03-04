@@ -1198,25 +1198,30 @@ $('.ajp-navbar').autoHidingNavbar();
         }
         window.lastSelectedPhotoId = photoId;
 
-        idsToToggle.forEach(id => {
-            updateUI(id, isSelected);
-            const data = {
-                photo_id: id,
-                csrfmiddlewaretoken: docCookies.getItem('csrftoken'),
-            };
-            $.post(window.photoSelectionURL, data, function (response) {
-                const count = response.photo_ids ? response.photo_ids.length : 0;
-                const target = $('#ajp-header-selection-indicator');
-                if (count > 0) {
-                    target.removeClass('d-none');
-                } else {
-                    target.addClass('d-none');
-                }
-                target.find('div').html(count);
-                if (response.ts) {
-                    localStorage.setItem('photo_selection_ts', response.ts);
-                }
-            });
+        const data = {
+            csrfmiddlewaretoken: docCookies.getItem('csrftoken'),
+        };
+
+        if (idsToToggle.length > 1) {
+            data.selection = JSON.stringify(idsToToggle);
+        } else {
+            data.photo_id = idsToToggle[0];
+        }
+
+        idsToToggle.forEach(id => updateUI(id, isSelected));
+
+        $.post(window.photoSelectionURL, data, function (response) {
+            const count = response.photo_ids ? response.photo_ids.length : 0;
+            const target = $('#ajp-header-selection-indicator');
+            if (count > 0) {
+                target.removeClass('d-none');
+            } else {
+                target.addClass('d-none');
+            }
+            target.find('div').html(count);
+            if (response.ts) {
+                localStorage.setItem('photo_selection_ts', response.ts);
+            }
         });
 
         if (!isSelected && window.isSelection) {
