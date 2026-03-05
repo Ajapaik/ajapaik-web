@@ -15,6 +15,7 @@
 # Author: Joanmp17
 # Author: Leslyvasquez1
 # Author: MarcoAurelio
+# Author: Monicapozo03
 # Author: Ncr
 # Author: Nelthal
 # Author: Osvaldorino
@@ -31,7 +32,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2026-01-01 12:00:16+0000\n"
+"PO-Revision-Date: 2026-03-05 12:00:18+0000\n"
 "X-POT-Import-Date: 2024-07-09 05:10:19+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1335,8 +1336,8 @@ msgstr "Pongamos fotos en el mapa"
 #, python-format
 msgid "Album has %(counter)s photo,"
 msgid_plural "Album has %(counter)s photos,"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] " El álbum tiene %(counter)s fotos,"
+msgstr[1] "El álbum tiene %(counter)s fotos,"
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:105
 #: ajapaik/ajapaik/templates/info/_info_modal_content.html:30
@@ -1345,7 +1346,7 @@ msgstr "Todas las fotos en el mapa"
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:206
 msgid "Timepatch (Ajapaik)"
-msgstr ""
+msgstr "Parche de tiempo (Ajapaik)"
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:297
 msgid "Geolocation error"
@@ -1385,7 +1386,7 @@ msgstr "Sus fotos ahora se han añadido a Ajapaik y se puede interactuar con ell
 
 #: ajapaik/ajapaik/templates/curator/curator.html:30
 msgid "Points awarded for curating"
-msgstr ""
+msgstr "Puntos otorgados por curaduría"
 
 #: ajapaik/ajapaik/templates/curator/curator.html:33
 msgid "You can start geotagging the new content here"
@@ -1427,7 +1428,7 @@ msgstr "Visible (mostrado en la selección)"
 #: ajapaik/ajapaik/templates/curator/curator.html:123
 #| msgid "Search for an existing album"
 msgid "!!FUZZY!!Search for an existing album"
-msgstr ""
+msgstr "!! CONFUSO!!Buscar un álbum existente"
 
 #: ajapaik/ajapaik/templates/curator/curator_search_controls.html:9
 msgid "Search"
@@ -1479,11 +1480,11 @@ msgstr "UTLIB"
 
 #: ajapaik/ajapaik/templates/curator/curator_search_controls.html:82
 msgid "Fotis"
-msgstr ""
+msgstr "Fotis"
 
 #: ajapaik/ajapaik/templates/curator/curator_search_controls.html:86
 msgid "Finna"
-msgstr ""
+msgstr "Finna"
 
 #: ajapaik/ajapaik/templates/curator/curator_search_controls.html:90
 msgid "Wikimedia Commons"
