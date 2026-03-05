@@ -141,11 +141,12 @@ def get_filtered_data_for_gallery(
                 photos = photos.order_by('-comment_count')
             photos_with_comments = photos.filter(comment_count__gt=0)
         elif order2 == 'rephotos':
+            photos = photos.filter(rephoto_count__gt=0)
             if order3 == 'reverse':
                 photos = photos.order_by('rephoto_count')
             else:
                 photos = photos.order_by('-rephoto_count')
-            photos_with_rephotos = photos.filter(rephoto_count__gt=0)
+            photos_with_rephotos = photos
         elif order2 == 'geotags':
             if order3 == 'reverse':
                 photos = photos.order_by('geotag_count')
@@ -184,11 +185,12 @@ def get_filtered_data_for_gallery(
                 photos = photos.order_by('-similar_photo_count')
     elif order1 == 'time':
         if order2 == 'rephotos':
+            photos = photos.filter(rephoto_count__gt=0)
             if order3 == 'reverse':
                 photos = photos.order_by(F('first_rephoto').asc(nulls_last=True))
             else:
                 photos = photos.order_by(F('latest_rephoto').desc(nulls_last=True))
-            photos_with_rephotos = photos.filter(rephoto_count__gt=0)
+            photos_with_rephotos = photos
         elif order2 == 'comments':
             if order3 == 'reverse':
                 photos = photos.order_by(F('first_comment').asc(nulls_last=True))

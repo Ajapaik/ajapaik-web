@@ -55,10 +55,7 @@
         window.selectionAddSimilarity = function (similarityType) {
             $('#ajp-loading-overlay').show();
             $.get('/photo-selection/', function (response) {
-                var photos = [];
-                for (var key in response) {
-                    photos.push(key);
-                }
+                var photos = response.photo_selection || [];
                 fetch(similarPhotosUrl, {
                     method: 'POST',
                     beforeSend: function (xhr) {
@@ -97,15 +94,6 @@
         $(document).on('click', '.ajp-photo-selection-thumbnail-link', function (e) {
             e.preventDefault();
             window.loadPhoto($(this).data('id'));
-        });
-        $(document).on('mouseenter', '.ajp-photo-selection-thumbnail-link', function () {
-            $(this).find('.ajp-remove-from-selection-button').show();
-        });
-        $(document).on('mouseenter', '.ajp-photo-selection-thumbnail', function () {
-            $(this).parent().find('.ajp-remove-from-selection-button').show();
-        });
-        $(document).on('mouseout', '.ajp-photo-selection-thumbnail', function () {
-            $(this).parent().find('.ajp-remove-from-selection-button').hide();
         });
         $(document).on('click', '#ajp-photo-selection-clear-selection-button', function () {
             var data = {
@@ -158,10 +146,7 @@
 
         window.submitCategories = function () {
             $.get('/photo-selection/', function (response) {
-                let photos = [];
-                for (var key in response) {
-                    photos.push(key);
-                }
+                let photos = response.photo_selection || [];
                 submitCategorySuggestion(photos, true);
             });
         };
@@ -182,10 +167,7 @@
 
         window.submitPictureEdits = function () {
             $.get('/photo-selection/', function (response) {
-                let photos = [];
-                for (var key in response) {
-                    photos.push(key);
-                }
+                let photos = response.photo_selection || [];
                 submitPictureEditSuggestion(photos, true);
             });
         };

@@ -1209,7 +1209,8 @@ $('.ajp-navbar').autoHidingNavbar();
                 icons.addClass('ajp-thumbnail-selection-icon-blue').show();
             } else {
                 icons.removeClass('ajp-thumbnail-selection-icon-blue');
-                if (!icons.closest('.ajp-frontpage-image-container').is(':hover')) {
+                const containers = icons.closest('.ajp-frontpage-image-container');
+                if (containers.length > 0 && !containers.is(':hover')) {
                     icons.hide();
                 }
             }
@@ -1232,84 +1233,50 @@ $('.ajp-navbar').autoHidingNavbar();
 
         const data = {
             csrfmiddlewaretoken: docCookies.getItem('csrftoken'),
+            selection: JSON.stringify(idsToToggle),
+            action: isSelected ? 'add' : 'remove',
+            photo_id: idsToToggle.length === 1 ? idsToToggle[0] : undefined
         };
-
-        if (idsToToggle.length > 1) {
-            data.selection = JSON.stringify(idsToToggle);
-            data.action = isSelected ? 'add' : 'remove';
-        } else {
-            data.photo_id = idsToToggle[0];
-        }
 
         idsToToggle.forEach(id => updateUI(id, isSelected));
 
         $.post(window.photoSelectionURL, data, function (response) {
             const count = response.photo_selection ? response.photo_selection.length : 0;
             updateSelectionUI(count);
+            if (window.isSelection) {
+                idsToToggle.forEach(function (id) {
+                    if (!isSelected) {
+                        $('#ajp-frontpage-image-container-' + id).remove();
+                    }
+                });
+            }
             if (response.ts) {
                 localStorage.setItem('photo_selection_ts', response.ts);
             }
         });
-
-        if (!isSelected && window.isSelection) {
-            $this.closest('.ajp-frontpage-image-container').parent().remove();
-        }
     });
 
     window.addEventListener('storage', function (e) {
         if (e.key === 'photo_selection_ts') {
-            $.get(window.photoSelectionURL, function (response) {
-                const selectedIds = response.photo_selection || [];
-                $('.ajp-thumbnail-selection-icon').each(function () {
-                    const id = $(this).data('id');
-                    if (selectedIds.includes(id)) {
-                        $(this).addClass('ajp-thumbnail-selection-icon-blue').show();
-                    } else {
-                        $(this).removeClass('ajp-thumbnail-selection-icon-blue');
-                        if (!$(this).closest('.ajp-frontpage-image-container').is(':hover')) {
-                            $(this).hide();
-                        }
-                    }
-                });
-                const count = selectedIds.length;
-                updateSelectionUI(count);
-
-                if (window.isSelection && count < $('.ajp-frontpage-image-container').length) {
-                    $('.ajp-frontpage-image-container').each(function () {
-                        if (!selectedIds.includes($(this).data('id'))) {
-                            $(this).parent().remove();
-                        }
-                    });
-                }
-            });
+            window.location.reload();
         }
     });
-    // Hover on dynamic elements doesn't work...
+    // Hover on dynamic elements
     $(document).on('mouseenter', '.ajp-frontpage-image-container', function () {
-        $(this).find('.ajp-thumbnail-selection-icon').show('fade', 250);
+        const icon = $(this).find('.ajp-thumbnail-selection-icon');
+        if (!icon.hasClass('ajp-thumbnail-selection-icon-blue')) {
+            icon.show();
+        }
     });
     $(document).on('mouseleave', '.ajp-frontpage-image-container', function () {
         const icon = $(this).find('.ajp-thumbnail-selection-icon');
         if (!icon.hasClass('ajp-thumbnail-selection-icon-blue')) {
-            $(this).find('.ajp-thumbnail-selection-icon').hide('fade', 250);
+            icon.hide();
         }
     });
     $(document).on('mouseenter', '.ajp-thumbnail-selection-icon', function () {
         $(this).show();
     });
-    $(document.body).delegate(
-        '.ajp-frontpage-image-container',
-        'hover',
-        function () {
-            $(this).find('.ajp-thumbnail-selection-icon').show('fade', 250);
-        },
-        function () {
-            const icon = $(this).find('.ajp-thumbnail-selection-icon');
-            if (!icon.hasClass('ajp-thumbnail-selection-icon-blue')) {
-                $(this).find('.ajp-thumbnail-selection-icon').hide('fade', 250);
-            }
-        },
-    );
     window.loadPossibleParentAlbums = function (
         parentAlbum,
         currentAlbumId,
@@ -1619,29 +1586,40 @@ $('.ajp-navbar').autoHidingNavbar();
 
     $(document).on('click', '.ajp-like-photo-overlay-button', function () {
         const $this = $(this),
-            $favoriteIcon = $this.find('#favorite-icon'),
+            photoId = $this.data('id') || window.currentlyOpenPhotoId,
+            $favoriteIcon = $this.find('#favorite-icon, .material-icons'),
             $likeCount = $this.find('.ajp-like-count');
         $.post(
             photoLikeURL,
             {
-                photo: window.currentlyOpenPhotoId,
+                photo: photoId,
                 csrfmiddlewaretoken: docCookies.getItem('csrftoken'),
             },
             function (response) {
+                const $allBtns = $('.ajp-like-photo-overlay-button[data-id="' + photoId + '"]');
+                const $allIcons = $allBtns.find('.material-icons, #favorite-icon');
+
                 if (response.level === 0) {
                     $favoriteIcon.html('favorite_border');
                     $this.removeClass('active big');
+                    $allIcons.html('favorite_border');
+                    $allBtns.removeClass('active big');
                     pushAnalyticsEvent('event', 'unlike_photo');
                 } else if (response.level === 1) {
                     $favoriteIcon.html('favorite');
                     $this.addClass('active');
+                    $allIcons.html('favorite');
+                    $allBtns.addClass('active');
                     pushAnalyticsEvent('event', 'like_photo');
                 } else if (response.level === 2) {
                     $favoriteIcon.html('favorite');
                     $this.addClass('big');
+                    $allIcons.html('favorite');
+                    $allBtns.addClass('big');
                     pushAnalyticsEvent('event', 'favorite_photo');
                 }
                 $likeCount.html(response.likeCount);
+                $('.ajp-like-count[data-id="' + photoId + '"]').html(response.likeCount);
                 $('#ajp-frontpage-show-liked-link').removeClass('disabled');
             },
         );

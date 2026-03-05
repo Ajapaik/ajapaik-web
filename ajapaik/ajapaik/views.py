@@ -362,7 +362,14 @@ def frontpage_async_albums(request):
 
 @ensure_csrf_cookie
 def photo_selection(request):
-    photo_ids = Photo.photo_ids_from_session(request)
+    # Retrieve and normalize the current selection to a set of integers
+    photo_ids_set = set()
+    if selection := request.session.get('photo_selection'):
+        for pid in selection:
+            try:
+                photo_ids_set.add(int(pid))
+            except (ValueError, TypeError):
+                continue
 
     if request.method == 'POST':
         if 'selection' in request.POST:
@@ -370,50 +377,55 @@ def photo_selection(request):
                 ids_to_toggle = json.loads(request.POST['selection'])
                 action = request.POST.get('action')
                 for photo_id in ids_to_toggle:
-                    photo_id = int(photo_id)
-                    if action == 'add':
-                        if photo_id not in photo_ids:
-                            photo_ids.append(photo_id)
-                    elif action == 'remove':
-                        if photo_id in photo_ids:
-                            photo_ids.remove(photo_id)
-                    else:
-                        if photo_id in photo_ids:
-                            photo_ids.remove(photo_id)
-                        else:
-                            photo_ids.append(photo_id)
-                photo_ids.sort()
-                request.session['photo_selection'] = photo_ids
-                request.session['photo_selection_ts'] = int(time.time() * 1000)
-                request.session.modified = True
-            except (ValueError, TypeError):
+                    try:
+                        pid = int(photo_id)
+                        if action == 'add':
+                            photo_ids_set.add(pid)
+                        elif action == 'remove':
+                            photo_ids_set.discard(pid)
+                        else:  # toggle
+                            if pid in photo_ids_set:
+                                photo_ids_set.remove(pid)
+                            else:
+                                photo_ids_set.add(pid)
+                    except (ValueError, TypeError):
+                        continue
+            except (ValueError, TypeError, json.JSONDecodeError):
                 pass
         elif 'photo_id' in request.POST:
             try:
-                photo_id = int(request.POST['photo_id'])
-                if photo_id in photo_ids:
-                    photo_ids.remove(photo_id)
-                else:
-                    photo_ids.append(photo_id)
-                photo_ids.sort()
-                request.session['photo_selection'] = photo_ids
-                request.session['photo_selection_ts'] = int(time.time() * 1000)
-                request.session.modified = True
-            except ValueError:
+                pid = int(request.POST['photo_id'])
+                action = request.POST.get('action')
+                if action == 'add':
+                    photo_ids_set.add(pid)
+                elif action == 'remove':
+                    photo_ids_set.discard(pid)
+                else:  # toggle
+                    if pid in photo_ids_set:
+                        photo_ids_set.remove(pid)
+                    else:
+                        photo_ids_set.add(pid)
+            except (ValueError, TypeError):
                 pass
 
         if 'clear' in request.POST:
-            request.session['photo_selection'] = []
-            request.session['photo_selection_ts'] = int(time.time() * 1000)
-            request.session.modified = True
+            photo_ids_set = set()
 
+        # Update session with sorted list of ints
+        new_selection = sorted(list(photo_ids_set))
+        request.session['photo_selection'] = new_selection
+        request.session['photo_selection_ts'] = int(time.time() * 1000)
+        request.session.modified = True
+
+    # Final normalization before return (redundant but safe)
+    current_selection = sorted(list(photo_ids_set))
     return HttpResponse(json.dumps({
-        'photo_selection': photo_ids,
+        'photo_selection': current_selection,
         'ts': request.session.get('photo_selection_ts', 0)
     }), content_type='application/json')
 
 def list_photo_selection(request):
-    photo_ids = Photo.photo_ids_from_session(request)
+    photo_ids = [int(pid) for pid in Photo.photo_ids_from_session(request)]
     at_least_one_photo_has_location = False
     count_with_location = 0
     whole_set_albums_selection_form = CuratorWholeSetAlbumsSelectionForm()
@@ -564,7 +576,7 @@ def photo_slug(request, photo_id=None, pseudo_slug=None):
     is_frontpage = False
     is_mapview = False
     is_selection = False
-    if is_ajax(request):
+    if is_ajax(request) or pseudo_slug == 'modal':
         template = 'photo/_photo_modal.html'
         if request.GET.get('isFrontpage'):
             is_frontpage = True
