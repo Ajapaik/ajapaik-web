@@ -20,7 +20,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik Web app\n"
 "Report-Msgid-Bugs-To: translatewiki.net\n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2025-10-30 12:00:27+0000\n"
+"PO-Revision-Date: 2026-03-09 12:00:34+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: he\n"
@@ -50,23 +50,23 @@ msgstr ""
 
 #: ajapaik/ajapaik/api.py:81
 msgid "Expired token"
-msgstr ""
+msgstr "אסימון שתוקפו פג"
 
 #: ajapaik/ajapaik/api.py:82
 msgid "Invalid token"
-msgstr ""
+msgstr "אסימון שגוי"
 
 #: ajapaik/ajapaik/api.py:83
 msgid "Missing parameter photo_ids"
-msgstr ""
+msgstr "המשתנה photo_ids חסר"
 
 #: ajapaik/ajapaik/api.py:84
 msgid "No photo with id:"
-msgstr ""
+msgstr "אין תמונה עם המזהה:"
 
 #: ajapaik/ajapaik/api.py:85
 msgid "Parameter photo_id must be an positive integer"
-msgstr ""
+msgstr "המשתנה photo_id חייב להיות מספר שלם וחיובי"
 
 #: ajapaik/ajapaik/api.py:87
 msgid "Please login with a different account, you are currently logged in with the same account that you are merging from"
@@ -74,7 +74,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/api.py:89
 msgid "Please login"
-msgstr ""
+msgstr "נא להיכנס"
 
 #: ajapaik/ajapaik/api.py:90
 msgid "Rephoto upload settings have been saved"
@@ -121,7 +121,7 @@ msgstr "התמלול שלך עודכן, תודה!"
 #: ajapaik/ajapaik/api.py:1742 ajapaik/ajapaik/api.py:1831
 #: ajapaik/ajapaik/api.py:1951
 msgid "Something went wrong"
-msgstr ""
+msgstr "משהו השתבש"
 
 #: ajapaik/ajapaik/api.py:2003 ajapaik/utils.py:156
 msgid "Your suggestion has been saved, but previous consensus remains"
@@ -130,7 +130,7 @@ msgstr ""
 #: ajapaik/ajapaik/autocomplete_views.py:324
 #: ajapaik/ajapaik/autocomplete_views.py:356
 msgid "No album found"
-msgstr ""
+msgstr "לא נמצא אלבום"
 
 #: ajapaik/ajapaik/delfi.py:20
 msgid "Bounding box must be set"
@@ -153,7 +153,7 @@ msgstr ""
 #: ajapaik/ajapaik/templates/socialaccount/connections_content.html:24
 #: ajapaik/ajapaik/templates/user/_user_card.html:11
 msgid "Email"
-msgstr ""
+msgstr "דוא״ל"
 
 #: ajapaik/ajapaik/forms.py:25
 msgid "First name"
@@ -305,11 +305,11 @@ msgstr "כן"
 
 #: ajapaik/ajapaik/forms.py:502 ajapaik/ajapaik/forms.py:521
 msgid "No"
-msgstr ""
+msgstr "לא"
 
 #: ajapaik/ajapaik/forms.py:508
 msgid "Please specify your prefered language"
-msgstr ""
+msgstr "נא לציין את השפה המועדפת עליך"
 
 #: ajapaik/ajapaik/forms.py:510
 msgid "Please specify whether you would like to receive the newsletter"
@@ -353,7 +353,7 @@ msgstr "נקבה"
 
 #: ajapaik/ajapaik/models.py:281 ajapaik/ajapaik_face_recognition/forms.py:21
 msgid "Gender"
-msgstr ""
+msgstr "מגדר"
 
 #: ajapaik/ajapaik/models.py:283
 msgid "Wikidata identifier"
@@ -774,7 +774,7 @@ msgstr "שכחת סיסמה?"
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:30
 #: ajapaik/ajapaik/templates/user/user.html:40
 msgid "User settings"
-msgstr ""
+msgstr "הגדרות משתמש"
 
 #: ajapaik/ajapaik/templates/account/base.html:37
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:31
@@ -814,12 +814,12 @@ msgstr "תפריט"
 #: ajapaik/ajapaik/templates/account/email_content.html:3
 #: ajapaik/ajapaik/views.py:3714
 msgid "E-mail addresses"
-msgstr ""
+msgstr "כתובות דוא״ל"
 
 #: ajapaik/ajapaik/templates/account/email_confirm.html:6
 #: ajapaik/ajapaik/templates/account/email_confirm.html:10
 msgid "Confirm e-mail address"
-msgstr ""
+msgstr "אישור כתובת דוא״ל"
 
 #: ajapaik/ajapaik/templates/account/email_confirm.html:16
 #, python-format
@@ -875,11 +875,11 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/account/email_content.html:50
 msgid "Add E-mail"
-msgstr ""
+msgstr "הוספת דוא״ל"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:57
 msgid "Do you really want to remove the selected e-mail address?"
-msgstr ""
+msgstr "להסיר את כתובת הדוא״ל הנבחרת?"
 
 #: ajapaik/ajapaik/templates/account/login.html:13
 #, python-format
@@ -893,7 +893,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/templates/account/logout.html:10
 msgid "Are you sure you want to sign out?"
-msgstr ""
+msgstr "לצאת?"
 
 #: ajapaik/ajapaik/templates/account/password_change.html:5
 #: ajapaik/ajapaik/templates/account/password_change.html:8
@@ -948,7 +948,7 @@ msgstr "הסיסמה שלך שונתה עכשיו."
 #: ajapaik/ajapaik/templates/account/password_set.html:8
 #: ajapaik/ajapaik/templates/account/password_set_form.html:5
 msgid "Set Password"
-msgstr ""
+msgstr "הגדרת סיסמה"
 
 #: ajapaik/ajapaik/templates/account/signup.html:10
 #, python-format
@@ -958,7 +958,7 @@ msgstr "כבר יש לך חשבון? אז נא <a href=\"%(login_url)s\">להי�
 #: ajapaik/ajapaik/templates/account/signup_closed.html:5
 #: ajapaik/ajapaik/templates/account/signup_closed.html:8
 msgid "Sign up closed"
-msgstr ""
+msgstr "ההרשמה סגורה"
 
 #: ajapaik/ajapaik/templates/account/signup_closed.html:10
 msgid "We are sorry, but the sign up is currently closed."
@@ -966,7 +966,7 @@ msgstr "סליחה, אבל הרישום סגור עכשיו."
 
 #: ajapaik/ajapaik/templates/account/snippets/already_logged_in.html:4
 msgid "Note"
-msgstr ""
+msgstr "הערה"
 
 #: ajapaik/ajapaik/templates/account/snippets/already_logged_in.html:4
 #, python-format
@@ -1125,7 +1125,7 @@ msgstr "הצגת התיאור"
 
 #: ajapaik/ajapaik/templates/common/mapview.html:24
 msgid "Show images"
-msgstr ""
+msgstr "הצגת תמונות"
 
 #: ajapaik/ajapaik/templates/common/mapview.html:26
 msgid "Search box"
@@ -1155,7 +1155,7 @@ msgstr "אגודת מורשת הצילום האסטונית"
 #: ajapaik/ajapaik/templates/core/_footer.html:24
 #: ajapaik/ajapaik_face_recognition/templates/_footer.html:24
 msgid "Privacy policy"
-msgstr ""
+msgstr "מדיניות פרטיות"
 
 #: ajapaik/ajapaik/templates/core/_footer.html:29
 #: ajapaik/ajapaik_face_recognition/templates/_footer.html:29
