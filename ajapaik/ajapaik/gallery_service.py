@@ -123,8 +123,8 @@ def get_filtered_data_for_gallery(
     if not album:
         album_size_before_sorting = photos.cached_count(str(cleaned_data))
 
-    photos_with_comments = None
-    photos_with_rephotos = None
+    photos_with_comments = Photo.objects.none()
+    photos_with_rephotos = Photo.objects.none()
 
     # SORTING BELOW THIS LINE
     if order1 == 'closest' and lat and lon:
@@ -298,8 +298,8 @@ def get_filtered_data_for_gallery(
         photo=requested_photo,
         fb_share_photos=fb_share_photos,
         photos=photos.prefetch_related("source", "likes"),
-        photos_with_comments=photos_with_comments,
-        photos_with_rephotos=photos_with_rephotos,
+        photos_with_comments=photos_with_comments.prefetch_related("source", "likes"),
+        photos_with_rephotos=photos_with_rephotos.prefetch_related("source", "likes"),
         my_likes_only=my_likes_only,
         start=pagination_parameters.start if pagination_parameters else None,
         end=pagination_parameters.end if pagination_parameters else None,
