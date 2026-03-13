@@ -32,13 +32,6 @@ class Command(BaseCommand):
                 a.lat = random_photo.lat
                 a.lon = random_photo.lon
                 a.geography = Point(x=float(a.lon), y=float(a.lat), srid=4326)
-            else:
-                random_index = randint(0, historic_photo_qs.count() - 1)
-                random_photo = historic_photo_qs[random_index]
-            a.cover_photo = random_photo
-
-            if random_photo.flip:
-                a.cover_photo_flipped = random_photo.flip
 
             a.light_save()
             time.sleep(0.2)
