@@ -79,12 +79,12 @@
                     {% endif %}
                     <span id="favorite-icon" class="ajp-like-count">{{ photo.like_count }}</span>
                 </button>
-                {% if rephotos|length > 0 and similar_photos|length > 0 %}
+                {% if rephotos|length > 0 and similarities|length > 0 %}
                     <div class="ajp-image-bottom-right">
                         <button class="btn ajp-show-similar-photoview-overlay-button float-right"
                                 id="ajp-show-similar-photoview-overlay-button" {% if request.user_agent.is_pc %}style="display: none;"{% endif %}>
                             <span class="material-icons notranslate w-100">burst_mode</span>
-                            <span style="top:-10px; position: relative;">{% if similar_photos|length > 9 %}9+{% else %}{{ confirmed_similar_photo_count }}/{{ similar_photos|length }}{% endif %}</span>
+                            <span style="top:-10px; position: relative;">{% if similarities|length > 9 %}9+{% else %}{{ confirmed_similar_photo_count }}/{{ similarities|length }}{% endif %}</span>
                         </button>
                         <button class="btn ajp-show-rephotos-photoview-overlay-button float-right d-none"
                                 id="ajp-show-rephotos-photoview-overlay-button" {% if request.user_agent.is_pc %}style="display: none;"{% endif %}>
@@ -125,10 +125,10 @@
                 </div>
             </div>
         {% endif %}
-        {% if similar_photos|length > 0 %}
+        {% if similarities|length > 0 %}
             <div id="ajp-photoview-similar-photo-selection" class="col-auto px-0{% if rephoto or rephotos|length > 0 %} d-none{% endif %}">
                 <div>
-                    {% for similarity in similar_photos.all %}
+                    {% for similarity in similarities %}
                         <div class="row ajp-no-right-margin-row ajp-no-left-margin-row ajp-photoview-similar-image-row">
                             <a class="w-100" href="{% url 'photo' similarity.to_photo.id similarity.to_photo.slug%}">
                                 <img src="{% url 'image_thumb' similarity.to_photo.id 250 similarity.to_photo.slug%}"
@@ -169,7 +169,7 @@
                 {% endfor %}
             </div>
         {% endif %}
-        <div id="ajp-photo-modal-map-container" style="display:none;{% if similar_photos|length > 0 or rephotos|length > 0 %}min-height:25vh;{% endif %}" class="col-auto float-right{% if rephoto %} d-none{% endif %} pl-0">
+        <div id="ajp-photo-modal-map-container" style="display:none;{% if similarities|length > 0 or rephotos|length > 0 %}min-height:25vh;{% endif %}" class="col-auto float-right{% if rephoto %} d-none{% endif %} pl-0">
             <div id="ajp-minimap-disabled-overlay"></div>
             <div id="ajp-photo-modal-map-canvas"></div>
         </div>

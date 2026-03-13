@@ -51,12 +51,12 @@ class AlbumSerializer(serializers.ModelSerializer):
     title = serializers.CharField(source='name')
     photos = serializers.SerializerMethodField()
 
-    def get_photos(self, instance):
+    def get_photos(self, instance: Album):
         request = self.context['request']
         user_profile = request.user.profile if request.user.is_authenticated else None
 
         photos = PhotoSerializer.annotate_photos(
-            self.context['photos'],
+            instance.photos.all(),
             user_profile
         )
         return PhotoSerializer(
@@ -189,6 +189,13 @@ class PhotoSerializer(PhotoRepresentationSerializer):
     favorited = serializers.SerializerMethodField()
     high_quality = serializers.SerializerMethodField()
     slug = serializers.SerializerMethodField()
+    date_text = serializers.SerializerMethodField()
+
+    def get_date_text(self, instance: Photo) -> str:
+        if instance.date:
+            return instance.date.strftime('%d.%m.%Y')
+        else:
+            return instance.date_text
 
     def get_favorited(self, instance: Photo):
         return instance.likes.exists()
@@ -235,7 +242,19 @@ class PhotoSerializer(PhotoRepresentationSerializer):
             'image', 'full_image', 'width', 'height', 'title',
             'author', 'source', 'latitude', 'longitude', 'azimuth',
             'favorited', 'high_quality', 'slug', 'comment_count',
-            'rephoto_count'
+            'rephoto_count', 'date_text'
+        )
+
+
+class RephotoDetailsSerializer(PhotoRepresentationSerializer):
+    user_id = serializers.IntegerField(source='user.id', required=False)
+    user_name = serializers.CharField(source='user.get_display_name', required=False)
+
+    class Meta(PhotoRepresentationSerializer.Meta):
+        model = Photo
+        fields = (
+            *PhotoRepresentationSerializer.Meta.fields,
+            'author', 'date_text', 'licence', 'slug', 'source_key', 'source_url', 'user_id', 'user_name',
         )
 
 
@@ -269,7 +288,7 @@ class PhotoDetailsSerializer(PhotoRepresentationSerializer):
 
     def get_date_text(self, instance: Photo) -> str:
         if instance.date:
-            return instance.date.strftime('%d-%m-%Y')
+            return instance.date.strftime('%d.%m.%Y')
         else:
             return instance.date_text
 
@@ -289,12 +308,6 @@ class PhotoDetailsSerializer(PhotoRepresentationSerializer):
         relative_url = reverse('image_thumb', args=(instance.id, 1024, instance.get_pseudo_slug))
 
         return request.build_absolute_uri(relative_url)
-
-    def get_date(self, instance: Photo) -> str:
-        if instance.date:
-            return instance.date.strftime('%d-%m-%Y')
-        else:
-            return instance.date_text
 
     def get_source(self, instance: Photo):
         if instance.source:
@@ -340,7 +353,7 @@ class PhotoDetailsSerializer(PhotoRepresentationSerializer):
     class Meta(PhotoRepresentationSerializer.Meta):
         model = Photo
         fields = (
-            *PhotoRepresentationSerializer.Meta.fields, 'image', 'full_image', 'width', 'height', 'title', 'date',
+            *PhotoRepresentationSerializer.Meta.fields, 'image', 'full_image', 'width', 'height', 'title',
             'author', 'source', 'azimuth', 'rephotos',
             'lat', 'lon', 'description',
             'slug', 'comment_count',
@@ -385,7 +398,7 @@ class PhotoWithDistanceSerializer(PhotoSerializer):
 
 class RephotoSerializer(serializers.ModelSerializer):
     image = serializers.SerializerMethodField()
-    date = DateTimeTzAwareField(format='%d-%m-%Y')
+    date_text = serializers.SerializerMethodField()
     source = serializers.SerializerMethodField()
     user_name = serializers.CharField(source='user.user.get_full_name', default='Anonymous user')
     is_uploaded_by_current_user = serializers.SerializerMethodField()
@@ -395,9 +408,9 @@ class RephotoSerializer(serializers.ModelSerializer):
         relative_url = reverse('image_thumb', args=(instance.id,))
         return '{}[DIM]/'.format(request.build_absolute_uri(relative_url))
 
-    def get_date(self, instance):
+    def get_date_text(self, instance):
         if instance.date:
-            return instance.date.strftime('%d-%m-%Y')
+            return instance.date.strftime('%d.%m.%Y')
         else:
             return instance.date_text
 
@@ -423,7 +436,7 @@ class RephotoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Photo
         fields = (
-            'image', 'date', 'source', 'user_name',
+            'image', 'date_text', 'source', 'user_name',
             'is_uploaded_by_current_user',
         )
 
@@ -439,7 +452,7 @@ class GalleryResultsSerializer(DataclassSerializer):
     fb_share_photos = PhotoMiniSerializer(many=True)
     photos = PhotoSerializer(many=True)
     photos_with_comments = PhotoSerializer(many=True)
-    photos_with_rephotos = PhotoSerializer(many=True)
+    photos_with_rephotos = RephotoSerializer(many=True)
     videos = VideoSerializer(many=True)
 
     class Meta:
@@ -480,8 +493,7 @@ class APIPhotoSerializer(serializers.ModelSerializer):
         # So if faced some incorrect data check what have been assigned to
         # "instance" variable.
         return photos_queryset \
-            .prefetch_related('source') \
-            .prefetch_related('rephotos') \
+            .prefetch_related('source', 'rephotos') \
             .annotate(rephotos_count=Count('rephotos')) \
             .annotate(uploads_count=Count(Case(When(rephotos__user=user_profile, then=1),
                                                output_field=models.IntegerField()))) \

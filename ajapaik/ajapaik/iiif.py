@@ -116,7 +116,6 @@ def photo_manifest_v2(request, photo_id=None, pseudo_slug=None):
         else:
             rephoto_author = 'Unknown'
 
-        rephoto_date_text = ""
         if rephoto.date_text:
             rephoto_date_text = rephoto.date_text
         elif rephoto.date:

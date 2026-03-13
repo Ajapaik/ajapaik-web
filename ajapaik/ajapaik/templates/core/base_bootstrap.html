@@ -41,38 +41,8 @@
         {% else %}
             {% trans 'Everyone can help to enrich the data of historic pictures on Ajapaik!' %}
         {% endif %}
-        ">
-    <meta name="keywords" content="
-        {% if is_frontpage %}
-            {% if album %}
-                {% trans 'historic,pictures,old,photos' %},{{ album.name }}
-            {% else %}
-                {% trans 'historic,pictures,old,photos' %}
-            {% endif %}
-        {% elif is_mapview %}
-            {% if album %}
-                {% trans 'historic,pictures,old,photos,map,geotagged,location' %},{{ album.name }}
-            {% else %}
-                {% trans 'historic,pictures,old,photos,map,geotagged,location' %}
-            {% endif %}
-        {% elif is_game %}
-            {% if album %}
-                {% trans 'historic,pictures,old,photos,crowd-sourced,geotagging,game' %},{{ album.name }}
-            {% else %}
-                {% trans 'historic,pictures,old,photos,crowd-sourced,geotagging,game' %}
-            {% endif %}
-        {% elif is_photoview %}
-            {% if rephoto %}
-                {% trans 'historic,picture,old,photo,before,after' %},{{ rephoto.tags }}
-            {% elif photo %}
-                {% trans 'historic,picture,old,photo' %},{{ photo.tags }}
-            {% endif %}
-        {% elif is_curator %}
-            {% trans 'search,museum,old,photos,pictures,historic' %}
-        {% else %}
-            {% trans 'historic,pictures,old,photos' %}
-        {% endif %}
-        ">
+        "
+    >
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="google-site-verification" content="3iK84Lw7RU9toVzSgoxDH4ErYxgkaoE4jrFMEb9R4Is" />
@@ -452,7 +422,7 @@
     {# we need to reduce the weight to accommodate mobile #}
     <script src="{% url 'javascript-catalog' %}?_={% now "U" %}"></script>
     {# Don't bother trying to simplify this - it can be expensive, too bad django template does not support ()' #}
-    {% if not is_frontpage and not is_photoview and is_game or not is_frontpage and not is_photoview and is_mapview %}
+    {% if is_curator or not is_frontpage and not is_photoview and is_game or not is_frontpage and not is_photoview and is_mapview %}
         <script
             src="https://maps.google.com/maps/api/js?v=3&amp;libraries=places,visualization&key={{ google_maps_api_key }}"></script>
     {% else %}

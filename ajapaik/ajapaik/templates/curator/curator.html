@@ -787,36 +787,28 @@
             let currentAutoAlbumId = null;
             let pointsAwarded = 0;
 
-            const processOne = function (index) {
-                if (index >= keys.length) {
-                    $('#ajp-loading-overlay').hide();
-                    window.updateLeaderboard();
-                    $('#ajp-choose-albums-modal').modal('hide');
-                    const albumPlayLink = gameUrl + '?album=' + currentAutoAlbumId,
-                        feedbackModalDiv = $('#ajp-curator-feedback-modal');
-                    $('#ajp-curator-album-play-link').html(albumPlayLink).prop('href', albumPlayLink);
-                    $('#ajp-curator-points-awarded').html(pointsAwarded);
-                    $('#ajp-curator-add-album-name').val(null);
-                    $('#ajp-curator-add-album-description').val(null);
-                    $('#ajp-curator-add-area-name-d-none').val(null);
-                    $('#ajp-curator-create-new-album-checkbox').val(false);
-                    feedbackModalDiv.modal('show').on('shown.bs.modal', function () {
-                        $($(this).find('#ajp-curator-share-button-container')).empty().append(tmpl('ajp-curator-share-set-button', { gameLink: albumPlayLink }));
-                        window.FB.XFBML.parse();
-                    });
-                    window.gtag('event', 'photo_upload_batch_success', { 'category': 'Curator' });
-                    return;
-                }
-
-                const key = keys[index];
-                const singlePhotoSelection = {};
-                singlePhotoSelection[key] = selection[key];
-
+            const uploadPhotos = function () {
+                $('#ajp-loading-overlay').hide();
+                window.updateLeaderboard();
+                $('#ajp-choose-albums-modal').modal('hide');
+                const albumPlayLink = gameUrl + '?album=' + currentAutoAlbumId,
+                    feedbackModalDiv = $('#ajp-curator-feedback-modal');
+                $('#ajp-curator-album-play-link').html(albumPlayLink).prop('href', albumPlayLink);
+                $('#ajp-curator-points-awarded').html(pointsAwarded);
+                $('#ajp-curator-add-album-name').val(null);
+                $('#ajp-curator-add-album-description').val(null);
+                $('#ajp-curator-add-area-name-d-none').val(null);
+                $('#ajp-curator-create-new-album-checkbox').val(false);
+                feedbackModalDiv.modal('show').on('shown.bs.modal', function () {
+                    $($(this).find('#ajp-curator-share-button-container')).empty().append(tmpl('ajp-curator-share-set-button', { gameLink: albumPlayLink }));
+                    window.FB.XFBML.parse();
+                });
+                window.gtag('event', 'photo_upload_batch_success', { 'category': 'Curator' });
                 $.ajax({
                     type: "POST",
                     url: "{% url 'curator_photo_upload_handler' %}",
                     data: {
-                        selection: JSON.stringify(singlePhotoSelection),
+                        selection: JSON.stringify(selection),
                         albums: albums,
                         eteraToken: ETERASession,
                         autoAlbumId: currentAutoAlbumId,
@@ -847,17 +839,14 @@
                                 }
                             }
                         }
-                        processOne(index + 1);
                     },
                     error: function () {
                         const targetDiv = $($('#ajp-curator-selection-item-' + window.escapeSlash(window.formatId(key))).find('.ajp-curator-selection-feedback-row')[0]);
                         $(targetDiv.find('.alert-danger')[0]).html(window.gettext('System error')).show();
-                        processOne(index + 1);
                     }
                 });
             };
-
-            processOne(0);
+            uploadPhotos();
         });
         $(document).on('click', '#ajp-curator-fetch-all', function () {
             automateFetch = true;

@@ -52,10 +52,10 @@
                                 <span class="ajp-like-count">{{ photo.like_count }}</span>
                             </button>
                             <div class="d-block text-right ajp-image-bottom-right">
-                                {% if similar_photos|length > 0 %}
+                                {% if similarities|length > 0 %}
                                 <button class="btn ajp-show-similar-photo-selection-overlay-button" id="ajp-show-similar-photo-selection-overlay-button" {% if request.user_agent.is_pc %}style="display: none"{% endif %}>
                                     <span class="material-icons notranslate w-100">burst_mode</span>
-                                    <span style="top:-10px; position: relative;">{% if similar_photos|length > 9 %}9+{% else %}{{ confirmed_similar_photo_count }}/{{ similar_photos|length }}{% endif %}</span>
+                                    <span style="top:-10px; position: relative;">{% if similarities|length > 9 %}9+{% else %}{{ confirmed_similar_photo_count }}/{{ similarities|length }}{% endif %}</span>
                                 </button>
                                 {% endif %}
                                 {% if rephotos %}
@@ -71,18 +71,18 @@
                             </div>
                         </div>
                     </div>
-                    {% if similar_photos.0 %}
+                    {% if similarities.0 %}
                         <div id="ajp-photo-modal-similar-photo-column" class="pl-0 col-lg-6 col-xl-6 col-12">
                             <div id="ajp-modal-similar-photo-container" class="float-left">
-                                <a class="w-100" href="{% url 'photo' similar_photos.all.0.to_photo.id similar_photos.all.0.to_photo.slug%}">
-                                    <img src="{% url 'image_thumb' similar_photos.all.0.to_photo.id 800 similar_photos.all.0.to_photo.slug%}"
+                                <a class="w-100" href="{% url 'photo' similarities.0.to_photo.id similarities.0.to_photo.slug%}">
+                                    <img src="{% url 'image_thumb' similarities.0.to_photo.id 800 similarities.0.to_photo.slug%}"
                                         class="img-fluid ajp-photoview-thumbnail" id="ajp-modal-similar-photo"
-                                        {% if similar_photos.all.0.similarity_type == 1 %}
-                                        alt="{{similar_photos.all.0.to_photo.get_display_text }}  {% trans "similar photo" %}"
-                                        title="{{ similar_photos.all.0.to_photo.get_display_text }} {% trans "similar photo" %}"
+                                        {% if similarities.0.similarity_type == 1 %}
+                                        alt="{{similarities.0.to_photo.display_text }}  {% trans "similar photo" %}"
+                                        title="{{ similarities.0.to_photo.display_text }} {% trans "similar photo" %}"
                                         {% else %}
-                                        alt="{{ similar_photos.all.0.to_photo.get_display_text }}  {% trans "duplicate photo" %}"
-                                        title="{{ similar_photos.all.0.to_photo.get_display_text }} {% trans "duplicate photo" %}"
+                                        alt="{{ similarities.0.to_photo.display_text }}  {% trans "duplicate photo" %}"
+                                        title="{{ similarities.0.to_photo.display_text }} {% trans "duplicate photo" %}"
                                         {% endif %}/>
                                     <button id="modal-compare-similar" class="btn ajp-compare-similar-overlay-button"
                                     {% if request.user_agent.is_pc %}style="opacity:0;"{% endif %}>
@@ -93,9 +93,9 @@
                                         <span class="material-icons notranslate">close</span>
                                     </button>
                                 </a>
-                                {% if similar_photos|length > 1 %}
+                                {% if similarities|length > 1 %}
                                     <div id="ajp-similar-photo-selection" style="display:none;">
-                                        {% for similar in similar_photos %}
+                                        {% for similar in similarities %}
                                             <div class="ajp-photo-modal-similar-photo-thumb"
                                                 id="ajp-similar-photo-thumb-{{ similar.to_photo.id }}" data-id="{{ similar.to_photo.id }}">
                                                 <img class="img-fluid"
@@ -234,8 +234,8 @@
             fullscreen_url: "{% url 'image_full' rephoto.id rephoto.slug%}",
             fullscreen_width: "{{ rephoto.width }}",
             fullscreen_height: "{{ rephoto.height }}",
-            {% if rephoto.date %}
-                date: "{{ rephoto.date|date:"d.m.Y" }}",
+            {% if rephoto.date_text %}
+                date: "{{ rephoto.date_text }}",
             {% endif %}
             {% if request.user.is_superuser %}
                 admin: "request.user.is_superuser",
@@ -261,24 +261,24 @@
             {% endif %}
         });
     {% endfor %}
-    {% for similar in similar_photos.all %}
+    {% for similar in similarities %}
     window.photoModalSimilarPhotoArray.push({
-            id: {{ similar.to_photo_id }},
+            id: {{ similar.to_photo.id }},
             address: "{{ similar.to_photo.address }}",
             lat: "{{ similar.to_photo.lat }}",
             lon: "{{ similar.to_photo.lon }}",
             {% if similar.to_photo.author %}
                 author: "{{ similar.to_photo.author }}",
             {% endif %}
-            {% if similar.to_photo.get_display_text %}
-                description: "{{ similar.to_photo.get_display_text|remove_newlines|escapejs }}",
+            {% if similar.to_photo.display_text %}
+                description: "{{ similar.to_photo.display_text|remove_newlines|escapejs }}",
             {% endif %}
             {% if similar.to_photo.date_text %}
                 date_text: "{{ similar.to_photo.date_text }}",
             {% endif %}
-            url: "{% url 'image_thumb' similar.to_photo_id 800 similar.to_photo.slug%}",
+            url: "{% url 'image_thumb' similar.to_photo.id 800 similar.to_photo.slug%}",
             fb_url: "{{ hostname }}{{ similar.to_photo.get_detail_url }}",
-            fullscreen_url: "{% url 'image_full' similar.to_photo.pk similar.to_photo.slug%}",
+            fullscreen_url: "{% url 'image_full' similar.to_photo.id similar.to_photo.slug}",
             fullscreen_width: "{{ similar.to_photo.width }}",
             fullscreen_height: "{{ similar.to_photo.height }}",
             {% if similar.to_photo.date %}

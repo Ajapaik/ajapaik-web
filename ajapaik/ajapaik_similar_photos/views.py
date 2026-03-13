@@ -30,8 +30,8 @@ def compare_photos_generic(request, photo_id=None, photo_id_2=None, view='compar
             if similar_photos is None or len(similar_photos) < 1:
                 return render(request, 'compare_photos/compare_photos_no_results.html')
             first_similar = similar_photos.first()
-        photo_id = first_similar.from_photo_id
-        photo_id_2 = first_similar.to_photo_id
+        photo_id = first_similar.from_photo.id
+        photo_id_2 = first_similar.to_photo.id
 
     photo_obj = get_object_or_404(Photo, id=photo_id)
     photo_obj2 = get_object_or_404(Photo, id=photo_id_2)

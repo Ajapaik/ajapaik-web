@@ -18,24 +18,18 @@
     {% else %}
         <div class="w-100">
             <a id="ajp-photo-modal-rephoto-user-link"
-                {% if rephoto.user.id %} href="/user/{{rephoto.user.id}}" {% endif %}
+                {% if rephoto.user_id %} href="/user/{{rephoto.user_id}}" {% endif %}
                 target="_blank">
-                {% if rephoto.user.fb_name %}
-                    {{ rephoto.user.fb_name }}
-                {% elif rephoto.user.fb_name %}
-                    {{ rephoto.user.google_plus_name }}
-                {% else %}
-                    {{ rephoto.user.get_display_name }}
-                {% endif %}
+                {{ rephoto.user_name }}
             </a>
         <br>
         {% include 'photo/_licence.html' %}
         </div>
     {% endif %}
-    {% if rephoto.date %}
+    {% if rephoto.date_text %}
         <div class="w-100">
             {% trans "Date taken" %}&nbsp;
-            <div id="ajp-photoview-date-taken">{{ rephoto.date|date:"d.m.Y" }}</div>
+            <div id="ajp-photoview-date-taken">{{ rephoto.date_text }}</div>
         </div>
     {% endif %}
     {% if request.user.is_superuser %}

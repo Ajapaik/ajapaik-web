@@ -36,8 +36,8 @@ from ajapaik.ajapaik.models import Photo, GeoTag, Points, \
     Album, AlbumPhoto, Area, Licence, \
     MuisCollection, PhotoLike, ImageSimilarity
 from ajapaik.ajapaik.serializers import FrontpageAlbumSerializer, DatingSerializer, \
-    GalleryResultsSerializer, AlbumPreviewSerializer, PhotoSerializer, PhotoMiniSerializer, \
-    ImageSimilaritySerializer, GalleryAlbumSerializer, PhotoDetailsSerializer
+    GalleryResultsSerializer, AlbumPreviewSerializer, PhotoMiniSerializer, \
+    ImageSimilaritySerializer, GalleryAlbumSerializer, PhotoDetailsSerializer, RephotoDetailsSerializer
 from ajapaik.ajapaik.stats_sql import AlbumStats
 from ajapaik.ajapaik_face_recognition.models import FaceRecognitionRectangle
 from ajapaik.utils import get_etag, calculate_thumbnail_size, calculate_thumbnail_size_max_height, \
@@ -533,14 +533,6 @@ def photo_slug(request, photo_id=None, pseudo_slug=None):
     else:
         template = 'photo/photo_view.html'
 
-    if not photo_obj.get_display_text:
-        title = 'Unknown photo'
-    else:
-        title = ' '.join(photo_obj.get_display_text.split(' ')[:5])[:50]
-
-    if photo_obj.author:
-        title += f' – {photo_obj.author}'
-
     albums = photo_obj.albums.filter(atype=Album.CURATED).prefetch_related('subalbum_of')
     full_album_id_list = list(albums.values_list("id", flat=True))
 
@@ -597,11 +589,6 @@ def photo_slug(request, photo_id=None, pseudo_slug=None):
     if first_rephoto is not None:
         rephoto_fullscreen = _make_fullscreen(first_rephoto)
 
-    if photo_obj and photo_obj.get_display_text:
-        photo_obj.tags = ','.join(photo_obj.get_display_text.split(' '))
-    if rephoto and rephoto.get_display_text:
-        rephoto.tags = ','.join(rephoto.get_display_text.split(' '))
-
     user_confirmed_this_location = 'false'
     user_has_geotagged = GeoTag.objects.filter(photo=photo_obj, user=profile).exists()
     if user_has_geotagged:
@@ -648,24 +635,22 @@ def photo_slug(request, photo_id=None, pseudo_slug=None):
 
     whole_set_albums_selection_form = CuratorWholeSetAlbumsSelectionForm()
 
-    reverse_side = None
-    if photo_obj.back_of is not None:
-        reverse_side = photo_obj.back_of
-    elif photo_obj.front_of is not None:
-        reverse_side = photo_obj.front_of
-
-    seconds = None
-    if photo_obj.video_timestamp:
-        seconds = photo_obj.video_timestamp / 1000
-
     collection_albums = albums.filter(atype=Album.COLLECTION)
+    photo_data = PhotoDetailsSerializer(photo_obj, context={'request': request}).data
+    if not photo_data["display_text"]:
+        title = 'Unknown photo'
+    else:
+        title = ' '.join(photo_data["display_text"].split(' ')[:5])[:50]
+
+    if photo_data["author"]:
+        title += f' – {photo_data["author"]}'
 
     context = {
-        'rephotos': PhotoSerializer(photo_obj.rephotos.all(), many=True,
-                                    context={'request': request}).data,
+        'rephotos': RephotoDetailsSerializer(photo_obj.rephotos.all(), many=True,
+                                             context={'request': request}).data,
         'photo': PhotoDetailsSerializer(photo_obj, context={'request': request}).data,
         'photo_obj': photo_obj,
-        'similar_photos': ImageSimilaritySerializer(similar_photos, many=True, context={'request': request}),
+        'similarities': ImageSimilaritySerializer(similar_photos, many=True).data,
         'previous_datings': JSONRenderer().render(serialized_datings).decode('utf-8'),
         'datings_count': previous_datings.count(),
         'original_thumb_size': original_thumb_size,
@@ -688,7 +673,7 @@ def photo_slug(request, photo_id=None, pseudo_slug=None):
         'similar_fullscreen': similar_fullscreen,
         'title': title,
         'description': desc,
-        'rephoto': PhotoSerializer(rephoto, context={'request': request}).data if rephoto else None,
+        'rephoto': RephotoDetailsSerializer(rephoto).data if rephoto else None,
         'hostname': f"{request.scheme}://{request.get_host()}",
         'first_geotaggers': first_geotaggers,
         'is_photoview': True,
@@ -696,16 +681,15 @@ def photo_slug(request, photo_id=None, pseudo_slug=None):
         'user_has_likes': user_has_likes,
         'user_has_rephotos': user_has_rephotos,
         'next_photo': PhotoMiniSerializer(next_photo).data if next_photo else None,
-        'previous_photo': PhotoMiniSerializer(previous_photo,
-                                              context={'request': request}).data if previous_photo else None,
+        'previous_photo': PhotoMiniSerializer(previous_photo).data if previous_photo else None,
         'confirmed_similar_photo_count': similar_photos.filter(confirmed=True).count(),
         'compare_photos_url': compare_photos_url,
-        'reverse_side': reverse_side,
+        'reverse_side': photo_obj.back_of or photo_obj.front_of,
         'is_photo_modal': is_ajax(request),
         # TODO: Needs more data than just the names
         'people': people,
         'whole_set_albums_selection_form': whole_set_albums_selection_form,
-        'seconds': seconds,
+        'seconds': (photo_obj.video_timestamp or 0) / 1000,
         'photo_share_url': photo_obj.absolute_url if not rephoto else rephoto.absolute_url
     }
 
