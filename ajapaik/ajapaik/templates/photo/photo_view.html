@@ -145,7 +145,7 @@
                                 <span class="material-icons notranslate ajp-photoview-similar-photo-icon"
                                 style="color:darkblue;">help_circle</span>
                             {% endif %}
-                            <a href="{% url 'compare-photos' similarity.from_photo.id similarity.to_photo_id %}"
+                            <a href="{% url 'compare-photos' similarity.from_photo.id similarity.to_photo.id %}"
                                 class="btn ajp-compare-similar-overlay-button"
                                 {% if request.user_agent.is_pc %}style="opacity:0;"{% endif %}>
                                     <span class="material-icons notranslate">compare</span>
