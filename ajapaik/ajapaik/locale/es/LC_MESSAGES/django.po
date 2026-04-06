@@ -11,6 +11,7 @@
 # Author: Fewasser Traduce
 # Author: Fitoschido
 # Author: Geryescalier
+# Author: Jaume9118
 # Author: Jesusmc
 # Author: Joanmp17
 # Author: Leslyvasquez1
@@ -32,7 +33,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2026-03-05 12:00:18+0000\n"
+"PO-Revision-Date: 2026-04-06 12:00:18+0000\n"
 "X-POT-Import-Date: 2024-07-09 05:10:19+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1496,7 +1497,7 @@ msgstr "Europeana"
 
 #: ajapaik/ajapaik/templates/curator/curator_search_controls.html:101
 msgid "Flickr Commons"
-msgstr ""
+msgstr "Flickr Commons"
 
 #: ajapaik/ajapaik/templates/curator/curator_search_controls.html:112
 #: ajapaik/ajapaik/templates/photo/selection/photo_selection.html:37
@@ -1537,7 +1538,7 @@ msgstr "Número de cuenta de beneficiario"
 
 #: ajapaik/ajapaik/templates/donate/_donate_details.html:13
 msgid "Ajapaik is an open source non-profit crowdsourcing platform, it’s amount of content and technical complexity have grown considerably. The site’s audience is on par or higher than that of official cultural heritage repositories like Muis, Fotis et al."
-msgstr ""
+msgstr "Ajapaik es una plataforma de crowdsourcing de código abierto y sin ánimo de lucro. Su cantidad de contenido y complejidad técnica han aumentado considerablemente. La audiencia del sitio es similar o superior a la de repositorios oficiales de patrimonio cultural como Muis, Fotis, etc."
 
 #: ajapaik/ajapaik/templates/donate/_donate_details.html:14
 msgid "Over the years Ajapaik has received public grant funding but we don’t have permanent funding that would enable us to keep the platform technically up to date or even more – enhance its usability, add new features."
