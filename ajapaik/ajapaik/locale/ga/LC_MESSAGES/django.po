@@ -1,0 +1,2835 @@
+# Translation of Ajapaik Web app to Irish (Gaeilge)
+# Exported from translatewiki.net
+#
+# Author: Aindriu80
+# --
+# This file is part of the Ajapaik Project
+# This file is distributed under the same license as the Ajapaik package.
+#
+msgid ""
+msgstr ""
+""
+"PO-Revision-Date: 2026-04-09 12:00:18+0000\n"
+"X-POT-Import-Date: 2024-07-09 05:10:19+0000\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ga\n"
+"Project-Id-Version: Ajapaik Web app\n"
+"Report-Msgid-Bugs-To: translatewiki.net\n"
+"X-Translation-Project: translatewiki.net <https://translatewiki.net>\n"
+"X-Generator: MediaWiki 1.46.0-alpha; Translate 2025-07-31\n"
+"Plural-Forms: nplurals=5; plural=(n == 1) ? 0 : ( (n == 2) ? 1 : ( (n < 7) ? 2 : ( (n < 11) ? 3 : 4 ) ) );\n"
+
+#: ajapaik/ajapaik/admin.py:87
+msgid "Invert colors"
+msgstr "Dathanna inbhéartaithe"
+
+#: ajapaik/ajapaik/api.py:78
+msgid "Add at least flip, invert or rotate parameter to the request"
+msgstr "Cuir paraiméadar smeach, inbhéartaithe nó rothlaithe ar a laghad leis an iarratas"
+
+#: ajapaik/ajapaik/api.py:79
+msgid "Add at least scene or viewpoint_elevation parameter to the request"
+msgstr "Cuir paraiméadar radharc nó viewpoint_elevation ar a laghad leis an iarratas"
+
+#: ajapaik/ajapaik/api.py:80
+msgid "Contributions and settings from the other account were added to current"
+msgstr "Cuireadh ranníocaíochtaí agus socruithe ón gcuntas eile leis an gcuntas reatha"
+
+#: ajapaik/ajapaik/api.py:81
+msgid "Expired token"
+msgstr "Comhartha imithe in éag"
+
+#: ajapaik/ajapaik/api.py:82
+msgid "Invalid token"
+msgstr "Comhartha neamhbhailí"
+
+#: ajapaik/ajapaik/api.py:83
+msgid "Missing parameter photo_ids"
+msgstr "Paraiméadar ar iarraidh photo_ids"
+
+#: ajapaik/ajapaik/api.py:84
+msgid "No photo with id:"
+msgstr "Gan grianghraf le haitheantas:"
+
+#: ajapaik/ajapaik/api.py:85
+msgid "Parameter photo_id must be an positive integer"
+msgstr "Ní mór don pharaiméadar photo_id a bheith ina shlánuimhir dhearfach"
+
+#: ajapaik/ajapaik/api.py:87
+msgid "Please login with a different account, you are currently logged in with the same account that you are merging from"
+msgstr "Logáil isteach le cuntas difriúil, tá tú logáilte isteach faoi láthair leis an gcuntas céanna a bhfuil tú ag cumasc leis."
+
+#: ajapaik/ajapaik/api.py:89
+msgid "Please login"
+msgstr "Logáil isteach le do thoil"
+
+#: ajapaik/ajapaik/api.py:90
+msgid "Rephoto upload settings have been saved"
+msgstr "Tá socruithe uaslódála athghrianghraif sábháilte"
+
+#: ajapaik/ajapaik/api.py:91
+msgid "Required parameter, token is missing"
+msgstr "Paraiméadar riachtanach, tá an comhartha ar iarraidh"
+
+#: ajapaik/ajapaik/api.py:92
+msgid "This transcription already exists, previous transcription was upvoted, thank you!"
+msgstr "Tá an trascríobh seo ann cheana féin, vótáladh suas don trascríobh roimhe seo, go raibh maith agat!"
+
+#: ajapaik/ajapaik/api.py:93
+msgid "Transcription added, thank you!"
+msgstr "Tras-scríbhinn curtha leis, go raibh maith agat!"
+
+#: ajapaik/ajapaik/api.py:94
+msgid "Transcription feedback added, thank you!"
+msgstr "Aiseolas trascríobh curtha leis, go raibh maith agat!"
+
+#: ajapaik/ajapaik/api.py:95
+msgid "User display name has been saved"
+msgstr "Tá ainm taispeána an úsáideora sábháilte"
+
+#: ajapaik/ajapaik/api.py:96
+msgid "User settings have been saved"
+msgstr "Tá socruithe úsáideora sábháilte"
+
+#: ajapaik/ajapaik/api.py:97
+msgid "You have already given feedback for this transcription"
+msgstr "Tá aiseolas tugtha agat cheana féin don trascríobh seo"
+
+#: ajapaik/ajapaik/api.py:98
+msgid "You have already submitted this transcription, thank you!"
+msgstr "Tá an trascríbhinn seo curtha isteach agat cheana féin, go raibh maith agat!"
+
+#: ajapaik/ajapaik/api.py:99
+msgid "Your transcription has been updated, thank you!"
+msgstr "Tá do thras-scríobh nuashonraithe, go raibh maith agat!"
+
+#: ajapaik/ajapaik/api.py:1038 ajapaik/ajapaik/api.py:1688
+#: ajapaik/ajapaik/api.py:1708 ajapaik/ajapaik/api.py:1724
+#: ajapaik/ajapaik/api.py:1742 ajapaik/ajapaik/api.py:1831
+#: ajapaik/ajapaik/api.py:1951
+msgid "Something went wrong"
+msgstr "Chuaigh rud éigin mícheart"
+
+#: ajapaik/ajapaik/api.py:2003 ajapaik/utils.py:156
+msgid "Your suggestion has been saved, but previous consensus remains"
+msgstr "Tá do mholadh sábháilte, ach tá an comhthuiscint roimhe seo fós ann."
+
+#: ajapaik/ajapaik/autocomplete_views.py:324
+#: ajapaik/ajapaik/autocomplete_views.py:356
+msgid "No album found"
+msgstr "Níor aimsíodh aon albam"
+
+#: ajapaik/ajapaik/delfi.py:20
+msgid "Bounding box must be set"
+msgstr "Ní mór bosca teorann a shocrú"
+
+#: ajapaik/ajapaik/delfi.py:23
+msgid "Bounding box must have 4 comma-separated members"
+msgstr "Ní mór 4 bhall scartha le camóga a bheith sa bhosca teorann"
+
+#: ajapaik/ajapaik/delfi.py:28
+msgid "Bounding box values must be numbers"
+msgstr "Ní mór luachanna bosca teorann a bheith ina n-uimhreacha"
+
+#: ajapaik/ajapaik/forms.py:18
+#| msgid "Bad Token"
+msgid "!!FUZZY!!Bad Token"
+msgstr "!!DOILÉIR!! Droch-Chomhartha"
+
+#: ajapaik/ajapaik/forms.py:24
+#: ajapaik/ajapaik/templates/socialaccount/connections_content.html:24
+#: ajapaik/ajapaik/templates/user/_user_card.html:11
+msgid "Email"
+msgstr "Ríomhphost"
+
+#: ajapaik/ajapaik/forms.py:25
+msgid "First name"
+msgstr "Céadainm"
+
+#: ajapaik/ajapaik/forms.py:26
+msgid "Last name"
+msgstr "Sloinne"
+
+#: ajapaik/ajapaik/forms.py:27
+#: ajapaik/ajapaik/templates/authentication/_login.html:41
+msgid "Password"
+msgstr "Pasfhocal"
+
+#: ajapaik/ajapaik/forms.py:28
+msgid "Password confirmation"
+msgstr "Deimhniú pasfhocail"
+
+#: ajapaik/ajapaik/forms.py:114 ajapaik/ajapaik/forms.py:195
+#: ajapaik/ajapaik/forms.py:217
+msgid "Choose area"
+msgstr "Roghnaigh limistéar"
+
+#: ajapaik/ajapaik/forms.py:120 ajapaik/ajapaik/forms.py:194
+#: ajapaik/ajapaik/forms.py:208 ajapaik/ajapaik/forms.py:216
+#: ajapaik/ajapaik/forms.py:225
+msgid "Choose album"
+msgstr "Roghnaigh albam"
+
+#: ajapaik/ajapaik/forms.py:212 ajapaik/ajapaik/forms.py:219
+msgid "Choose photo"
+msgstr "Roghnaigh grianghraf"
+
+#: ajapaik/ajapaik/forms.py:258
+msgid "Choose parent album"
+msgstr "Roghnaigh albam tuismitheora"
+
+#: ajapaik/ajapaik/forms.py:428
+msgid "Picture file"
+msgstr "Comhad pictiúr"
+
+#: ajapaik/ajapaik/forms.py:429 ajapaik/ajapaik/forms.py:482
+#: ajapaik/ajapaik/models.py:260 ajapaik/ajapaik/models.py:566
+#: ajapaik/ajapaik/templates/curator/curator.html:89
+#: ajapaik/ajapaik_face_recognition/forms.py:23
+msgid "Description"
+msgstr "Cur síos"
+
+#: ajapaik/ajapaik/forms.py:430
+msgid "I am the author"
+msgstr "Is mise an t-údar"
+
+#: ajapaik/ajapaik/forms.py:431 ajapaik/ajapaik/models.py:573
+msgid "Author"
+msgstr "Údar"
+
+#: ajapaik/ajapaik/forms.py:432
+msgid "Licence or status of copyright"
+msgstr "Ceadúnas nó stádas cóipchirt"
+
+#: ajapaik/ajapaik/forms.py:435
+msgid "Accepted formats are .png or .jpg files"
+msgstr "Is iad na formáidí a nglactar leo ná comhaid .png nó .jpg"
+
+#: ajapaik/ajapaik/forms.py:436
+msgid "Add a short description of the picture"
+msgstr "Cuir cur síos gairid ar an bpictiúr leis"
+
+#: ajapaik/ajapaik/forms.py:437
+msgid "Author of the picture (photographer, painter)"
+msgstr "Údar an phictiúir (grianghrafadóir, péintéir)"
+
+#: ajapaik/ajapaik/forms.py:439
+msgid "Please select a licence to let other people know if and how they can reuse the material you upload.\n\nIf you are the author, you can choose the licence (we recommend using open Creative Commons licences). If someone else created the work, you need to use the same licence and rights holder that it currently has.\n\nCurrently we are also accepting content with unclear copyright status, please choose ‘Copyright not evaluated’ then."
+msgstr "Roghnaigh ceadúnas le do thoil chun daoine eile a chur ar an eolas an féidir leo an t-ábhar a uaslódálann tú a athúsáid agus conas is féidir leo é sin a dhéanamh.\n\nMás tusa an t-údar, is féidir leat an ceadúnas a roghnú (molaimid ceadúnais oscailte Creative Commons a úsáid). Má chruthaigh duine eile an saothar, ní mór duit an ceadúnas agus an sealbhóir ceart céanna atá aige faoi láthair a úsáid.\n\nFaoi láthair, táimid ag glacadh le hábhar a bhfuil stádas cóipchirt doiléir air freisin, roghnaigh ‘Níor measúnaíodh cóipcheart’ ansin."
+
+#: ajapaik/ajapaik/forms.py:447
+msgid "Description of the picture"
+msgstr "Cur síos ar an bpictiúr"
+
+#: ajapaik/ajapaik/forms.py:448
+msgid "Author name"
+msgstr "Ainm an údair"
+
+#: ajapaik/ajapaik/forms.py:454
+msgid "Missing image"
+msgstr "Íomhá ar iarraidh"
+
+#: ajapaik/ajapaik/forms.py:456
+msgid "Missing description"
+msgstr "Cur síos ar iarraidh"
+
+#: ajapaik/ajapaik/forms.py:458
+msgid "Missing licence"
+msgstr "Ceadúnas ar iarraidh"
+
+#: ajapaik/ajapaik/forms.py:472
+msgid "Parent album"
+msgstr "Albam tuismitheora"
+
+#: ajapaik/ajapaik/forms.py:475
+#: ajapaik/ajapaik/templates/curator/curator.html:144
+msgid "Location"
+msgstr "Suíomh"
+
+#: ajapaik/ajapaik/forms.py:476
+msgid "If this album is tied to a certain location, specify here"
+msgstr "Más le suíomh áirithe atá an t-albam seo ceangailte, sonraigh anseo é."
+
+#: ajapaik/ajapaik/forms.py:479
+msgid "Album type"
+msgstr "Cineál albaim"
+
+#: ajapaik/ajapaik/forms.py:480
+msgid "Anything else"
+msgstr "Aon rud eile"
+
+#: ajapaik/ajapaik/forms.py:480
+msgid "Person"
+msgstr "Duine"
+
+#: ajapaik/ajapaik/forms.py:481 ajapaik/ajapaik/models.py:258
+#: ajapaik/ajapaik/templates/curator/curator.html:79
+#: ajapaik/ajapaik/templates/geotaggers/_geotaggers_modal_content.html:17
+#: ajapaik/ajapaik/templates/socialaccount/connections_content.html:26
+#: ajapaik/ajapaik/templates/user/_user_card.html:11
+msgid "Name"
+msgstr "Ainm"
+
+#: ajapaik/ajapaik/forms.py:483 ajapaik/ajapaik/models.py:264
+msgid "Is public"
+msgstr "Tá sé poiblí"
+
+#: ajapaik/ajapaik/forms.py:484 ajapaik/ajapaik/models.py:265
+msgid "Is open"
+msgstr "Tá sé oscailte"
+
+#: ajapaik/ajapaik/forms.py:497
+msgid "My preferred language is"
+msgstr "Is í mo theanga is fearr liom"
+
+#: ajapaik/ajapaik/forms.py:498
+msgid "I wish to receive the newsletter"
+msgstr "Ba mhaith liom an nuachtlitir a fháil"
+
+#: ajapaik/ajapaik/forms.py:502 ajapaik/ajapaik/forms.py:521
+msgid "Yes"
+msgstr "Tá"
+
+#: ajapaik/ajapaik/forms.py:502 ajapaik/ajapaik/forms.py:521
+msgid "No"
+msgstr "Níl"
+
+#: ajapaik/ajapaik/forms.py:508
+msgid "Please specify your prefered language"
+msgstr "Sonraigh do theanga is fearr leat le do thoil"
+
+#: ajapaik/ajapaik/forms.py:510
+msgid "Please specify whether you would like to receive the newsletter"
+msgstr "Sonraigh le do thoil an mian leat an nuachtlitir a fháil"
+
+#: ajapaik/ajapaik/forms.py:518
+msgid "I wish to to upload my rephotos to Wikimedia Commons"
+msgstr "Is mian liom mo ghrianghraif a uaslódáil chuig Wikimedia Commons"
+
+#: ajapaik/ajapaik/forms.py:528
+msgid "Please specify whether you would like your rephotos to be uploaded to Wikimedia Commons as well"
+msgstr "Sonraigh le do thoil an mbeadh tú ag iarraidh d’athghrianghraif a uaslódáil chuig Wikimedia Commons chomh maith."
+
+#: ajapaik/ajapaik/forms.py:537
+msgid "Please specify what would you like your display name to be"
+msgstr "Sonraigh le do thoil cén t-ainm taispeána ba mhaith leat a bheith agat."
+
+#: ajapaik/ajapaik/forms.py:556
+msgid "Email address"
+msgstr "Seoladh ríomhphoist"
+
+#: ajapaik/ajapaik/forms.py:561
+msgid "Comment box supports Markdown\n\nParagraphs\nAdd two new lines to start a new paragraph.\n\nBold\n**Geotagging** is the first task on Ajapaik.\n\nItalic\nNext come *rephotography* and *dating*.\n\nLinks\nJoin the discussion on [Ajapaiklejad FB group](https://www.facebook.com/groups/ajapaiklejad).\n\nImages\n![Ajapaik is gift for EV100](https://ajapaik.ee/static/images/ev100.png)"
+msgstr "Tacaíonn bosca tráchta le Markdown\n\nMíreanna\nCuir dhá líne nua leis chun mír nua a thosú.\n\nTrom\n**Is é *geotagáil** an chéad tasc ar Ajapaik.\n\nIodálach\nAnsin tagann *athghrianghrafadóireacht* agus *dátú*.\n\nNaisc\nGlac páirt sa phlé ar [Grúpa FB Ajapaiklejad](https://www.facebook.com/groups/ajapaiklejad).\n\nÍomhánna\n![Is bronntanas é Ajapaik do EV100](https://ajapaik.ee/static/images/ev100.png)"
+
+#: ajapaik/ajapaik/forms.py:596
+msgid "Nothing to change."
+msgstr "Ní haon rud le hathrú."
+
+#: ajapaik/ajapaik/models.py:254 ajapaik/ajapaik_face_recognition/forms.py:13
+#: ajapaik/ajapaik_face_recognition/models.py:23
+#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:51
+msgid "Male"
+msgstr "Fireann"
+
+#: ajapaik/ajapaik/models.py:255 ajapaik/ajapaik_face_recognition/forms.py:13
+#: ajapaik/ajapaik_face_recognition/models.py:22
+#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:54
+msgid "Female"
+msgstr "Baineann"
+
+#: ajapaik/ajapaik/models.py:281 ajapaik/ajapaik_face_recognition/forms.py:21
+msgid "Gender"
+msgstr "Inscne"
+
+#: ajapaik/ajapaik/models.py:283
+msgid "Wikidata identifier"
+msgstr "Aitheantóir Wikidata"
+
+#: ajapaik/ajapaik/models.py:290
+msgid "Name original language"
+msgstr "Ainmnigh an teanga bhunaidh"
+
+#: ajapaik/ajapaik/models.py:551
+msgid "Image"
+msgstr "Íomhá"
+
+#: ajapaik/ajapaik/models.py:565 ajapaik/ajapaik/models.py:2113
+msgid "Title"
+msgstr "Teideal"
+
+#: ajapaik/ajapaik/models.py:567
+msgid "MUIS title"
+msgstr "Teideal MUIS"
+
+#: ajapaik/ajapaik/models.py:568
+msgid "MUIS comment"
+msgstr "Trácht MUIS"
+
+#: ajapaik/ajapaik/models.py:569
+msgid "MUIS event description set note"
+msgstr "Nóta socraithe cur síos imeachta MUIS"
+
+#: ajapaik/ajapaik/models.py:570
+msgid "MUIS text on object"
+msgstr "Téacs MUIS ar réad"
+
+#: ajapaik/ajapaik/models.py:571
+msgid "MUIS legends and descriptions"
+msgstr "Finscéalta agus tuairiscí MUIS"
+
+#: ajapaik/ajapaik/models.py:649 ajapaik/ajapaik/models.py:2065
+msgid "Interior"
+msgstr "Taobh istigh"
+
+#: ajapaik/ajapaik/models.py:650 ajapaik/ajapaik/models.py:2066
+msgid "Exterior"
+msgstr "Taobh amuigh"
+
+#: ajapaik/ajapaik/models.py:652 ajapaik/ajapaik/models.py:2068
+msgid "Scene"
+msgstr "Radharc"
+
+#: ajapaik/ajapaik/models.py:655 ajapaik/ajapaik/models.py:2075
+msgid "Ground"
+msgstr "Talamh"
+
+#: ajapaik/ajapaik/models.py:656 ajapaik/ajapaik/models.py:2076
+msgid "Raised"
+msgstr "Ardaithe"
+
+#: ajapaik/ajapaik/models.py:657 ajapaik/ajapaik/models.py:2077
+msgid "Aerial"
+msgstr "Aeróg"
+
+#: ajapaik/ajapaik/models.py:659 ajapaik/ajapaik/models.py:2079
+msgid "Viewpoint elevation"
+msgstr "Airde radharcphointe"
+
+#: ajapaik/ajapaik/models.py:661
+msgid "Description original language"
+msgstr "Cur síos ar an teanga bhunaidh"
+
+#: ajapaik/ajapaik/models.py:662
+msgid "Hide image from being accessed outside of Admin"
+msgstr "Folaigh an íomhá ó rochtain lasmuigh den Riarthóir"
+
+#: ajapaik/ajapaik/models.py:1339 ajapaik/ajapaik/models.py:1430
+msgid "Different"
+msgstr "Difriúil"
+
+#: ajapaik/ajapaik/models.py:1340 ajapaik/ajapaik/models.py:1431
+msgid "Similar"
+msgstr "Cosúil"
+
+#: ajapaik/ajapaik/models.py:1341 ajapaik/ajapaik/models.py:1432
+msgid "Duplicate"
+msgstr "Dúblach"
+
+#: ajapaik/ajapaik/models.py:1495
+msgid "Geotag"
+msgstr "Geo-chlib"
+
+#: ajapaik/ajapaik/models.py:1496 ajapaik/ajapaik/models.py:1579
+#: ajapaik/ajapaik/templates/_comments.html:11
+msgid "Rephoto"
+msgstr "Athghrianghraf"
+
+#: ajapaik/ajapaik/models.py:1497
+msgid "Photo upload"
+msgstr "Uaslódáil grianghraf"
+
+#: ajapaik/ajapaik/models.py:1498
+msgid "Photo curation"
+msgstr "Coimeád grianghraf"
+
+#: ajapaik/ajapaik/models.py:1499
+msgid "Photo re-curation"
+msgstr "Athchoimeádadh grianghraf"
+
+#: ajapaik/ajapaik/models.py:1500
+msgid "Dating"
+msgstr "Dátaí"
+
+#: ajapaik/ajapaik/models.py:1501
+msgid "Dating confirmation"
+msgstr "Deimhniú dátaithe"
+
+#: ajapaik/ajapaik/models.py:1502
+msgid "Film still"
+msgstr "Scannán fós"
+
+#: ajapaik/ajapaik/models.py:1503
+msgid "Annotation"
+msgstr "Anótáil"
+
+#: ajapaik/ajapaik/models.py:1504
+msgid "Confirm subject"
+msgstr "Deimhnigh an t-ábhar"
+
+#: ajapaik/ajapaik/models.py:1505
+msgid "Confirm Image similarity"
+msgstr "Deimhnigh cosúlacht na híomhá"
+
+#: ajapaik/ajapaik/models.py:1506 ajapaik/ajapaik/models.py:1507
+msgid "Suggestion subject age"
+msgstr "Aois ábhair mholta"
+
+#: ajapaik/ajapaik/models.py:1508 ajapaik/ajapaik/templates/_toolbox.html:92
+msgid "Transcribe"
+msgstr "Tras-scríobh"
+
+#: ajapaik/ajapaik/models.py:1509
+msgid "Categorize scene"
+msgstr "Catagóirigh radharc"
+
+#: ajapaik/ajapaik/models.py:1510
+msgid "Add viewpoint elevation"
+msgstr "Cuir airde radharcphointe leis"
+
+#: ajapaik/ajapaik/models.py:1511
+msgid "Flip photo"
+msgstr "Flip grianghraf"
+
+#: ajapaik/ajapaik/models.py:1512
+msgid "Invert photo"
+msgstr "Inbhéartaigh an grianghraf"
+
+#: ajapaik/ajapaik/models.py:1513
+msgid "Rotate photo"
+msgstr "Rothlaigh grianghraf"
+
+#: ajapaik/ajapaik/models.py:1564
+msgid "Map"
+msgstr "Léarscáil"
+
+#: ajapaik/ajapaik/models.py:1565
+msgid "EXIF"
+msgstr "EXIF"
+
+#: ajapaik/ajapaik/models.py:1566
+msgid "GPS"
+msgstr "GPS"
+
+#: ajapaik/ajapaik/models.py:1567
+msgid "Confirmation"
+msgstr "Deimhniú"
+
+#: ajapaik/ajapaik/models.py:1568
+msgid "StreetView"
+msgstr "Radharc Sráide"
+
+#: ajapaik/ajapaik/models.py:1569
+msgid "Source geotag"
+msgstr "Geo-chlib foinse"
+
+#: ajapaik/ajapaik/models.py:1570
+msgid "Android app"
+msgstr "Aip Android"
+
+#: ajapaik/ajapaik/models.py:1574
+msgid "Game"
+msgstr "Cluiche"
+
+#: ajapaik/ajapaik/models.py:1575
+msgid "Map view"
+msgstr "Radharc léarscáile"
+
+#: ajapaik/ajapaik/models.py:1576
+msgid "Gallery"
+msgstr "Gailearaí"
+
+#: ajapaik/ajapaik/models.py:1577
+msgid "Permalink"
+msgstr "Nasc buan"
+
+#: ajapaik/ajapaik/models.py:1578
+msgid "Source"
+msgstr "Foinse"
+
+#: ajapaik/ajapaik/models.py:1583
+msgid "Google map"
+msgstr "Léarscáil Google"
+
+#: ajapaik/ajapaik/models.py:1584
+msgid "Google satellite"
+msgstr "Satailít Google"
+
+#: ajapaik/ajapaik/models.py:1585
+msgid "OpenStreetMap"
+msgstr "OpenStreetMap"
+
+#: ajapaik/ajapaik/models.py:1586
+msgid "Juks"
+msgstr "Juks"
+
+#: ajapaik/ajapaik/models.py:1587
+msgid "No map"
+msgstr "Gan léarscáil"
+
+#: ajapaik/ajapaik/models.py:1729 ajapaik/ajapaik/models.py:1731
+#: ajapaik/ajapaik/templates/comments/list.html:17
+msgid "Anonymous user"
+msgstr "Úsáideoir gan ainm"
+
+#: ajapaik/ajapaik/models.py:1921
+msgid "Day"
+msgstr "Lá"
+
+#: ajapaik/ajapaik/models.py:1922
+msgid "Month"
+msgstr "Mí"
+
+#: ajapaik/ajapaik/models.py:1923
+msgid "Year"
+msgstr "Bliain"
+
+#: ajapaik/ajapaik/models.py:1924
+msgid "Decade"
+msgstr "Deich mbliana"
+
+#: ajapaik/ajapaik/models.py:1925
+msgid "Century"
+msgstr "Céad bliain"
+
+#: ajapaik/ajapaik/templates/404.html:5 ajapaik/ajapaik/templates/404.html:11
+#: ajapaik/ajapaik/templates/user/settings/user_settings.html:5
+#: ajapaik/ajapaik/templates/user/user.html:5
+msgid "Page Not Found"
+msgstr "Leathanach Gan Aimsiú"
+
+#: ajapaik/ajapaik/templates/404.html:14
+#: ajapaik/ajapaik/templates/user/settings/user_settings.html:18
+#: ajapaik/ajapaik/templates/user/user.html:56
+msgid "Back"
+msgstr "Ar ais"
+
+#: ajapaik/ajapaik/templates/_annotations.html:6
+#: ajapaik/ajapaik/templates/_annotations.html:7
+msgid "Tag a person"
+msgstr "Clibeáil duine"
+
+#: ajapaik/ajapaik/templates/_comments.html:7
+msgid "Original photo"
+msgstr "Grianghraf bunaidh"
+
+#: ajapaik/ajapaik/templates/_mode_select.html:9
+msgid "This album contains a film"
+msgstr "Tá scannán san albam seo"
+
+#: ajapaik/ajapaik/templates/_mode_select.html:11
+msgid "This is a person album"
+msgstr "Is albam pearsanta é seo"
+
+#: ajapaik/ajapaik/templates/_mode_select.html:14
+msgid "This is a collection album"
+msgstr "Is albam bailiúcháin é seo"
+
+#: ajapaik/ajapaik/templates/_mode_select.html:21
+#: ajapaik/ajapaik/templates/_mode_select.html:77
+msgid "Click to choose"
+msgstr "Cliceáil chun rogha a dhéanamh"
+
+#: ajapaik/ajapaik/templates/_mode_select.html:25
+msgid "Album details"
+msgstr "Sonraí an albaim"
+
+#: ajapaik/ajapaik/templates/_mode_select.html:28
+#: ajapaik/ajapaik/templates/_mode_select.html:82
+msgid "Show albums"
+msgstr "Taispeáin albaim"
+
+#: ajapaik/ajapaik/templates/_mode_select.html:30
+#: ajapaik/ajapaik/templates/_mode_select.html:84
+#: ajapaik/ajapaik/templates/album/_album_creation_modal.html:28
+msgid "Albums"
+msgstr "Albaim"
+
+#: ajapaik/ajapaik/templates/_mode_select.html:33
+#: ajapaik/ajapaik/templates/_mode_select.html:87
+msgid "Show pictures"
+msgstr "Taispeáin pictiúir"
+
+#: ajapaik/ajapaik/templates/_mode_select.html:35
+#: ajapaik/ajapaik/templates/_mode_select.html:89
+msgid "All pictures"
+msgstr "Gach pictiúr"
+
+#: ajapaik/ajapaik/templates/_mode_select.html:39
+#: ajapaik/ajapaik/templates/_mode_select.html:93
+msgid "Show my favorites"
+msgstr "Taispeáin mo ceanáin"
+
+#: ajapaik/ajapaik/templates/_mode_select.html:41
+#: ajapaik/ajapaik/templates/_mode_select.html:95
+msgid "My favorites"
+msgstr "Mo ceanáin"
+
+#: ajapaik/ajapaik/templates/_mode_select.html:45
+#: ajapaik/ajapaik/templates/_mode_select.html:99
+msgid "Show rephotographed by me"
+msgstr "Athghrianghrafadóireacht déanta agam ar an seó"
+
+#: ajapaik/ajapaik/templates/_mode_select.html:47
+#: ajapaik/ajapaik/templates/_mode_select.html:101
+msgid "My rephotos"
+msgstr "Mo athghrianghraif"
+
+#: ajapaik/ajapaik/templates/_mode_select.html:54
+msgid "Remove album filter"
+msgstr "Bain scagaire albam"
+
+#: ajapaik/ajapaik/templates/_similar_images_tutorial_modal.html:6
+msgid "Compare images"
+msgstr "Déan comparáid idir íomhánna"
+
+#: ajapaik/ajapaik/templates/_similar_images_tutorial_modal.html:12
+msgid "Indicate whether the content on pictures is overlapping or not. In the case of overlapping content the place or object is the same, in the case of same shot one of the pictures may also be cropped."
+msgstr "Léirigh an bhfuil an t-ábhar sna pictiúir ag forluí nó nach bhfuil. I gcás ábhar forluí, is ionann an áit nó an réad, i gcás an tseat chéanna, féadfar ceann de na pictiúir a bhearradh freisin."
+
+#: ajapaik/ajapaik/templates/_similar_images_tutorial_modal.html:15
+msgid "The decision can also be made on keyboard (1, 2, 3)."
+msgstr "Is féidir an cinneadh a dhéanamh ar an méarchlár freisin (1, 2, 3)."
+
+#: ajapaik/ajapaik/templates/_toolbox.html:10
+#: ajapaik/ajapaik/templates/common/game.html:55
+#: ajapaik/ajapaik/templates/photo/photoview.html:62
+msgid "Pick the shooting location!"
+msgstr "Roghnaigh an suíomh lámhach!"
+
+#: ajapaik/ajapaik/templates/_toolbox.html:14
+msgid "Add a geotag"
+msgstr "Cuir geochlib leis"
+
+#: ajapaik/ajapaik/templates/_toolbox.html:18
+msgid "Date this image"
+msgstr "Dáta an íomhá seo"
+
+#: ajapaik/ajapaik/templates/_toolbox.html:22
+msgid "Date"
+msgstr "Dáta"
+
+#: ajapaik/ajapaik/templates/_toolbox.html:25
+msgid "Add rephoto"
+msgstr "Cuir athghrianghraf leis"
+
+#: ajapaik/ajapaik/templates/_toolbox.html:28
+msgid "Add a rephoto"
+msgstr "Cuir athghrianghraf leis"
+
+#: ajapaik/ajapaik/templates/_toolbox.html:33
+msgid "Tag a new face/object - clicking this button will enable you to draw an object/face rectangle on the main image"
+msgstr "Cuir clib ar aghaidh/réad nua - má chliceálann tú ar an gcnaipe seo beidh tú in ann dronuilleog réada/aghaidhe a tharraingt ar an bpríomhíomhá"
+
+#: ajapaik/ajapaik/templates/_toolbox.html:37
+msgid "Annotate"
+msgstr "Anótáil"
+
+#: ajapaik/ajapaik/templates/_toolbox.html:40
+#: ajapaik/ajapaik/templates/_toolbox.html:76
+#: ajapaik/ajapaik/templates/info/_info_modal_content.html:83
+msgid "Share"
+msgstr "Comhroinn"
+
+#: ajapaik/ajapaik/templates/_toolbox.html:79
+msgid "Add a category - clicking this button will enable you to categorize this picture to various categories such as whether this picture depicts indoors or outdoors"
+msgstr "Cuir catagóir leis - má chliceálann tú ar an gcnaipe seo, beidh tú in ann an pictiúr seo a chatagóiriú i gcatagóirí éagsúla, amhail cibé acu an bhfuil sé taobh istigh nó taobh amuigh"
+
+#: ajapaik/ajapaik/templates/_toolbox.html:84
+msgid "Categorize"
+msgstr "Catagóirigh"
+
+#: ajapaik/ajapaik/templates/_toolbox.html:88
+msgid "Transcribe this image"
+msgstr "Tras-scríobh an íomhá seo"
+
+#: ajapaik/ajapaik/templates/_toolbox.html:99
+msgid "Edit picture"
+msgstr "Cuir pictiúr in eagar"
+
+#: ajapaik/ajapaik/templates/_toolbox.html:106
+msgid "Show annotations"
+msgstr "Taispeáin anótálacha"
+
+#: ajapaik/ajapaik/templates/account/base.html:35
+#: ajapaik/ajapaik/templates/account/base_anonymous.html:29
+#: ajapaik/ajapaik/templates/account/login.html:37
+msgid "Forgot password?"
+msgstr "An ndearna tú dearmad ar do phasfhocal?"
+
+#: ajapaik/ajapaik/templates/account/base.html:36
+#: ajapaik/ajapaik/templates/account/base_anonymous.html:30
+#: ajapaik/ajapaik/templates/user/user.html:40
+msgid "User settings"
+msgstr "Socruithe úsáideora"
+
+#: ajapaik/ajapaik/templates/account/base.html:37
+#: ajapaik/ajapaik/templates/account/base_anonymous.html:31
+#: ajapaik/ajapaik/templates/account/logout.html:5
+#: ajapaik/ajapaik/templates/account/logout.html:8
+#: ajapaik/ajapaik/templates/account/logout.html:17
+#: ajapaik/ajapaik/templates/core/_header.html:105
+#: ajapaik/ajapaik/templates/leaderboard/_full_leaderboard_modal.html:20
+#: ajapaik/ajapaik/templates/rephoto_upload/_rephoto_upload_modal_content.html:12
+#: ajapaik/ajapaik/templates/user/user.html:43
+msgid "Sign out"
+msgstr "Sínigh amach"
+
+#: ajapaik/ajapaik/templates/account/base.html:39
+#: ajapaik/ajapaik/templates/account/login.html:4
+#: ajapaik/ajapaik/templates/account/login.html:8
+#: ajapaik/ajapaik/templates/account/login.html:38
+msgid "Sign in"
+msgstr "Sínigh isteach"
+
+#: ajapaik/ajapaik/templates/account/base.html:40
+#: ajapaik/ajapaik/templates/account/signup.html:5
+#: ajapaik/ajapaik/templates/account/signup.html:8
+#: ajapaik/ajapaik/templates/account/signup.html:18
+msgid "Sign up"
+msgstr "Cláraigh"
+
+#: ajapaik/ajapaik/templates/account/base_anonymous.html:11
+msgid "Messages"
+msgstr "Teachtaireachtaí"
+
+#: ajapaik/ajapaik/templates/account/base_anonymous.html:28
+msgid "Menu"
+msgstr "Roghchlár"
+
+#: ajapaik/ajapaik/templates/account/email.html:5
+#: ajapaik/ajapaik/templates/account/email_content.html:3
+#: ajapaik/ajapaik/views.py:3714
+msgid "E-mail addresses"
+msgstr "Seoltaí ríomhphoist"
+
+#: ajapaik/ajapaik/templates/account/email_confirm.html:6
+#: ajapaik/ajapaik/templates/account/email_confirm.html:10
+msgid "Confirm e-mail address"
+msgstr "Deimhnigh an seoladh ríomhphoist"
+
+#: ajapaik/ajapaik/templates/account/email_confirm.html:16
+#, python-format
+msgid "Please confirm that <a href=\"mailto:%(email)s\">%(email)s</a> is an e-mail address for user %(user_display)s."
+msgstr "Deimhnigh le do thoil gur seoladh ríomhphoist é <a href=\"mailto:%(email)s\">%(email)s</a> don úsáideoir %(user_display)s."
+
+#: ajapaik/ajapaik/templates/account/email_confirm.html:20
+msgid "Confirm"
+msgstr "Deimhnigh"
+
+#: ajapaik/ajapaik/templates/account/email_confirm.html:27
+#, python-format
+msgid "This e-mail confirmation link expired or is invalid. Please <a href=\"%(email_url)s\">issue a new e-mail confirmation request</a>."
+msgstr "Tá an nasc deimhnithe ríomhphoist seo imithe in éag nó tá sé neamhbhailí. <a href=\"%(email_url)s\">eisigh iarratas deimhnithe ríomhphoist nua</a> le do thoil."
+
+#: ajapaik/ajapaik/templates/account/email_content.html:5
+msgid "The following E-mail addresses are associated with your account:"
+msgstr "Tá na seoltaí ríomhphoist seo a leanas ceangailte le do chuntas:"
+
+#: ajapaik/ajapaik/templates/account/email_content.html:21
+msgid "verified"
+msgstr "fíoraithe"
+
+#: ajapaik/ajapaik/templates/account/email_content.html:22
+msgid "unverified"
+msgstr "neamhfhíoraithe"
+
+#: ajapaik/ajapaik/templates/account/email_content.html:23
+msgid "primary"
+msgstr "príomhúil"
+
+#: ajapaik/ajapaik/templates/account/email_content.html:30
+msgid "Make Primary"
+msgstr "Déan Príomhúil"
+
+#: ajapaik/ajapaik/templates/account/email_content.html:32
+msgid "Re-send Verification"
+msgstr "Athsheol Fíorú"
+
+#: ajapaik/ajapaik/templates/account/email_content.html:34
+#: ajapaik/ajapaik/templates/comments/delete.html:17
+#: ajapaik/ajapaik/templates/socialaccount/connections_content.html:33
+msgid "Remove"
+msgstr "Bain"
+
+#: ajapaik/ajapaik/templates/account/email_content.html:43
+msgid "Warning:"
+msgstr "Rabhadh:"
+
+#: ajapaik/ajapaik/templates/account/email_content.html:43
+msgid "You currently do not have any e-mail address set up. You should really add an e-mail address so you can receive notifications, reset your password, etc."
+msgstr "Níl aon seoladh ríomhphoist socraithe agat faoi láthair. Ba cheart duit seoladh ríomhphoist a chur leis ionas gur féidir leat fógraí a fháil, do phasfhocal a athshocrú, srl."
+
+#: ajapaik/ajapaik/templates/account/email_content.html:50
+msgid "Add E-mail"
+msgstr "Cuir Ríomhphost leis"
+
+#: ajapaik/ajapaik/templates/account/email_content.html:57
+msgid "Do you really want to remove the selected e-mail address?"
+msgstr "An bhfuil tú cinnte gur mian leat an seoladh ríomhphoist roghnaithe a bhaint?"
+
+#: ajapaik/ajapaik/templates/account/login.html:13
+#, python-format
+msgid "Please sign in with one\n  of your existing third party accounts. Or, <a href=\"%(signup_url)s\">sign up</a>\n  for a %(site_name)s account and sign in below:"
+msgstr "Sínigh isteach le ceann amháin de do chuntais tríú páirtí atá ann cheana féin. Nó, <a href=\"%(signup_url)s\">cláraigh</a>\nle haghaidh cuntas %(site_name)s agus sínigh isteach thíos:"
+
+#: ajapaik/ajapaik/templates/account/login.html:28
+#, python-format
+msgid "If you have not created an account yet, then please <a href=\"%(signup_url)s\">sign up</a> first."
+msgstr "Mura bhfuil cuntas cruthaithe agat fós, <a href=\"%(signup_url)s\">cláraigh</a> ar dtús."
+
+#: ajapaik/ajapaik/templates/account/logout.html:10
+msgid "Are you sure you want to sign out?"
+msgstr "An bhfuil tú cinnte gur mhaith leat síniú amach?"
+
+#: ajapaik/ajapaik/templates/account/password_change.html:5
+#: ajapaik/ajapaik/templates/account/password_change.html:8
+#: ajapaik/ajapaik/templates/account/password_change_form.html:5
+#: ajapaik/ajapaik/templates/account/password_reset_from_key.html:4
+#: ajapaik/ajapaik/templates/account/password_reset_from_key.html:7
+#: ajapaik/ajapaik/templates/account/password_reset_from_key.html:17
+#: ajapaik/ajapaik/templates/account/password_reset_from_key_done.html:4
+#: ajapaik/ajapaik/templates/account/password_reset_from_key_done.html:7
+msgid "Change Password"
+msgstr "Athraigh Pasfhocal"
+
+#: ajapaik/ajapaik/templates/account/password_reset.html:5
+#: ajapaik/ajapaik/templates/account/password_reset.html:9
+#: ajapaik/ajapaik/templates/account/password_reset_done.html:6
+#: ajapaik/ajapaik/templates/account/password_reset_done.html:9
+msgid "Password Reset"
+msgstr "Athshocrú Pasfhocail"
+
+#: ajapaik/ajapaik/templates/account/password_reset.html:14
+msgid "Forgotten your password? Enter your e-mail address below, and we'll send you an e-mail allowing you to reset it."
+msgstr "An ndearna tú dearmad ar do phasfhocal? Cuir isteach do sheoladh ríomhphoist thíos, agus cuirfimid ríomhphost chugat a ligfidh duit é a athshocrú."
+
+#: ajapaik/ajapaik/templates/account/password_reset.html:19
+msgid "Reset My Password"
+msgstr "Athshocraigh Mo Phasfhocal"
+
+#: ajapaik/ajapaik/templates/account/password_reset.html:22
+msgid "Please contact us if you have any trouble resetting your password."
+msgstr "Téigh i dteagmháil linn má bhíonn aon trioblóid agat do phasfhocal a athshocrú."
+
+#: ajapaik/ajapaik/templates/account/password_reset_done.html:15
+msgid "We have emailed you. Please contact us if you do not receive it within a few\n minutes."
+msgstr "Tá ríomhphost seolta againn chugat. Déan teagmháil linn mura bhfaigheann tú é laistigh de chúpla nóiméad."
+
+#: ajapaik/ajapaik/templates/account/password_reset_from_key.html:7
+msgid "Bad Token"
+msgstr "Droch-chomhartha"
+
+#: ajapaik/ajapaik/templates/account/password_reset_from_key.html:11
+#, python-format
+msgid "The password reset link was invalid, possibly because it has already been used.  Please request a <a href=\"%(passwd_reset_url)s\">new password reset</a>."
+msgstr "Bhí an nasc athshocraithe pasfhocail neamhbhailí, b'fhéidir toisc gur úsáideadh é cheana féin. Iarr <a href=\"%(passwd_reset_url)s\">athshocrú pasfhocail nua</a> le do thoil."
+
+#: ajapaik/ajapaik/templates/account/password_reset_from_key.html:20
+#: ajapaik/ajapaik/templates/account/password_reset_from_key_done.html:8
+msgid "Your password is now changed."
+msgstr "Tá do phasfhocal athraithe anois."
+
+#: ajapaik/ajapaik/templates/account/password_set.html:5
+#: ajapaik/ajapaik/templates/account/password_set.html:8
+#: ajapaik/ajapaik/templates/account/password_set_form.html:5
+msgid "Set Password"
+msgstr "Socraigh Pasfhocal"
+
+#: ajapaik/ajapaik/templates/account/signup.html:10
+#, python-format
+msgid "Already have an account? Then please <a href=\"%(login_url)s\">sign in</a>."
+msgstr "An bhfuil cuntas agat cheana féin? <a href=\"%(login_url)s\">sínigh isteach</a> le do thoil."
+
+#: ajapaik/ajapaik/templates/account/signup_closed.html:5
+#: ajapaik/ajapaik/templates/account/signup_closed.html:8
+msgid "Sign up closed"
+msgstr "Clárú dúnta"
+
+#: ajapaik/ajapaik/templates/account/signup_closed.html:10
+msgid "We are sorry, but the sign up is currently closed."
+msgstr "Tá brón orainn, ach tá an clárú dúnta faoi láthair."
+
+#: ajapaik/ajapaik/templates/account/snippets/already_logged_in.html:4
+msgid "Note"
+msgstr "Nóta"
+
+#: ajapaik/ajapaik/templates/account/snippets/already_logged_in.html:4
+#, python-format
+msgid "you are already logged in as %(user_name)s"
+msgstr "Tá tú logáilte isteach cheana féin mar %(user_name)s"
+
+#: ajapaik/ajapaik/templates/album/_album_creation_modal.html:12
+msgid "Collection info"
+msgstr "Eolas bailiúcháin"
+
+#: ajapaik/ajapaik/templates/album/_album_creation_modal.html:22
+msgid "System error"
+msgstr "Earráid chórais"
+
+#: ajapaik/ajapaik/templates/album/_album_creation_modal.html:37
+#: ajapaik/ajapaik/templates/user_upload/user_upload.html:33
+msgid "Search for an existing album"
+msgstr "Cuardaigh albam atá ann cheana féin"
+
+#: ajapaik/ajapaik/templates/album/_album_creation_modal.html:58
+#: ajapaik/ajapaik/templates/rephoto_upload/_rephoto_upload_settings_modal_content.html:7
+#: ajapaik/ajapaik/templates/user/display_name/change_display_name.html:7
+#: ajapaik/ajapaik/templates/user/settings/_user_settings_modal_content.html:7
+msgid "Submit"
+msgstr "Cuir isteach"
+
+#: ajapaik/ajapaik/templates/album/_album_creation_modal.html:62
+#: ajapaik/ajapaik/templates/comments/delete.html:18
+#: ajapaik/ajapaik/templates/comments/list.html:46
+#: ajapaik/ajapaik/templates/comments/list.html:68
+#: ajapaik/ajapaik/templates/comments/list.html:94
+msgid "Cancel"
+msgstr "Cealaigh"
+
+#: ajapaik/ajapaik/templates/authentication/_login.html:7
+msgid "Log in to save your score"
+msgstr "Logáil isteach chun do scór a shábháil"
+
+#: ajapaik/ajapaik/templates/authentication/_login.html:9
+msgid "Log in to add a comment"
+msgstr "Logáil isteach chun trácht a chur leis"
+
+#: ajapaik/ajapaik/templates/authentication/_login.html:11
+msgid "Log in to add pictures to an album"
+msgstr "Logáil isteach chun pictiúir a chur le halbam"
+
+#: ajapaik/ajapaik/templates/authentication/_login.html:13
+msgid "Log in to add a dating to a photo"
+msgstr "Logáil isteach chun dáta a chur le grianghraf"
+
+#: ajapaik/ajapaik/templates/authentication/_login.html:15
+msgid "Log in to transcribe the text on the photo"
+msgstr "Logáil isteach chun an téacs ar an ngrianghraf a thras-scríobh"
+
+#: ajapaik/ajapaik/templates/authentication/_login.html:17
+msgid "Log in to upload rephoto"
+msgstr "Logáil isteach chun athghrianghraf a uaslódáil"
+
+#: ajapaik/ajapaik/templates/authentication/_login.html:19
+msgid "Log in to curate content"
+msgstr "Logáil isteach chun ábhar a choimeád"
+
+#: ajapaik/ajapaik/templates/authentication/_login.html:21
+msgid "Log in to create still frames"
+msgstr "Logáil isteach chun frámaí neamhghluaiste a chruthú"
+
+#: ajapaik/ajapaik/templates/authentication/_login.html:23
+msgid "Log in to save selection"
+msgstr "Logáil isteach chun an rogha a shábháil"
+
+#: ajapaik/ajapaik/templates/authentication/_login.html:25
+msgid "Log in to import photos from csv file"
+msgstr "Logáil isteach chun grianghraif a allmhairiú ó chomhad csv"
+
+#: ajapaik/ajapaik/templates/authentication/_login.html:32
+#, python-format
+msgid "Connect with %(provider)s"
+msgstr "Ceangail le %(provider)s"
+
+#: ajapaik/ajapaik/templates/authentication/_login.html:39
+msgid "E-mail address"
+msgstr "Seoladh ríomhphoist"
+
+#: ajapaik/ajapaik/templates/authentication/_login.html:46
+msgid "Register with e-mail"
+msgstr "Cláraigh le ríomhphost"
+
+#: ajapaik/ajapaik/templates/authentication/_login.html:50
+msgid "Log in"
+msgstr "Logáil isteach"
+
+#: ajapaik/ajapaik/templates/comments/delete.html:10
+msgid "Really remove this comment?"
+msgstr "An bhfuil tú cinnte an trácht seo a bhaint?"
+
+#: ajapaik/ajapaik/templates/comments/form.html:7
+msgid "Identify yourself to comment"
+msgstr "Aithnigh tú féin le trácht a dhéanamh"
+
+#: ajapaik/ajapaik/templates/comments/form.html:9
+msgid "Your comment"
+msgstr "Do thrácht"
+
+#: ajapaik/ajapaik/templates/comments/form.html:41
+msgid "Send"
+msgstr "Seol"
+
+#: ajapaik/ajapaik/templates/comments/list.html:25
+msgid "Like"
+msgstr "Is maith liom"
+
+#: ajapaik/ajapaik/templates/comments/list.html:29
+msgid "Dislike"
+msgstr "Ní maith liom"
+
+#: ajapaik/ajapaik/templates/comments/list.html:33
+#: ajapaik/ajapaik/templates/comments/list.html:93
+msgid "Reply"
+msgstr "Freagra"
+
+#: ajapaik/ajapaik/templates/comments/list.html:42
+#: ajapaik/ajapaik/templates/comments/list.html:44
+#: ajapaik/ajapaik/templates/comments/list.html:48
+msgid "Delete"
+msgstr "Scrios"
+
+#: ajapaik/ajapaik/templates/comments/list.html:43
+msgid "Are you sure that you want to delete this comment and all replies?"
+msgstr "An bhfuil tú cinnte gur mian leat an trácht seo agus na freagraí go léir a scriosadh?"
+
+#: ajapaik/ajapaik/templates/comments/list.html:50
+msgid "Edit"
+msgstr "Cuir in eagar"
+
+#: ajapaik/ajapaik/templates/comments/list.html:64
+#: ajapaik/ajapaik/templates/comments/list.html:90
+msgid "supports Markdown"
+msgstr "tacaíonn sé le Markdown"
+
+#: ajapaik/ajapaik/templates/comments/list.html:67
+#: ajapaik/ajapaik/templates/curator/curator.html:159
+msgid "Save"
+msgstr "Sábháil"
+
+#: ajapaik/ajapaik/templates/common/frontpage.html:30
+msgid "Authentication"
+msgstr "Fíordheimhniú"
+
+#: ajapaik/ajapaik/templates/common/game.html:26
+msgid "Game modal photo"
+msgstr "Grianghraf modúil cluiche"
+
+#: ajapaik/ajapaik/templates/common/game.html:50
+msgid "Show description"
+msgstr "Taispeáin cur síos"
+
+#: ajapaik/ajapaik/templates/common/mapview.html:24
+msgid "Show images"
+msgstr "Taispeáin íomhánna"
+
+#: ajapaik/ajapaik/templates/common/mapview.html:26
+msgid "Search box"
+msgstr "Bosca cuardaigh"
+
+#: ajapaik/ajapaik/templates/compare_photos/compare_photos.html:60
+msgid "No content overlap"
+msgstr "Gan aon fhorluí ábhair"
+
+#: ajapaik/ajapaik/templates/compare_photos/compare_photos.html:65
+msgid "Overlapping content"
+msgstr "Ábhar forluiteach"
+
+#: ajapaik/ajapaik/templates/compare_photos/compare_photos.html:70
+msgid "Same shot"
+msgstr "An urchar céanna"
+
+#: ajapaik/ajapaik/templates/compare_photos/compare_photos_no_results.html:12
+msgid "You have already reviewed all the similar image pairs"
+msgstr "Tá athbhreithniú déanta agat cheana féin ar na péirí íomhánna comhchosúla go léir"
+
+#: ajapaik/ajapaik/templates/core/_footer.html:19
+#: ajapaik/ajapaik_face_recognition/templates/_footer.html:19
+msgid "Estonian Photographic Heritage Society"
+msgstr "Cumann Oidhreachta Grianghrafadóireachta na hEastóine"
+
+#: ajapaik/ajapaik/templates/core/_footer.html:24
+#: ajapaik/ajapaik_face_recognition/templates/_footer.html:24
+msgid "Privacy policy"
+msgstr "Polasaí príobháideachta"
+
+#: ajapaik/ajapaik/templates/core/_footer.html:29
+#: ajapaik/ajapaik_face_recognition/templates/_footer.html:29
+msgid "Terms and conditions"
+msgstr "Téarmaí agus coinníollacha"
+
+#: ajapaik/ajapaik/templates/core/_footer.html:39
+#: ajapaik/ajapaik_face_recognition/templates/_footer.html:39
+msgid "Support Ajapaik"
+msgstr "Tacaigh le Ajapaik"
+
+#: ajapaik/ajapaik/templates/core/_footer.html:39
+#: ajapaik/ajapaik/templates/donate/supporters.html:12
+#: ajapaik/ajapaik_face_recognition/templates/_footer.html:39
+msgid "Support us"
+msgstr "Tacaigh linn"
+
+#: ajapaik/ajapaik/templates/core/_header.html:4
+msgid "Back to homepage"
+msgstr "Ar ais chuig an leathanach baile"
+
+#: ajapaik/ajapaik/templates/core/_header.html:13
+msgid "Search album"
+msgstr "Cuardaigh albam"
+
+#: ajapaik/ajapaik/templates/core/_header.html:16
+msgid "Search photos"
+msgstr "Cuardaigh grianghraif"
+
+#: ajapaik/ajapaik/templates/core/_header.html:19
+msgid "Show in grid"
+msgstr "Taispeáin sa ghreille"
+
+#: ajapaik/ajapaik/templates/core/_header.html:30
+#: ajapaik/ajapaik/templates/info/_info_modal_content.html:116
+#: ajapaik/ajapaik/templates/info/_info_modal_content.html:118
+msgid "Geotag pictures"
+msgstr "Pictiúir geotagáilte"
+
+#: ajapaik/ajapaik/templates/core/_header.html:39
+#: ajapaik/ajapaik/templates/info/_info_modal_content.html:111
+msgid "Show on map"
+msgstr "Taispeáin ar léarscáil"
+
+#: ajapaik/ajapaik/templates/core/_header.html:44
+#: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:6
+msgid "Categorize faces"
+msgstr "Aghaidheanna a chatagóiriú"
+
+#: ajapaik/ajapaik/templates/core/_header.html:48
+msgid "Add pictures"
+msgstr "Cuir pictiúir leis"
+
+#: ajapaik/ajapaik/templates/core/_header.html:52
+msgid "Current selection"
+msgstr "Rogha reatha"
+
+#: ajapaik/ajapaik/templates/core/_header.html:62
+msgid "Choose language"
+msgstr "Roghnaigh teanga"
+
+#: ajapaik/ajapaik/templates/core/_header.html:74
+msgid "About Ajapaik"
+msgstr "Maidir le Ajapaik"
+
+#: ajapaik/ajapaik/templates/core/_header.html:77
+msgid "Ajapaik on Facebook"
+msgstr "Ajapaik ar Facebook"
+
+#: ajapaik/ajapaik/templates/core/_header.html:83
+msgid "Profile and leaderboard"
+msgstr "Próifíl agus clár ceannaireachta"
+
+#: ajapaik/ajapaik/templates/core/_header.html:91 ajapaik/ajapaik/views.py:1998
+#: ajapaik/ajapaik/views.py:2014 ajapaik/ajapaik/views.py:2049
+msgid "Leaderboard"
+msgstr "Clár Ceannaireachta"
+
+#: ajapaik/ajapaik/templates/core/_header.html:102
+#: ajapaik/ajapaik/templates/rephoto_upload/_rephoto_upload_modal_content.html:9
+msgid "You are logged in as"
+msgstr "Tá tú logáilte isteach mar"
+
+#: ajapaik/ajapaik/templates/core/base_bootstrap.html:17
+msgid "Gallery of old historic photos from the album"
+msgstr "Gailearaí de sheanghraif stairiúla ón albam"
+
+#: ajapaik/ajapaik/templates/core/base_bootstrap.html:19
+msgid "Historic photo gallery"
+msgstr "Gailearaí grianghraf stairiúil"
+
+#: ajapaik/ajapaik/templates/core/base_bootstrap.html:23
+msgid "Mapped old historic photos from the album"
+msgstr "Seanghrianghraif stairiúla mapáilte ón albam"
+
+#: ajapaik/ajapaik/templates/core/base_bootstrap.html:25
+msgid "Mapped old historic photos"
+msgstr "Seanghrianghraif stairiúla mapáilte"
+
+#: ajapaik/ajapaik/templates/core/base_bootstrap.html:29
+msgid "Help geotag old historic photos from the album"
+msgstr "Cabhraigh le geotagáil a dhéanamh ar sheanghraif stairiúla ón albam"
+
+#: ajapaik/ajapaik/templates/core/base_bootstrap.html:31
+msgid "Help geotag old historic photos"
+msgstr "Cabhraigh le geotagáil a dhéanamh ar sheanghraif stairiúla"
+
+#: ajapaik/ajapaik/templates/core/base_bootstrap.html:35
+msgid "Before and after view of"
+msgstr "Radharc roimh agus tar éis"
+
+#: ajapaik/ajapaik/templates/core/base_bootstrap.html:37
+msgid "Historic photo of"
+msgstr "Grianghraf stairiúil de"
+
+#: ajapaik/ajapaik/templates/core/base_bootstrap.html:40
+msgid "Curate historic photos from museums into Ajapaik for geotagging and rephotographing"
+msgstr "Grianghraif stairiúla ó mhúsaeim a choimeád in Ajapaik le haghaidh geo-chlibeáil agus athghrianghrafadóireachta"
+
+#: ajapaik/ajapaik/templates/core/base_bootstrap.html:42
+#: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:6
+msgid "Everyone can help to enrich the data of historic pictures on Ajapaik!"
+msgstr "Is féidir le gach duine cabhrú le sonraí na bpictiúr stairiúil ar Ajapaik a shaibhriú!"
+
+#: ajapaik/ajapaik/templates/core/base_bootstrap.html:48
+#: ajapaik/ajapaik/templates/core/base_bootstrap.html:50
+#: ajapaik/ajapaik/templates/core/base_bootstrap.html:73
+msgid "historic,pictures,old,photos"
+msgstr "pictiúir, stairiúla, seanghrafanna"
+
+#: ajapaik/ajapaik/templates/core/base_bootstrap.html:54
+#: ajapaik/ajapaik/templates/core/base_bootstrap.html:56
+msgid "historic,pictures,old,photos,map,geotagged,location"
+msgstr "pictiúir, stairiúla, seanghrafanna, léarscáil, geoclibeáilte, suíomh"
+
+#: ajapaik/ajapaik/templates/core/base_bootstrap.html:60
+#: ajapaik/ajapaik/templates/core/base_bootstrap.html:62
+msgid "historic,pictures,old,photos,crowd-sourced,geotagging,game"
+msgstr "pictiúir, stairiúla, seanghrafanna, foinsithe sluaite, geotagáil, cluiche"
+
+#: ajapaik/ajapaik/templates/core/base_bootstrap.html:66
+msgid "historic,picture,old,photo,before,after"
+msgstr "pictiúr, stairiúil, sean, grianghraf, roimh, ina dhiaidh"
+
+#: ajapaik/ajapaik/templates/core/base_bootstrap.html:68
+msgid "historic,picture,old,photo"
+msgstr "pictiúr, stairiúil, sean, grianghraf"
+
+#: ajapaik/ajapaik/templates/core/base_bootstrap.html:71
+msgid "search,museum,old,photos,pictures,historic"
+msgstr "cuardach, músaem, sean, grianghraif, pictiúir, stairiúil"
+
+#: ajapaik/ajapaik/templates/core/base_bootstrap.html:91
+#, python-format
+msgid "Gallery of rephotographs by %(rephotos_by_name)s"
+msgstr "Gailearaí athghrianghraf le %(rephotos_by_name)s"
+
+#: ajapaik/ajapaik/templates/core/base_bootstrap.html:96
+#, python-format
+msgid "Album has %(album_photo_count)s historic pictures. Let's put pictures on the map!"
+msgstr "Tá %(album_photo_count)s pictiúr stairiúil san albam. Cuirimis pictiúir ar an léarscáil!"
+
+#: ajapaik/ajapaik/templates/core/base_bootstrap.html:98
+msgid "Let's put pictures on the map"
+msgstr "Cuirimis pictiúir ar an léarscáil"
+
+#: ajapaik/ajapaik/templates/core/base_bootstrap.html:101
+#, python-format
+msgid "Album has %(counter)s photo,"
+msgid_plural "Album has %(counter)s photos,"
+msgstr[0] "one=Tá %(counter)s grianghraf san albaim,"
+msgstr[1] "two=Tá %(counter)s grianghraf san albaim,"
+msgstr[2] "few=Tá %(counter)s grianghraf san albaim,"
+msgstr[3] "many=Tá %(counter)s grianghraf san albaim,"
+msgstr[4] "other=Tá %(counter)s grianghraf san albaim,"
+
+#: ajapaik/ajapaik/templates/core/base_bootstrap.html:105
+#: ajapaik/ajapaik/templates/info/_info_modal_content.html:30
+msgid "all the pictures on the map."
+msgstr "na pictiúir go léir ar an léarscáil."
+
+#: ajapaik/ajapaik/templates/core/base_bootstrap.html:206
+msgid "Timepatch (Ajapaik)"
+msgstr "Paiste Ama (Ajapaik)"
+
+#: ajapaik/ajapaik/templates/core/base_bootstrap.html:297
+msgid "Geolocation error"
+msgstr "Earráid geoshuímh"
+
+#: ajapaik/ajapaik/templates/core/base_bootstrap.html:300
+msgid "Sorting"
+msgstr "Sórtáil"
+
+#: ajapaik/ajapaik/templates/core/base_bootstrap.html:519
+msgid "This website uses cookies to ensure you get the best experience on our website"
+msgstr "Úsáideann an suíomh Gréasáin seo fianáin chun a chinntiú go bhfaigheann tú an taithí is fearr ar ár suíomh Gréasáin"
+
+#: ajapaik/ajapaik/templates/core/base_bootstrap.html:520
+msgid "Got it!"
+msgstr "Tuigim é!"
+
+#: ajapaik/ajapaik/templates/core/base_bootstrap.html:521
+msgid "More info"
+msgstr "Tuilleadh eolais"
+
+#: ajapaik/ajapaik/templates/csv/csv-import.html:20
+msgid "Here you can upload csv to import photos to Ajapaik"
+msgstr "Anseo is féidir leat csv a uaslódáil chun grianghraif a allmhairiú chuig Ajapaik"
+
+#: ajapaik/ajapaik/templates/csv/csv-import.html:27
+msgid "Import photo"
+msgstr "Iompórtáil grianghraf"
+
+#: ajapaik/ajapaik/templates/curator/curator.html:22
+msgid "Thank you!"
+msgstr "Go raibh maith agat!"
+
+#: ajapaik/ajapaik/templates/curator/curator.html:28
+msgid "Your photos have now been added to Ajapaik and can be interacted with as usual."
+msgstr "Tá do ghrianghraif curtha le Ajapaik anois agus is féidir idirghníomhú leo mar is gnách."
+
+#: ajapaik/ajapaik/templates/curator/curator.html:30
+msgid "Points awarded for curating"
+msgstr "Pointí bronnta as coimeádaíocht"
+
+#: ajapaik/ajapaik/templates/curator/curator.html:33
+msgid "You can start geotagging the new content here"
+msgstr "Is féidir leat tosú ag geo-chlibeáil an ábhair nua anseo"
+
+#: ajapaik/ajapaik/templates/curator/curator.html:37
+msgid "Tell your friends on Facebook"
+msgstr "Inis do do chairde ar Facebook"
+
+#: ajapaik/ajapaik/templates/curator/curator.html:43
+#: ajapaik/ajapaik/templates/curator/curator.html:155
+#: ajapaik/ajapaik/templates/rephoto_upload/_rephoto_upload_modal_content.html:42
+#: ajapaik/ajapaik/templates/user_upload/user_upload_add_album.html:22
+#: ajapaik/ajapaik_face_recognition/templates/add_subject.html:24
+msgid "Close"
+msgstr "Dún"
+
+#: ajapaik/ajapaik/templates/curator/curator.html:52
+#: ajapaik/ajapaik/templates/curator/curator_search_controls.html:46
+msgid "Load more"
+msgstr "Luchtaigh níos mó"
+
+#: ajapaik/ajapaik/templates/curator/curator.html:61
+msgid "Edit your album"
+msgstr "Cuir d'albam in eagar"
+
+#: ajapaik/ajapaik/templates/curator/curator.html:72
+msgid "Error"
+msgstr "Earráid"
+
+#: ajapaik/ajapaik/templates/curator/curator.html:100
+msgid "Open album (anyone can add pictures)"
+msgstr "Oscail albam (is féidir le duine ar bith pictiúir a chur leis)"
+
+#: ajapaik/ajapaik/templates/curator/curator.html:108
+msgid "Visible (shown in selection)"
+msgstr "Infheicthe (taispeánta sa roghnú)"
+
+#: ajapaik/ajapaik/templates/curator/curator.html:123
+#| msgid "Search for an existing album"
+msgid "!!FUZZY!!Search for an existing album"
+msgstr "!!DOILÉIR!!Cuardaigh albam atá ann cheana féin"
+
+#: ajapaik/ajapaik/templates/curator/curator_search_controls.html:9
+msgid "Search"
+msgstr "Cuardaigh"
+
+#: ajapaik/ajapaik/templates/curator/curator_search_controls.html:16
+msgid "Selection"
+msgstr "Rogha"
+
+#: ajapaik/ajapaik/templates/curator/curator_search_controls.html:23
+msgid "My albums"
+msgstr "Mo chuid albaim"
+
+#: ajapaik/ajapaik/templates/curator/curator_search_controls.html:35
+msgid "Full search"
+msgstr "Cuardach iomlán"
+
+#: ajapaik/ajapaik/templates/curator/curator_search_controls.html:41
+msgid "Search!"
+msgstr "Cuardaigh!"
+
+#: ajapaik/ajapaik/templates/curator/curator_search_controls.html:51
+msgid "Select all"
+msgstr "Roghnaigh gach rud"
+
+#: ajapaik/ajapaik/templates/curator/curator_search_controls.html:58
+msgid "Filter existing"
+msgstr "Scag atá ann cheana féin"
+
+#: ajapaik/ajapaik/templates/curator/curator_search_controls.html:62
+msgid "MUIS"
+msgstr "MUIS"
+
+#: ajapaik/ajapaik/templates/curator/curator_search_controls.html:66
+msgid "DIGAR"
+msgstr "DIGAR"
+
+#: ajapaik/ajapaik/templates/curator/curator_search_controls.html:70
+msgid "MKA"
+msgstr "MKA"
+
+#: ajapaik/ajapaik/templates/curator/curator_search_controls.html:74
+msgid "ETERA"
+msgstr "ETERA"
+
+#: ajapaik/ajapaik/templates/curator/curator_search_controls.html:78
+msgid "UTLIB"
+msgstr "UTLIB"
+
+#: ajapaik/ajapaik/templates/curator/curator_search_controls.html:82
+msgid "Fotis"
+msgstr "Fotis"
+
+#: ajapaik/ajapaik/templates/curator/curator_search_controls.html:86
+msgid "Finna"
+msgstr "Finna"
+
+#: ajapaik/ajapaik/templates/curator/curator_search_controls.html:90
+msgid "Wikimedia Commons"
+msgstr "Commons Wikimedia"
+
+#: ajapaik/ajapaik/templates/curator/curator_search_controls.html:95
+msgid "Europeana"
+msgstr "Eorpach"
+
+#: ajapaik/ajapaik/templates/curator/curator_search_controls.html:101
+msgid "Flickr Commons"
+msgstr "Flickr Commons"
+
+#: ajapaik/ajapaik/templates/curator/curator_search_controls.html:112
+#: ajapaik/ajapaik/templates/photo/selection/photo_selection.html:37
+msgid "Clear selection"
+msgstr "Glan an rogha"
+
+#: ajapaik/ajapaik/templates/curator/curator_search_controls.html:118
+msgid "Submit selection to Ajapaik"
+msgstr "Cuir rogha isteach chuig Ajapaik"
+
+#: ajapaik/ajapaik/templates/django_comments_xtd/email_followup_comment.txt:4
+msgid "There is a new comment following up yours."
+msgstr "Tá trácht nua ann i ndiaidh do thrácht féin."
+
+#: ajapaik/ajapaik/templates/django_comments_xtd/email_followup_comment.txt:20
+msgid "Kind regards"
+msgstr "Le meas"
+
+#: ajapaik/ajapaik/templates/django_comments_xtd/reply.html:10
+msgid "Reply to"
+msgstr "Freagair chuig"
+
+#: ajapaik/ajapaik/templates/donate/_donate_details.html:3
+msgid "Your donation confirms the importance of Ajapaik"
+msgstr "Deimhníonn do shíntiús tábhacht Ajapaik"
+
+#: ajapaik/ajapaik/templates/donate/_donate_details.html:4
+msgid "Details for one-time donations"
+msgstr "Sonraí le haghaidh síntiúis aonuaire"
+
+#: ajapaik/ajapaik/templates/donate/_donate_details.html:5
+msgid "Beneficiary's name"
+msgstr "Ainm an tairbhí"
+
+#: ajapaik/ajapaik/templates/donate/_donate_details.html:7
+msgid "Beneficiary's account no"
+msgstr "Uimhir chuntais an tairbhí"
+
+#: ajapaik/ajapaik/templates/donate/_donate_details.html:13
+msgid "Ajapaik is an open source non-profit crowdsourcing platform, it’s amount of content and technical complexity have grown considerably. The site’s audience is on par or higher than that of official cultural heritage repositories like Muis, Fotis et al."
+msgstr "Is ardán sluachomhairc foinse oscailte neamhbhrabúis é Ajapaik, agus tá méadú suntasach tagtha ar a mhéid ábhair agus ar a chastacht theicniúil. Tá lucht féachana an tsuímh ar aon dul le lucht féachana stórtha oidhreachta cultúrtha oifigiúla ar nós Muis, Fotis et al., nó níos airde."
+
+#: ajapaik/ajapaik/templates/donate/_donate_details.html:14
+msgid "Over the years Ajapaik has received public grant funding but we don’t have permanent funding that would enable us to keep the platform technically up to date or even more – enhance its usability, add new features."
+msgstr "Le blianta beaga anuas, fuair Ajapaik maoiniú deontais phoiblí ach níl maoiniú buan againn a chuirfeadh ar ár gcumas an t-ardán a choinneáil cothrom le dáta go teicniúil nó níos mó ná sin – a inúsáidteacht a fheabhsú, gnéithe nua a chur leis."
+
+#: ajapaik/ajapaik/templates/donate/_donate_details.html:15
+msgid "Your donation is of big help and confirms that Ajapaik is needed. If possible consider setting up a standing payment."
+msgstr "Is mór an chabhair do shíntiús agus dearbhaíonn sé go bhfuil gá le Ajapaik. Smaoinigh ar íocaíocht sheasta a shocrú más féidir."
+
+#: ajapaik/ajapaik/templates/donate/_donate_details.html:16
+msgid "Ajapaik is developed by the <a href='http://xn--fotoprand-z2a.org.ee/wp/mtu/' target='_blank'>Estonian Photographic Heritage Society (MTÜ Eesti Fotopärand)</a> listed in the list of non-profit associations, foundations and religious associations benefiting from income tax incentives. We declare your donations and you will get income tax refunds for that."
+msgstr "Tá Ajapaik forbartha ag <a href='http://xn--fotoprand-z2a.org.ee/wp/mtu/' target='_blank'>Cumann Oidhreachta Grianghrafadóireachta na hEastóine (MTÜ Eesti Fotopärand)</a> atá liostaithe i liosta na gcomhlachtaí neamhbhrabúis, na bhfondúireachtaí agus na gcomhlachtaí reiligiúnacha a bhaineann leas as dreasachtaí cánach ioncaim. Dearbhaímid do shíntiúis agus gheobhaidh tú aisíocaíochtaí cánach ioncaim as sin."
+
+#: ajapaik/ajapaik/templates/donate/_donate_details.html:17
+msgid "Other ways of supporting us"
+msgstr "Bealaí eile chun tacú linn"
+
+#: ajapaik/ajapaik/templates/donate/_donate_details.html:18
+msgid "You can also help to <a href=\"https://translatewiki.net/wiki/Translating:Ajapaik\">translate Ajapaik’s user interface</a>"
+msgstr "Is féidir leat cabhrú freisin le <a href=\"https://translatewiki.net/wiki/Translating:Ajapaik\">comhéadan úsáideora Ajapaik a aistriú</a>"
+
+#: ajapaik/ajapaik/templates/donate/_donate_details.html:19
+msgid "All other kinds of help are also appreciated! For instance in promoting Ajapaik, creating partnerships etc."
+msgstr "Cuirimid fáilte roimh gach cineál eile cabhrach chomh maith! Mar shampla, chun Ajapaik a chur chun cinn, comhpháirtíochtaí a chruthú srl."
+
+#: ajapaik/ajapaik/templates/donate/_donation_banner.html:3
+msgid "If Ajapaik helps to find historic pictures you’re interested in then please consider <a href=\"/donate/\">supporting</a> Ajapaik so that we could make it even better. Thank you!"
+msgstr "Más féidir leat pictiúir stairiúla a aimsiú a bhfuil suim agat iontu le Ajapaik, smaoinigh ar <a href=\"/donate/\">tacaíocht a thabhairt</a> d'Ajapaik ionas gur féidir linn é a fheabhsú fós. Go raibh maith agat!"
+
+#: ajapaik/ajapaik/templates/donate/_supporters.html:4
+msgid "Ajapaik is currently using funding received from:"
+msgstr "Tá maoiniú á úsáid ag Ajapaik faoi láthair ó:"
+
+#: ajapaik/ajapaik/templates/donate/_supporters.html:16
+msgid "Ajapaik has received donations from:"
+msgstr "Fuair ​​Ajapaik síntiúis ó:"
+
+#: ajapaik/ajapaik/templates/donate/_supporters.html:27
+msgid "Earlier funders:"
+msgstr "Maoinitheoirí níos luaithe:"
+
+#: ajapaik/ajapaik/templates/donate/donate.html:14
+msgid "Supporters of Ajapaik"
+msgstr "Lucht tacaíochta Ajapaik"
+
+#: ajapaik/ajapaik/templates/dummy_translations.html:3
+msgid "Notify me about follow-up comments"
+msgstr "Cuir in iúl dom faoi thráchtanna leantacha"
+
+#: ajapaik/ajapaik/templates/dummy_translations.html:4
+msgid "Current Password"
+msgstr "Pasfhocal Reatha"
+
+#: ajapaik/ajapaik/templates/dummy_translations.html:5
+msgid "New Password"
+msgstr "Pasfhocal Nua"
+
+#: ajapaik/ajapaik/templates/dummy_translations.html:6
+msgid "New Password (again)"
+msgstr "Pasfhocal Nua (arís)"
+
+#: ajapaik/ajapaik/templates/dummy_translations.html:7
+msgid "Set password"
+msgstr "Socraigh pasfhocal"
+
+#: ajapaik/ajapaik/templates/dummy_translations.html:8
+msgid "Rephoto upload settings"
+msgstr "Socruithe uaslódála athghrianghraf"
+
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:4
+msgid "Filtering"
+msgstr "Scagadh"
+
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:16
+msgid "Filters"
+msgstr "Scagairí"
+
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:18
+msgid "film"
+msgstr "scannán"
+
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:21
+msgid "collections"
+msgstr "bailiúcháin"
+
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:24
+msgid "people"
+msgstr "daoine"
+
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:27
+msgid "back sides of pictures"
+msgstr "cúl na bpictiúr"
+
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:30
+msgid "pictures in portrait format"
+msgstr "pictiúir i bhformáid portráide"
+
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:33
+msgid "pictures in square format"
+msgstr "pictiúir i bhformáid chearnógach"
+
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:36
+msgid "pictures in landscape format"
+msgstr "pictiúir i bhformáid tírdhreacha"
+
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:39
+msgid "pictures in panoramic format"
+msgstr "pictiúir i bhformáid lánléargais"
+
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:42
+msgid "exteriors"
+msgstr "taobh amuigh"
+
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:45
+msgid "interiors"
+msgstr "taobh istigh"
+
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:48
+msgid "pictures from the ground"
+msgstr "pictiúir ón talamh"
+
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:51
+msgid "pictures from a raised viewpoint"
+msgstr "pictiúir ó dhearcadh ardaithe"
+
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:54
+msgid "aerial pictures"
+msgstr "pictiúir ón aer"
+
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:57
+msgid "pictures which are not geotagged"
+msgstr "pictiúir nach bhfuil geoclibeáilte orthu"
+
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:60
+msgid "high-quality pictures"
+msgstr "pictiúir ardchaighdeáin"
+
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:63
+msgid "no filter"
+msgstr "gan scagaire"
+
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:68
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:99
+msgid "Show person albums"
+msgstr "Taispeáin albaim daoine"
+
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:69
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:100
+msgid "Show pictures with faces"
+msgstr "Taispeáin pictiúir le haghaidheanna"
+
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:78
+msgid "Pictures by collections"
+msgstr "Pictiúir de réir bailiúcháin"
+
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:86
+msgid "Show film albums"
+msgstr "Taispeáin albaim scannán"
+
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:108
+msgid "Show pictures with back sides"
+msgstr "Taispeáin pictiúir leis na cúil"
+
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:118
+msgid "Show portrait pictures"
+msgstr "Taispeáin pictiúir portráide"
+
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:128
+msgid "Show square pictures"
+msgstr "Taispeáin pictiúir chearnógacha"
+
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:138
+msgid "Show landscape pictures"
+msgstr "Taispeáin pictiúir tírdhreacha"
+
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:148
+msgid "Show panoramic pictures"
+msgstr "Taispeáin pictiúir lánléargais"
+
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:158
+msgid "Show pictures made from the ground level"
+msgstr "Taispeáin pictiúir a tógadh ón talamh"
+
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:168
+msgid "Show pictures made from a raised viewpoint"
+msgstr "Taispeáin pictiúir a tógadh ó dhearcadh ardaithe"
+
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:178
+msgid "Show aerial pictures"
+msgstr "Taispeáin pictiúir ón aer"
+
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:188
+msgid "Show interior pictures"
+msgstr "Taispeáin pictiúir istigh"
+
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:198
+msgid "Show exterior pictures"
+msgstr "Taispeáin pictiúir sheachtracha"
+
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:208
+msgid "Show pictures which are not geotagged"
+msgstr "Taispeáin pictiúir nach bhfuil geoclibeáilte orthu"
+
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:218
+msgid "Show high-quality pictures"
+msgstr "Taispeáin pictiúir ardchaighdeáin"
+
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:231
+msgid "Sort by distance from you"
+msgstr "Sórtáil de réir achair uait"
+
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:241
+msgid "Sort by time and ..."
+msgstr "Sórtáil de réir ama agus ..."
+
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:251
+msgid "Sort by photos' time added"
+msgstr "Sórtáil de réir am curtha leis na grianghraif"
+
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:262
+msgid "Sort by stills' timestamp"
+msgstr "Sórtáil de réir stampa ama na ngrianghraf"
+
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:273
+msgid "Sort by views' time added or amount"
+msgstr "Sórtáil de réir am curtha leis nó méid na radharcanna"
+
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:283
+msgid "Sort by geotags' time added or amount"
+msgstr "Sórtáil de réir am nó méid na ngeoclibeanna curtha leis"
+
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:293
+msgid "Sort by rephotos' time added or amount"
+msgstr "Sórtáil de réir am nó méid na n-athghrianghraf"
+
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:303
+msgid "Sort by annotations' time added or amount"
+msgstr "Sórtáil de réir am curtha leis nó méid anótálacha"
+
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:312
+msgid "Sort by transcriptions' time added or amount"
+msgstr "Sórtáil de réir am curtha leis nó méid na dtrascríbhinní"
+
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:321
+msgid "Sort by datings' time added or amount"
+msgstr "Sórtáil de réir am curtha leis nó méid na ndátaí"
+
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:331
+msgid "Sort by comments' time added or amount"
+msgstr "Sórtáil de réir am curtha leis nó méid na dtuairimí"
+
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:341
+msgid "Sort by likes' time added or amount"
+msgstr "Sórtáil de réir am curtha leis nó méid na maith liom"
+
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:351
+msgid "Sort by amount and ..."
+msgstr "Sórtáil de réir méid agus ..."
+
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:361
+msgid "Change sorting order"
+msgstr "Athraigh ord sórtála"
+
+#: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:370
+msgid "Help"
+msgstr "Cabhair"
+
+#: ajapaik/ajapaik/templates/filtering/_ordering_tutorial_modal.html:8
+msgid "How to sort"
+msgstr "Conas a shórtáil"
+
+#: ajapaik/ajapaik/templates/filtering/_ordering_tutorial_modal.html:14
+msgid "From this group"
+msgstr "Ón ngrúpa seo"
+
+#: ajapaik/ajapaik/templates/filtering/_ordering_tutorial_modal.html:50
+msgid "Choose 2 parameters"
+msgstr "Roghnaigh 2 pharaiméadar"
+
+#: ajapaik/ajapaik/templates/filtering/_ordering_tutorial_modal.html:58
+msgid "or"
+msgstr "nó"
+
+#: ajapaik/ajapaik/templates/filtering/_ordering_tutorial_modal.html:64
+msgid "and"
+msgstr "agus"
+
+#: ajapaik/ajapaik/templates/filtering/_ordering_tutorial_modal.html:65
+msgid "1 of"
+msgstr "1 de"
+
+#: ajapaik/ajapaik/templates/filtering/_ordering_tutorial_modal.html:98
+msgid "orders pictures by distance from you"
+msgstr "ordaíonn pictiúir de réir achair uait"
+
+#: ajapaik/ajapaik/templates/filtering/_ordering_tutorial_modal.html:105
+msgid "reverses sorting"
+msgstr "sórtáil droim ar ais"
+
+#: ajapaik/ajapaik/templates/geotaggers/_geotaggers_modal_content.html:6
+msgid "This user has suggested location for this picture"
+msgstr "Tá suíomh molta ag an úsáideoir seo don phictiúr seo"
+
+#: ajapaik/ajapaik/templates/geotaggers/_geotaggers_modal_content.html:8
+msgid "These users have suggested location for this picture"
+msgstr "Tá suíomh molta ag na húsáideoirí seo don phictiúr seo"
+
+#: ajapaik/ajapaik/templates/geotaggers/_geotaggers_modal_content.html:18
+msgid "Modified"
+msgstr "Modhnaithe"
+
+#: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:14
+msgid "Ajapaik is crowdsourcing additional metadata about pictorial heritage. Ajapaik is mostly hosting old photos, but there are also paintings, graphic art and historic films on Ajapaik."
+msgstr "Tá Ajapaik ag bailiú meiteashonraí breise faoi oidhreacht phictiúrtha. Is iad seanghrianghraif is mó a bhíonn ar fáil ar Ajapaik, ach tá pictiúir, ealaín ghrafach agus scannáin stairiúla ar fáil ar Ajapaik chomh maith."
+
+#: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:17
+msgid "As an Ajapaik user you can"
+msgstr "Mar úsáideoir Ajapaik is féidir leat"
+
+#: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:19
+msgid "geotag pictures in order to improve the location based search,"
+msgstr "pictiúir geo-chlibeáilte chun an cuardach bunaithe ar shuíomh a fheabhsú,"
+
+#: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:20
+msgid "rephotograph historic pictures to create then-and-now picture pairs,"
+msgstr "athghrianghrafadóireacht a dhéanamh ar phictiúir stairiúla chun péirí pictiúr a chruthú a bhí ann roimhe sin agus anois,"
+
+#: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:21
+msgid "tag persons on the pictures, add pictures to albums, categorize and comment pictures,"
+msgstr "clibeanna a chur ar dhaoine ar na pictiúir, pictiúir a chur le halbaim, pictiúir a chatagóiriú agus trácht a dhéanamh orthu,"
+
+#: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:22
+msgid "transcribe handwritten messages on pictures or on the reverse sides of postcards,"
+msgstr "teachtaireachtaí lámhscríofa a thras-scríobh ar phictiúir nó ar chúl cártaí poist,"
+
+#: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:23
+msgid "add historical imagery to Ajapaik – either by searching and importing from public collections or uploading yourself."
+msgstr "cuir íomhánna stairiúla le Ajapaik – trí chuardach a dhéanamh agus iad a allmhairiú ó bhailiúcháin phoiblí nó trí iad a uaslódáil tú féin."
+
+#: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:27
+msgid "Ajapaik is a non-profit venture of the Estonian Photographic Heritage Society (MTÜ Eesti Fotopärand) that was created during a Garage48 hackathon in February 2011. Over the years Ajapaik has received grant funding but there is no permanent funding therefore we are very grateful if you can donate to <a href='/donate'>support us</a>."
+msgstr "Is fiontar neamhbhrabúis de chuid Chumann Oidhreachta Grianghrafadóireachta na hEastóine (MTÜ Eesti Fotopärand) é Ajapaik a cruthaíodh le linn hackathon Garage48 i mí Feabhra 2011. Le blianta beaga anuas, fuair Ajapaik maoiniú deontais ach níl aon mhaoiniú buan ann, mar sin táimid an-bhuíoch dá bhféadfá síntiús a thabhairt chun <a href='/donate'>tacaíocht a thabhairt dúinn</a>."
+
+#: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:31
+#, python-format
+msgid "Ajapaik has <b>%(total_photo_count)s</b> historic pictures, out of which <b>%(total_photos_tagged)s</b> pictures have been put on the map by <b>%(contributing_users)s</b> users and <b>%(rephoto_count)s</b> rephotographs for <b>%(rephotographed_photo_count)s</b> pictures made by <b>%(rephotographing_users)s</b> users."
+msgstr "Tá <b>%(total_photo_count)s</b> pictiúr stairiúil ag Ajapaik, agus tá <b>%(total_photos_tagged)s</b> pictiúr curtha ar an léarscáil ag <b>%(contributing_users)s</b> úsáideoirí agus <b>%(rephoto_count)s</b> athghrianghraif do <b>%(rephotographed_photo_count)s</b> pictiúr déanta ag <b>%(rephotographing_users)s</b> úsáideoirí."
+
+#: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:38
+#, python-format
+msgid "There are <b>%(person_annotation_count)s</b> faces detected on the pictures, a person has been identified in <b>%(person_annotation_count_with_person_album)s</b> cases, age or gender is marked for <b>%(person_annotation_count_with_subject_data)s</b> faces."
+msgstr "Tá <b>%(person_annotation_count)s</b> aghaidheanna braite ar na pictiúir, tá duine aitheanta i <b>%(person_annotation_count_with_person_album)s</b> cásanna, tá aois nó inscne marcáilte do <b>%(person_annotation_count_with_subject_data)s</b> aghaidheanna."
+
+#: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:45
+msgid "Overview of your own contributions can be found on your <a href='/me'>user profile page</a>."
+msgstr "Is féidir forbhreathnú ar do chuid ranníocaíochtaí féin a fháil ar do <a href='/me'>leathanach próifíle úsáideora</a>."
+
+#: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:48
+msgid "General statistics refresh every 10 minutes."
+msgstr "Athnuachanaítear staitisticí ginearálta gach 10 nóiméad."
+
+#: ajapaik/ajapaik/templates/info/_info_modal_content.html:14
+#: ajapaik/ajapaik/templates/info/_info_modal_content.html:21
+msgid "Album curated by"
+msgstr "Albam curtha i leataobh ag"
+
+#: ajapaik/ajapaik/templates/info/_info_modal_content.html:23
+msgid "Contributors' leaderboard"
+msgstr "Clár ceannairí na rannpháirtithe"
+
+#: ajapaik/ajapaik/templates/info/_info_modal_content.html:27
+#, python-format
+msgid "Album has %(counter)s historic picture,"
+msgid_plural "Album has %(counter)s historic pictures,"
+msgstr[0] "one=Tá %(counter)s pictiúr stairiúil san albam,"
+msgstr[1] "two=Tá %(counter)s pictiúir stairiúil san albam,"
+msgstr[2] "few=Tá %(counter)s pictiúir stairiúil san albam,"
+msgstr[3] "many=Tá %(counter)s pictiúir stairiúil san albam,"
+msgstr[4] "other=Tá %(counter)s pictiúir stairiúil san albam,"
+
+#: ajapaik/ajapaik/templates/core/base_bootstrap.html:102
+#: ajapaik/ajapaik/templates/info/_info_modal_content.html:28
+#, python-format
+msgid "%(counter)s user has put"
+msgid_plural "%(counter)s users have put"
+msgstr[0] "one=Chuir %(counter)s úsáideoir isteach"
+msgstr[1] "two=Chuir %(counter)s úsáideoirí isteach"
+msgstr[2] "few=Chuir %(counter)s úsáideoirí isteach"
+msgstr[3] "many=Chuir %(counter)s úsáideoirí isteach"
+msgstr[4] "other=Chuir %(counter)s úsáideoirí isteach"
+
+#: ajapaik/ajapaik/templates/core/base_bootstrap.html:107
+#: ajapaik/ajapaik/templates/info/_info_modal_content.html:32
+#, python-format
+msgid "%(counter)s picture on the map."
+msgid_plural "%(counter)s pictures on the map."
+msgstr[0] "one=%(counter)s pictiúr ar an léarscáil."
+msgstr[1] "two=%(counter)s pictiúir ar an léarscáil."
+msgstr[2] "few=%(counter)s pictiúir ar an léarscáil."
+msgstr[3] "many=%(counter)s pictiúir ar an léarscáil."
+msgstr[4] "other=%(counter)s pictiúir ar an léarscáil."
+
+#: ajapaik/ajapaik/templates/info/_info_modal_content.html:37
+msgid "You haven't made any location suggestions for pictures in this album."
+msgstr "Níl aon mholtaí suímh déanta agat do phictiúir san albam seo."
+
+#: ajapaik/ajapaik/templates/info/_info_modal_content.html:39
+msgid "You have made a location suggestion for"
+msgstr "Tá moladh suímh déanta agat do"
+
+#: ajapaik/ajapaik/templates/info/_info_modal_content.html:41
+msgid "all the pictures from this album."
+msgstr "na pictiúir go léir ón albam seo."
+
+#: ajapaik/ajapaik/templates/info/_info_modal_content.html:43
+#, python-format
+msgid "%(counter)s picture in this album."
+msgid_plural "%(counter)s pictures in this album."
+msgstr[0] "one=%(counter)s pictiúr san albam seo."
+msgstr[1] "two=%(counter)s pictiúir san albam seo."
+msgstr[2] "few=%(counter)s pictiúir san albam seo."
+msgstr[3] "many=%(counter)s pictiúir san albam seo."
+msgstr[4] "other=%(counter)s pictiúir san albam seo."
+
+#: ajapaik/ajapaik/templates/info/_info_modal_content.html:50
+#, python-format
+msgid "%(counter)s user has made"
+msgid_plural "%(counter)s users have made"
+msgstr[0] "one=Tá %(counter)s úsáideoir déanta"
+msgstr[1] "two=Tá %(counter)s úsáideoirí déanta"
+msgstr[2] "few=Tá %(counter)s úsáideoirí déanta"
+msgstr[3] "many=Tá %(counter)s úsáideoirí déanta"
+msgstr[4] "other=Tá %(counter)s úsáideoirí déanta"
+
+#: ajapaik/ajapaik/templates/info/_info_modal_content.html:51
+#, python-format
+msgid "%(counter)s rephotograph"
+msgid_plural "%(counter)s rephotographs"
+msgstr[0] "one=%(counter)s athghrianghrafadóireacht"
+msgstr[1] "two=%(counter)s athghrianghrafadóireacht"
+msgstr[2] "few=%(counter)s athghrianghrafadóireacht"
+msgstr[3] "many=%(counter)s athghrianghrafadóireacht"
+msgstr[4] "other=%(counter)s athghrianghrafadóireacht"
+
+#: ajapaik/ajapaik/templates/info/_info_modal_content.html:52
+#: ajapaik/ajapaik/templates/info/_info_modal_content.html:59
+#, python-format
+msgid "for %(counter)s picture in the album."
+msgid_plural "for %(counter)s picture in the album."
+msgstr[0] "one=le haghaidh pictiúr %(counter)s san albam."
+msgstr[1] "two=le haghaidh pictiúr %(counter)s san albam."
+msgstr[2] "few=le haghaidh pictiúr %(counter)s san albam."
+msgstr[3] "many=le haghaidh pictiúr %(counter)s san albam."
+msgstr[4] "other=le haghaidh pictiúr %(counter)s san albam."
+
+#: ajapaik/ajapaik/templates/info/_info_modal_content.html:58
+#, python-format
+msgid "You have made %(counter)s rephoto"
+msgid_plural "You have made %(counter)s rephotos"
+msgstr[0] "one=Rinne tú %(counter)s athghrianghraf"
+msgstr[1] "two=Rinne tú %(counter)s athghrianghraif"
+msgstr[2] "few=Rinne tú %(counter)s athghrianghraif"
+msgstr[3] "many=Rinne tú %(counter)s athghrianghraif"
+msgstr[4] "other=Rinne tú %(counter)s athghrianghraif"
+
+#: ajapaik/ajapaik/templates/info/_info_modal_content.html:65
+msgid "Some nearby albums"
+msgstr "Roinnt albaim in aice láimhe"
+
+#: ajapaik/ajapaik/templates/info/_info_modal_content.html:113
+msgid "Back to map"
+msgstr "Ar ais chuig an léarscáil"
+
+#: ajapaik/ajapaik/templates/leaderboard/_block_leaderboard.html:12
+msgid "Recent activity leaderboard"
+msgstr "Clár ceannairí gníomhaíochta le déanaí"
+
+#: ajapaik/ajapaik/templates/leaderboard/_block_leaderboard.html:15
+#, python-format
+msgid "Album %(album_name)s leaderboard"
+msgstr "Clár ceannairí an albaim %(album_name)s"
+
+#: ajapaik/ajapaik/templates/leaderboard/_block_leaderboard.html:18
+msgid "All time leaderboard"
+msgstr "Clár ceannaireachta uile-ama"
+
+#: ajapaik/ajapaik/templates/leaderboard/_leaderboard_positions.html:9
+#: ajapaik/ajapaik/templates/user/_user_picture.html:4
+msgid "User Facebook photo"
+msgstr "Grianghraf úsáideora Facebook"
+
+#: ajapaik/ajapaik/templates/leaderboard/_leaderboard_positions.html:11
+#: ajapaik/ajapaik/templates/user/_user_picture.html:6
+msgid "User Google photo"
+msgstr "Grianghraf úsáideora Google"
+
+#: ajapaik/ajapaik/templates/leaderboard/leaderboard.html:19
+msgid "Back home"
+msgstr "Ar ais sa bhaile"
+
+#: ajapaik/ajapaik/templates/muis-import.html:12
+msgid "Import"
+msgstr "Iompórtáil"
+
+#: ajapaik/ajapaik/templates/muis-import.html:12
+msgid "Blacklist"
+msgstr "Liosta Dubh"
+
+#: ajapaik/ajapaik/templates/photo/_photo_comments_and_labels.html:9
+msgid "Picture belongs to album"
+msgid_plural "Picture belongs to albums:"
+msgstr[0] "one=Baineann an pictiúr leis an albam"
+msgstr[1] "two=Baineann an pictiúr leis na halbaim:"
+msgstr[2] "few=Baineann an pictiúr leis na halbaim:"
+msgstr[3] "many=Baineann an pictiúr leis na halbaim:"
+msgstr[4] "other=Baineann an pictiúr leis na halbaim:"
+
+#: ajapaik/ajapaik/templates/photo/_photo_comments_and_labels.html:18
+#: ajapaik/ajapaik/templates/photo/_photo_comments_and_labels.html:19
+#: ajapaik/ajapaik/templates/photo/selection/photo_selection.html:16
+msgid "Add to album"
+msgstr "Cuir leis an albam"
+
+#: ajapaik/ajapaik/templates/photo/_photo_comments_and_labels.html:28
+msgid "Picture belongs to collection"
+msgid_plural "Picture belongs to collections:"
+msgstr[0] "one=Baineann an pictiúr le bailiúchán"
+msgstr[1] "two=Baineann an pictiúr le bailiúcháin:"
+msgstr[2] "few=Baineann an pictiúr le bailiúcháin:"
+msgstr[3] "many=Baineann an pictiúr le bailiúcháin:"
+msgstr[4] "other=Baineann an pictiúr le bailiúcháin:"
+
+#: ajapaik/ajapaik/templates/photo/_photo_description_container.html:6
+msgid "Approximate address"
+msgstr "Seoladh garbh"
+
+#: ajapaik/ajapaik/templates/photo/_photo_modal.html:46
+#: ajapaik/ajapaik/templates/photo/photoview.html:69
+msgid "See the other side of photo"
+msgstr "Féach ar an taobh eile den ghrianghraf"
+
+#: ajapaik/ajapaik/templates/photo/_photo_modal.html:81
+#: ajapaik/ajapaik/templates/photo/_photo_modal.html:82
+#: ajapaik/ajapaik/templates/photo/photoview.html:137
+#: ajapaik/ajapaik/templates/photo/photoview.html:138
+msgid "similar photo"
+msgstr "grianghraf cosúil leis"
+
+#: ajapaik/ajapaik/templates/photo/_photo_modal.html:84
+#: ajapaik/ajapaik/templates/photo/_photo_modal.html:85
+#: ajapaik/ajapaik/templates/photo/photoview.html:140
+#: ajapaik/ajapaik/templates/photo/photoview.html:141
+msgid "duplicate photo"
+msgstr "grianghraf dúblach"
+
+#: ajapaik/ajapaik/templates/photo/_rephoto_description_container.html:37
+msgid "Date taken"
+msgstr "Dáta tógtha"
+
+#: ajapaik/ajapaik/templates/photo/photoview.html:29
+#: ajapaik/ajapaik/templates/photo/photoview.html:32
+#: ajapaik/ajapaik/templates/photo/photoview.html:112
+#: ajapaik/ajapaik/templates/photo/photoview.html:165
+#: ajapaik/ajapaik/templates/photo/photoview.html:166
+msgid "rephoto"
+msgstr "athghrianghrafadóireacht"
+
+#: ajapaik/ajapaik/templates/photo/selection/photo_selection.html:22
+#: ajapaik/ajapaik/templates/photo/selection/photo_selection.html:110
+msgid "Mark as similar or duplicates"
+msgstr "Marcáil mar chomhchosúil nó dúblach"
+
+#: ajapaik/ajapaik/templates/photo/selection/photo_selection.html:29
+msgid "Add categories to picture(s)"
+msgstr "Cuir catagóirí le pictiúr(í)"
+
+#: ajapaik/ajapaik/templates/photo/selection/photo_selection.html:33
+msgid "Flip, rotate and invert picture(s)"
+msgstr "Smeach, rothlaigh agus inbhéartaigh pictiúr(í)"
+
+#: ajapaik/ajapaik/templates/photo/selection/photo_selection.html:46
+msgid "You can re-order photos by dragging and dropping"
+msgstr "Is féidir leat grianghraif a athordú trí tharraingt agus scaoileadh"
+
+#: ajapaik/ajapaik/templates/photo/selection/photo_selection.html:109
+msgid "Images have overlapping content"
+msgstr "Tá ábhar forluiteach ag íomhánna"
+
+#: ajapaik/ajapaik/templates/photo/selection/photo_selection.html:109
+msgid "All images are of the same shot"
+msgstr "Is den lámhaigh chéanna na híomhánna uile"
+
+#: ajapaik/ajapaik/templates/photo/upload/photo_upload_choice.html:13
+msgid "Import from public collections"
+msgstr "Iompórtáil ó bhailiúcháin phoiblí"
+
+#: ajapaik/ajapaik/templates/photo/upload/photo_upload_choice.html:20
+msgid "Upload yourself"
+msgstr "Uaslódáil tú féin"
+
+#: ajapaik/ajapaik/templates/photo/upload/photo_upload_choice.html:28
+msgid "Muis Import"
+msgstr "Iompórtáil Músae"
+
+#: ajapaik/ajapaik/templates/photo/upload/photo_upload_choice.html:37
+msgid "CSV Import"
+msgstr "Iompórtáil CSV"
+
+#: ajapaik/ajapaik/templates/rephoto_upload/_rephoto_upload_modal_content.html:21
+#: ajapaik/ajapaik/templates/rephoto_upload/_rephoto_upload_modal_content.html:98
+#: ajapaik/ajapaik/templates/user_upload/user_upload.html:53
+msgid "Upload"
+msgstr "Uaslódáil"
+
+#: ajapaik/ajapaik/templates/rephoto_upload/_rephoto_upload_modal_content.html:26
+msgid "Select file..."
+msgstr "Roghnaigh comhad..."
+
+#: ajapaik/ajapaik/templates/rephoto_upload/_rephoto_upload_modal_content.html:36
+msgid "Make a contemporary rephoto from the very same place where the historic picture was taken and upload it. Uploaded rephotograph will be attributed to you under the"
+msgstr "Déan athghrianghraf comhaimseartha ón áit chéanna inar tógadh an pictiúr stairiúil agus uaslódáil é. Cuirfear an t-athghrianghraf uaslódáilte i leith tú faoin"
+
+#: ajapaik/ajapaik/templates/rephoto_upload/_rephoto_upload_modal_content.html:37
+msgid "licence"
+msgstr "ceadúnas"
+
+#: ajapaik/ajapaik/templates/rephoto_upload/_rephoto_upload_modal_content.html:56
+msgid "Abort"
+msgstr "Tobscoir"
+
+#: ajapaik/ajapaik/templates/rephoto_upload/_rephoto_upload_modal_content.html:76
+msgid "Select new file..."
+msgstr "Roghnaigh comhad nua..."
+
+#: ajapaik/ajapaik/templates/rephoto_upload/_rephoto_upload_modal_content.html:106
+msgid "File upload failed."
+msgstr "Theip ar uaslódáil comhaid."
+
+#: ajapaik/ajapaik/templates/rephoto_upload/_rephoto_upload_settings_modal.html:6
+#: ajapaik/ajapaik/templates/user/settings/_user_settings_modal.html:6
+msgid "Welcome back"
+msgstr "Fáilte ar ais"
+
+#: ajapaik/ajapaik/templates/rephoto_upload/_rephoto_upload_settings_modal.html:9
+msgid "Please specify whether you would like to upload your rephotos to Wikimedia Commons as well."
+msgstr "Sonraigh le do thoil an mian leat do ghrianghraif athdhéanta a uaslódáil chuig Wikimedia Commons chomh maith."
+
+#: ajapaik/ajapaik/templates/socialaccount/authentication_error.html:5
+#: ajapaik/ajapaik/templates/socialaccount/authentication_error.html:8
+msgid "Social Network Login Failure"
+msgstr "Teip Logála Isteach ar an Líonra Sóisialta"
+
+#: ajapaik/ajapaik/templates/socialaccount/authentication_error.html:13
+msgid "An error occurred while attempting to login via your social network account."
+msgstr "Tharla earráid agus iarracht á déanamh logáil isteach trí do chuntas líonra sóisialta."
+
+#: ajapaik/ajapaik/templates/socialaccount/connections.html:5
+#: ajapaik/ajapaik/templates/socialaccount/connections_content.html:3
+#: ajapaik/ajapaik/views.py:3717
+msgid "Account Connections"
+msgstr "Naisc Chuntais"
+
+#: ajapaik/ajapaik/templates/socialaccount/connections_content.html:6
+msgid "You can sign in to your account using any of the following third party accounts:"
+msgstr "Is féidir leat síniú isteach i do chuntas ag baint úsáide as aon cheann de na cuntais tríú páirtí seo a leanas:"
+
+#: ajapaik/ajapaik/templates/socialaccount/connections_content.html:22
+#: ajapaik/ajapaik/templates/user/_user_card.html:11
+#: ajapaik/ajapaik_face_recognition/models.py:32
+#: ajapaik/ajapaik_face_recognition/models.py:192
+msgid "User"
+msgstr "Úsáideoir"
+
+#: ajapaik/ajapaik/templates/socialaccount/connections_content.html:38
+msgid "You currently have no social network accounts connected to this account."
+msgstr "Níl aon chuntais líonra sóisialta agat atá ceangailte leis an gcuntas seo faoi láthair."
+
+#: ajapaik/ajapaik/templates/socialaccount/connections_content.html:41
+msgid "Add a 3rd Party Account"
+msgstr "Cuir Cuntas Tríú Páirtí leis"
+
+#: ajapaik/ajapaik/templates/user/_current_user_info.html:3
+msgid "You have"
+msgstr "Tá agat"
+
+#: ajapaik/ajapaik/templates/user/_current_user_info.html:8
+#: ajapaik/ajapaik/templates/user/_user_info.html:5
+#, python-format
+msgid "curated <b>%(curated_pictures)s</b> picture"
+msgid_plural "curated <b>%(curated_pictures)s</b> pictures"
+msgstr[0] "one=pictiúr <b>%(curated_pictures)s</b> coimeádta"
+msgstr[1] "two=pictiúirí <b>%(curated_pictures)s</b> coimeádta"
+msgstr[2] "few=pictiúirí <b>%(curated_pictures)s</b> coimeádta"
+msgstr[3] "many=pictiúirí <b>%(curated_pictures)s</b> coimeádta"
+msgstr[4] "other=pictiúirí <b>%(curated_pictures)s</b> coimeádta"
+
+#: ajapaik/ajapaik/templates/user/_current_user_info.html:13
+#: ajapaik/ajapaik/templates/user/_user_info.html:10
+#, python-format
+msgid "suggested location for <b>%(geotagged_pictures)s</b> picture"
+msgid_plural "suggested locations for <b>%(geotagged_pictures)s</b> picture"
+msgstr[0] "one=suíomh molta do <b>%(geotagged_pictures)s</b> pictiúr"
+msgstr[1] "two=suíomhanna molta do <b>%(geotagged_pictures)s</b> pictiúr"
+msgstr[2] "few=suíomhanna molta do <b>%(geotagged_pictures)s</b> pictiúr"
+msgstr[3] "many=suíomhanna molta do <b>%(geotagged_pictures)s</b> pictiúr"
+msgstr[4] "other=suíomhanna molta do <b>%(geotagged_pictures)s</b> pictiúr"
+
+#: ajapaik/ajapaik/templates/user/_current_user_info.html:18
+#: ajapaik/ajapaik/templates/user/_user_info.html:15
+#, python-format
+msgid "confirmed location for <b>%(geotag_confirmations)s</b> picture"
+msgid_plural "confirmed locations for <b>%(geotag_confirmations)s</b> pictures"
+msgstr[0] "one=suíomh deimhnithe do <b>%(geotag_confirmations)s</b> pictiúr"
+msgstr[1] "two=suíomhanna deimhnithe do <b>%(geotag_confirmations)s</b> pictiúir"
+msgstr[2] "few=suíomhanna deimhnithe do <b>%(geotag_confirmations)s</b> pictiúir"
+msgstr[3] "many=suíomhanna deimhnithe do <b>%(geotag_confirmations)s</b> pictiúir"
+msgstr[4] "other=suíomhanna deimhnithe do <b>%(geotag_confirmations)s</b> pictiúir"
+
+#: ajapaik/ajapaik/templates/user/_current_user_info.html:23
+#: ajapaik/ajapaik/templates/user/_user_info.html:20
+#, python-format
+msgid "made <b><a href=\"%(link)s\">%(rephotos)s rephoto</a></b> for"
+msgid_plural "made <b><a href=\"%(link)s\">%(rephotos)s rephotos</a></b> for"
+msgstr[0] "one=rinne <b><a href=\"%(link)s\">%(rephotos)s athghrianghraf</a></b> do"
+msgstr[1] "two=rinne <b><a href=\"%(link)s\">%(rephotos)s athghrianghraif</a></b> do"
+msgstr[2] "few=rinne <b><a href=\"%(link)s\">%(rephotos)s athghrianghraif</a></b> do"
+msgstr[3] "many=rinne <b><a href=\"%(link)s\">%(rephotos)s athghrianghraif</a></b> do"
+msgstr[4] "other=rinne <b><a href=\"%(link)s\">%(rephotos)s athghrianghraif</a></b> do"
+
+#: ajapaik/ajapaik/templates/user/_current_user_info.html:24
+#: ajapaik/ajapaik/templates/user/_user_info.html:21
+#, python-format
+msgid "<b>%(rephotographed_pictures)s</b> picture"
+msgid_plural "<b>%(rephotographed_pictures)s</b> pictures"
+msgstr[0] "one=<b>%(rephotographed_pictures)s</b> pictiúr"
+msgstr[1] "two=<b>%(rephotographed_pictures)s</b> pictiúirí"
+msgstr[2] "few=<b>%(rephotographed_pictures)s</b> pictiúirí"
+msgstr[3] "many=<b>%(rephotographed_pictures)s</b> pictiúirí"
+msgstr[4] "other=<b>%(rephotographed_pictures)s</b> pictiúirí"
+
+#: ajapaik/ajapaik/templates/user/_current_user_info.html:29
+#: ajapaik/ajapaik/templates/user/_user_info.html:26
+#, python-format
+msgid "commented on <b>%(commented_pictures)s</b> picture"
+msgid_plural "commented on <b>%(commented_pictures)s</b> pictures"
+msgstr[0] "one=trácht déanta ar <b>%(commented_pictures)s</b> pictiúr"
+msgstr[1] "two=trácht déanta ar <b>%(commented_pictures)s</b> pictiúir"
+msgstr[2] "few=trácht déanta ar <b>%(commented_pictures)s</b> pictiúir"
+msgstr[3] "many=trácht déanta ar <b>%(commented_pictures)s</b> pictiúir"
+msgstr[4] "other=trácht déanta ar <b>%(commented_pictures)s</b> pictiúir"
+
+#: ajapaik/ajapaik/templates/user/_current_user_info.html:34
+#, python-format
+msgid "specified a date for <b>%(datings)s</b> picture"
+msgid_plural "specified date for <b>%(datings)s</b> pictures"
+msgstr[0] "one=sonraigh dáta do <b>%(datings)s</b> pictiúr"
+msgstr[1] "two=shonraigh dáta do <b>%(datings)s</b> pictiúir"
+msgstr[2] "few=shonraigh dáta do <b>%(datings)s</b> pictiúir"
+msgstr[3] "many=shonraigh dáta do <b>%(datings)s</b> pictiúir"
+msgstr[4] "other=shonraigh dáta do <b>%(datings)s</b> pictiúir"
+
+#: ajapaik/ajapaik/templates/user/_current_user_info.html:39
+#: ajapaik/ajapaik/templates/user/_user_info.html:36
+#, python-format
+msgid "annotated <b>%(face_annotations)s</b> face on"
+msgid_plural "annotated <b>%(face_annotations)s</b> faces on"
+msgstr[0] "one=aghaidh anótáilte <b>%(face_annotations)s</b> ar"
+msgstr[1] "two=aghaidheanna anótáilte <b>%(face_annotations)s</b> ar"
+msgstr[2] "few=aghaidheanna anótáilte <b>%(face_annotations)s</b> ar"
+msgstr[3] "many=aghaidheanna anótáilte <b>%(face_annotations)s</b> ar"
+msgstr[4] "other=aghaidheanna anótáilte <b>%(face_annotations)s</b> ar"
+
+#: ajapaik/ajapaik/templates/user/_current_user_info.html:40
+#: ajapaik/ajapaik/templates/user/_user_info.html:37
+#, python-format
+msgid "<b>%(face_annotations_pictures)s</b> picture"
+msgid_plural "<b>%(face_annotations_pictures)s</b> pictures"
+msgstr[0] "one=<b>%(face_annotations_pictures)s</b> pictiúr"
+msgstr[1] "two=<b>%(face_annotations_pictures)s</b> pictiúir"
+msgstr[2] "few=<b>%(face_annotations_pictures)s</b> pictiúir"
+msgstr[3] "many=<b>%(face_annotations_pictures)s</b> pictiúir"
+msgstr[4] "other=<b>%(face_annotations_pictures)s</b> pictiúir"
+
+#: ajapaik/ajapaik/templates/user/_current_user_info.html:45
+#: ajapaik/ajapaik/templates/user/_user_info.html:42
+#, python-format
+msgid "annotated <b>%(object_annotations)s</b> object on"
+msgid_plural "annotated <b>%(object_annotations)s</b> objects on"
+msgstr[0] "one=réad anótáilte <b>%(object_annotations)s</b> ar"
+msgstr[1] "two=réada anótáilte <b>%(object_annotations)s</b> ar"
+msgstr[2] "few=réada anótáilte <b>%(object_annotations)s</b> ar"
+msgstr[3] "many=réada anótáilte <b>%(object_annotations)s</b> ar"
+msgstr[4] "other=réada anótáilte <b>%(object_annotations)s</b> ar"
+
+#: ajapaik/ajapaik/templates/user/_current_user_info.html:46
+#, python-format
+msgid "<b>%(object_annotations_pictures)s</b> picture"
+msgid_plural "<b>%(object_annotations_pictures)s</b> pictures"
+msgstr[0] "one=<b>%(object_annotations_pictures)s</b> pictiúr"
+msgstr[1] "two=<b>%(object_annotations_pictures)s</b> pictiúir"
+msgstr[2] "few=<b>%(object_annotations_pictures)s</b> pictiúir"
+msgstr[3] "many=<b>%(object_annotations_pictures)s</b> pictiúir"
+msgstr[4] "other=<b>%(object_annotations_pictures)s</b> pictiúir"
+
+#: ajapaik/ajapaik/templates/user/_current_user_info.html:51
+#, python-format
+msgid "transcribed text on <b>%(transcriptions)s</b> picture"
+msgid_plural "added transcribed text on <b>%(transcriptions)s</b> pictures"
+msgstr[0] "one=téacs trascríofa ar phictiúr <b>%(transcriptions)s</b>"
+msgstr[1] "two=téacs trascríofa curtha leis na pictiúir <b>%(transcriptions)s</b>"
+msgstr[2] "few=téacs trascríofa curtha leis na pictiúir <b>%(transcriptions)s</b>"
+msgstr[3] "many=téacs trascríofa curtha leis na pictiúir <b>%(transcriptions)s</b>"
+msgstr[4] "other=téacs trascríofa curtha leis na pictiúir <b>%(transcriptions)s</b>"
+
+#: ajapaik/ajapaik/templates/user/_current_user_info.html:56
+#: ajapaik/ajapaik/templates/user/_user_info.html:53
+#, python-format
+msgid "connected <b>%(similar_pictures)s</b> similar picture"
+msgid_plural "connected <b>%(similar_pictures)s</b> similar pictures"
+msgstr[0] "one=ceangailte le <b>%(similar_pictures)s</b> pictiúr cosúil"
+msgstr[1] "two=ceangailte le <b>%(similar_pictures)s</b> pictiúir chomhchosúla"
+msgstr[2] "few=ceangailte le <b>%(similar_pictures)s</b> pictiúir chomhchosúla"
+msgstr[3] "many=ceangailte le <b>%(similar_pictures)s</b> pictiúir chomhchosúla"
+msgstr[4] "other=ceangailte le <b>%(similar_pictures)s</b> pictiúir chomhchosúla"
+
+#: ajapaik/ajapaik/templates/user/_current_user_info.html:61
+#: ajapaik/ajapaik/templates/user/_user_info.html:58
+#, python-format
+msgid "favorited <b>%(photolikes)s</b> picture"
+msgid_plural "favorited <b>%(photolikes)s</b> pictures"
+msgstr[0] "one=pictiúr is fearr leat <b>%(photolikes)s</b>"
+msgstr[1] "two=pictiúir is fearr leat <b>%(photolikes)s</b>"
+msgstr[2] "few=pictiúir is fearr leat <b>%(photolikes)s</b>"
+msgstr[3] "many=pictiúir is fearr leat <b>%(photolikes)s</b>"
+msgstr[4] "other=pictiúir is fearr leat <b>%(photolikes)s</b>"
+
+#: ajapaik/ajapaik/templates/user/_current_user_info.html:66
+#: ajapaik/ajapaik/templates/user/_user_info.html:63
+#, python-format
+msgid "categorized <b>%(photo_suggestions)s</b> picture"
+msgid_plural "categorized <b>%(photo_suggestions)s</b> pictures"
+msgstr[0] "one=pictiúr <b>%(photo_suggestions)s</b> catagóirithe"
+msgstr[1] "two=pictiúirí <b>%(photo_suggestions)s</b> catagóirithe"
+msgstr[2] "few=pictiúirí <b>%(photo_suggestions)s</b> catagóirithe"
+msgstr[3] "many=pictiúirí <b>%(photo_suggestions)s</b> catagóirithe"
+msgstr[4] "other=pictiúirí <b>%(photo_suggestions)s</b> catagóirithe"
+
+#: ajapaik/ajapaik/templates/user/_current_user_info.html:72
+#, python-format
+msgid "You have <b>%(user_points)s point in total</b>"
+msgid_plural "You have <b>%(user_points)s</b> points in total"
+msgstr[0] "one=Tá <b>%(user_points)s pointe san iomlán agat</b>"
+msgstr[1] "two=Tá <b>%(user_points)s</b> pointe san iomlán agat"
+msgstr[2] "few=Tá <b>%(user_points)s</b> pointe san iomlán agat"
+msgstr[3] "many=Tá <b>%(user_points)s</b> pointe san iomlán agat"
+msgstr[4] "other=Tá <b>%(user_points)s</b> pointe san iomlán agat"
+
+#: ajapaik/ajapaik/templates/user/_current_user_info.html:77
+msgid "View your"
+msgstr "Féach ar do"
+
+#: ajapaik/ajapaik/templates/user/_current_user_info.html:82
+msgid "rephotos"
+msgstr "athghrianghraif"
+
+#: ajapaik/ajapaik/templates/user/_current_user_info.html:87
+msgid "favorite pictures"
+msgstr "pictiúir is fearr leat"
+
+#: ajapaik/ajapaik/templates/user/_user_card.html:8
+msgid "This account is connected to:"
+msgstr "Tá an cuntas seo ceangailte le:"
+
+#: ajapaik/ajapaik/templates/user/_user_card.html:15
+msgid "This account is not connected to any other"
+msgstr "Níl an cuntas seo ceangailte le haon chuntas eile"
+
+#: ajapaik/ajapaik/templates/user/_user_info.html:31
+#, python-format
+msgid "specified date for <b>%(datings)s</b> picture"
+msgid_plural "specified date for <b>%(datings)s</b> pictures"
+msgstr[0] "one=dáta sonraithe do phictiúr <b>%(datings)s</b>"
+msgstr[1] "two=dáta sonraithe do phictiúir <b>%(datings)s</b>"
+msgstr[2] "few=dáta sonraithe do phictiúir <b>%(datings)s</b>"
+msgstr[3] "many=dáta sonraithe do phictiúir <b>%(datings)s</b>"
+msgstr[4] "other=dáta sonraithe do phictiúir <b>%(datings)s</b>"
+
+#: ajapaik/ajapaik/templates/user/_user_info.html:43
+#, python-format
+msgid "<b>%(object_annotations)s</b> picture"
+msgid_plural "<b>%(object_annotations)s</b> pictures"
+msgstr[0] "one=<b>%(object_annotations)s</b> pictiúr"
+msgstr[1] "two=<b>%(object_annotations)s</b> pictiúir"
+msgstr[2] "few=<b>%(object_annotations)s</b> pictiúir"
+msgstr[3] "many=<b>%(object_annotations)s</b> pictiúir"
+msgstr[4] "other=<b>%(object_annotations)s</b> pictiúir"
+
+#: ajapaik/ajapaik/templates/user/_user_info.html:48
+#, python-format
+msgid "added transcribed text on <b>%(transcriptions)s</b> picture"
+msgid_plural "transcribed text on <b>%(transcriptions)s</b> pictures"
+msgstr[0] "one=téacs trascríofa curtha leis ar phictiúr <b>%(transcriptions)s</b>"
+msgstr[1] "two=téacs trascríofa ar phictiúir <b>%(transcriptions)s</b>"
+msgstr[2] "few=téacs trascríofa ar phictiúir <b>%(transcriptions)s</b>"
+msgstr[3] "many=téacs trascríofa ar phictiúir <b>%(transcriptions)s</b>"
+msgstr[4] "other=téacs trascríofa ar phictiúir <b>%(transcriptions)s</b>"
+
+#: ajapaik/ajapaik/templates/user/_user_info.html:68
+#, python-format
+msgid "<b>%(user_points)s point in total</b>"
+msgid_plural "<b>%(user_points)s</b> points in total"
+msgstr[0] "one=<b>%(user_points)s pointe san iomlán</b>"
+msgstr[1] "two=<b>%(user_points)s</b> pointí san iomlán"
+msgstr[2] "few=<b>%(user_points)s</b> pointí san iomlán"
+msgstr[3] "many=<b>%(user_points)s</b> pointí san iomlán"
+msgstr[4] "other=<b>%(user_points)s</b> pointí san iomlán"
+
+#: ajapaik/ajapaik/templates/user/merge/merge_accounts.html:10
+#: ajapaik/ajapaik/templates/user/merge/merge_accounts.html:15
+msgid "Keep this account (the other one will be merged)"
+msgstr "Coinnigh an cuntas seo (cuirfear an ceann eile le chéile)"
+
+#: ajapaik/ajapaik/templates/user/merge/merge_accounts.html:18
+#, python-format
+msgid "You are about to merge your current <a href=\"%(me)s\">account</a> with <a href=\"%(link)s\" target=\"_blank\">%(name)s</a>'s account. Your user id will be: %(id)s"
+msgstr "Tá tú ar tí do chuntas reatha <a href=\"%(me)s\">a chumasc le cuntas <a href=\"%(link)s\" target=\"_blank\">%(name)s</a>. Is é seo a leanas d'aitheantas úsáideora: %(id)s"
+
+#: ajapaik/ajapaik/templates/user/merge/merge_accounts.html:21
+#, python-format
+msgid "Your current <a href=\"%(me)s\">account</a> will be merged into <a href=\"%(link)s\" target=\"_blank\">%(name)s</a>'s account. Your user id will be: %(id)s"
+msgstr "Cuirfear do chuntas reatha <a href=\"%(me)s\">le chéile le cuntas <a href=\"%(link)s\" target=\"_blank\">%(name)s</a>. Is é seo a leanas d'aitheantas úsáideora: %(id)s"
+
+#: ajapaik/ajapaik/templates/user/merge/merge_accounts.html:24
+msgid "Please select which account would you like to keep using after"
+msgstr "Roghnaigh cén cuntas ar mhaith leat leanúint ar aghaidh ag úsáid ina dhiaidh sin"
+
+#: ajapaik/ajapaik/templates/user/merge/merge_accounts.html:27
+msgid "Merge the accounts"
+msgstr "Cumaisc na cuntais"
+
+#: ajapaik/ajapaik/templates/user/merge/merge_accounts.html:32
+msgid "Invalid token, please try again or contact customer support"
+msgstr "Comhartha neamhbhailí, déan iarracht arís nó déan teagmháil le tacaíocht do chustaiméirí"
+
+#: ajapaik/ajapaik/templates/user/merge/merge_accounts.html:34
+msgid "Please login to transfer contributions and settings from one account to other"
+msgstr "Logáil isteach le do thoil chun ranníocaíochtaí agus socruithe a aistriú ó chuntas amháin go cuntas eile"
+
+#: ajapaik/ajapaik/templates/user/merge/merge_accounts.html:36
+msgid "To transfer settings and contributions from one account to other, please login with your other account"
+msgstr "Chun socruithe agus ranníocaíochtaí a aistriú ó chuntas amháin go cuntas eile, logáil isteach le do chuntas eile"
+
+#: ajapaik/ajapaik/templates/user/settings/_user_settings_modal.html:9
+msgid "Please specify whether you would like to receive the newsletter and what is your preferred language of communication."
+msgstr "Sonraigh le do thoil an mian leat an nuachtlitir a fháil agus cad é do rogha teanga cumarsáide."
+
+#: ajapaik/ajapaik/templates/user/settings/user_settings.html:11
+#, python-format
+msgid "%(username)s settings"
+msgstr "Socruithe %(username)s"
+
+#: ajapaik/ajapaik/templates/user/user.html:18
+#, python-format
+msgid "<b>%(name)s</b> has"
+msgstr "Tá <b>%(name)s</b> tar éis"
+
+#: ajapaik/ajapaik/templates/user/user.html:25
+msgid "You're welcome to browse and also contribute anonymously, but we encourage You to create yourself an Ajapaik account and join the contributors community."
+msgstr "Tá fáilte romhat brabhsáil agus cur leis gan ainm freisin, ach molaimid duit cuntas Ajapaik a chruthú duit féin agus páirt a ghlacadh i bpobal na rannpháirtithe."
+
+#: ajapaik/ajapaik/templates/user/user.html:28
+msgid "To create an account, click"
+msgstr "Chun cuntas a chruthú, cliceáil"
+
+#: ajapaik/ajapaik/templates/user/user.html:28
+msgid "here"
+msgstr "anseo"
+
+#: ajapaik/ajapaik/templates/user/user.html:35
+msgid "Welcome to Ajapaik – crowdsourcing platform for historic photographs. You're welcome to geotag and to comment the pictures, tag faces etc."
+msgstr "Fáilte go Ajapaik – ardán sluachomhairc do ghrianghraif stairiúla. Tá fáilte romhat geo-chlibeanna a chur ar na pictiúir agus trácht a dhéanamh orthu, aghaidheanna a chlibeáil srl."
+
+#: ajapaik/ajapaik/templates/user/user.html:51
+msgid "This user does not have any contributions."
+msgstr "Níl aon ranníocaíochtaí ag an úsáideoir seo."
+
+#: ajapaik/ajapaik/templates/user_upload/user_upload.html:17
+msgid "Here you can upload historic pictures to Ajapaik (currently one picture at a time)"
+msgstr "Anseo is féidir leat pictiúir stairiúla a uaslódáil chuig Ajapaik (pictiúr amháin ag an am faoi láthair)"
+
+#: ajapaik/ajapaik/templates/user_upload/user_upload.html:26
+#, python-format
+msgid "I, %(user)s, the copyright holder of this work, irrevocably grant anyone the right to use this work under the <a href=\"https://creativecommons.org/licenses/by-sa/4.0/\" target=\"_blank\" rel=\"noopener nofollow\">Creative Commons Attribution ShareAlike 4.0 license (CC-BY-SA)</a>."
+msgstr "Deonaímse, %(user)s, sealbhóir cóipchirt an tsaothair seo, go neamh-inchúlghairthe d'aon duine an ceart an saothar seo a úsáid faoin gceadúnas <a href=\"https://creativecommons.org/licenses/by-sa/4.0/\" target=\"_blank\" rel=\"noopener nofollow\">Creative Commons Attribution ShareAlike 4.0 (CC-BY-SA)</a>."
+
+#: ajapaik/ajapaik/templates/user_upload/user_upload.html:29
+msgid "Add picture to some album(s)"
+msgstr "Cuir pictiúr le halbam(anna) áirithe"
+
+#: ajapaik/ajapaik/templates/user_upload/user_upload.html:35
+msgid "You need to add the picture to atleast one album"
+msgstr "Ní mór duit an pictiúr a chur le halbam amháin ar a laghad"
+
+#: ajapaik/ajapaik/templates/user_upload/user_upload.html:48
+msgid "Please add the picture to some existing album(s) or create first a new album and then add the picture to it"
+msgstr "Cuir an pictiúr le halbam(anna) atá ann cheana féin nó cruthaigh albam nua ar dtús agus cuir an pictiúr leis ansin"
+
+#: ajapaik/ajapaik/templates/user_upload/user_upload.html:56
+msgid "Upload and mark on map"
+msgstr "Uaslódáil agus marcáil ar léarscáil"
+
+#: ajapaik/ajapaik/templates/user_upload/user_upload_add_album.html:19
+#: ajapaik/ajapaik_face_recognition/templates/add_subject.html:21
+msgid "Add"
+msgstr "Cuir leis"
+
+#: ajapaik/ajapaik/templates/video/_video_modal.html:27
+msgid "You're anonymous. You can now log in with your e-mail."
+msgstr "Tá tú gan ainm. Is féidir leat logáil isteach anois le do r-phost."
+
+#: ajapaik/ajapaik/views.py:526
+msgid "Non-authenticated user"
+msgstr "Úsáideoir neamhfhíordheimhnithe"
+
+#: ajapaik/ajapaik/views.py:664
+msgid "Geotagging game"
+msgstr "Cluiche geotagála"
+
+#: ajapaik/ajapaik/views.py:731
+#, python-format
+msgid "%(name)s - rephotos"
+msgstr "%(name)s - athghrianghraif"
+
+#: ajapaik/ajapaik/views.py:1299
+msgid "Cannot upload to these albums"
+msgstr "Ní féidir uaslódáil chuig na halbaim seo"
+
+#: ajapaik/ajapaik/views.py:1333
+msgid "Recuration successful"
+msgstr "Athchruthú rathúil"
+
+#: ajapaik/ajapaik/views.py:1335
+msgid "Faulty data submitted"
+msgstr "Sonraí lochtacha curtha isteach"
+
+#: ajapaik/ajapaik/views.py:1712
+msgid "Browse photos on map"
+msgstr "Brabhsáil grianghraif ar an léarscáil"
+
+#: ajapaik/ajapaik/views.py:1854
+msgid "Your contribution didn't change the estimated location for the photo, not yet anyway."
+msgstr "Níor athraigh do ranníocaíocht an suíomh measta don ghrianghraf, ní go fóill ar aon nós."
+
+#: ajapaik/ajapaik/views.py:1856
+msgid "The photo has been mapped to a new location thanks to you."
+msgstr "Tá an grianghraf mapáilte chuig suíomh nua a bhuíochas leat."
+
+#: ajapaik/ajapaik/views.py:1858
+msgid "Your suggestion was first."
+msgstr "Ba é do mholadh an chéad cheann."
+
+#: ajapaik/ajapaik/views.py:2131
+msgid "Search for old photos, add them to Ajapaik, determine their locations and share the resulting album!"
+msgstr "Cuardaigh seanghrianghraif, cuir le Ajapaik iad, faigh amach a suíomhanna agus roinn an t-albam a eascraíonn as!"
+
+#: ajapaik/ajapaik/views.py:2478
+msgid "OK"
+msgstr "Ceart go leor"
+
+#: ajapaik/ajapaik/views.py:2619 ajapaik/ajapaik/views.py:2640
+#, python-format
+msgid "Error uploading file: %s (%s)"
+msgstr "Earráid ag uaslódáil comhaid: %s (%s)"
+
+#: ajapaik/ajapaik/views.py:2637
+msgid "Photo already exists in Ajapaik"
+msgstr "Tá an grianghraf ann cheana féin in Ajapaik"
+
+#: ajapaik/ajapaik/views.py:2659
+msgid "Please add pictures to your album"
+msgstr "Cuir pictiúir le d'albam le do thoil"
+
+#: ajapaik/ajapaik/views.py:2661
+msgid "Not enough data submitted"
+msgstr "Níor cuireadh dóthain sonraí isteach"
+
+#: ajapaik/ajapaik/views.py:3115
+#, python-format
+msgid "Still from \"%(film)s\" at %(time)s"
+msgstr "Físeán ó \"%(film)s\" ag %(time)s"
+
+#: ajapaik/ajapaik/views.py:3369
+msgid "Photo uploaded"
+msgstr "Grianghraf uaslódáilte"
+
+#: ajapaik/ajapaik/views.py:3389
+msgid "Album created"
+msgstr "Albam cruthaithe"
+
+#: ajapaik/ajapaik/views.py:3463
+msgid "Sorry but we fail to post your comment."
+msgstr "Tá brón orm ach ní éirigh linn do thrácht a phostáil."
+
+#: ajapaik/ajapaik/views.py:3705
+msgid "Change password"
+msgstr "Athraigh an focal faire"
+
+#: ajapaik/ajapaik/views.py:3709
+msgid "Change display name"
+msgstr "Athraigh ainm taispeána"
+
+#: ajapaik/ajapaik/views.py:3711
+msgid "Newsletter and language settings"
+msgstr "Socruithe nuachtlitir agus teanga"
+
+#: ajapaik/ajapaik/views.py:3719
+msgid "Merge another Ajapaik account with current one"
+msgstr "Cumaisc cuntas Ajapaik eile leis an gceann reatha"
+
+#: ajapaik/ajapaik/views.py:3802
+msgid "KulKa logo"
+msgstr "Lógó KulKa"
+
+#: ajapaik/ajapaik/views.py:3807
+msgid "Ministry of Education logo"
+msgstr "Lógó na hAireachta Oideachais"
+
+#: ajapaik/ajapaik/views.py:3813
+msgid "EV100 logo"
+msgstr "Lógó EV100"
+
+#: ajapaik/ajapaik/views.py:3820
+msgid "KYSK logo"
+msgstr "Lógó KYSK"
+
+#: ajapaik/ajapaik/views.py:3825
+msgid "Ministry of Culture"
+msgstr "Aireacht Cultúir"
+
+#: ajapaik/ajapaik/views.py:3831
+msgid "Republic of Estonia National Heritage Board"
+msgstr "Bord Oidhreachta Náisiúnta Phoblacht na hEastóine"
+
+#: ajapaik/ajapaik/views.py:3838
+msgid "Year of Digital Culture 2020"
+msgstr "Bliain an Chultúir Dhigitigh 2020"
+
+#: ajapaik/ajapaik/views.py:3845
+msgid "Wikimedia Finland"
+msgstr "Wikimedia An Fhionlainn"
+
+#: ajapaik/ajapaik_face_recognition/forms.py:19
+msgid "Person name"
+msgstr "Ainm an duine"
+
+#: ajapaik/ajapaik_face_recognition/forms.py:20
+msgid "Date of birth"
+msgstr "Dáta breithe"
+
+#: ajapaik/ajapaik_face_recognition/forms.py:22
+msgid "Is public figure"
+msgstr "Is figiúr poiblí í"
+
+#: ajapaik/ajapaik_face_recognition/forms.py:26
+msgid "Firstname Lastname"
+msgstr "Céadainm Sloinne"
+
+#: ajapaik/ajapaik_face_recognition/forms.py:29
+msgid "Additional remarks about the person (other names etc)"
+msgstr "Nótaí breise faoin duine (ainmneacha eile srl.)"
+
+#: ajapaik/ajapaik_face_recognition/models.py:14
+#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:72
+msgid "Child"
+msgstr "Leanbh"
+
+#: ajapaik/ajapaik_face_recognition/models.py:15
+#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:75
+msgid "Adult"
+msgstr "Daoine Fásta"
+
+#: ajapaik/ajapaik_face_recognition/models.py:16
+#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:78
+msgid "Elderly"
+msgstr "Daoine Scothaosta"
+
+#: ajapaik/ajapaik_face_recognition/models.py:17
+#: ajapaik/ajapaik_face_recognition/models.py:24
+msgid "Unknown"
+msgstr "Anaithnid"
+
+#: ajapaik/ajapaik_face_recognition/models.py:18
+#: ajapaik/ajapaik_face_recognition/models.py:25
+msgid "Not Applicable"
+msgstr "Ní Bhaineann"
+
+#: ajapaik/ajapaik_face_recognition/models.py:33
+#: ajapaik/ajapaik_face_recognition/models.py:193
+msgid "Algorithm"
+msgstr "Algartam"
+
+#: ajapaik/ajapaik_face_recognition/models.py:34
+#: ajapaik/ajapaik_face_recognition/models.py:194
+msgid "Picasa"
+msgstr "Picasa"
+
+#: ajapaik/ajapaik_face_recognition/models.py:38
+msgid "SubjectPhoto"
+msgstr "ÁbharGrianghraf"
+
+#: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:12
+msgid "Please indicate what are the gender and/or age of the highlighted person"
+msgstr "Cuir in iúl, le do thoil, cén inscne agus/nó aois atá ag an duine atá aibhsithe"
+
+#: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:14
+msgid "If you are not sure what the gender and/or age of the person is, please press"
+msgstr "Mura bhfuil tú cinnte cén inscne agus/nó aois atá ag an duine, brúigh le do thoil"
+
+#: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:14
+msgid "Not Sure"
+msgstr "Níl mé cinnte"
+
+#: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:16
+msgid "In case the rectangle is misplaced please choose"
+msgstr "Sa chás go bhfuil an dronuilleog mícheart roghnaigh le do thoil"
+
+#: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:16
+#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:62
+#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:86
+msgid "Not a Face"
+msgstr "Ní Aghaidh"
+
+#: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:18
+msgid "To see the description of the image, please press"
+msgstr "Chun cur síos ar an íomhá a fheiceáil, brúigh le do thoil"
+
+#: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:18
+#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:65
+#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:89
+msgid "Info"
+msgstr "Eolas"
+
+#: ajapaik/ajapaik_face_recognition/templates/add_subject.html:10
+msgid "Create a new person record"
+msgstr "Cruthaigh taifead duine nua"
+
+#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:59
+#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:83
+msgid "Not sure"
+msgstr "Níl mé cinnte"
+
+#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:95
+msgid "Skip"
+msgstr "Scipeáil"
+
+#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:99
+msgid "Currently the gender is"
+msgstr "Faoi láthair is é an inscne"
+
+#: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:101
+msgid "Currently the age is"
+msgstr "Faoi láthair is é an aois"
+
+#: ajapaik/ajapaik_face_recognition/templates/add_subject_data_empty.html:10
+msgid "No data here, please come back later"
+msgstr "Níl aon sonraí anseo, tar ar ais níos déanaí le do thoil"
+
+#: ajapaik/settings/default.py:73
+msgid "Estonian"
+msgstr "Eastóinis"
+
+#: ajapaik/settings/default.py:74
+msgid "Latvian"
+msgstr "Laitvis"
+
+#: ajapaik/settings/default.py:75
+msgid "Lithuanian"
+msgstr "Liotuáinis"
+
+#: ajapaik/settings/default.py:76
+msgid "English"
+msgstr "Béarla"
+
+#: ajapaik/settings/default.py:77
+msgid "Finnish"
+msgstr "Fionlainnis"
+
+#: ajapaik/settings/default.py:78
+msgid "Swedish"
+msgstr "Sualainnis"
+
+#: ajapaik/settings/default.py:79
+msgid "Russian"
+msgstr "Rúisis"
+
+#: ajapaik/settings/default.py:80
+msgid "French"
+msgstr "Fraincis"
+
+#: ajapaik/utils.py:153
+msgid "You have already submitted this suggestion"
+msgstr "Tá an moladh seo curtha isteach agat cheana féin"
+
+#: ajapaik/utils.py:154
+msgid "Your suggestion has been changed"
+msgstr "Tá do mholadh athraithe"
+
+#: ajapaik/utils.py:155
+msgid "Your suggestion has been saved"
+msgstr "Tá do mholadh sábháilte"
+
+#: ajapaik/utils.py:159
+msgid "You must specify a new value when making a suggestion"
+msgstr "Ní mór duit luach nua a shonrú agus moladh á dhéanamh agat"
+
