@@ -19,7 +19,7 @@ def mapview(request, photo_id=None, rephoto_id=None):
     profile = request.get_user().profile
     game_album_selection_form = GameAlbumSelectionForm(request.GET)
     albums = _get_album_choices(None, 0, 1)  # Where albums variable is used?
-    photos_qs = Photo.objects.filter(rephoto_of__isnull=True).values('id')
+    photos_qs = Photo.objects.filter(rephoto_of__isnull=True)
     select_all_photos = True
 
     user_has_likes = profile.likes.exists()
