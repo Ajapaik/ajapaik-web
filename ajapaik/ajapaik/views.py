@@ -196,10 +196,11 @@ def get_album_info_modal_content(request):
 
 def _get_album_choices(qs=None, start=None, end=None):
     # TODO: Sort out
-    if qs != None and qs.exists():
-        albums = qs.prefetch_related('cover_photo').order_by('-created')[start:end]
-    else:
+    if not qs:
         albums = Album.objects.filter(is_public=True).prefetch_related('cover_photo').order_by('-created')[start:end]
+    else:
+        albums = qs.prefetch_related('cover_photo').order_by('-created')[start:end]
+
     for a in albums:
         if a.cover_photo:
             a.cover_photo_width, a.cover_photo_height = calculate_thumbnail_size(a.cover_photo.width,

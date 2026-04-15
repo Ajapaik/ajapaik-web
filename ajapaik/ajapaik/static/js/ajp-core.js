@@ -526,7 +526,7 @@ $('.ajp-navbar').autoHidingNavbar();
         switch (error.code) {
             case error.PERMISSION_DENIED:
                 targetElement.html(gettext('User denied the request for Geolocation.'));
-                window.location.href = '/map';
+                window.location.href = '/map/';
                 break;
             case error.POSITION_UNAVAILABLE:
                 targetElement.html(gettext('Location information is unavailable.'));
