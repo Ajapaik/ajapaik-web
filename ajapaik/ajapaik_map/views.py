@@ -95,7 +95,7 @@ def mapview(request, photo_id=None, rephoto_id=None):
 
         return render(request, 'common/mapview.html', context)
     except Exception as e:
-        return JsonResponse({'status': 500, 'message': str(e)})
+        return JsonResponse({'status': 200, 'message': str(e)})
 
 
 def map_objects_by_bounding_box(request):
