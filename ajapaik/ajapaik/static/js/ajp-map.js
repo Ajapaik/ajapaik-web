@@ -385,7 +385,7 @@
                 csrfmiddlewaretoken: docCookies.getItem('csrftoken'),
             };
             if (window.map.zoom <= markerClustererSettings.maxZoom) {
-                payload.count_limit = 1000;
+                payload.count_limit = 10000;
             }
             currentMapDataRequest = $.post(window.mapDataURL, payload, function(response) {
                 if (mc) {
