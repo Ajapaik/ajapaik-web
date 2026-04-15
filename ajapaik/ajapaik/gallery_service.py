@@ -258,6 +258,8 @@ def get_filtered_data_for_gallery(
             photo_ids = photos.values_list("id", flat=True)
             photo_count_before_requested = list(photo_ids).index(requested_photo.id)
             page = ceil(float(photo_count_before_requested) / float(page_size))
+    else:
+        page = 1
 
     if page:
         # Note seeking (start:end) has been done when results are limited using photo_ids above
