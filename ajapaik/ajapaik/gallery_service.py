@@ -30,7 +30,7 @@ def get_filtered_data_for_gallery(
 ) -> GalleryResults:
     start_time = time()
     photos = Photo.objects.filter(rephoto_of__isnull=True, **photo_filters if photo_filters else {})
-    page_size = page_size or settings.FRONTPAGE_DEFAULT_PAGE_SIZE
+    page_size_or_default = page_size or settings.FRONTPAGE_DEFAULT_PAGE_SIZE
 
     album = cleaned_data['album']
     requested_photo = cleaned_data.get('photo')
@@ -257,8 +257,8 @@ def get_filtered_data_for_gallery(
         if exists:
             photo_ids = photos.values_list("id", flat=True)
             photo_count_before_requested = list(photo_ids).index(requested_photo.id)
-            page = ceil(float(photo_count_before_requested) / float(page_size))
-    else:
+            page = ceil(float(photo_count_before_requested) / float(page_size_or_default))
+    elif page_size:
         page = 1
 
     if page:
@@ -267,7 +267,7 @@ def get_filtered_data_for_gallery(
             photo_ids = photos.values_list('id', flat=True)
 
         total = album_size_before_sorting or len(photo_ids)
-        start, end, max_page, page = get_pagination_parameters(page, total, page_size)
+        start, end, max_page, page = get_pagination_parameters(page, total, page_size_or_default)
         pagination_parameters = PaginationParameters(
             start=start,
             end=end,
