@@ -19,7 +19,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2026-04-13 12:00:27+0000\n"
+"PO-Revision-Date: 2026-04-16 12:00:22+0000\n"
 "X-POT-Import-Date: 2024-07-09 05:10:19+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -2294,15 +2294,15 @@ msgstr[1] "heeft <b>%(photolikes)s</b> afbeeldingen als favoriet gemarkeerd"
 #, python-format
 msgid "categorized <b>%(photo_suggestions)s</b> picture"
 msgid_plural "categorized <b>%(photo_suggestions)s</b> pictures"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "heeft <b>%(photo_suggestions)s</b> afbeelding gecategoriseerd"
+msgstr[1] "heeft <b>%(photo_suggestions)s</b> afbeeldingen gecategoriseerd"
 
 #: ajapaik/ajapaik/templates/user/_current_user_info.html:72
 #, python-format
 msgid "You have <b>%(user_points)s point in total</b>"
 msgid_plural "You have <b>%(user_points)s</b> points in total"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "U hebt in toaal <b>%(user_points)s punt verdiend</b>"
+msgstr[1] "U hebt in toaal <b>%(user_points)s punten verdiend</b>"
 
 #: ajapaik/ajapaik/templates/user/_current_user_info.html:77
 msgid "View your"
@@ -2328,29 +2328,29 @@ msgstr "Dit account is niet gekoppeld aan andere accounts"
 #, python-format
 msgid "specified date for <b>%(datings)s</b> picture"
 msgid_plural "specified date for <b>%(datings)s</b> pictures"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "heeft een datum opgegeven voor <b>%(datings)s</b> afbeelding"
+msgstr[1] "heeft een datum opgegeven voor <b>%(datings)s</b> afbeeldingen"
 
 #: ajapaik/ajapaik/templates/user/_user_info.html:43
 #, python-format
 msgid "<b>%(object_annotations)s</b> picture"
 msgid_plural "<b>%(object_annotations)s</b> pictures"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "<b>%(object_annotations)s</b> afbeelding"
+msgstr[1] "<b>%(object_annotations)s</b> afbeeldingen"
 
 #: ajapaik/ajapaik/templates/user/_user_info.html:48
 #, python-format
 msgid "added transcribed text on <b>%(transcriptions)s</b> picture"
 msgid_plural "transcribed text on <b>%(transcriptions)s</b> pictures"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "heeft getranscribeerde tekst toegevoegd aan <b>%(transcriptions)s</b> afbeelding"
+msgstr[1] "heeft getranscribeerde tekst toegevoegd aan <b>%(transcriptions)s</b> afbeeldingen"
 
 #: ajapaik/ajapaik/templates/user/_user_info.html:68
 #, python-format
 msgid "<b>%(user_points)s point in total</b>"
 msgid_plural "<b>%(user_points)s</b> points in total"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "<b>in totaal %(user_points)s punt</b>"
+msgstr[1] "<b>in totaal %(user_points)s punten</b>"
 
 #: ajapaik/ajapaik/templates/user/merge/merge_accounts.html:10
 #: ajapaik/ajapaik/templates/user/merge/merge_accounts.html:15

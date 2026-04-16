@@ -13,7 +13,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2025-11-20 12:00:27+0000\n"
+"PO-Revision-Date: 2026-04-16 12:00:24+0000\n"
 "X-POT-Import-Date: 2024-07-09 05:10:19+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -138,8 +138,9 @@ msgstr "Значення поля обмеження повинні бути ч�
 
 #: ajapaik/ajapaik/forms.py:18
 #| msgid "Bad Token"
+#, fuzzy
 msgid "!!FUZZY!!Bad Token"
-msgstr ""
+msgstr "Поганий токен"
 
 #: ajapaik/ajapaik/forms.py:24
 #: ajapaik/ajapaik/templates/socialaccount/connections_content.html:24
@@ -1409,8 +1410,9 @@ msgstr "Видимий (показано у виборі)"
 
 #: ajapaik/ajapaik/templates/curator/curator.html:123
 #| msgid "Search for an existing album"
+#, fuzzy
 msgid "!!FUZZY!!Search for an existing album"
-msgstr ""
+msgstr "Шукайте альбом, що існує"
 
 #: ajapaik/ajapaik/templates/curator/curator_search_controls.html:9
 msgid "Search"

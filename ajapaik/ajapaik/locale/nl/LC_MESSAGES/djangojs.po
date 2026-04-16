@@ -13,7 +13,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2026-04-13 12:00:25+0000\n"
+"PO-Revision-Date: 2026-04-16 12:00:20+0000\n"
 "X-POT-Import-Date: 2021-10-10 16:30:23+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -682,11 +682,11 @@ msgstr "Onbekende auteur"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:125
 msgid "You have opened the map with the album filter off, to turn it on, please tick the box next to album name"
-msgstr ""
+msgstr "U hebt de kaart geopend met het albumfilter uitgeschakeld. Om deze in te schakelen, vinkt u het vakje naast de albumnaam aan."
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:126
 msgid "You have opened the map with the album filter on, to turn it off, please untick the box next to album name"
-msgstr ""
+msgstr "U hebt de kaart geopend met het albumfilter ingeschakeld. Om deze uit te schakelen, vinkt u het vakje naast Albumnaam uit."
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:127
 msgid "photos"
@@ -915,42 +915,42 @@ msgstr "Albumfilter verwijderen"
 
 #: ajapaik/ajapaik/static/js/ajp-map.js:711
 msgid "Pictures only in album: %(albumName)s are shown in the sidebar"
-msgstr ""
+msgstr "Afbeeldingen die alleen in het album %(albumName)s voorkomen, worden in de zijbalk weergegeven"
 
 #: ajapaik/ajapaik/static/js/ajp-map.js:726
 msgid "Apply album filter"
-msgstr ""
+msgstr "Albumfilter toepassen"
 
 #: ajapaik/ajapaik/static/js/ajp-map.js:728
 msgid "All pictures are shown in the sidebar"
-msgstr ""
+msgstr "Alle afbeeldingen worden in de zijbalk weergegeven"
 
 #: ajapaik/ajapaik/static/js/ajp-selection.js:82
 #, javascript-format
 msgid "You have gained %s point"
 msgid_plural "You have gained %s points"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "U hebt %s punt verdiend"
+msgstr[1] "U hebt %s punten verdiend"
 
 #: ajapaik/ajapaik/static/js/ajp-selection.js:88
 msgid "Your suggestion has been changed"
-msgstr ""
+msgstr "Uw suggestie is gewijzigd"
 
 #: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:103
 msgid "Transcribed by:"
-msgstr ""
+msgstr "Getranscribeerd door:"
 
 #: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:152
 msgid "This transcription is correct"
-msgstr ""
+msgstr "Deze transcriptie is correct"
 
 #: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:165
 msgid "What is written on the picture?"
-msgstr ""
+msgstr "Wat staat er op de afbeelding?"
 
 #: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:178
 msgid "You're anonymous, please login to add transcriptions"
-msgstr ""
+msgstr "U bent anoniem, meld u aan om transcripties toe te voegen"
 
 #: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:180
 msgid "Login"
@@ -1188,7 +1188,7 @@ msgstr[1] "%(photoCount)s afbeeldingen"
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:201
 msgid "Tag a face annotation with person's name"
-msgstr ""
+msgstr "Voeg een persoonsnaam toe aan een gezicht"
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:203
 msgid "Identify person"
