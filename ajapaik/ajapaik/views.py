@@ -197,9 +197,9 @@ def get_album_info_modal_content(request):
 def _get_album_choices(qs=None, start=None, end=None):
     # TODO: Sort out
     if not qs:
-        albums = Album.objects.filter(is_public=True).prefetch_related('cover_photo').order_by('-created')[start:end]
+        albums = Album.objects.filter(is_public=True).select_related('cover_photo').order_by('-created')[start:end]
     else:
-        albums = qs.prefetch_related('cover_photo').order_by('-created')[start:end]
+        albums = qs.select_related('cover_photo').order_by('-created')[start:end]
 
     for a in albums:
         if a.cover_photo:
@@ -287,7 +287,6 @@ def frontpage(request):
                                         data.album.name if data.album else None),
         'hostname': f"{request.scheme}://{request.get_host()}",
         'ajapaik_facebook_link': settings.AJAPAIK_FACEBOOK_LINK,
-        'facebook_share_photos': PhotoMiniSerializer(data.fb_share_photos, many=True).data,
         'album': GalleryAlbumSerializer(data.album).data if data.album else None,
         'photo': PhotoMiniSerializer(data.photo).data,
         'order1': data.order1,

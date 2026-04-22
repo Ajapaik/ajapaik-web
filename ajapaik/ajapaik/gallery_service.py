@@ -287,18 +287,12 @@ def get_filtered_data_for_gallery(
         for each in album_photos_links_order:
             photos = sorted(photos, key=lambda x: x[0] == each)
 
-    if requested_photo:
-        fb_share_photos = [requested_photo]
-    else:
-        fb_share_photos = photos[:5]
-
     return GalleryResults(
         rephoto_album_author=rephoto_album_author,
         execution_time=str(time() - start_time),
         album=album,
         videos=[],
         photo=requested_photo,
-        fb_share_photos=fb_share_photos,
         photos=photos.prefetch_related("source", "likes"),
         photos_with_comments=photos_with_comments.prefetch_related("source", "likes"),
         photos_with_rephotos=photos_with_rephotos.prefetch_related("source", "likes"),

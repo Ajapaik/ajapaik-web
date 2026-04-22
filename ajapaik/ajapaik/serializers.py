@@ -449,7 +449,6 @@ class VideoSerializer(serializers.ModelSerializer):
 
 class GalleryResultsSerializer(DataclassSerializer):
     album = AlbumMiniSerializer()
-    fb_share_photos = PhotoMiniSerializer(many=True)
     photos = PhotoSerializer(many=True)
     photos_with_comments = PhotoSerializer(many=True)
     photos_with_rephotos = RephotoSerializer(many=True)

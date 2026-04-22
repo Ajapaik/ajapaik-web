@@ -23,7 +23,6 @@ class PaginationParameters:
 
 @dataclass
 class GalleryResults:
-    fb_share_photos: List[Photo]
     my_likes_only: bool
     rephoto_album_author: Union[UserMini, None]
 

@@ -8,8 +8,6 @@ from django.views.decorators.csrf import ensure_csrf_cookie
 from ajapaik.ajapaik.forms import GameAlbumSelectionForm
 from ajapaik.ajapaik.gallery_service import get_filtered_data_for_gallery
 from ajapaik.ajapaik.models import Photo, GeoTag, Album, AlbumPhoto
-from ajapaik.ajapaik.serializers import PhotoMiniSerializer
-from ajapaik.ajapaik.views import _get_album_choices
 from ajapaik.ajapaik_map.forms import MapDataRequestForm
 from ajapaik.ajapaik_map.serializers import PhotoMapMarkerSerializer
 
@@ -19,7 +17,6 @@ def mapview(request, photo_id=None, rephoto_id=None):
     try:
         profile = request.get_user().profile
         game_album_selection_form = GameAlbumSelectionForm(request.GET)
-        albums = _get_album_choices(None, 0, 1)  # Where albums variable is used?
         photos_qs = Photo.objects.filter(rephoto_of__isnull=True)
         select_all_photos = True
 
@@ -76,7 +73,6 @@ def mapview(request, photo_id=None, rephoto_id=None):
                    'total_photo_count': total_photo_count,
                    'geotagging_user_count': geotagging_user_count,
                    'geotagged_photo_count': geotagged_photo_count,
-                   'albums': albums,
                    'hostname': request.get_host(),
                    'selected_photo': selected_photo,
                    'selected_rephoto': selected_rephoto,
@@ -89,9 +85,6 @@ def mapview(request, photo_id=None, rephoto_id=None):
                    'title': f'{album.name} - {_("Browse photos on map")}' if album else _('Browse photos on map'),
                    'show_photos': True,
                    }
-
-        if album:
-            context['facebook_share_photos'] = PhotoMiniSerializer(album.photos.all()[:5], many=True).data
 
         return render(request, 'common/mapview.html', context)
     except Exception as e:

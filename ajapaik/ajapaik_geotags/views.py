@@ -253,18 +253,12 @@ def game(request):
                 area = Area.objects.get(pk=old_city_id)
         context['area'] = area
 
-    facebook_share_photos = []
     if album:
         context['album'] = album
         qs = album.photos.filter(rephoto_of__isnull=True)
         for sa in album.subalbums.exclude(atype=Album.AUTO):
             qs = qs | sa.photos.filter(rephoto_of__isnull=True)
         context['album_photo_count'] = qs.distinct('id').count()
-        facebook_share_photos = album.photos.all()[:5]
-    elif area:
-        facebook_share_photos = Photo.objects.filter(area=area, rephoto_of__isnull=True).order_by('?')[:5]
-
-    context["facebook_share_photos"] = PhotoMiniSerializer(facebook_share_photos, many=True).data
 
     context['hostname'] = request.build_absolute_uri('/')
     if album:
