@@ -196,7 +196,7 @@ def get_album_info_modal_content(request):
 
 def _get_album_choices(qs=None, start=None, end=None):
     # TODO: Sort out
-    if not qs:
+    if qs is None:
         albums = Album.objects.filter(is_public=True).select_related('cover_photo').order_by('-created')[start:end]
     else:
         albums = qs.select_related('cover_photo').order_by('-created')[start:end]
@@ -357,12 +357,15 @@ def frontpage_async_albums(request):
 
         albums = _get_album_choices(albums, start, end)
         serializer = FrontpageAlbumSerializer(albums, many=True)
-        context['start'] = start
-        context['end'] = end
-        context['total'] = total
-        context['max_page'] = max_page
-        context['page'] = page
-        context['albums'] = serializer.data
+        context = {
+            'start': start,
+            'end': end,
+            'total': total,
+            'max_page': max_page,
+            'page': page,
+            'albums': serializer.data,
+        }
+
     return HttpResponse(json.dumps(context), content_type='application/json')
 
 
