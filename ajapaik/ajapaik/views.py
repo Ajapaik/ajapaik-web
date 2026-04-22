@@ -37,7 +37,7 @@ from ajapaik.ajapaik.models import Photo, GeoTag, Points, \
     MuisCollection, PhotoLike, ImageSimilarity
 from ajapaik.ajapaik.serializers import FrontpageAlbumSerializer, DatingSerializer, \
     GalleryResultsSerializer, AlbumPreviewSerializer, PhotoMiniSerializer, \
-    ImageSimilaritySerializer, GalleryAlbumSerializer, PhotoDetailsSerializer, RephotoDetailsSerializer
+    ImageSimilaritySerializer, PhotoDetailsSerializer, RephotoDetailsSerializer
 from ajapaik.ajapaik.stats_sql import AlbumStats
 from ajapaik.ajapaik_face_recognition.models import FaceRecognitionRectangle
 from ajapaik.utils import get_etag, calculate_thumbnail_size, calculate_thumbnail_size_max_height, \
@@ -272,36 +272,41 @@ def frontpage(request):
         return JsonResponse({'error': "Invalid query parameters"}, status=400)
 
     show_photos = bool(request.GET.get("order1") or request.GET.get("album"))
+    last_geotagged_photo = Photo.objects.order_by(F('latest_geotag').desc(nulls_last=True)).first()
+
+    base_context = {
+        'is_frontpage': True,
+        'hostname': f"{request.scheme}://{request.get_host()}",
+        'ajapaik_facebook_link': settings.AJAPAIK_FACEBOOK_LINK,
+        'user_has_likes': profile.likes.exists(),
+        'user_has_rephotos': profile.photos.filter(rephoto_of__isnull=False).exists(),
+        'show_photos': show_photos,
+        'last_geotagged_photo_id': last_geotagged_photo.id if last_geotagged_photo else None,
+    }
+
+    if not show_photos:
+        return render(request, 'common/frontpage.html', {**base_context, "page": request.GET.get("page") or 1})
 
     data = get_filtered_data_for_gallery(profile, form.cleaned_data)
-
     # Using "nulls last" here as it uses same index
     # which is already used in _get_filtered_data_for_frontpage()
-    last_geotagged_photo = Photo.objects.order_by(F('latest_geotag').desc(nulls_last=True)).first()
     highlight_filter_icon = (data.order2 != 'added' or data.order3 == 'reverse') or \
                             any(filter in request.GET for filter in PHOTO_FILTERS)
 
     context = {
-        'is_frontpage': True,
+        **base_context,
+        'highlight_filter_icon': highlight_filter_icon,
+
         'title': _get_gallery_view_name(data.rephoto_album_author.name if data.rephoto_album_author else None,
                                         data.album.name if data.album else None),
-        'hostname': f"{request.scheme}://{request.get_host()}",
-        'ajapaik_facebook_link': settings.AJAPAIK_FACEBOOK_LINK,
-        'album': GalleryAlbumSerializer(data.album).data if data.album else None,
-        'photo': PhotoMiniSerializer(data.photo).data,
         'order1': data.order1,
         'order2': data.order2,
         'order3': data.order3,
-        'user_has_likes': profile.likes.exists(),
-        'user_has_rephotos': profile.photos.filter(rephoto_of__isnull=False).exists(),
         'my_likes_only': data.my_likes_only,
         'rephotos_by': data.rephoto_album_author.id if data.rephoto_album_author else None,
         'rephotos_by_name': data.rephoto_album_author.name if data.rephoto_album_author else None,
         'photos_with_comments': data.photos_with_comments,
         'photos_with_rephotos': data.photos_with_rephotos,
-        'show_photos': show_photos,
-        'last_geotagged_photo_id': last_geotagged_photo.id if last_geotagged_photo else None,
-        'highlight_filter_icon': highlight_filter_icon,
         'page': data.page,
     }
 
