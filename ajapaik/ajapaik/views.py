@@ -308,6 +308,7 @@ def frontpage(request):
         'photos_with_comments': data.photos_with_comments,
         'photos_with_rephotos': data.photos_with_rephotos,
         'page': data.page,
+        'album': AlbumPreviewSerializer(data.album).data if data.album else None,
     }
 
     return render(request, 'common/frontpage.html', context)
