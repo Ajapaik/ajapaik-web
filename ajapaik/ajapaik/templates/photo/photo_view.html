@@ -134,16 +134,16 @@
                                 <img src="{% url 'image_thumb' similarity.to_photo.id 250 similarity.to_photo.slug%}"
                                     class="img-fluid ajp-photoview-thumbnail"
                                     {% if similarity.similarity_type == 1 %}
-                                    alt="{{ similarity.to_photo.display_text }}  {% trans "similar photo" %}"
-                                    title="{{ similarity.to_photo.display_text }} {% trans "similar photo" %}"
+                                        alt="{{ similarity.to_photo.display_text }}  {% trans "similar photo" %}"
+                                        title="{{ similarity.to_photo.display_text }} {% trans "similar photo" %}"
                                     {% else %}
-                                    alt="{{ similarity.to_photo.display_text }}  {% trans "duplicate photo" %}"
-                                    title="{{ similarity.to_photo.display_text }} {% trans "duplicate photo" %}"
+                                        alt="{{ similarity.to_photo.display_text }}  {% trans "duplicate photo" %}"
+                                        title="{{ similarity.to_photo.display_text }} {% trans "duplicate photo" %}"
                                     {% endif %}/>
                             </a>
-                            {% if similarity.confirmed == False %}
+                            {% if similarity.confirmed is False %}
                                 <span class="material-icons notranslate ajp-photoview-similar-photo-icon"
-                                style="color:darkblue;">help_circle</span>
+                                style="color:darkblue;">help</span>
                             {% endif %}
                             <a href="{% url 'compare-photos' similarity.from_photo.id similarity.to_photo.id %}"
                                 class="btn ajp-compare-similar-overlay-button"

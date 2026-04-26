@@ -464,7 +464,7 @@ class ImageSimilaritySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ImageSimilarity
-        fields = ('id', 'from_photo', 'to_photo', 'similarity_type')
+        fields = ('id', 'from_photo', 'to_photo', 'similarity_type', 'confirmed')
 
 
 class APIPhotoSerializer(serializers.ModelSerializer):

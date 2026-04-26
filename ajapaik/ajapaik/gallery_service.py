@@ -99,20 +99,16 @@ def get_filtered_data_for_gallery(
         photos = photos.filter(aspect_ratio__gte=2.0)
 
     if my_likes_only:
-        photos.prefetch_related("likes")
-        photos = photos.filter(likes__profile=profile)
+        photos = photos.prefetch_related("likes").filter(likes__profile=profile)
 
     if rephoto_album_author:
-        photos.prefetch_related("rephotos")
-        photos = photos.filter(rephotos__user_id=rephoto_album_author.id)
+        photos = photos.prefetch_related("rephotos").filter(rephotos__user_id=rephoto_album_author.id)
 
     if date_from:
-        photos.prefetch_related("datings")
-        photos = photos.filter(datings__start__gte=date_from)
+        photos = photos.prefetch_related("datings").filter(datings__start__gte=date_from)
 
     if date_to:
-        photos.prefetch_related("datings")
-        photos = photos.filter(datings__end__lte=date_to)
+        photos = photos.prefetch_related("datings").filter(datings__end__lte=date_to)
 
     if q:
         sqs_ids = SearchQuerySet().models(Photo).filter(content=AutoQuery(q)).values_list("pk", flat=True)
