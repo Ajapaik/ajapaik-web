@@ -22,20 +22,20 @@
         </div>
     </div>
     {% include '_annotations.html' with numberOfColumns=2 %}
-    {% if collection_albums.all|length > 0 %}
-    <div class="row pl-3 d-flex flex-row" style="flex-wrap:unset;">
-        <span class="material-icons notranslate ajp-photo-modal-collection-icon ajp-cursor-default float-left mr-3 mt-2 ajp-icon-36"
-            title="{% blocktrans count counter=collection_albums|length %}Picture belongs to collection{% plural %}Picture belongs to collections:{% endblocktrans %}">
-            account_balance
-        </span>
-        <div class="d-inline-flex flex-row justify-content-start flex-wrap ajp-text-medium align-items-center">
-            {% for a in collection_albums %}
-                <div class="mr-2 mt-2 d-flex align-items-center ajp-pebble" data-toggle="popover" onclick="window.albumPhotoLinkClick(event)">
-                    <a class="ajp-photo-album-link" data-id="{{ a.id }}" href="#">{{ a.name }}</a>
-                </div>
-            {% endfor %}
+    {% if collection_albums|length > 0 %}
+        <div class="row pl-3 d-flex flex-row" style="flex-wrap:unset;">
+            <span class="material-icons notranslate ajp-photo-modal-collection-icon ajp-cursor-default float-left mr-3 mt-2 ajp-icon-36"
+                title="{% blocktrans count counter=collection_albums|length %}Picture belongs to collection{% plural %}Picture belongs to collections:{% endblocktrans %}">
+                account_balance
+            </span>
+            <div class="d-inline-flex flex-row justify-content-start flex-wrap ajp-text-medium align-items-center">
+                {% for a in collection_albums %}
+                    <div class="mr-2 mt-2 d-flex align-items-center ajp-pebble" data-toggle="popover" onclick="window.albumPhotoLinkClick(event)">
+                        <a class="ajp-photo-album-link" data-id="{{ a.id }}" href="#">{{ a.name }}</a>
+                    </div>
+                {% endfor %}
+            </div>
         </div>
-    </div>
     {% endif %}
     <!-- end of albums block -->
     <!-- start of comment block -->
