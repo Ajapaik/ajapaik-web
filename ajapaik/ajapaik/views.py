@@ -643,7 +643,6 @@ def photo_slug(request, photo_id=None, pseudo_slug=None):
 
     whole_set_albums_selection_form = CuratorWholeSetAlbumsSelectionForm()
 
-    collection_albums = albums.filter(atype=Album.COLLECTION)
     photo_data = PhotoDetailsSerializer(photo_obj, context={'request': request}).data
     if not photo_data["display_text"]:
         title = 'Unknown photo'
@@ -669,7 +668,8 @@ def photo_slug(request, photo_id=None, pseudo_slug=None):
         'area': photo_obj.area,
         'album': AlbumPreviewSerializer(album).data if album else None,
         'albums': AlbumPreviewSerializer(albums, many=True).data,
-        'collection_albums': AlbumPreviewSerializer(collection_albums, many=True).data,
+        'collection_albums': AlbumPreviewSerializer(photo_obj.albums.filter(atype=Album.COLLECTION).distinct(),
+                                                    many=True).data,
         'is_frontpage': is_frontpage,
         'is_mapview': is_mapview,
         'is_selection': is_selection,
