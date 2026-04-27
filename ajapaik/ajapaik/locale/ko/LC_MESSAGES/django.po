@@ -5,6 +5,7 @@
 # Author: Bisang
 # Author: Songhee
 # Author: Suleiman the Magnificent Television
+# Author: Tensama0415
 # Author: Underbaaar
 # Author: YeBoy371
 # Author: Ykhwong
@@ -20,7 +21,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: translatewiki.net\n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2026-01-29 12:00:19+0000\n"
+"PO-Revision-Date: 2026-04-27 12:00:27+0000\n"
 "Language: ko\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -56,7 +57,7 @@ msgstr "잘못된 토큰"
 
 #: ajapaik/ajapaik/api.py:83
 msgid "Missing parameter photo_ids"
-msgstr "변수 photo_ids가 없습니다"
+msgstr "매개변수 photo_ids가 없습니다"
 
 #: ajapaik/ajapaik/api.py:84
 msgid "No photo with id:"
@@ -80,7 +81,7 @@ msgstr ""
 
 #: ajapaik/ajapaik/api.py:91
 msgid "Required parameter, token is missing"
-msgstr "변수는 필수입니다. 토큰이 없습니다"
+msgstr "매개변수는 필수입니다. 토큰이 없습니다"
 
 #: ajapaik/ajapaik/api.py:92
 msgid "This transcription already exists, previous transcription was upvoted, thank you!"
@@ -1801,7 +1802,7 @@ msgstr "이 그룹에서"
 
 #: ajapaik/ajapaik/templates/filtering/_ordering_tutorial_modal.html:50
 msgid "Choose 2 parameters"
-msgstr "변수 2개를 선택하십시오"
+msgstr "매개변수 2개를 선택하십시오"
 
 #: ajapaik/ajapaik/templates/filtering/_ordering_tutorial_modal.html:58
 msgid "or"

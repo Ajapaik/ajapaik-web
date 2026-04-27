@@ -26,6 +26,7 @@
 # Author: Radmir Far
 # Author: Roman
 # Author: Rubin16
+# Author: Shabe
 # Author: Wileyfoxyx
 # Author: YuliaVo
 # --
@@ -38,7 +39,7 @@ msgstr ""
 "Project-Id-Version: Ajapaik Web app\n"
 "Report-Msgid-Bugs-To: translatewiki.net\n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2025-10-30 12:00:30+0000\n"
+"PO-Revision-Date: 2026-04-27 12:00:29+0000\n"
 "Last-Translator: MaertHaekkinen <m4rth4kkinen@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/estonian-photographic-heritage-society/ajapaik/language/ru/)\n"
 "Language: ru\n"
@@ -855,7 +856,7 @@ msgstr "Cрок действия этой ссылки для подтвержд
 
 #: ajapaik/ajapaik/templates/account/email_content.html:5
 msgid "The following E-mail addresses are associated with your account:"
-msgstr "С вашей учетной записью связаны следующие адреса электронной почты:"
+msgstr "С вашей учётной записью связаны следующие адреса электронной почты:"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:21
 msgid "verified"
@@ -911,7 +912,7 @@ msgstr "Если у вас еще нет аккаунта, сначала <a hre
 
 #: ajapaik/ajapaik/templates/account/logout.html:10
 msgid "Are you sure you want to sign out?"
-msgstr "Подтвердите выход из учетной записи."
+msgstr "Подтвердите выход из учётной записи."
 
 #: ajapaik/ajapaik/templates/account/password_change.html:5
 #: ajapaik/ajapaik/templates/account/password_change.html:8
@@ -2420,7 +2421,7 @@ msgstr "Ваш текущий <a href=\"%(me)s\">аккаунт</a> будет �
 
 #: ajapaik/ajapaik/templates/user/merge/merge_accounts.html:24
 msgid "Please select which account would you like to keep using after"
-msgstr "Какой учетной записью вы хотели бы продолжить пользоваться после"
+msgstr "Какой учётной записью вы хотели бы продолжить пользоваться после"
 
 #: ajapaik/ajapaik/templates/user/merge/merge_accounts.html:27
 msgid "Merge the accounts"
