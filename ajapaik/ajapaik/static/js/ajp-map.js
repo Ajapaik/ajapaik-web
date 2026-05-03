@@ -65,91 +65,7 @@
         markers = [],
         loadedPhotosCount = 0,
         centerOnMapAfterLocating = false,
-        current_bunch = 1,
-        usingCanvas = false,
-        canvasOverlay = null;
-
-    // Lightweight canvas overlay to draw many markers without DOM nodes
-    function AjpCanvasOverlay() {}
-    AjpCanvasOverlay.prototype = new google.maps.OverlayView();
-    AjpCanvasOverlay.prototype.onAdd = function() {
-        this.canvas = document.createElement('canvas');
-        this.canvas.style.position = 'absolute';
-        this.canvas.style.pointerEvents = 'auto';
-        this.getPanes().overlayMouseTarget.appendChild(this.canvas);
-        this.ctx = this.canvas.getContext('2d', { alpha: true, desynchronized: true });
-        var self = this;
-        this.canvas.addEventListener('click', function(evt) {
-            if (!usingCanvas || !markers || markers.length === 0) return;
-            var rect = self.canvas.getBoundingClientRect();
-            var x = (evt.clientX - rect.left);
-            var y = (evt.clientY - rect.top);
-            // find nearest within 16px
-            var proj = self.getProjection();
-            var bounds = self.getMap().getBounds();
-            if (!bounds) return;
-            var sw = proj.fromLatLngToDivPixel(bounds.getSouthWest());
-            var ne = proj.fromLatLngToDivPixel(bounds.getNorthEast());
-            var offsetX = sw.x, offsetY = ne.y;
-            var best = null, bestD2 = 16*16;
-            for (var i = 0; i < markers.length; i++) {
-                var m = markers[i];
-                var p = proj.fromLatLngToDivPixel(m.position);
-                var px = p.x - offsetX;
-                var py = p.y - offsetY;
-                var dx = px - x;
-                var dy = py - y;
-                var d2 = dx*dx + dy*dy;
-                if (d2 <= bestD2) {
-                    bestD2 = d2;
-                    best = m;
-                }
-            }
-            if (best) {
-                highlightSelected(best, true, evt);
-            }
-        });
-    };
-    AjpCanvasOverlay.prototype.draw = function() {
-        if (!usingCanvas) return;
-        var map = this.getMap();
-        var proj = this.getProjection();
-        var bounds = map.getBounds();
-        if (!bounds) return;
-        var sw = proj.fromLatLngToDivPixel(bounds.getSouthWest());
-        var ne = proj.fromLatLngToDivPixel(bounds.getNorthEast());
-        var w = ne.x - sw.x, h = sw.y - ne.y;
-        if (w <= 0 || h <= 0) return;
-        var dpr = Math.min(window.devicePixelRatio || 1, 2);
-        this.canvas.style.left = sw.x + 'px';
-        this.canvas.style.top = ne.y + 'px';
-        this.canvas.width = Math.ceil(w * dpr);
-        this.canvas.height = Math.ceil(h * dpr);
-        this.ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-        this.ctx.clearRect(0, 0, w, h);
-        // draw points
-        for (var i = 0; i < markers.length; i++) {
-            var m = markers[i];
-            var p = proj.fromLatLngToDivPixel(m.position);
-            var x = p.x - sw.x;
-            var y = p.y - ne.y;
-            // style: blue if has rephoto, else black; larger if selected
-            var isSelected = (currentlySelectedMarker && m.photoData && currentlySelectedMarker.photoData && m.photoData.id === currentlySelectedMarker.photoData.id);
-            var r = isSelected ? 6 : 3;
-            this.ctx.beginPath();
-            this.ctx.arc(x, y, r, 0, Math.PI * 2);
-            this.ctx.fillStyle = m.photoData && m.photoData.rephoto_count ? '#007fff' : 'black';
-            this.ctx.lineWidth = isSelected ? 2 : 1;
-            this.ctx.strokeStyle = 'white';
-            this.ctx.fill();
-            this.ctx.stroke();
-        }
-    };
-    AjpCanvasOverlay.prototype.onRemove = function() {
-        if (this.canvas && this.canvas.parentNode) this.canvas.parentNode.removeChild(this.canvas);
-        this.canvas = null;
-        this.ctx = null;
-    };
+        current_bunch = 1;
 
 
     window.isSidePanelOpen = false;
@@ -479,15 +395,6 @@
                 loadedPhotosCount = 0;
                 markers.length = 0;
 
-                var largeSet = response.photos && response.photos.length > 300;
-                usingCanvas = !!largeSet;
-                if (usingCanvas) {
-                    if (!canvasOverlay) {
-                        canvasOverlay = new AjpCanvasOverlay();
-                        canvasOverlay.setMap(window.map);
-                    }
-                }
-
                 if (response.photos) {
                     window.lastMarkerSet = [];
                     for (var j = 0; j < response.photos.length; j++) {
@@ -497,6 +404,8 @@
                             photo.lon,
                         );
                         var angleFix;
+                        var currentIcon;
+
                         if (photo.azimuth) {
                             var geodesicEndPoint = Math.calculateMapLineEndPoint(
                                 photo.azimuth, currentPosition, 2000,
@@ -505,66 +414,39 @@
                                 currentPosition, geodesicEndPoint,
                             );
                             angleFix = photo.azimuth - angle;
-                            if (angleFix)
-                                window.lastMarkerSet.push(photo.id);
-                        }
-                        if (usingCanvas) {
-                            // Lightweight marker-like object
-                            markers.push({
-                                position: currentPosition,
-                                angleFix: angleFix,
-                                photoData: photo,
-                            });
+                            arrowIcon.rotation = photo.azimuth + angleFix;
+                            currentIcon = $.extend(
+                                true,
+                                arrowIcon,
+                                {
+                                    rotation: photo.azimuth + angleFix,
+                                },
+                            );
                         } else {
-                            var currentIcon;
-                            if (photo.azimuth) {
-                                arrowIcon.rotation = photo.azimuth + angleFix;
-                                currentIcon = $.extend(true, arrowIcon, { rotation: photo.azimuth + angleFix });
-                            } else {
-                                currentIcon = $.extend(true, {}, locationIcon);
-                            }
-                            currentIcon.fillColor = photo.rephoto_count ? '#007fff' : 'black';
-                            var marker = new google.maps.Marker({
-                                icon: currentIcon,
-                                position: currentPosition,
-                                zIndex: 1,
-                                angleFix: angleFix,
-                                map: null,
-                                anchor: new google.maps.Point(0.0, 0.0),
-                                photoData: photo,
-                            });
-                            (function(marker) {
-                                google.maps.event.addListener(marker, 'click', function() {
-                                    highlightSelected(marker, true);
-                                });
-                            })(marker);
-                            markers.push(marker);
+                            currentIcon = $.extend(true, {}, locationIcon);
                         }
+                        currentIcon.fillColor = photo.rephoto_count ? '#007fff' : 'black';
+                        var marker = new google.maps.Marker({
+                            icon: currentIcon,
+                            position: currentPosition,
+                            zIndex: 1,
+                            angleFix: angleFix,
+                            map: null,
+                            anchor: new google.maps.Point(0.0, 0.0),
+                            photoData: photo,
+                        });
+                        if (angleFix)
+                            window.lastMarkerSet.push(photo.id);
+
+                        (function(marker) {
+                            google.maps.event.addListener(marker, 'click', function() {
+                                highlightSelected(marker, true);
+                            });
+                        })(marker);
+
+                        markers.push(marker);
                     }
                 }
-
-                if (usingCanvas) {
-                    // Skip clustering, draw via canvas and populate side panel directly
-                    var imgWrapper = document.getElementById('img-wrapper');
-                    var fc = imgWrapper.firstChild;
-                    while (fc) {
-                        imgWrapper.removeChild(fc);
-                        fc = imgWrapper.firstChild;
-                    }
-                    if (map.zoom > markerClustererSettings.maxZoom) {
-                        photosOnSidePanel = markers.map(function(m) { return m.photoData; });
-                    } else {
-                        photosOnSidePanel = [];
-                    }
-                    current_bunch = 1;
-                    refreshPane(photosOnSidePanel.slice(0, sidePanelPhotosBunchSize));
-                    if (canvasOverlay) {
-                        // request a redraw
-                        try { canvasOverlay.draw(); } catch (e) {}
-                    }
-                    return; // Do not initialize MarkerClusterer
-                }
-
                 if (mc && mc.clusters_) {
                     mc.clusters_.length = 0;
                 }
@@ -646,9 +528,6 @@
             setCorrectMarkerIcon(lastHighlightedMarker);
         }
         window.dottedAzimuthLine.setVisible(false);
-        if (usingCanvas && canvasOverlay) {
-            try { canvasOverlay.draw(); } catch (e) {}
-        }
         window.syncMapStateToURL();
     };
 
@@ -681,12 +560,8 @@
         lastSelectedMarkerId = marker.photoData.id;
         for (var i = 0; i < markers.length; i += 1) {
             if (markers[i].photoData.id === marker.photoData.id) {
-                if (markers[i].thumb) {
-                    targetPaneElement.find('img').attr('src', markers[i].thumb);
-                }
-                if (!usingCanvas && markers[i].setZIndex) {
-                    markers[i].setZIndex(maxIndex);
-                }
+                targetPaneElement.find('img').attr('src', markers[i].thumb);
+                markers[i].setZIndex(maxIndex);
                 maxIndex += 1;
                 if (markers[i].photoData.azimuth) {
                     window.dottedAzimuthLine.setPath([
@@ -737,61 +612,55 @@
     };
 
     var setCorrectMarkerIcon = function(marker) {
-        if (!marker) return;
-        if (usingCanvas) {
-            // In canvas mode, icons are drawn in draw(); just request redraw
-            if (canvasOverlay) {
-                try { canvasOverlay.draw(); } catch (e) {}
-            }
-            return;
-        }
-        if (marker.photoData.id == (currentlySelectedMarker && currentlySelectedMarker.photoData.id)) {
-            if (marker.photoData.azimuth) {
-                arrowIcon.scale = 1.5;
-                arrowIcon.strokeWeight = 2;
-                arrowIcon.fillColor = 'white';
-                arrowIcon.rotation = marker.photoData.azimuth + marker.angleFix;
-                if (marker.photoData.rephoto_count) {
-                    arrowIcon.strokeColor = '#007fff';
+        if (marker) {
+            if (marker.photoData.id == (currentlySelectedMarker && currentlySelectedMarker.photoData.id)) {
+                if (marker.photoData.azimuth) {
+                    arrowIcon.scale = 1.5;
+                    arrowIcon.strokeWeight = 2;
+                    arrowIcon.fillColor = 'white';
+                    arrowIcon.rotation = marker.photoData.azimuth + marker.angleFix;
+                    if (marker.photoData.rephoto_count) {
+                        arrowIcon.strokeColor = '#007fff';
+                    } else {
+                        arrowIcon.strokeColor = 'black';
+                    }
+                    marker.setIcon(arrowIcon);
                 } else {
-                    arrowIcon.strokeColor = 'black';
+                    locationIcon.scale = 1.5;
+                    locationIcon.strokeWeight = 2;
+                    locationIcon.fillColor = 'white';
+                    locationIcon.anchor = new google.maps.Point(12, 6);
+                    if (marker.photoData.rephoto_count) {
+                        locationIcon.strokeColor = '#007fff';
+                    } else {
+                        locationIcon.strokeColor = 'black';
+                    }
+                    marker.setIcon(locationIcon);
                 }
-                marker.setIcon(arrowIcon);
             } else {
-                locationIcon.scale = 1.5;
-                locationIcon.strokeWeight = 2;
-                locationIcon.fillColor = 'white';
-                locationIcon.anchor = new google.maps.Point(12, 6);
-                if (marker.photoData.rephoto_count) {
-                    locationIcon.strokeColor = '#007fff';
+                if (marker.photoData.azimuth) {
+                    arrowIcon.scale = 1.0;
+                    arrowIcon.strokeWeight = 1;
+                    arrowIcon.strokeColor = 'white';
+                    arrowIcon.rotation = marker.photoData.azimuth + marker.angleFix;
+                    if (marker.photoData.rephoto_count) {
+                        arrowIcon.fillColor = '#007fff';
+                    } else {
+                        arrowIcon.fillColor = 'black';
+                    }
+                    marker.setIcon(arrowIcon);
                 } else {
-                    locationIcon.strokeColor = 'black';
+                    locationIcon.scale = 1.0;
+                    locationIcon.strokeWeight = 1;
+                    locationIcon.strokeColor = 'white';
+                    locationIcon.anchor = new google.maps.Point(12, 0);
+                    if (marker.photoData.rephoto_count) {
+                        locationIcon.fillColor = '#007fff';
+                    } else {
+                        locationIcon.fillColor = 'black';
+                    }
+                    marker.setIcon(locationIcon);
                 }
-                marker.setIcon(locationIcon);
-            }
-        } else {
-            if (marker.photoData.azimuth) {
-                arrowIcon.scale = 1.0;
-                arrowIcon.strokeWeight = 1;
-                arrowIcon.strokeColor = 'white';
-                arrowIcon.rotation = marker.photoData.azimuth + marker.angleFix;
-                if (marker.photoData.rephoto_count) {
-                    arrowIcon.fillColor = '#007fff';
-                } else {
-                    arrowIcon.fillColor = 'black';
-                }
-                marker.setIcon(arrowIcon);
-            } else {
-                locationIcon.scale = 1.0;
-                locationIcon.strokeWeight = 1;
-                locationIcon.strokeColor = 'white';
-                locationIcon.anchor = new google.maps.Point(12, 0);
-                if (marker.photoData.rephoto_count) {
-                    locationIcon.fillColor = '#007fff';
-                } else {
-                    locationIcon.fillColor = 'black';
-                }
-                marker.setIcon(locationIcon);
             }
         }
     };

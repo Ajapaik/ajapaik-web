@@ -119,7 +119,6 @@ MIDDLEWARE = [
     'ajapaik.ajapaik.user_middleware.UserMiddleware',
     'django_user_agents.middleware.UserAgentMiddleware',
     'django_hosts.middleware.HostsResponseMiddleware',
-    "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
 DEFAULT_HOST = 'www'
