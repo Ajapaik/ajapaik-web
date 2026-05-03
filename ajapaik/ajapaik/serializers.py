@@ -53,17 +53,12 @@ class AlbumSerializer(serializers.ModelSerializer):
 
     def get_photos(self, instance: Album):
         request = self.context['request']
-        user_profile = request.user.profile if request.user.is_authenticated else None
 
-        photos = PhotoSerializer.annotate_photos(
-            instance.photos.all(),
-            user_profile
-        )
         return PhotoSerializer(
-            instance=photos,
+            instance=instance.photos.all(),
             many=True,
             context={
-                'request': request
+                'request': request,
             }
         ).data
 
