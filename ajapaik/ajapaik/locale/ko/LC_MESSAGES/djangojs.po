@@ -4,6 +4,7 @@
 # Author: A Retired User
 # Author: Codenstory
 # Author: Songhee
+# Author: Tensama0415
 # Author: Underbaaar
 # Author: YeBoy371
 # Author: Ykhwong
@@ -18,7 +19,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: translatewiki.net\n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2025-10-30 12:00:26+0000\n"
+"PO-Revision-Date: 2026-05-04 12:00:18+0000\n"
 "Language: ko\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -965,7 +966,7 @@ msgstr "연령대 선택 (선택 사항)"
 
 #: ajapaik/ajapaik/static/js/annotations/popovers/annotation.popover.new.js:146
 msgid "Select gender (optional)"
-msgstr "성별 선택 (선택사항)"
+msgstr "성별 선택 (선택 사항)"
 
 #: ajapaik/ajapaik/static/js/annotations/popovers/face-annotation.popover.edit.js:93
 msgid "Change age group"
