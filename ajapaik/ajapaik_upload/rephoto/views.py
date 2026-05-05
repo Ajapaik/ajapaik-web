@@ -108,3 +108,8 @@ def rephoto_upload(request, photo_id):
     profile.set_calculated_fields()
 
     return HttpResponse(json.dumps({'new_id': new_id}), content_type='application/json')
+
+def rephoto_capture(request, photo_id):
+    from django.shortcuts import render
+    photo = get_object_or_404(Photo, pk=photo_id)
+    return render(request, 'rephoto_upload/capture.html', {'photo': photo})

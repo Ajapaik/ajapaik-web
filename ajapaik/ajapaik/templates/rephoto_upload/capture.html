@@ -1,0 +1,538 @@
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="et">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Ajapaik Rephoto PWA Prototüüp</title>
+  <style>
+    /* Reset & baasstiilid */
+    * { box-sizing: border-box; }
+    body { 
+      margin: 0; 
+      overflow: hidden; 
+      background: #000; 
+      color: white; 
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; 
+      touch-action: none; 
+      user-select: none; 
+      -webkit-user-select: none;
+    }
+    
+    #camera-container { 
+      position: relative; 
+      width: 100vw; 
+      height: 100vh; 
+      overflow: hidden; 
+      background: #111;
+    }
+    
+    video { 
+      width: 100%; 
+      height: 100%; 
+      object-fit: cover; 
+    }
+    
+    #historical-overlay { 
+      position: absolute; 
+      top: 0; 
+      left: 0; 
+      width: 100%; 
+      height: 100%; 
+      object-fit: contain; 
+      opacity: 0.5; 
+      pointer-events: none; 
+      transform-origin: center center;
+      will-change: transform, opacity;
+    }
+
+    .top-bar { 
+      position: absolute; 
+      top: 20px; 
+      right: 20px; 
+      z-index: 10; 
+      display: flex;
+      gap: 10px;
+    }
+    .btn-switch, .btn-close { 
+      background: rgba(0, 0, 0, 0.4); 
+      backdrop-filter: blur(10px); 
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.2); 
+      color: white; 
+      padding: 12px 20px; 
+      border-radius: 20px; 
+      cursor: pointer; 
+      font-size: 14px; 
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .hint-text {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      z-index: 10;
+      background: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      padding: 12px 15px;
+      border-radius: 15px;
+      font-size: 13px;
+      color: #ccc;
+      border: 1px solid rgba(255,255,255,0.1);
+      pointer-events: none;
+    }
+
+    .controls { 
+      position: absolute; 
+      bottom: 40px; 
+      left: 0; 
+      width: 100%; 
+      display: flex; 
+      flex-direction: column; 
+      align-items: center; 
+      z-index: 10; 
+    }
+    
+    .btn-capture { 
+      width: 76px; 
+      height: 76px; 
+      border-radius: 50%; 
+      background: rgba(255, 255, 255, 0.9); 
+      border: 4px solid #111; 
+      outline: 3px solid rgba(255, 255, 255, 0.8); 
+      outline-offset: 2px; 
+      cursor: pointer; 
+      transition: transform 0.1s; 
+    }
+    .btn-capture:active { 
+      transform: scale(0.92); 
+      background: #ccc;
+    }
+
+    #preview-container { 
+      display: none; 
+      position: absolute; 
+      top: 0; 
+      left: 0; 
+      width: 100vw; 
+      height: 100vh; 
+      background: #000; 
+      z-index: 20; 
+    }
+    
+    .split-view {
+      display: flex;
+      flex-direction: row;
+      width: 100%;
+      height: calc(100vh - 100px);
+      padding: 10px;
+      gap: 10px;
+    }
+    @media (max-aspect-ratio: 1/1) {
+      .split-view {
+        flex-direction: column;
+      }
+    }
+    
+    .split-pane {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      background: #111;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    
+    .split-pane img, .split-pane canvas {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+    
+    .pane-label {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: rgba(0,0,0,0.6);
+      padding: 5px 10px;
+      border-radius: 5px;
+      font-size: 12px;
+      color: white;
+      z-index: 5;
+    }
+    
+    .preview-controls { 
+      position: absolute; 
+      bottom: 20px; 
+      width: 100%; 
+      display: flex; 
+      justify-content: center; 
+      gap: 20px; 
+    }
+    .btn-action { 
+      padding: 16px 36px; 
+      font-size: 16px; 
+      border-radius: 30px; 
+      border: none; 
+      font-weight: bold; 
+      cursor: pointer; 
+    }
+    .btn-cancel { 
+      background: rgba(255,255,255,0.2); 
+      color: white; 
+      backdrop-filter: blur(10px);
+    }
+    .btn-save { 
+      background: #fca311; 
+      color: black; 
+    }
+    
+    #loading-overlay {
+      display: none;
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.8);
+      z-index: 50;
+      color: white;
+      justify-content: center;
+      align-items: center;
+      font-size: 24px;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="camera-container">
+    <video id="camera-stream" autoplay playsinline></video>
+    <img id="historical-overlay" src="{% url 'image_thumb' photo.id 800 photo.slug %}" alt="{{ photo.display_text }}">
+    
+    <div class="hint-text">
+      <b>Läbipaistvus:</b> ekraani pikemal küljel<br>
+      <b>Zoom:</b> rulli / kaksikpuude<br>
+      <b>Pildista:</b> nupp või vajuta pikalt
+    </div>
+
+    <div class="top-bar">
+      <a href="{% url 'photo' photo.id photo.slug %}" class="btn-close">Sulge</a>
+      <button class="btn-switch" id="switch-camera">↻ Vaheta kaamerat</button>
+    </div>
+
+    <div class="controls">
+      <button class="btn-capture" id="capture-btn" aria-label="Tee pilt"></button>
+    </div>
+  </div>
+
+  <div id="preview-container">
+    <div class="split-view">
+      <div class="split-pane">
+        <div class="pane-label">Vana foto</div>
+        <img id="preview-old-img" src="" alt="Vana foto preview">
+      </div>
+      <div class="split-pane">
+        <div class="pane-label">Uus foto (kropitud)</div>
+        <canvas id="preview-canvas"></canvas>
+      </div>
+    </div>
+    <div class="preview-controls">
+      <button class="btn-action btn-cancel" id="btn-retake">Uuesti</button>
+      <button class="btn-action btn-save" id="btn-upload">Salvesta</button>
+    </div>
+  </div>
+  
+  <div id="loading-overlay">
+    Salvestan...
+  </div>
+
+  <script>
+    const video = document.getElementById('camera-stream');
+    const overlay = document.getElementById('historical-overlay');
+    const container = document.getElementById('camera-container');
+    const captureBtn = document.getElementById('capture-btn');
+    const switchBtn = document.getElementById('switch-camera');
+    const previewContainer = document.getElementById('preview-container');
+    const canvas = document.getElementById('preview-canvas');
+    const previewOldImg = document.getElementById('preview-old-img');
+    const retakeBtn = document.getElementById('btn-retake');
+    const uploadBtn = document.getElementById('btn-upload');
+    const loadingOverlay = document.getElementById('loading-overlay');
+
+    let currentFacingMode = 'environment'; 
+    let opacity = 0.5;
+    let imgScale = 1;
+    let currentUploadScaleFactor = 1;
+
+    let isDragging = false;
+    let startX = 0;
+    let startY = 0;
+    let startOpacity = 0;
+    let isLandscape = window.innerWidth > window.innerHeight;
+
+    window.addEventListener('resize', () => {
+      isLandscape = window.innerWidth > window.innerHeight;
+    });
+
+    let longTapTimer = null;
+    const LONG_TAP_DURATION = 600;
+
+    function startLongTap() {
+      cancelLongTap();
+      longTapTimer = setTimeout(() => {
+        capturePhoto();
+      }, LONG_TAP_DURATION);
+    }
+
+    function cancelLongTap() {
+      if (longTapTimer) {
+        clearTimeout(longTapTimer);
+        longTapTimer = null;
+      }
+    }
+
+    function checkDragCancelLongTap(currentX, currentY) {
+      if (Math.abs(currentX - startX) > 10 || Math.abs(currentY - startY) > 10) {
+        cancelLongTap();
+      }
+    }
+
+    container.addEventListener('mousedown', (e) => {
+      if(e.target.closest('button') || e.target.closest('a')) return;
+      isDragging = true;
+      startX = e.clientX;
+      startY = e.clientY;
+      startOpacity = opacity;
+      startLongTap();
+    });
+
+    window.addEventListener('mousemove', (e) => {
+      if (!isDragging) return;
+      checkDragCancelLongTap(e.clientX, e.clientY);
+      
+      let delta = isLandscape ? (e.clientX - startX) : (e.clientY - startY);
+      let newOpacity = startOpacity - (delta / 300);
+      opacity = Math.max(0, Math.min(1, newOpacity));
+      updateOverlay();
+    });
+
+    window.addEventListener('mouseup', () => {
+      cancelLongTap();
+      isDragging = false;
+    });
+
+    container.addEventListener('wheel', (e) => {
+      e.preventDefault();
+      imgScale -= e.deltaY * 0.005;
+      imgScale = Math.max(0.2, Math.min(5, imgScale));
+      updateOverlay();
+    }, { passive: false });
+
+
+    let initialPinchDistance = null;
+    let startScale = 1;
+
+    container.addEventListener('touchstart', (e) => {
+      if(e.target.closest('button') || e.target.closest('a')) return;
+      
+      if (e.touches.length === 1) {
+        isDragging = true;
+        startX = e.touches[0].clientX;
+        startY = e.touches[0].clientY;
+        startOpacity = opacity;
+        startLongTap();
+      } else if (e.touches.length === 2) {
+        isDragging = false;
+        cancelLongTap();
+        initialPinchDistance = Math.hypot(
+          e.touches[0].clientX - e.touches[1].clientX,
+          e.touches[0].clientY - e.touches[1].clientY
+        );
+        startScale = imgScale;
+      }
+    });
+
+    container.addEventListener('touchmove', (e) => {
+      if(e.target.closest('button') || e.target.closest('a')) return;
+      e.preventDefault(); 
+      
+      if (e.touches.length === 1 && isDragging) {
+        checkDragCancelLongTap(e.touches[0].clientX, e.touches[0].clientY);
+        
+        let delta = isLandscape ? (e.touches[0].clientX - startX) : (e.touches[0].clientY - startY);
+        let newOpacity = startOpacity - (delta / 300);
+        opacity = Math.max(0, Math.min(1, newOpacity));
+        updateOverlay();
+      } else if (e.touches.length === 2 && initialPinchDistance) {
+        const currentDistance = Math.hypot(
+          e.touches[0].clientX - e.touches[1].clientX,
+          e.touches[0].clientY - e.touches[1].clientY
+        );
+        imgScale = startScale * (currentDistance / initialPinchDistance);
+        imgScale = Math.max(0.2, Math.min(5, imgScale));
+        updateOverlay();
+      }
+    }, { passive: false });
+
+    container.addEventListener('touchend', (e) => {
+      cancelLongTap();
+      if (e.touches.length < 2) {
+        initialPinchDistance = null;
+      }
+      if (e.touches.length === 0) {
+        isDragging = false;
+      }
+    });
+
+    function updateOverlay() {
+      overlay.style.opacity = opacity;
+      overlay.style.transform = `scale(${imgScale})`;
+    }
+    updateOverlay();
+
+    async function initCamera() {
+      try {
+        if (video.srcObject) {
+          video.srcObject.getTracks().forEach(track => track.stop());
+        }
+        
+        // Let's try to get higher resolution
+        const constraints = {
+            video: { 
+                facingMode: currentFacingMode,
+                width: { ideal: 4096 },
+                height: { ideal: 2160 } 
+            }
+        };
+        const stream = await navigator.mediaDevices.getUserMedia(constraints);
+        video.srcObject = stream;
+        
+        if (currentFacingMode === 'user') {
+          video.style.transform = 'scaleX(-1)';
+        } else {
+          video.style.transform = 'none';
+        }
+      } catch (err) {
+        console.error("Kaamera viga:", err);
+      }
+    }
+
+    switchBtn.addEventListener('click', () => {
+      currentFacingMode = currentFacingMode === 'environment' ? 'user' : 'environment';
+      initCamera();
+    });
+
+    function capturePhoto() {
+      if (!video.videoWidth) return;
+
+      const vw = window.innerWidth;
+      const vh = window.innerHeight;
+      const screenAspect = vw / vh;
+      
+      const imgAspect = overlay.naturalWidth / overlay.naturalHeight;
+      let baseW, baseH;
+      if (screenAspect > imgAspect) {
+        baseH = vh;
+        baseW = vh * imgAspect;
+      } else {
+        baseW = vw;
+        baseH = vw / imgAspect;
+      }
+      
+      const displayW = baseW * imgScale;
+      const displayH = baseH * imgScale;
+      
+      const startX = (vw - displayW) / 2;
+      const startY = (vh - displayH) / 2;
+      
+      const videoAspect = video.videoWidth / video.videoHeight;
+      let renderVideoW, renderVideoH;
+      if (screenAspect > videoAspect) {
+        renderVideoW = vw;
+        renderVideoH = vw / videoAspect;
+      } else {
+        renderVideoH = vh;
+        renderVideoW = vh * videoAspect;
+      }
+      
+      const videoOffsetX = (renderVideoW - vw) / 2;
+      const videoOffsetY = (renderVideoH - vh) / 2;
+      
+      const vidX = startX + videoOffsetX;
+      const vidY = startY + videoOffsetY;
+      
+      const scaleFactor = video.videoWidth / renderVideoW;
+      let cropX = vidX * scaleFactor;
+      let cropY = vidY * scaleFactor;
+      let cropW = displayW * scaleFactor;
+      let cropH = displayH * scaleFactor;
+
+      const tempCanvas = document.createElement('canvas');
+      tempCanvas.width = video.videoWidth;
+      tempCanvas.height = video.videoHeight;
+      const tCtx = tempCanvas.getContext('2d');
+      
+      if (currentFacingMode === 'user') {
+        tCtx.translate(tempCanvas.width, 0);
+        tCtx.scale(-1, 1);
+      }
+      tCtx.drawImage(video, 0, 0, tempCanvas.width, tempCanvas.height);
+      
+      canvas.width = cropW;
+      canvas.height = cropH;
+      const ctx = canvas.getContext('2d');
+      
+      ctx.drawImage(tempCanvas, cropX, cropY, cropW, cropH, 0, 0, canvas.width, canvas.height);
+      
+      currentUploadScaleFactor = 1 / imgScale;
+
+      previewOldImg.src = overlay.src;
+      document.getElementById('camera-container').style.display = 'none';
+      previewContainer.style.display = 'block';
+    }
+
+    captureBtn.addEventListener('click', capturePhoto);
+
+    retakeBtn.addEventListener('click', () => {
+      previewContainer.style.display = 'none';
+      document.getElementById('camera-container').style.display = 'block';
+    });
+
+    uploadBtn.addEventListener('click', () => {
+      loadingOverlay.style.display = 'flex';
+      
+      canvas.toBlob((blob) => {
+        const formData = new FormData();
+        formData.append('user_file[]', blob, 'rephoto.jpg');
+        formData.append('scale_factor', currentUploadScaleFactor);
+        
+        fetch('{% url "rephoto_upload" photo.id %}', {
+          method: 'POST',
+          body: formData,
+          headers: {
+            // Need to pass CSRF token if required, but rephoto_upload is @csrf_exempt
+          }
+        })
+        .then(response => response.json())
+        .then(data => {
+          if(data.error) {
+              alert("Viga: " + data.error);
+              loadingOverlay.style.display = 'none';
+          } else {
+              window.location.href = "{% url 'photo' photo.id photo.slug %}";
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          alert('Viga üleslaadimisel');
+          loadingOverlay.style.display = 'none';
+        });
+      }, 'image/jpeg', 0.95);
+    });
+
+    overlay.onload = () => {
+      initCamera();
+    };
+  </script>
+</body>
+</html>
