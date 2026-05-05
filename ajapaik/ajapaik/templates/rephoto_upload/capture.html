@@ -207,7 +207,7 @@
 
   <div id="camera-container">
     <video id="camera-stream" autoplay playsinline></video>
-    <img id="historical-overlay" src="{% url 'image_thumb' photo.id 800 photo.slug %}" alt="{{ photo.display_text }}">
+    <img id="historical-overlay" src="{% url 'image_thumb' photo.id 800 photo.get_pseudo_slug %}" alt="{{ photo.display_text }}">
     
     <div class="hint-text">
       <b>Läbipaistvus:</b> ekraani pikemal küljel<br>
@@ -216,7 +216,7 @@
     </div>
 
     <div class="top-bar">
-      <a href="{% url 'photo' photo.id photo.slug %}" class="btn-close">Sulge</a>
+      <a href="{% url 'photo' photo.id photo.get_pseudo_slug %}" class="btn-close">Sulge</a>
       <button class="btn-switch" id="switch-camera">↻ Vaheta kaamerat</button>
     </div>
 
@@ -237,6 +237,7 @@
       </div>
     </div>
     <div class="preview-controls">
+      <a href="{% url 'photo' photo.id photo.get_pseudo_slug %}" class="btn-action btn-cancel" style="text-decoration:none; display:flex; align-items:center; justify-content:center;">Loobu</a>
       <button class="btn-action btn-cancel" id="btn-retake">Uuesti</button>
       <button class="btn-action btn-save" id="btn-upload">Salvesta</button>
     </div>
@@ -263,6 +264,7 @@
     let opacity = 0.5;
     let imgScale = 1;
     let currentUploadScaleFactor = 1;
+    let fullCanvas = null;
 
     let isDragging = false;
     let startX = 0;
@@ -486,6 +488,11 @@
       
       currentUploadScaleFactor = 1 / imgScale;
 
+      fullCanvas = document.createElement('canvas');
+      fullCanvas.width = tempCanvas.width;
+      fullCanvas.height = tempCanvas.height;
+      fullCanvas.getContext('2d').drawImage(tempCanvas, 0, 0);
+
       previewOldImg.src = overlay.src;
       document.getElementById('camera-container').style.display = 'none';
       previewContainer.style.display = 'block';
@@ -501,9 +508,13 @@
     uploadBtn.addEventListener('click', () => {
       loadingOverlay.style.display = 'flex';
       
-      canvas.toBlob((blob) => {
+      Promise.all([
+          new Promise(resolve => canvas.toBlob(resolve, 'image/jpeg', 0.95)),
+          new Promise(resolve => fullCanvas.toBlob(resolve, 'image/jpeg', 0.95))
+      ]).then(([croppedBlob, fullBlob]) => {
         const formData = new FormData();
-        formData.append('user_file[]', blob, 'rephoto.jpg');
+        formData.append('user_file[]', fullBlob, 'rephoto.jpg');
+        formData.append('cropped_file', croppedBlob, 'rephoto_cropped.jpg');
         formData.append('scale_factor', currentUploadScaleFactor);
         
         fetch('{% url "rephoto_upload" photo.id %}', {
@@ -519,7 +530,7 @@
               alert("Viga: " + data.error);
               loadingOverlay.style.display = 'none';
           } else {
-              window.location.href = "{% url 'photo' photo.id photo.slug %}";
+              window.location.href = "{% url 'photo' photo.id photo.get_pseudo_slug %}";
           }
         })
         .catch(error => {
@@ -527,7 +538,7 @@
           alert('Viga üleslaadimisel');
           loadingOverlay.style.display = 'none';
         });
-      }, 'image/jpeg', 0.95);
+      });
     });
 
     overlay.onload = () => {

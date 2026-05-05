@@ -1,6 +1,6 @@
 import json
 from copy import deepcopy
-from io import StringIO
+from io import BytesIO, StringIO
 from time import strftime, strptime
 
 from PIL import Image
@@ -83,20 +83,25 @@ def rephoto_upload(request, photo_id):
 
         rephoto.image.save('rephoto.jpg', file_obj)
 
-        if rephoto.cam_scale_factor:
+        cropped_file = request.FILES.get('cropped_file')
+        
+        if cropped_file:
+            rephoto.image_unscaled = deepcopy(rephoto.image)
+            rephoto.image.save('rephoto.jpg', ContentFile(cropped_file.read()))
+        elif rephoto.cam_scale_factor:
             new_size = tuple([int(x * rephoto.cam_scale_factor) for x in img.size])
-            output_file = StringIO()
+            output_file = BytesIO()
 
             if rephoto.cam_scale_factor < 1:
-                x0 = (img.size[0] - new_size[0]) / 2
-                y0 = (img.size[1] - new_size[1]) / 2
+                x0 = (img.size[0] - new_size[0]) // 2
+                y0 = (img.size[1] - new_size[1]) // 2
                 x1 = img.size[0] - x0
                 y1 = img.size[1] - y0
                 new_img = img.transform(new_size, Image.EXTENT, (x0, y0, x1, y1))
                 new_img.save(output_file, 'JPEG', quality=95)
             elif rephoto.cam_scale_factor > 1:
-                x0 = (new_size[0] - img.size[0]) / 2
-                y0 = (new_size[1] - img.size[1]) / 2
+                x0 = (new_size[0] - img.size[0]) // 2
+                y0 = (new_size[1] - img.size[1]) // 2
                 new_img = Image.new('RGB', new_size)
                 new_img.paste(img, (x0, y0))
                 new_img.save(output_file, 'JPEG', quality=95)
@@ -109,6 +114,9 @@ def rephoto_upload(request, photo_id):
 
     return HttpResponse(json.dumps({'new_id': new_id}), content_type='application/json')
 
+from django.contrib.auth.decorators import login_required
+
+@login_required
 def rephoto_capture(request, photo_id):
     from django.shortcuts import render
     photo = get_object_or_404(Photo, pk=photo_id)
