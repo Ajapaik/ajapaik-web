@@ -19,7 +19,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2026-04-16 12:00:22+0000\n"
+"PO-Revision-Date: 2026-05-11 12:00:17+0000\n"
 "X-POT-Import-Date: 2024-07-09 05:10:19+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -52,7 +52,7 @@ msgstr "Vervallen token"
 
 #: ajapaik/ajapaik/api.py:82
 msgid "Invalid token"
-msgstr "Ongeldig token"
+msgstr "Onjuist token"
 
 #: ajapaik/ajapaik/api.py:83
 msgid "Missing parameter photo_ids"
@@ -929,7 +929,7 @@ msgstr "We hebben u een e-mail gestuurd. Neem contact met ons op als u deze niet
 
 #: ajapaik/ajapaik/templates/account/password_reset_from_key.html:7
 msgid "Bad Token"
-msgstr "Ongeldig token"
+msgstr "Onjuist token"
 
 #: ajapaik/ajapaik/templates/account/password_reset_from_key.html:11
 #, python-format
