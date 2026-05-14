@@ -11,6 +11,7 @@
 # Author: Ykhwong
 # Author: 予弦
 # Author: 神樂坂秀吉
+# Author: 解浪
 # Author: 그냥기여자
 # --
 # This file is part of the Ajapaik Project
@@ -21,7 +22,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: translatewiki.net\n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2026-04-27 12:00:27+0000\n"
+"PO-Revision-Date: 2026-05-14 12:00:25+0000\n"
 "Language: ko\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
