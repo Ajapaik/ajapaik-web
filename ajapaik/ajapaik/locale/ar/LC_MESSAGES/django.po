@@ -5,6 +5,7 @@
 # Author: Dr-Taher
 # Author: FiberAhmed
 # Author: H2kks
+# Author: Kopmil
 # Author: MRidhaAJ
 # Author: Meno25
 # Author: Michel Bakni
@@ -24,12 +25,12 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: translatewiki.net\n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2025-10-30 12:00:23+0000\n"
+"PO-Revision-Date: 2026-05-18 12:26:04+0000\n"
 "Language: ar\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-POT-Import-Date: 2024-07-09 05:10:19+0000\n"
-"X-Generator: MediaWiki 1.46.0-alpha; Translate 2025-07-31\n"
+"X-Generator: MediaWiki 1.47.0-alpha; Translate 2025-07-31\n"
 "Plural-Forms: nplurals=6; plural=(n == 0) ? 0 : ( (n == 1) ? 1 : ( (n == 2) ? 2 : ( (n%100 >= 3 && n%100 <= 10) ? 3 : ( (n%100 >= 11 && n%100 <= 99) ? 4 : 5 ) ) ) );\n"
 "Project-Id-Version: Ajapaik Web app\n"
 "X-Translation-Project: translatewiki.net <https://translatewiki.net>\n"
@@ -40,11 +41,11 @@ msgstr "عكس الألوان"
 
 #: ajapaik/ajapaik/api.py:78
 msgid "Add at least flip, invert or rotate parameter to the request"
-msgstr "أضف على الأقل (قلب أو عكس أو تدوير) للطلب"
+msgstr "أضِف على الأقل معلمات القلب أو العكس أو التدوير إلى الطلب"
 
 #: ajapaik/ajapaik/api.py:79
 msgid "Add at least scene or viewpoint_elevation parameter to the request"
-msgstr "أضف على الأقل معلمة مشهد أو viewpoint_elevation إلى الطلب"
+msgstr "أضِف على الأقل معلمة scene أو viewpoint_elevation إلى الطلب"
 
 #: ajapaik/ajapaik/api.py:80
 msgid "Contributions and settings from the other account were added to current"
@@ -52,7 +53,7 @@ msgstr "تمت إضافة المساهمات والإعدادات من الحس�
 
 #: ajapaik/ajapaik/api.py:81
 msgid "Expired token"
-msgstr "رمز منتهية الصلاحية"
+msgstr "رمز منتهي الصلاحية"
 
 #: ajapaik/ajapaik/api.py:82
 msgid "Invalid token"
@@ -60,59 +61,59 @@ msgstr "رمز غير صالح"
 
 #: ajapaik/ajapaik/api.py:83
 msgid "Missing parameter photo_ids"
-msgstr ""
+msgstr "المعلمة المفقودة photo_ids"
 
 #: ajapaik/ajapaik/api.py:84
 msgid "No photo with id:"
-msgstr ""
+msgstr "لا صورة مع الهوية:"
 
 #: ajapaik/ajapaik/api.py:85
 msgid "Parameter photo_id must be an positive integer"
-msgstr ""
+msgstr "يجب أن تكون المعلمة photo_id عددًا صحيحًا موجبًا"
 
 #: ajapaik/ajapaik/api.py:87
 msgid "Please login with a different account, you are currently logged in with the same account that you are merging from"
-msgstr ""
+msgstr "يُرجى تسجيل الدخول باستخدام حساب مختلف، فأنت مسجّل الدخول حاليًّا بنفس الحساب الذي تقوم بالدمج منه"
 
 #: ajapaik/ajapaik/api.py:89
 msgid "Please login"
-msgstr "الرجاء تسجيل الدخول"
+msgstr "يُرجى تسجيل الدخول"
 
 #: ajapaik/ajapaik/api.py:90
 msgid "Rephoto upload settings have been saved"
-msgstr ""
+msgstr "تم حفظ إعدادات إعادة تحميل الصور"
 
 #: ajapaik/ajapaik/api.py:91
 msgid "Required parameter, token is missing"
-msgstr ""
+msgstr "المعلمة المطلوبة، الرمز المميّز مفقود"
 
 #: ajapaik/ajapaik/api.py:92
 msgid "This transcription already exists, previous transcription was upvoted, thank you!"
-msgstr "هذا النسخ موجود بالفعل، لقد تم التصويت على النسخ السابق، شكرا لك!"
+msgstr "هذا النسخ موجود بالفعل، وقد حظي النسخ السابق بتصويت إيجابي، شكرًا لك!"
 
 #: ajapaik/ajapaik/api.py:93
 msgid "Transcription added, thank you!"
-msgstr "أُضيف النسخ، شكرا لك!"
+msgstr "تمت إضافة النسخ، شكرًا لك!"
 
 #: ajapaik/ajapaik/api.py:94
 msgid "Transcription feedback added, thank you!"
-msgstr "أُضيفت ملاحظات النسخ، شكرا لك!"
+msgstr "تمت إضافة ملاحظات النسخ، شكرًا لك!"
 
 #: ajapaik/ajapaik/api.py:95
 msgid "User display name has been saved"
-msgstr ""
+msgstr "تم حفظ اسم المستخدم المعروض"
 
 #: ajapaik/ajapaik/api.py:96
 msgid "User settings have been saved"
-msgstr ""
+msgstr "تم حفظ إعدادات المستخدم"
 
 #: ajapaik/ajapaik/api.py:97
 msgid "You have already given feedback for this transcription"
-msgstr "لقد قدمت بالفعل تعليقات لهذا النسخ"
+msgstr "لقد قدّمت بالفعل ملاحظاتك على هذا النسخ"
 
 #: ajapaik/ajapaik/api.py:98
 msgid "You have already submitted this transcription, thank you!"
-msgstr "لقد قدمت بالفعل هذا النسخ، شكرا لك!"
+msgstr "لقد أرسلت هذا النسخ بالفعل، شكرًا لك!"
 
 #: ajapaik/ajapaik/api.py:99
 msgid "Your transcription has been updated, thank you!"
@@ -127,35 +128,35 @@ msgstr "حدث خطأ ما"
 
 #: ajapaik/ajapaik/api.py:2003 ajapaik/utils.py:156
 msgid "Your suggestion has been saved, but previous consensus remains"
-msgstr ""
+msgstr "تم حفظ اقتراحك، لكن التوافق السابق لا يزال قائمًا"
 
 #: ajapaik/ajapaik/autocomplete_views.py:324
 #: ajapaik/ajapaik/autocomplete_views.py:356
 msgid "No album found"
-msgstr ""
+msgstr "لم يتم العثور على ألبوم"
 
 #: ajapaik/ajapaik/delfi.py:20
 msgid "Bounding box must be set"
-msgstr "يجب تعيين صندوق محيط"
+msgstr "يجب تحديد المربّع المحيط"
 
 #: ajapaik/ajapaik/delfi.py:23
 msgid "Bounding box must have 4 comma-separated members"
-msgstr "يجب أن يحتوي صندوق التجميع على 4 أعضاء مفصولين بفواصل"
+msgstr "يجب أن يحتوي المربّع المحيط على ٤ عناصر مفصولة بفواصل"
 
 #: ajapaik/ajapaik/delfi.py:28
 msgid "Bounding box values must be numbers"
-msgstr "يجب أن تكون قيم صندوق المحيط أرقاما"
+msgstr "يجب أن تكون قيم المربّع المحيط أرقامًا"
 
 #: ajapaik/ajapaik/forms.py:18
 #| msgid "Bad Token"
 msgid "!!FUZZY!!Bad Token"
-msgstr ""
+msgstr "!!غامض!!رمز سيئ"
 
 #: ajapaik/ajapaik/forms.py:24
 #: ajapaik/ajapaik/templates/socialaccount/connections_content.html:24
 #: ajapaik/ajapaik/templates/user/_user_card.html:11
 msgid "Email"
-msgstr ""
+msgstr "البريد الإلكتروني"
 
 #: ajapaik/ajapaik/forms.py:25
 msgid "First name"
@@ -163,39 +164,39 @@ msgstr "الاسم الأول"
 
 #: ajapaik/ajapaik/forms.py:26
 msgid "Last name"
-msgstr "اسم العائلة"
+msgstr "الاسم الأخير"
 
 #: ajapaik/ajapaik/forms.py:27
 #: ajapaik/ajapaik/templates/authentication/_login.html:41
 msgid "Password"
-msgstr "كلمة السر"
+msgstr "كلمة المرور"
 
 #: ajapaik/ajapaik/forms.py:28
 msgid "Password confirmation"
-msgstr ""
+msgstr "تأكيد كلمة المرور"
 
 #: ajapaik/ajapaik/forms.py:114 ajapaik/ajapaik/forms.py:195
 #: ajapaik/ajapaik/forms.py:217
 msgid "Choose area"
-msgstr "اختيار المنطقة"
+msgstr "اختر المنطقة"
 
 #: ajapaik/ajapaik/forms.py:120 ajapaik/ajapaik/forms.py:194
 #: ajapaik/ajapaik/forms.py:208 ajapaik/ajapaik/forms.py:216
 #: ajapaik/ajapaik/forms.py:225
 msgid "Choose album"
-msgstr "اختيار الألبوم"
+msgstr "اختر الألبوم"
 
 #: ajapaik/ajapaik/forms.py:212 ajapaik/ajapaik/forms.py:219
 msgid "Choose photo"
-msgstr "اختيار الصورة"
+msgstr "اختر الصورة"
 
 #: ajapaik/ajapaik/forms.py:258
 msgid "Choose parent album"
-msgstr "اختيار الألبوم الأصلي"
+msgstr "اختر الألبوم الأم"
 
 #: ajapaik/ajapaik/forms.py:428
 msgid "Picture file"
-msgstr ""
+msgstr "ملف الصورة"
 
 #: ajapaik/ajapaik/forms.py:429 ajapaik/ajapaik/forms.py:482
 #: ajapaik/ajapaik/models.py:260 ajapaik/ajapaik/models.py:566
@@ -206,55 +207,55 @@ msgstr "الوصف"
 
 #: ajapaik/ajapaik/forms.py:430
 msgid "I am the author"
-msgstr "أنا المؤلف"
+msgstr "أنا المؤلّف"
 
 #: ajapaik/ajapaik/forms.py:431 ajapaik/ajapaik/models.py:573
 msgid "Author"
-msgstr "المؤلف"
+msgstr "المؤلّف"
 
 #: ajapaik/ajapaik/forms.py:432
 msgid "Licence or status of copyright"
-msgstr ""
+msgstr "الترخيص أو حالة حقوق الطبع والنشر"
 
 #: ajapaik/ajapaik/forms.py:435
 msgid "Accepted formats are .png or .jpg files"
-msgstr ""
+msgstr "الصيغ المقبولة هي ملفات بصيغة .png، أو .jpg"
 
 #: ajapaik/ajapaik/forms.py:436
 msgid "Add a short description of the picture"
-msgstr ""
+msgstr "أضِف وصفًا موجزًا للصورة"
 
 #: ajapaik/ajapaik/forms.py:437
 msgid "Author of the picture (photographer, painter)"
-msgstr ""
+msgstr "مؤلّف الصورة (مصوّر، رسّام)"
 
 #: ajapaik/ajapaik/forms.py:439
 msgid "Please select a licence to let other people know if and how they can reuse the material you upload.\n\nIf you are the author, you can choose the licence (we recommend using open Creative Commons licences). If someone else created the work, you need to use the same licence and rights holder that it currently has.\n\nCurrently we are also accepting content with unclear copyright status, please choose ‘Copyright not evaluated’ then."
-msgstr ""
+msgstr "يُرجى اختيار ترخيص لإعلام الآخرين بإمكانية إعادة استخدام المحتوى الذي ترفعه وكيفية ذلك. إذا كنت المؤلّف، يمكنك اختيار الترخيص (نوصي باستخدام تراخيص المشاع الإبداعي المفتوحة). إذا كان شخص آخر هو من أنشأ العمل، فيجب عليك استخدام نفس الترخيص وصاحب الحقوق الحاليَّين. نقبل حاليًّا أيضًا المحتوى ذي حالة حقوق الطبع والنشر غير الواضحة، لذا يُرجى اختيار ”لم يتم تقييم حقوق الطبع والنشر“ في هذه الحالة."
 
 #: ajapaik/ajapaik/forms.py:447
 msgid "Description of the picture"
-msgstr ""
+msgstr "وصف الصورة"
 
 #: ajapaik/ajapaik/forms.py:448
 msgid "Author name"
-msgstr ""
+msgstr "اسم المؤلّف"
 
 #: ajapaik/ajapaik/forms.py:454
 msgid "Missing image"
-msgstr "الصورة مفقودة"
+msgstr "صورة مفقودة"
 
 #: ajapaik/ajapaik/forms.py:456
 msgid "Missing description"
-msgstr "الوصف مفقود"
+msgstr "وصف مفقود"
 
 #: ajapaik/ajapaik/forms.py:458
 msgid "Missing licence"
-msgstr "الرخصة مفقودة"
+msgstr "رخصة مفقودة"
 
 #: ajapaik/ajapaik/forms.py:472
 msgid "Parent album"
-msgstr "الألبوم الرئيسي"
+msgstr "الألبوم الأم"
 
 #: ajapaik/ajapaik/forms.py:475
 #: ajapaik/ajapaik/templates/curator/curator.html:144
@@ -263,7 +264,7 @@ msgstr "الموقع"
 
 #: ajapaik/ajapaik/forms.py:476
 msgid "If this album is tied to a certain location, specify here"
-msgstr "إذا كان هذا الألبوم مرتبطا بموقع معين، فحدد هنا"
+msgstr "إذا كان هذا الألبوم مرتبطًا بموقع معيّن، فحدّد ذلك هنا."
 
 #: ajapaik/ajapaik/forms.py:479
 msgid "Album type"
@@ -295,39 +296,39 @@ msgstr "مفتوح"
 
 #: ajapaik/ajapaik/forms.py:497
 msgid "My preferred language is"
-msgstr ""
+msgstr "لغتي المفضّلة هي"
 
 #: ajapaik/ajapaik/forms.py:498
 msgid "I wish to receive the newsletter"
-msgstr ""
+msgstr "أرغب في تلقّي النشرة الإخبارية"
 
 #: ajapaik/ajapaik/forms.py:502 ajapaik/ajapaik/forms.py:521
 msgid "Yes"
-msgstr ""
+msgstr "نعم"
 
 #: ajapaik/ajapaik/forms.py:502 ajapaik/ajapaik/forms.py:521
 msgid "No"
-msgstr ""
+msgstr "لا"
 
 #: ajapaik/ajapaik/forms.py:508
 msgid "Please specify your prefered language"
-msgstr ""
+msgstr "يُرجى تحديد لغتك المفضّلة"
 
 #: ajapaik/ajapaik/forms.py:510
 msgid "Please specify whether you would like to receive the newsletter"
-msgstr ""
+msgstr "يُرجى تحديد ما إذا كنت ترغب في استلام النشرة الإخبارية"
 
 #: ajapaik/ajapaik/forms.py:518
 msgid "I wish to to upload my rephotos to Wikimedia Commons"
-msgstr ""
+msgstr "أرغب في تحميل صوري المعاد تصويرها إلى ويكيميديا كومنز."
 
 #: ajapaik/ajapaik/forms.py:528
 msgid "Please specify whether you would like your rephotos to be uploaded to Wikimedia Commons as well"
-msgstr ""
+msgstr "يُرجى تحديد ما إذا كنت ترغب في تحميل صورك المعاد تصويرها إلى ويكيميديا كومنز أيضًا."
 
 #: ajapaik/ajapaik/forms.py:537
 msgid "Please specify what would you like your display name to be"
-msgstr ""
+msgstr "يُرجى تحديد اسم العرض الذي ترغب في استخدامه"
 
 #: ajapaik/ajapaik/forms.py:556
 msgid "Email address"
@@ -335,11 +336,11 @@ msgstr "عنوان البريد الإلكتروني"
 
 #: ajapaik/ajapaik/forms.py:561
 msgid "Comment box supports Markdown\n\nParagraphs\nAdd two new lines to start a new paragraph.\n\nBold\n**Geotagging** is the first task on Ajapaik.\n\nItalic\nNext come *rephotography* and *dating*.\n\nLinks\nJoin the discussion on [Ajapaiklejad FB group](https://www.facebook.com/groups/ajapaiklejad).\n\nImages\n![Ajapaik is gift for EV100](https://ajapaik.ee/static/images/ev100.png)"
-msgstr "يدعم صندوق التعليقات ماركداون\n\nالفقرات\nقم بإضافة سطرين جديدين لبدء فقرة جديدة. \n\nسميك\n**الوسم الجغرافي** هي المهمة الأولى على أجابيك.\n\nمائل\nالتالي يحضر *إعادة التصوير* و *التاريخ*.\n\nالروابط\nانضم إلى المناقشة في [مجموعة Ajapaiklejad FB](https://www.facebook.com/groups/ajapaiklejad).\n\nالصور \n![أجابيك هدية لـEV100](https://ajapaik.ee/static/images/ev100.png)"
+msgstr "يدعم مربّع التعليقات مارك‌داون\n\nالفقرات\nأضِف سطرَين جديدَين لبدء فقرة جديدة.\n\nغامق\n**تحديد الموقع الجغرافي** هو المهمًة الأولى في أجاپايك.\n\nمائل\nيأتي بعد ذلك *إعادة التصوير* و*التأريخ*.\n\nروابط\nانضمّ إلى المناقشة على [مجموعة Ajapaiklejad على فيسبوك](https://www.facebook.com/groups/ajapaiklejad).\n\nصور\n![Ajapaik هدية لـ EV100](https://ajapaik.ee/static/images/ev100.png)"
 
 #: ajapaik/ajapaik/forms.py:596
 msgid "Nothing to change."
-msgstr "لا شيء للتغيير."
+msgstr "لا يوجد ما يستدعي التغيير."
 
 #: ajapaik/ajapaik/models.py:254 ajapaik/ajapaik_face_recognition/forms.py:13
 #: ajapaik/ajapaik_face_recognition/models.py:23
@@ -355,15 +356,15 @@ msgstr "أنثى"
 
 #: ajapaik/ajapaik/models.py:281 ajapaik/ajapaik_face_recognition/forms.py:21
 msgid "Gender"
-msgstr ""
+msgstr "الجنس"
 
 #: ajapaik/ajapaik/models.py:283
 msgid "Wikidata identifier"
-msgstr "معرف ويكي بيانات"
+msgstr "معرّف ويكي بيانات"
 
 #: ajapaik/ajapaik/models.py:290
 msgid "Name original language"
-msgstr ""
+msgstr "الاسم، اللغة الأصلية"
 
 #: ajapaik/ajapaik/models.py:551
 msgid "Image"
@@ -371,39 +372,39 @@ msgstr "الصورة"
 
 #: ajapaik/ajapaik/models.py:565 ajapaik/ajapaik/models.py:2113
 msgid "Title"
-msgstr ""
+msgstr "العنوان"
 
 #: ajapaik/ajapaik/models.py:567
 msgid "MUIS title"
-msgstr ""
+msgstr "عنوان MUIS"
 
 #: ajapaik/ajapaik/models.py:568
 msgid "MUIS comment"
-msgstr ""
+msgstr "تعليق MUIS"
 
 #: ajapaik/ajapaik/models.py:569
 msgid "MUIS event description set note"
-msgstr ""
+msgstr "ملاحظة حول وصف حدث MUIS"
 
 #: ajapaik/ajapaik/models.py:570
 msgid "MUIS text on object"
-msgstr ""
+msgstr "نص MUIS على الغرض"
 
 #: ajapaik/ajapaik/models.py:571
 msgid "MUIS legends and descriptions"
-msgstr ""
+msgstr "أساطير وأوصاف MUIS"
 
 #: ajapaik/ajapaik/models.py:649 ajapaik/ajapaik/models.py:2065
 msgid "Interior"
-msgstr ""
+msgstr "الداخلية"
 
 #: ajapaik/ajapaik/models.py:650 ajapaik/ajapaik/models.py:2066
 msgid "Exterior"
-msgstr ""
+msgstr "الخارجية"
 
 #: ajapaik/ajapaik/models.py:652 ajapaik/ajapaik/models.py:2068
 msgid "Scene"
-msgstr ""
+msgstr "المشهد"
 
 #: ajapaik/ajapaik/models.py:655 ajapaik/ajapaik/models.py:2075
 msgid "Ground"
