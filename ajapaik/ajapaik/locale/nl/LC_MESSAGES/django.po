@@ -19,7 +19,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2026-05-18 12:26:09+0000\n"
+"PO-Revision-Date: 2026-05-25 12:00:20+0000\n"
 "X-POT-Import-Date: 2024-07-09 05:10:19+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -831,7 +831,7 @@ msgstr "Bevestigen"
 #: ajapaik/ajapaik/templates/account/email_confirm.html:27
 #, python-format
 msgid "This e-mail confirmation link expired or is invalid. Please <a href=\"%(email_url)s\">issue a new e-mail confirmation request</a>."
-msgstr "Deze e-mailbevestigingskoppeling is verlopen of ongeldig. <a href=\"%(email_url)s\">Dien een nieuw verzoek voor e-mailbevestiging in</a>."
+msgstr "Deze e-mailbevestigingskoppeling is verlopen of incorrect. <a href=\"%(email_url)s\">Dien een nieuw verzoek voor e-mailbevestiging in</a>."
 
 #: ajapaik/ajapaik/templates/account/email_content.html:5
 msgid "The following E-mail addresses are associated with your account:"
@@ -934,7 +934,7 @@ msgstr "Onjuist token"
 #: ajapaik/ajapaik/templates/account/password_reset_from_key.html:11
 #, python-format
 msgid "The password reset link was invalid, possibly because it has already been used.  Please request a <a href=\"%(passwd_reset_url)s\">new password reset</a>."
-msgstr "De koppeling voor het opnieuw instellen van het wachtwoord was ongeldig, mogelijk omdat deze al is gebruikt. Vraag een <a href=\"%(passwd_reset_url)s\">nieuw wachtwoord aan</a>."
+msgstr "De koppeling voor het opnieuw instellen van het wachtwoord was incorrect, mogelijk omdat deze al is gebruikt. Vraag een <a href=\"%(passwd_reset_url)s\">nieuw wachtwoord aan</a>."
 
 #: ajapaik/ajapaik/templates/account/password_reset_from_key.html:20
 #: ajapaik/ajapaik/templates/account/password_reset_from_key_done.html:8
