@@ -19,7 +19,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: translatewiki.net\n"
 "POT-Creation-Date: 2019-08-04 17:16+0300\n"
-"PO-Revision-Date: 2026-05-18 12:26:06+0000\n"
+"PO-Revision-Date: 2026-05-28 12:00:17+0000\n"
 "Language: ko\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -73,7 +73,7 @@ msgstr "촬영 장소를 선택하세요!"
 #: ajapaik/ajapaik/static/js/ajp-core.js:1775
 #: ajapaik/ajapaik/static/js/ajp-core.js:1827
 msgid "Geotagged by this many users"
-msgstr ""
+msgstr "다음 수의 사용자가 지오태그 지정함"
 
 #: ajapaik/ajapaik/static/js/ajp-core.js:1808
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:15
@@ -153,15 +153,15 @@ msgstr "MUIS"
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:399
 msgid "Confirm dating"
-msgstr ""
+msgstr "날짜 지정 확인"
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:406
 msgid "Confirming a dating earned you %(points)s points."
-msgstr ""
+msgstr "날짜 지정을 확인하여 %(points)s점을 획득했습니다."
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:411
 msgid "Submitting a dating earned you %(points)s points."
-msgstr ""
+msgstr "날짜 지정을 제출하여 %(points)s점을 획득했습니다."
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:417
 msgid "Thanks!"
@@ -187,7 +187,7 @@ msgstr "제출"
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:454
 msgid "Comment your dating"
-msgstr ""
+msgstr "날짜 지정에 댓글 달기"
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:463
 msgid "Use YYYY.MM.DD format (MM.DD not obligatory)"
@@ -207,7 +207,7 @@ msgstr "1910-1920 | 1978.05.20..1978.06.27 | -1920 | 1935.."
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:463
 msgid "Approximate date in brackets"
-msgstr ""
+msgstr "대괄호 안의 대략적인 날짜"
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:463
 msgid "(1944) | (1940.05)..1941.08.21)"
@@ -219,12 +219,12 @@ msgstr "당신은 익명입니다"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:5
 msgid "Add this picture to album (not the whole set)"
-msgstr ""
+msgstr "이 사진을 앨범에 추가(전체 세트 아님)"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:6
 #: ajapaik/ajapaik/static/js/ajp-selection.js:185
 msgid "Aerial"
-msgstr ""
+msgstr "항공"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:7
 msgid "Album details"
@@ -232,7 +232,7 @@ msgstr "앨범 상세 정보"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:8
 msgid "Album has <em>%(photoCount)s</em> pictures"
-msgstr ""
+msgstr "앨범에 사진 <em>%(photoCount)s</em>장이 있습니다"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:9
 msgid "Approximate address"
@@ -240,7 +240,7 @@ msgstr "대략적인 주소"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:10
 msgid "Are you sure you want to create an album with less than 5 photos? We recommend to create albums with at least 10 or more pictures."
-msgstr ""
+msgstr "사진이 5장 미만인 앨범을 만들겠습니까? 10장 이상의 사진으로 앨범을 만드는 것을 권장합니다."
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:11
 msgid "Author"
@@ -248,7 +248,7 @@ msgstr "저자"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:12
 msgid "Categorize scene"
-msgstr ""
+msgstr "장면 분류"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:13
 msgid "Comments in album"
@@ -290,11 +290,11 @@ msgstr "피드백을 보낼 수 없습니다. 죄송합니다."
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:23
 msgid "Flip"
-msgstr ""
+msgstr "뒤집기"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:24
 msgid "Geotag pictures in album"
-msgstr ""
+msgstr "앨범의 사진에 지오태그 지정"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:25
 #: ajapaik/ajapaik/static/js/ajp-selection.js:185
@@ -319,7 +319,7 @@ msgstr "사진에 위치만 있고 뷰 방향은 없습니다"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:30
 msgid "Picture has rephotos"
-msgstr ""
+msgstr "사진에 재촬영이 있습니다"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:31
 msgid "Picture has similar photos"
@@ -351,23 +351,23 @@ msgstr "링크가 클립보드에 복사되었습니다"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:38
 msgid "Mark stereophoto"
-msgstr ""
+msgstr "입체 사진으로 표시"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:39
 msgid "No aerial pictures were found in this album"
-msgstr ""
+msgstr "이 앨범에서 항공 사진을 찾을 수 없습니다"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:40
 msgid "No aerial pictures were found"
-msgstr ""
+msgstr "항공 사진을 찾을 수 없습니다"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:41
 msgid "No exterior views were found in this album"
-msgstr ""
+msgstr "이 앨범에서 실외 풍경을 찾을 수 없습니다"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:42
 msgid "No exterior views were found"
-msgstr ""
+msgstr "실외 풍경을 찾을 수 없습니다"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:43
 msgid "No high-quality pictures were found"
@@ -379,35 +379,35 @@ msgstr "이 앨범에서 고품질 사진을 찾지 못했습니다"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:45
 msgid "No interior views were found in this album"
-msgstr ""
+msgstr "이 앨범에서 실내 풍경을 찾을 수 없습니다"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:46
 msgid "No interior views were found"
-msgstr ""
+msgstr "실내 풍경을 찾을 수 없습니다"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:47
 msgid "No pictures in landscape format were found"
-msgstr ""
+msgstr "가로 형식의 사진을 찾을 수 없습니다"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:48
 msgid "No pictures in landscape format were found in this album"
-msgstr ""
+msgstr "이 앨범에서 가로 형식의 사진을 찾을 수 없습니다"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:49
 msgid "No pictures in panoramic format were found"
-msgstr ""
+msgstr "파노라마 형식의 사진을 찾을 수 없습니다"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:50
 msgid "No pictures in panoramic format were found in this album"
-msgstr ""
+msgstr "이 앨범에서 파노라마 형식의 사진을 찾을 수 없습니다"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:51
 msgid "No pictures from the ground level were found in this album"
-msgstr ""
+msgstr "이 앨범에서 지상 높이에서 찍은 사진을 찾을 수 없습니다"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:52
 msgid "No pictures from the ground level were found"
-msgstr ""
+msgstr "지상 높이에서 찍은 사진을 찾을 수 없습니다"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:53
 msgid "No pictures were found in this album"
@@ -415,11 +415,11 @@ msgstr "이 앨범에 사진이 없습니다"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:54
 msgid "No pictures were found with the selected filters in this album"
-msgstr ""
+msgstr "이 앨범에서 선택한 필터와 일치하는 사진을 찾을 수 없습니다"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:55
 msgid "No pictures were found with the selected filters"
-msgstr ""
+msgstr "선택한 필터와 일치하는 사진을 찾을 수 없습니다"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:56
 msgid "No pictures were found"
@@ -435,43 +435,43 @@ msgstr "지리 태그가 없는 사진이 없습니다"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:59
 msgid "No pictures with back sides were found in this album"
-msgstr ""
+msgstr "이 앨범에서 뒷면이 있는 사진을 찾을 수 없습니다"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:60
 msgid "No pictures with back sides were found"
-msgstr ""
+msgstr "뒷면이 있는 사진을 찾을 수 없습니다"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:61
 msgid "No pictures with marked faces were found in this album"
-msgstr ""
+msgstr "이 앨범에서 표시된 얼굴이 있는 사진을 찾을 수 없습니다"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:62
 msgid "No pictures with marked faces were found"
-msgstr ""
+msgstr "표시된 얼굴이 있는 사진을 찾을 수 없습니다"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:63
 msgid "No pictures in portrait format were found"
-msgstr ""
+msgstr "세로 형식의 사진을 찾을 수 없습니다"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:64
 msgid "No pictures in portrait format were found in this album"
-msgstr ""
+msgstr "이 앨범에서 세로 형식의 사진을 찾을 수 없습니다"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:65
 msgid "No raised viewpoint pictures were found in this album"
-msgstr ""
+msgstr "이 앨범에서 높은 시점의 사진을 찾을 수 없습니다"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:66
 msgid "No raised viewpoint pictures were found"
-msgstr ""
+msgstr "높은 시점의 사진을 찾을 수 없습니다"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:67
 msgid "No results found for: %(query)s in this album"
-msgstr ""
+msgstr "%(query)s에 대한 결과를 이 앨범에서 찾을 수 없습니다"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:68
 msgid "No results found for: %(query)s in this album\nYou could also try to edit filters applied to your search"
-msgstr ""
+msgstr "%(query)s에 대한 결과를 이 앨범에서 찾을 수 없습니다\n검색에 적용된 필터를 수정해 볼 수도 있습니다"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:69
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:249
@@ -480,23 +480,23 @@ msgstr "결과를 찾을 수 없습니다: %(query)s"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:70
 msgid "No results found for: %(query)s\nYou could also try to edit filters applied to your search"
-msgstr ""
+msgstr "%(query)s에 대한 결과를 찾을 수 없습니다\n검색에 적용된 필터를 수정해 볼 수도 있습니다"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:71
 msgid "No pictures in square format were found"
-msgstr ""
+msgstr "정사각형 형식의 사진을 찾을 수 없습니다"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:72
 msgid "No pictures in square format were found in this album"
-msgstr ""
+msgstr "이 앨범에서 정사각형 형식의 사진을 찾을 수 없습니다"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:73
 msgid "No rephotos were found"
-msgstr ""
+msgstr "재촬영을 찾을 수 없습니다"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:74
 msgid "No rephotos were found in this album"
-msgstr ""
+msgstr "이 앨범에서 재촬영을 찾을 수 없습니다"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:75
 msgid "No liked pictures were found"
@@ -524,39 +524,39 @@ msgstr "사진에 위치 데이터가 첨부되어 있습니다"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:82
 msgid "Picture is already in Ajapaik. You can still add it to your album, no curation points awarded"
-msgstr ""
+msgstr "사진이 이미 Ajapaik에 있습니다. 앨범에 계속 추가할 수는 있지만 큐레이션 점수는 부여되지 않습니다"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:83
 msgid "Picture set has no annotations"
-msgstr ""
+msgstr "사진 세트에 주석이 없습니다"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:84
 msgid "Picture set has no comments"
-msgstr ""
+msgstr "사진 세트에 댓글이 없습니다"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:85
 msgid "Picture set has no datings"
-msgstr ""
+msgstr "사진 세트에 날짜 지정이 없습니다"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:86
 msgid "Picture set has no geotags"
-msgstr ""
+msgstr "사진 세트에 지오태그가 없습니다"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:87
 msgid "Picture set has no likes"
-msgstr ""
+msgstr "사진 세트에 좋아요가 없습니다"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:88
 msgid "Picture set has no rephotos"
-msgstr ""
+msgstr "사진 세트에 재촬영이 없습니다"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:89
 msgid "Picture set has no transcriptions"
-msgstr ""
+msgstr "사진 세트에 옮겨진 글이 없습니다"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:90
 msgid "Picture set has no views"
-msgstr ""
+msgstr "사진 세트에 조회수가 없습니다"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:91
 msgid "Pictures geotagged"
@@ -573,15 +573,15 @@ msgstr "점"
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:94
 #: ajapaik/ajapaik/static/js/ajp-selection.js:185
 msgid "Raised"
-msgstr ""
+msgstr "높은 시점"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:95
 msgid "Remove from selection"
-msgstr ""
+msgstr "선택에서 제거"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:96
 msgid "Rephotos in album"
-msgstr ""
+msgstr "앨범의 재촬영"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:97
 msgid "Rotate"
@@ -602,7 +602,7 @@ msgstr "크기"
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:101
 #: ajapaik/ajapaik/static/js/ajp-selection.js:93
 msgid "Something went wrong, please check your connection. If the issue persists please contact us on Tawk.to"
-msgstr ""
+msgstr "문제가 발생했습니다. 연결 상태를 확인하세요. 문제가 계속되면 Tawk.to로 문의하세요"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:102
 msgid "Source ID"
@@ -614,7 +614,7 @@ msgstr "출처"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:107
 msgid "Thank you! Bad rectangle deleted."
-msgstr ""
+msgstr "감사합니다! 잘못된 사각형이 삭제되었습니다."
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:108
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:524
@@ -699,11 +699,11 @@ msgstr "사진"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:100
 msgid "Ordering"
-msgstr ""
+msgstr "정렬"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:105
 msgid "earliest"
-msgstr ""
+msgstr "날짜순"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:107
 msgid "latest"
@@ -719,19 +719,19 @@ msgstr "최다"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:119
 msgid "Pictures furthest from you"
-msgstr ""
+msgstr "나로부터 가장 먼 사진"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:121
 msgid "Pictures closest to you"
-msgstr ""
+msgstr "나로부터 가장 가까운 사진"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:126
 msgid "commented"
-msgstr ""
+msgstr "댓글 달림"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:129
 msgid "rephotographed"
-msgstr ""
+msgstr "재촬영됨"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:132
 msgid "added"
@@ -739,7 +739,7 @@ msgstr "추가됨"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:135
 msgid "geotagged"
-msgstr ""
+msgstr "지오태그 달림"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:138
 msgid "liked"
@@ -752,11 +752,11 @@ msgstr "분류됨"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:147
 msgid "dated"
-msgstr ""
+msgstr "날짜 지정됨"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:150
 msgid "transcribed"
-msgstr ""
+msgstr "글로 옮겨짐"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:153
 msgid "annotated"
@@ -764,19 +764,19 @@ msgstr "주석"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:156
 msgid "viewed"
-msgstr ""
+msgstr "조회됨"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:163
 msgid "pictures"
-msgstr ""
+msgstr "사진"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:167
 msgid "By reverse timestamp"
-msgstr ""
+msgstr "타임스탬프 역순으로"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:169
 msgid "By timestamp"
-msgstr ""
+msgstr "타임스탬프로"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:173
 msgid "Pictures from the map"
@@ -812,7 +812,7 @@ msgstr "모든 사진"
 
 #: ajapaik/ajapaik/static/js/ajp-game.js:182
 msgid "You've seen all the pictures in this album, we are now showing you random photos."
-msgstr ""
+msgstr "이 앨범의 모든 사진을 보았습니다. 이제 임의의 사진을 표시합니다."
 
 #: ajapaik/ajapaik/static/js/ajp-game.js:184
 msgid "You have seen all the pictures from this album."
@@ -828,7 +828,7 @@ msgstr "지금 이메일로 로그인할 수 있습니다."
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:467
 msgid "Toggle map center lock"
-msgstr ""
+msgstr "지도 중심 잠금 전환"
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:495
 msgid "Approximate"
@@ -836,7 +836,7 @@ msgstr "대략"
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:502
 msgid "Vantage point"
-msgstr ""
+msgstr "전망대"
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:509
 #: ajapaik/ajapaik/static/js/constants.js:75
@@ -847,7 +847,7 @@ msgstr "개체"
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:765
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:908
 msgid "Grab and drag the MAP so that the marker is where the photographer was standing."
-msgstr ""
+msgstr "사진가가 서 있던 위치에 마커가 오도록 지도를 잡아 끌어 놓으세요."
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:517
 msgid "Search box"
@@ -855,15 +855,15 @@ msgstr "검색 상자"
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:673
 msgid "Median suggestion"
-msgstr ""
+msgstr "중앙값 제안"
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:685
 msgid "Your suggestion"
-msgstr ""
+msgstr "내 제안"
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:700
 msgid "How much has the depicted location changed?"
-msgstr ""
+msgstr "묘사된 위치가 얼마나 변했나요?"
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:701
 msgid "Continue"
@@ -879,36 +879,36 @@ msgstr "조금"
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:903
 msgid "Click the green button to save both the location and the direction of the view. Click on the map to unlock the direction, drag map to correct the location."
-msgstr ""
+msgstr "녹색 버튼을 클릭하면 위치와 보기 방향이 모두 저장됩니다. 방향 잠금을 해제하려면 지도를 클릭하고, 위치를 수정하려면 지도를 드래그하세요."
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:906
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:915
 msgid "Click on the map to lock the direction of the view or click yellow button to save only the location."
-msgstr ""
+msgstr "보기 방향을 잠그려면 지도를 클릭하거나, 위치만 저장하려면 노란색 버튼을 클릭하세요."
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:913
 msgid "Click the green button to save both the location and the direction of the view. Click on the map to unlock the direction, drag MARKER to correct the location."
-msgstr ""
+msgstr "녹색 버튼을 클릭하면 위치와 보기 방향이 모두 저장됩니다. 방향 잠금을 해제하려면 지도를 클릭하고, 위치를 수정하려면 마커를 드래그하세요."
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:917
 msgid "Now you can drag the MARKER where the photographer was standing and the MAP separately."
-msgstr ""
+msgstr "이제 사진가가 서 있던 위치로 마커를 드래그하고 지도를 별도로 드래그할 수 있습니다."
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:921
 msgid "Drag the map so that the circle covers the approximate location, click save when ready."
-msgstr ""
+msgstr "원이 대략적인 위치를 덮도록 지도를 드래그하고, 준비되면 저장을 클릭하세요."
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:923
 msgid "Drag the map so that the marker is on top of the object you see on the picture, click save when ready."
-msgstr ""
+msgstr "사진에서 보이는 객체 위에 마커가 오도록 지도를 드래그하고, 준비되면 저장을 클릭하세요."
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:1069
 msgid "Points awarded"
-msgstr ""
+msgstr "부여된 점수"
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:1071
 msgid "Picture flip feedback"
-msgstr ""
+msgstr "사진 뒤집기 피드백"
 
 #: ajapaik/ajapaik/static/js/ajp-juks-gmaps.js:50
 msgid "Historic maps"
@@ -920,7 +920,7 @@ msgstr "앨범 필터 제거"
 
 #: ajapaik/ajapaik/static/js/ajp-map.js:711
 msgid "Pictures only in album: %(albumName)s are shown in the sidebar"
-msgstr ""
+msgstr "앨범에만 있는 사진: %(albumName)s이(가) 사이드바에 표시됩니다"
 
 #: ajapaik/ajapaik/static/js/ajp-map.js:726
 msgid "Apply album filter"
@@ -928,13 +928,13 @@ msgstr "앨범 필터 적용"
 
 #: ajapaik/ajapaik/static/js/ajp-map.js:728
 msgid "All pictures are shown in the sidebar"
-msgstr ""
+msgstr "모든 사진이 사이드바에 표시됩니다"
 
 #: ajapaik/ajapaik/static/js/ajp-selection.js:82
 #, javascript-format
 msgid "You have gained %s point"
 msgid_plural "You have gained %s points"
-msgstr[0] ""
+msgstr[0] "%s점을 획득했습니다"
 
 #: ajapaik/ajapaik/static/js/ajp-selection.js:88
 msgid "Your suggestion has been changed"
@@ -942,7 +942,7 @@ msgstr "내 제안이 변경되었습니다"
 
 #: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:103
 msgid "Transcribed by:"
-msgstr "전시자:"
+msgstr "글로 옮긴이:"
 
 #: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:152
 msgid "This transcription is correct"
@@ -954,7 +954,7 @@ msgstr "그림에 무엇이 쓰여있습니까?"
 
 #: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:178
 msgid "You're anonymous, please login to add transcriptions"
-msgstr ""
+msgstr "익명 사용자입니다. 설명을 추가하려면 로그인하세요"
 
 #: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:180
 msgid "Login"
@@ -978,7 +978,7 @@ msgstr "성별 바꾸기"
 
 #: ajapaik/ajapaik/static/js/constants.js:45
 msgid "Click (don't drag) to start drawing the annotation. Click again to finish drawing."
-msgstr ""
+msgstr "주석 그리기를 시작하려면 클릭하세요(드래그하지 마세요). 다시 클릭하면 그리기가 완료됩니다."
 
 #: ajapaik/ajapaik/static/js/constants.js:48
 msgid "Object is required"
@@ -1018,15 +1018,15 @@ msgstr "삭제"
 
 #: ajapaik/ajapaik/static/js/constants.js:66
 msgid "What is displayed"
-msgstr ""
+msgstr "표시된 내용"
 
 #: ajapaik/ajapaik/static/js/constants.js:67
 msgid "Edit face annotation"
-msgstr ""
+msgstr "얼굴 주석 편집"
 
 #: ajapaik/ajapaik/static/js/constants.js:68
 msgid "Edit object annotation"
-msgstr ""
+msgstr "객체 주석 편집"
 
 #: ajapaik/ajapaik/static/js/constants.js:69
 msgid "Add feedback"
@@ -1038,7 +1038,7 @@ msgstr "인명 바꾸기"
 
 #: ajapaik/ajapaik/static/js/constants.js:73
 msgid "Change object class"
-msgstr ""
+msgstr "객체 클래스 변경"
 
 #: ajapaik/ajapaik/static/js/constants.js:74
 msgid "Face"
@@ -1046,71 +1046,71 @@ msgstr "얼굴"
 
 #: ajapaik/ajapaik/static/js/constants.js:79
 msgid "Failed to load object annotation classes"
-msgstr ""
+msgstr "객체 주석 클래스를 불러오지 못했습니다"
 
 #: ajapaik/ajapaik/static/js/constants.js:80
 msgid "Failed to load annotations"
-msgstr ""
+msgstr "주석을 불러오지 못했습니다"
 
 #: ajapaik/ajapaik/static/js/constants.js:81
 msgid "Successfully added object annotation"
-msgstr ""
+msgstr "객체 주석을 성공적으로 추가했습니다"
 
 #: ajapaik/ajapaik/static/js/constants.js:82
 msgid "Unable to save object annotation"
-msgstr ""
+msgstr "객체 주석을 저장할 수 없습니다"
 
 #: ajapaik/ajapaik/static/js/constants.js:83
 msgid "Successfully updated object annotation"
-msgstr ""
+msgstr "객체 주석을 성공적으로 업데이트했습니다"
 
 #: ajapaik/ajapaik/static/js/constants.js:84
 msgid "Unable to update object annotation"
-msgstr ""
+msgstr "객체 주석을 업데이트할 수 없습니다"
 
 #: ajapaik/ajapaik/static/js/constants.js:85
 msgid "Successfully added object annotation feedback"
-msgstr ""
+msgstr "객체 주석 피드백을 성공적으로 추가했습니다"
 
 #: ajapaik/ajapaik/static/js/constants.js:86
 msgid "Failed to add object annotation feedback"
-msgstr ""
+msgstr "객체 주석 피드백을 추가하지 못했습니다"
 
 #: ajapaik/ajapaik/static/js/constants.js:87
 msgid "Successfully removed object annotation"
-msgstr ""
+msgstr "객체 주석을 성공적으로 제거했습니다"
 
 #: ajapaik/ajapaik/static/js/constants.js:88
 msgid "Unable to remove object annotation"
-msgstr ""
+msgstr "객체 주석을 제거할 수 없습니다"
 
 #: ajapaik/ajapaik/static/js/constants.js:89
 msgid "Successfully added face annotation"
-msgstr ""
+msgstr "얼굴 주석을 성공적으로 추가했습니다"
 
 #: ajapaik/ajapaik/static/js/constants.js:90
 msgid "Unable to save face annotation"
-msgstr ""
+msgstr "얼굴 주석을 저장할 수 없습니다"
 
 #: ajapaik/ajapaik/static/js/constants.js:91
 msgid "Successfully edited face annotation"
-msgstr ""
+msgstr "얼굴 주석을 성공적으로 편집했습니다"
 
 #: ajapaik/ajapaik/static/js/constants.js:92
 msgid "Failed to save face annotation edit"
-msgstr ""
+msgstr "얼굴 주석 편집을 저장하지 못했습니다"
 
 #: ajapaik/ajapaik/static/js/constants.js:93
 msgid "Successfully removed face annotation"
-msgstr ""
+msgstr "얼굴 주석을 성공적으로 제거했습니다"
 
 #: ajapaik/ajapaik/static/js/constants.js:94
 msgid "Failed to remove face annotation"
-msgstr ""
+msgstr "얼굴 주석을 제거하지 못했습니다"
 
 #: ajapaik/ajapaik/static/js/constants.js:98
 msgid "Find object"
-msgstr ""
+msgstr "객체 찾기"
 
 #: ajapaik/ajapaik/static/js/constants.js:99
 #: ajapaik/ajapaik/static/js/constants.js:106
@@ -1119,7 +1119,7 @@ msgstr "검색 중..."
 
 #: ajapaik/ajapaik/static/js/constants.js:100
 msgid "Search for object"
-msgstr ""
+msgstr "객체 검색"
 
 #: ajapaik/ajapaik/static/js/constants.js:101
 #: ajapaik/ajapaik/static/js/constants.js:108
@@ -1150,19 +1150,19 @@ msgstr "인명 지정"
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:107
 msgid "Modify existing annotations, click on an annotation to start"
-msgstr ""
+msgstr "기존 주석을 수정하려면 주석을 클릭하여 시작하세요"
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:109
 msgid "Tag a face"
-msgstr ""
+msgstr "얼굴 태그하기"
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:121
 msgid "Draw a face annotation and add person's name"
-msgstr ""
+msgstr "얼굴 주석을 그리기 및 사람 이름 추가"
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:123
 msgid "Draw and tag a face"
-msgstr ""
+msgstr "얼굴을 그리기 및 태그하기"
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:134
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:136
@@ -1173,12 +1173,12 @@ msgstr "앨범 열기"
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:147
 msgid "Tag <em>%(personName)s</em>"
-msgstr ""
+msgstr "<em>%(personName)s</em> 태그하기"
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:180
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:306
 msgid "Annotation was added by %(profileLink)s"
-msgstr ""
+msgstr "%(profileLink)s이(가) 주석을 추가했습니다"
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:182
 msgid "Automatically detected face"
@@ -1187,19 +1187,19 @@ msgstr "자동으로 얼굴 감지하기"
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:191
 msgid "%(photoCount)s picture"
 msgid_plural "%(photoCount)s pictures"
-msgstr[0] ""
+msgstr[0] "사진 %(photoCount)s장"
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:201
 msgid "Tag a face annotation with person's name"
-msgstr ""
+msgstr "사람 이름으로 얼굴 주석 태그하기"
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:203
 msgid "Identify person"
-msgstr ""
+msgstr "사람 식별"
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:203
 msgid "Edit person annotation"
-msgstr ""
+msgstr "사람 주석 편집"
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:308
 msgid "Automatically detected object"

@@ -22,7 +22,7 @@ msgstr ""
 ""
 "Report-Msgid-Bugs-To: translatewiki.net\n"
 "POT-Creation-Date: 2019-08-04 17:21+0300\n"
-"PO-Revision-Date: 2026-05-25 12:00:19+0000\n"
+"PO-Revision-Date: 2026-05-28 12:00:19+0000\n"
 "Language: ko\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -42,7 +42,7 @@ msgstr "요청에 최소한 뒤집기, 반전 또는 회전 매개변수를 추�
 
 #: ajapaik/ajapaik/api.py:79
 msgid "Add at least scene or viewpoint_elevation parameter to the request"
-msgstr ""
+msgstr "요청에 최소한 장면 또는 viewpoint_elevation 매개변수를 추가하세요"
 
 #: ajapaik/ajapaik/api.py:80
 msgid "Contributions and settings from the other account were added to current"
@@ -66,11 +66,11 @@ msgstr "다음 id의 사진이 없습니다:"
 
 #: ajapaik/ajapaik/api.py:85
 msgid "Parameter photo_id must be an positive integer"
-msgstr ""
+msgstr "매개변수 photo_id는 양의 정수여야 합니다"
 
 #: ajapaik/ajapaik/api.py:87
 msgid "Please login with a different account, you are currently logged in with the same account that you are merging from"
-msgstr ""
+msgstr "다른 계정으로 로그인하세요. 현재 병합하려는 계정과 동일한 계정으로 로그인되어 있습니다"
 
 #: ajapaik/ajapaik/api.py:89
 msgid "Please login"
@@ -78,7 +78,7 @@ msgstr "로그인해 주세요"
 
 #: ajapaik/ajapaik/api.py:90
 msgid "Rephoto upload settings have been saved"
-msgstr ""
+msgstr "재촬영 업로드 설정이 저장되었습니다"
 
 #: ajapaik/ajapaik/api.py:91
 msgid "Required parameter, token is missing"
@@ -86,15 +86,15 @@ msgstr "매개변수는 필수입니다. 토큰이 없습니다"
 
 #: ajapaik/ajapaik/api.py:92
 msgid "This transcription already exists, previous transcription was upvoted, thank you!"
-msgstr "해당 설명이 이미 존재하여 이전 설명에 찬성 투표를 하는 것으로 처리되었습니다. 감사합니다!"
+msgstr "해당 텍스트이 이미 존재하여 이전 텍스트에 찬성 투표를 하는 것으로 처리되었습니다. 감사합니다!"
 
 #: ajapaik/ajapaik/api.py:93
 msgid "Transcription added, thank you!"
-msgstr "설명이 추가되었습니다. 감사합니다!"
+msgstr "텍스트이 추가되었습니다. 감사합니다!"
 
 #: ajapaik/ajapaik/api.py:94
 msgid "Transcription feedback added, thank you!"
-msgstr "설명 피드백이 추가되었습니다. 감사합니다!"
+msgstr "텍스트 피드백이 추가되었습니다. 감사합니다!"
 
 #: ajapaik/ajapaik/api.py:95
 msgid "User display name has been saved"
@@ -106,15 +106,15 @@ msgstr "사용자 설정이 저장되었습니다"
 
 #: ajapaik/ajapaik/api.py:97
 msgid "You have already given feedback for this transcription"
-msgstr ""
+msgstr "이 텍스트에 대해 이미 피드백을 제공했습니다"
 
 #: ajapaik/ajapaik/api.py:98
 msgid "You have already submitted this transcription, thank you!"
-msgstr ""
+msgstr "이 텍스트를 이미 제출했습니다. 감사합니다!"
 
 #: ajapaik/ajapaik/api.py:99
 msgid "Your transcription has been updated, thank you!"
-msgstr ""
+msgstr "텍스트이 업데이트되었습니다. 감사합니다!"
 
 #: ajapaik/ajapaik/api.py:1038 ajapaik/ajapaik/api.py:1688
 #: ajapaik/ajapaik/api.py:1708 ajapaik/ajapaik/api.py:1724
@@ -134,15 +134,15 @@ msgstr "앨범을 찾을 수 없습니다"
 
 #: ajapaik/ajapaik/delfi.py:20
 msgid "Bounding box must be set"
-msgstr ""
+msgstr "경계 상자를 설정해야 합니다"
 
 #: ajapaik/ajapaik/delfi.py:23
 msgid "Bounding box must have 4 comma-separated members"
-msgstr ""
+msgstr "경계 상자에는 쉼표로 구분된 4개의 항목이 있어야 합니다"
 
 #: ajapaik/ajapaik/delfi.py:28
 msgid "Bounding box values must be numbers"
-msgstr ""
+msgstr "경계 상자 값은 숫자여야 합니다"
 
 #: ajapaik/ajapaik/forms.py:18
 #| msgid "Bad Token"
@@ -204,7 +204,7 @@ msgstr "설명"
 
 #: ajapaik/ajapaik/forms.py:430
 msgid "I am the author"
-msgstr ""
+msgstr "제가 저자입니다"
 
 #: ajapaik/ajapaik/forms.py:431 ajapaik/ajapaik/models.py:573
 msgid "Author"
@@ -220,7 +220,7 @@ msgstr "허용되는 포맷은 .png 또는 .jpg 파일입니다"
 
 #: ajapaik/ajapaik/forms.py:436
 msgid "Add a short description of the picture"
-msgstr ""
+msgstr "사진에 대한 짧은 설명 추가"
 
 #: ajapaik/ajapaik/forms.py:437
 msgid "Author of the picture (photographer, painter)"
@@ -228,7 +228,7 @@ msgstr "그림/사진의 저자"
 
 #: ajapaik/ajapaik/forms.py:439
 msgid "Please select a licence to let other people know if and how they can reuse the material you upload.\n\nIf you are the author, you can choose the licence (we recommend using open Creative Commons licences). If someone else created the work, you need to use the same licence and rights holder that it currently has.\n\nCurrently we are also accepting content with unclear copyright status, please choose ‘Copyright not evaluated’ then."
-msgstr ""
+msgstr "업로드한 자료를 다른 사람들이 재사용할 수 있는지, 어떻게 재사용할 수 있는지 알 수 있도록 라이선스를 선택하세요.\n\n본인이 저자인 경우 라이선스를 선택할 수 있습니다(열린 크리에이티브 커먼즈 라이선스를 권장합니다). 다른 사람이 만든 저작물이라면 현재 적용된 것과 동일한 라이선스와 권리 보유자를 사용해야 합니다.\n\n현재 저작권 상태가 불분명한 콘텐츠도 받고 있으므로, 이 경우 ‘Copyright not evaluated’를 선택하세요."
 
 #: ajapaik/ajapaik/forms.py:447
 msgid "Description of the picture"
@@ -261,7 +261,7 @@ msgstr "위치"
 
 #: ajapaik/ajapaik/forms.py:476
 msgid "If this album is tied to a certain location, specify here"
-msgstr ""
+msgstr "이 앨범이 특정 위치와 연결되어 있다면 여기에 지정하세요"
 
 #: ajapaik/ajapaik/forms.py:479
 msgid "Album type"
@@ -309,7 +309,7 @@ msgstr "아니오"
 
 #: ajapaik/ajapaik/forms.py:508
 msgid "Please specify your prefered language"
-msgstr ""
+msgstr "선호하는 언어를 선택해 주세요"
 
 #: ajapaik/ajapaik/forms.py:510
 msgid "Please specify whether you would like to receive the newsletter"
@@ -333,7 +333,7 @@ msgstr "이메일 주소"
 
 #: ajapaik/ajapaik/forms.py:561
 msgid "Comment box supports Markdown\n\nParagraphs\nAdd two new lines to start a new paragraph.\n\nBold\n**Geotagging** is the first task on Ajapaik.\n\nItalic\nNext come *rephotography* and *dating*.\n\nLinks\nJoin the discussion on [Ajapaiklejad FB group](https://www.facebook.com/groups/ajapaiklejad).\n\nImages\n![Ajapaik is gift for EV100](https://ajapaik.ee/static/images/ev100.png)"
-msgstr ""
+msgstr "댓글 상자는 마크다운을 지원합니다\n\n문단\n새 문단을 시작하려면 빈 줄을 두 줄 추가하세요.\n\n굵음체\n**Geotagging**은 Ajapaik의 첫 번째 작업입니다.\n\n기울임체\n다음은 *rephotography*와 *dating*입니다.\n\n링크\n[Ajapaiklejad FB group](https://www.facebook.com/groups/ajapaiklejad)에서 토론에 참여하세요.\n\n이미지\n![Ajapaik EV100을 위한 선물입니다](https://ajapaik.ee/static/images/ev100.png)"
 
 #: ajapaik/ajapaik/forms.py:596
 msgid "Nothing to change."
@@ -361,7 +361,7 @@ msgstr "위키데이터 식별자"
 
 #: ajapaik/ajapaik/models.py:290
 msgid "Name original language"
-msgstr ""
+msgstr "원본 언어 이름"
 
 #: ajapaik/ajapaik/models.py:551
 msgid "Image"
@@ -381,15 +381,15 @@ msgstr "MUIS 의견"
 
 #: ajapaik/ajapaik/models.py:569
 msgid "MUIS event description set note"
-msgstr ""
+msgstr "MUIS 이벤트 설명 설정 메모"
 
 #: ajapaik/ajapaik/models.py:570
 msgid "MUIS text on object"
-msgstr ""
+msgstr "객체의 MUIS 텍스트"
 
 #: ajapaik/ajapaik/models.py:571
 msgid "MUIS legends and descriptions"
-msgstr ""
+msgstr "MUIS 범례 및 설명"
 
 #: ajapaik/ajapaik/models.py:649 ajapaik/ajapaik/models.py:2065
 msgid "Interior"
@@ -409,7 +409,7 @@ msgstr "지면"
 
 #: ajapaik/ajapaik/models.py:656 ajapaik/ajapaik/models.py:2076
 msgid "Raised"
-msgstr ""
+msgstr "높은 시점"
 
 #: ajapaik/ajapaik/models.py:657 ajapaik/ajapaik/models.py:2077
 msgid "Aerial"
@@ -421,11 +421,11 @@ msgstr "시점 고도"
 
 #: ajapaik/ajapaik/models.py:661
 msgid "Description original language"
-msgstr ""
+msgstr "설명 원본 언어"
 
 #: ajapaik/ajapaik/models.py:662
 msgid "Hide image from being accessed outside of Admin"
-msgstr ""
+msgstr "관리자 이외에는 이미지에 접근하지 못하도록 숨기기"
 
 #: ajapaik/ajapaik/models.py:1339 ajapaik/ajapaik/models.py:1430
 msgid "Different"
@@ -441,7 +441,7 @@ msgstr "복제"
 
 #: ajapaik/ajapaik/models.py:1495
 msgid "Geotag"
-msgstr ""
+msgstr "지오태그"
 
 #: ajapaik/ajapaik/models.py:1496 ajapaik/ajapaik/models.py:1579
 #: ajapaik/ajapaik/templates/_comments.html:11
@@ -454,51 +454,51 @@ msgstr "사진 업로드"
 
 #: ajapaik/ajapaik/models.py:1498
 msgid "Photo curation"
-msgstr ""
+msgstr "사진 큐레이션"
 
 #: ajapaik/ajapaik/models.py:1499
 msgid "Photo re-curation"
-msgstr ""
+msgstr "사진 재-큐레이션"
 
 #: ajapaik/ajapaik/models.py:1500
 msgid "Dating"
-msgstr ""
+msgstr "날짜 지정"
 
 #: ajapaik/ajapaik/models.py:1501
 msgid "Dating confirmation"
-msgstr ""
+msgstr "날짜 지정 확인"
 
 #: ajapaik/ajapaik/models.py:1502
 msgid "Film still"
-msgstr ""
+msgstr "필름 스틸컷"
 
 #: ajapaik/ajapaik/models.py:1503
 msgid "Annotation"
-msgstr ""
+msgstr "주석"
 
 #: ajapaik/ajapaik/models.py:1504
 msgid "Confirm subject"
-msgstr ""
+msgstr "주제 확인"
 
 #: ajapaik/ajapaik/models.py:1505
 msgid "Confirm Image similarity"
-msgstr ""
+msgstr "이미지 유사성 확인"
 
 #: ajapaik/ajapaik/models.py:1506 ajapaik/ajapaik/models.py:1507
 msgid "Suggestion subject age"
-msgstr ""
+msgstr "주제 나이 제안"
 
 #: ajapaik/ajapaik/models.py:1508 ajapaik/ajapaik/templates/_toolbox.html:92
 msgid "Transcribe"
-msgstr ""
+msgstr "글로 옮기기"
 
 #: ajapaik/ajapaik/models.py:1509
 msgid "Categorize scene"
-msgstr ""
+msgstr "장면 분류"
 
 #: ajapaik/ajapaik/models.py:1510
 msgid "Add viewpoint elevation"
-msgstr ""
+msgstr "시점 고도 추가"
 
 #: ajapaik/ajapaik/models.py:1511
 msgid "Flip photo"
@@ -534,7 +534,7 @@ msgstr "스트리트 뷰"
 
 #: ajapaik/ajapaik/models.py:1569
 msgid "Source geotag"
-msgstr ""
+msgstr "원본 지오태그"
 
 #: ajapaik/ajapaik/models.py:1570
 msgid "Android app"
@@ -546,7 +546,7 @@ msgstr "게임"
 
 #: ajapaik/ajapaik/models.py:1575
 msgid "Map view"
-msgstr ""
+msgstr "지도 보기"
 
 #: ajapaik/ajapaik/models.py:1576
 msgid "Gallery"
@@ -574,7 +574,7 @@ msgstr "오픈스트리트맵"
 
 #: ajapaik/ajapaik/models.py:1586
 msgid "Juks"
-msgstr ""
+msgstr "Juks"
 
 #: ajapaik/ajapaik/models.py:1587
 msgid "No map"
@@ -620,7 +620,7 @@ msgstr "뒤로"
 #: ajapaik/ajapaik/templates/_annotations.html:6
 #: ajapaik/ajapaik/templates/_annotations.html:7
 msgid "Tag a person"
-msgstr ""
+msgstr "사람 태그하기"
 
 #: ajapaik/ajapaik/templates/_comments.html:7
 msgid "Original photo"
@@ -628,15 +628,15 @@ msgstr "원본 사진"
 
 #: ajapaik/ajapaik/templates/_mode_select.html:9
 msgid "This album contains a film"
-msgstr ""
+msgstr "이 앨범에는 필름이 포함되어 있습니다"
 
 #: ajapaik/ajapaik/templates/_mode_select.html:11
 msgid "This is a person album"
-msgstr ""
+msgstr "사람 앨범입니다"
 
 #: ajapaik/ajapaik/templates/_mode_select.html:14
 msgid "This is a collection album"
-msgstr ""
+msgstr "모음집 앨범입니다"
 
 #: ajapaik/ajapaik/templates/_mode_select.html:21
 #: ajapaik/ajapaik/templates/_mode_select.html:77
@@ -681,7 +681,7 @@ msgstr "내 즐겨찾기"
 #: ajapaik/ajapaik/templates/_mode_select.html:45
 #: ajapaik/ajapaik/templates/_mode_select.html:99
 msgid "Show rephotographed by me"
-msgstr ""
+msgstr "내가 재촬영한 항목 표시"
 
 #: ajapaik/ajapaik/templates/_mode_select.html:47
 #: ajapaik/ajapaik/templates/_mode_select.html:101
@@ -698,25 +698,25 @@ msgstr "그림 비교"
 
 #: ajapaik/ajapaik/templates/_similar_images_tutorial_modal.html:12
 msgid "Indicate whether the content on pictures is overlapping or not. In the case of overlapping content the place or object is the same, in the case of same shot one of the pictures may also be cropped."
-msgstr ""
+msgstr "사진의 내용이 겹치는지 여부를 표시하세요. 내용이 겹치는 경우 장소나 객체가 같으며, 같은 촬영인 경우 사진 중 하나가 잘려 있을 수도 있습니다."
 
 #: ajapaik/ajapaik/templates/_similar_images_tutorial_modal.html:15
 msgid "The decision can also be made on keyboard (1, 2, 3)."
-msgstr ""
+msgstr "키보드로도 결정할 수 있습니다(1, 2, 3)."
 
 #: ajapaik/ajapaik/templates/_toolbox.html:10
 #: ajapaik/ajapaik/templates/common/game.html:55
 #: ajapaik/ajapaik/templates/photo/photoview.html:62
 msgid "Pick the shooting location!"
-msgstr ""
+msgstr "촬영 장소를 선택하세요!"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:14
 msgid "Add a geotag"
-msgstr ""
+msgstr "지오태그 추가"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:18
 msgid "Date this image"
-msgstr ""
+msgstr "이 이미지의 날짜 지정"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:22
 msgid "Date"
@@ -732,11 +732,11 @@ msgstr "재촬영 사진 추가"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:33
 msgid "Tag a new face/object - clicking this button will enable you to draw an object/face rectangle on the main image"
-msgstr ""
+msgstr "새 얼굴/객체 태그하기 - 이 버튼을 클릭하면 기본 이미지에 객체/얼굴 사각형을 그릴 수 있습니다"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:37
 msgid "Annotate"
-msgstr ""
+msgstr "주석 달기"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:40
 #: ajapaik/ajapaik/templates/_toolbox.html:76
@@ -746,7 +746,7 @@ msgstr "공유"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:79
 msgid "Add a category - clicking this button will enable you to categorize this picture to various categories such as whether this picture depicts indoors or outdoors"
-msgstr ""
+msgstr "분류 추가 - 이 버튼을 클릭하면 이 사진이 실내를 묘사하는지 야외를 묘사하는지 등 다양한 분류로 사진을 분류할 수 있습니다"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:84
 msgid "Categorize"
@@ -754,7 +754,7 @@ msgstr "분류"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:88
 msgid "Transcribe this image"
-msgstr ""
+msgstr "이 이미지 글로 옮기기"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:99
 msgid "Edit picture"
@@ -762,7 +762,7 @@ msgstr "사진 편집"
 
 #: ajapaik/ajapaik/templates/_toolbox.html:106
 msgid "Show annotations"
-msgstr ""
+msgstr "주석 표시"
 
 #: ajapaik/ajapaik/templates/account/base.html:35
 #: ajapaik/ajapaik/templates/account/base_anonymous.html:29
@@ -824,7 +824,7 @@ msgstr "이메일 주소 확인"
 #: ajapaik/ajapaik/templates/account/email_confirm.html:16
 #, python-format
 msgid "Please confirm that <a href=\"mailto:%(email)s\">%(email)s</a> is an e-mail address for user %(user_display)s."
-msgstr ""
+msgstr "<a href=\"mailto:%(email)s\">%(email)s</a>이(가) 사용자 %(user_display)s님의 이메일 주소인지 확인하세요."
 
 #: ajapaik/ajapaik/templates/account/email_confirm.html:20
 msgid "Confirm"
@@ -837,7 +837,7 @@ msgstr "이 이메일 확인 링크는 기간이 만료되었거나 유효하지
 
 #: ajapaik/ajapaik/templates/account/email_content.html:5
 msgid "The following E-mail addresses are associated with your account:"
-msgstr ""
+msgstr "다음 이메일 주소가 계정에 연결되어 있습니다:"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:21
 msgid "verified"
@@ -849,15 +849,15 @@ msgstr "미확인"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:23
 msgid "primary"
-msgstr ""
+msgstr "기본"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:30
 msgid "Make Primary"
-msgstr ""
+msgstr "기본으로 설정"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:32
 msgid "Re-send Verification"
-msgstr ""
+msgstr "인증 다시 보내기"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:34
 #: ajapaik/ajapaik/templates/comments/delete.html:17
@@ -871,7 +871,7 @@ msgstr "경고:"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:43
 msgid "You currently do not have any e-mail address set up. You should really add an e-mail address so you can receive notifications, reset your password, etc."
-msgstr ""
+msgstr "현재 설정된 이메일 주소가 없습니다. 알림을 받고 비밀번호를 재설정할 수 있도록 이메일 주소를 추가하는 것이 좋습니다."
 
 #: ajapaik/ajapaik/templates/account/email_content.html:50
 msgid "Add E-mail"
@@ -879,17 +879,17 @@ msgstr "이메일 추가"
 
 #: ajapaik/ajapaik/templates/account/email_content.html:57
 msgid "Do you really want to remove the selected e-mail address?"
-msgstr ""
+msgstr "선택한 이메일 주소를 정말 제거하시겠습니까?"
 
 #: ajapaik/ajapaik/templates/account/login.html:13
 #, python-format
 msgid "Please sign in with one\n  of your existing third party accounts. Or, <a href=\"%(signup_url)s\">sign up</a>\n  for a %(site_name)s account and sign in below:"
-msgstr ""
+msgstr "기존 제3자 계정 중 하나로 로그인하세요. 또는 <a href=\"%(signup_url)s\">가입</a>하여 %(site_name)s 계정을 만든 뒤 아래에서 로그인하세요:"
 
 #: ajapaik/ajapaik/templates/account/login.html:28
 #, python-format
 msgid "If you have not created an account yet, then please <a href=\"%(signup_url)s\">sign up</a> first."
-msgstr ""
+msgstr "아직 계정을 만들지 않았다면 먼저 <a href=\"%(signup_url)s\">가입</a>하세요."
 
 #: ajapaik/ajapaik/templates/account/logout.html:10
 msgid "Are you sure you want to sign out?"
@@ -927,7 +927,7 @@ msgstr "비밀번호 재설정에 문제가 있는 경우 저희에게 문의해
 
 #: ajapaik/ajapaik/templates/account/password_reset_done.html:15
 msgid "We have emailed you. Please contact us if you do not receive it within a few\n minutes."
-msgstr ""
+msgstr "이메일을 보냈습니다. 몇 분 내에 받지 못하면 저희에게 문의하세요."
 
 #: ajapaik/ajapaik/templates/account/password_reset_from_key.html:7
 msgid "Bad Token"
@@ -936,7 +936,7 @@ msgstr "잘못된 토큰"
 #: ajapaik/ajapaik/templates/account/password_reset_from_key.html:11
 #, python-format
 msgid "The password reset link was invalid, possibly because it has already been used.  Please request a <a href=\"%(passwd_reset_url)s\">new password reset</a>."
-msgstr ""
+msgstr "비밀번호 재설정 링크가 유효하지 않습니다. 이미 사용되었을 수 있습니다. <a href=\"%(passwd_reset_url)s\">새 비밀번호 재설정</a>을 요청하세요."
 
 #: ajapaik/ajapaik/templates/account/password_reset_from_key.html:20
 #: ajapaik/ajapaik/templates/account/password_reset_from_key_done.html:8
@@ -957,7 +957,7 @@ msgstr "이미 계정이 있으십니까? 그렇다면 <a href=\"%(login_url)s\"
 #: ajapaik/ajapaik/templates/account/signup_closed.html:5
 #: ajapaik/ajapaik/templates/account/signup_closed.html:8
 msgid "Sign up closed"
-msgstr ""
+msgstr "가입 종료됨"
 
 #: ajapaik/ajapaik/templates/account/signup_closed.html:10
 msgid "We are sorry, but the sign up is currently closed."
@@ -974,7 +974,7 @@ msgstr "이미 %(user_name)s님으로 로그인되어 있습니다"
 
 #: ajapaik/ajapaik/templates/album/_album_creation_modal.html:12
 msgid "Collection info"
-msgstr ""
+msgstr "모음집 정보"
 
 #: ajapaik/ajapaik/templates/album/_album_creation_modal.html:22
 msgid "System error"
@@ -1018,19 +1018,19 @@ msgstr "사진에 날짜를 추가하려면 로그인하세요"
 
 #: ajapaik/ajapaik/templates/authentication/_login.html:15
 msgid "Log in to transcribe the text on the photo"
-msgstr "사진의 텍스트를 설명하려면 로그인하세요"
+msgstr "사진의 텍스트를 글로 옮기려면 로그인하세요"
 
 #: ajapaik/ajapaik/templates/authentication/_login.html:17
 msgid "Log in to upload rephoto"
-msgstr ""
+msgstr "재촬영 업로드를 위해 로그인"
 
 #: ajapaik/ajapaik/templates/authentication/_login.html:19
 msgid "Log in to curate content"
-msgstr ""
+msgstr "콘텐츠 큐레이션을 위해 로그인"
 
 #: ajapaik/ajapaik/templates/authentication/_login.html:21
 msgid "Log in to create still frames"
-msgstr ""
+msgstr "스틸컷 프레임 생성을 위해 로그인"
 
 #: ajapaik/ajapaik/templates/authentication/_login.html:23
 msgid "Log in to save selection"
@@ -1063,7 +1063,7 @@ msgstr "이 댓글을 정말로 삭제하시겠습니까?"
 
 #: ajapaik/ajapaik/templates/comments/form.html:7
 msgid "Identify yourself to comment"
-msgstr ""
+msgstr "댓글을 작성하려면 본인 확인"
 
 #: ajapaik/ajapaik/templates/comments/form.html:9
 msgid "Your comment"
@@ -1132,24 +1132,24 @@ msgstr "검색 상자"
 
 #: ajapaik/ajapaik/templates/compare_photos/compare_photos.html:60
 msgid "No content overlap"
-msgstr ""
+msgstr "콘텐츠 겹침 없음"
 
 #: ajapaik/ajapaik/templates/compare_photos/compare_photos.html:65
 msgid "Overlapping content"
-msgstr ""
+msgstr "내용 겹침"
 
 #: ajapaik/ajapaik/templates/compare_photos/compare_photos.html:70
 msgid "Same shot"
-msgstr ""
+msgstr "같은 촬영"
 
 #: ajapaik/ajapaik/templates/compare_photos/compare_photos_no_results.html:12
 msgid "You have already reviewed all the similar image pairs"
-msgstr ""
+msgstr "유사한 이미지 쌍을 모두 이미 검토했습니다"
 
 #: ajapaik/ajapaik/templates/core/_footer.html:19
 #: ajapaik/ajapaik_face_recognition/templates/_footer.html:19
 msgid "Estonian Photographic Heritage Society"
-msgstr ""
+msgstr "에스토니아 사진 유산 협회"
 
 #: ajapaik/ajapaik/templates/core/_footer.html:24
 #: ajapaik/ajapaik_face_recognition/templates/_footer.html:24
@@ -1192,7 +1192,7 @@ msgstr "그리드에 표시"
 #: ajapaik/ajapaik/templates/info/_info_modal_content.html:116
 #: ajapaik/ajapaik/templates/info/_info_modal_content.html:118
 msgid "Geotag pictures"
-msgstr ""
+msgstr "사진에 지오태그 지정"
 
 #: ajapaik/ajapaik/templates/core/_header.html:39
 #: ajapaik/ajapaik/templates/info/_info_modal_content.html:111
@@ -1202,7 +1202,7 @@ msgstr "지도에 표시"
 #: ajapaik/ajapaik/templates/core/_header.html:44
 #: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:6
 msgid "Categorize faces"
-msgstr ""
+msgstr "얼굴 분류"
 
 #: ajapaik/ajapaik/templates/core/_header.html:48
 msgid "Add pictures"
@@ -1210,7 +1210,7 @@ msgstr "사진 추가하기"
 
 #: ajapaik/ajapaik/templates/core/_header.html:52
 msgid "Current selection"
-msgstr ""
+msgstr "현재 선택"
 
 #: ajapaik/ajapaik/templates/core/_header.html:62
 msgid "Choose language"
@@ -1222,7 +1222,7 @@ msgstr "Ajapaik 정보"
 
 #: ajapaik/ajapaik/templates/core/_header.html:77
 msgid "Ajapaik on Facebook"
-msgstr ""
+msgstr "페이스북에서의 Ajapaik"
 
 #: ajapaik/ajapaik/templates/core/_header.html:83
 msgid "Profile and leaderboard"
@@ -1240,44 +1240,44 @@ msgstr "로그인된 사용자:"
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:17
 msgid "Gallery of old historic photos from the album"
-msgstr ""
+msgstr "앨범의 오래된 역사적 사진 갤러리"
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:19
 msgid "Historic photo gallery"
-msgstr ""
+msgstr "역사적 사진 갤러리"
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:23
 msgid "Mapped old historic photos from the album"
-msgstr ""
+msgstr "앨범에서 지도에 표시된 오래된 역사적 사진"
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:25
 msgid "Mapped old historic photos"
-msgstr ""
+msgstr "지도에 표시된 오래된 역사적 사진"
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:29
 msgid "Help geotag old historic photos from the album"
-msgstr ""
+msgstr "앨범의 오래된 역사적 사진 지오태그 지정 돕기"
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:31
 msgid "Help geotag old historic photos"
-msgstr ""
+msgstr "오래된 역사적 사진 지오태그 지정 돕기"
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:35
 msgid "Before and after view of"
-msgstr ""
+msgstr "전후 보기:"
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:37
 msgid "Historic photo of"
-msgstr ""
+msgstr "다음의 역사적 사진:"
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:40
 msgid "Curate historic photos from museums into Ajapaik for geotagging and rephotographing"
-msgstr ""
+msgstr "박물관의 역사 사진을 Ajapaik에 큐레이션하여 지오태그 지정 및 재촬영에 활용"
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:42
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:6
 msgid "Everyone can help to enrich the data of historic pictures on Ajapaik!"
-msgstr ""
+msgstr "누구나 Ajapaik의 역사 사진 데이터를 풍부하게 만드는 데 도움을 줄 수 있습니다!"
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:48
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:50
@@ -1310,12 +1310,12 @@ msgstr "검색,박물관,낡은,사진,역사적"
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:91
 #, python-format
 msgid "Gallery of rephotographs by %(rephotos_by_name)s"
-msgstr ""
+msgstr "%(rephotos_by_name)s의 재촬영 갤러리"
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:96
 #, python-format
 msgid "Album has %(album_photo_count)s historic pictures. Let's put pictures on the map!"
-msgstr ""
+msgstr "앨범에 %(album_photo_count)s장의 역사 사진이 있습니다. 사진을 지도에 올려 봅시다!"
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:98
 msgid "Let's put pictures on the map"
@@ -1325,16 +1325,16 @@ msgstr "지도에 사진을 배치해 봅시다"
 #, python-format
 msgid "Album has %(counter)s photo,"
 msgid_plural "Album has %(counter)s photos,"
-msgstr[0] ""
+msgstr[0] "앨범에 사진 %(counter)s장이 있습니다,"
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:105
 #: ajapaik/ajapaik/templates/info/_info_modal_content.html:30
 msgid "all the pictures on the map."
-msgstr ""
+msgstr "지도상의 모든 사진."
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:206
 msgid "Timepatch (Ajapaik)"
-msgstr ""
+msgstr "타임패치 (Ajapaik)"
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:297
 msgid "Geolocation error"
@@ -1370,19 +1370,19 @@ msgstr "감사합니다!"
 
 #: ajapaik/ajapaik/templates/curator/curator.html:28
 msgid "Your photos have now been added to Ajapaik and can be interacted with as usual."
-msgstr ""
+msgstr "내 사진이 이제 Ajapaik에 추가되었으며 평소처럼 상호작용할 수 있습니다."
 
 #: ajapaik/ajapaik/templates/curator/curator.html:30
 msgid "Points awarded for curating"
-msgstr ""
+msgstr "큐레이션으로 받은 점수"
 
 #: ajapaik/ajapaik/templates/curator/curator.html:33
 msgid "You can start geotagging the new content here"
-msgstr ""
+msgstr "여기에서 새 콘텐츠의 지오태그 지정을 시작할 수 있습니다"
 
 #: ajapaik/ajapaik/templates/curator/curator.html:37
 msgid "Tell your friends on Facebook"
-msgstr ""
+msgstr "페이스북에서 친구에게 알리기"
 
 #: ajapaik/ajapaik/templates/curator/curator.html:43
 #: ajapaik/ajapaik/templates/curator/curator.html:155
@@ -1407,16 +1407,16 @@ msgstr "오류"
 
 #: ajapaik/ajapaik/templates/curator/curator.html:100
 msgid "Open album (anyone can add pictures)"
-msgstr ""
+msgstr "앨범 열기(누구나 사진을 추가할 수 있음)"
 
 #: ajapaik/ajapaik/templates/curator/curator.html:108
 msgid "Visible (shown in selection)"
-msgstr ""
+msgstr "보임(선택 항목에 표시됨)"
 
 #: ajapaik/ajapaik/templates/curator/curator.html:123
 #| msgid "Search for an existing album"
 msgid "!!FUZZY!!Search for an existing album"
-msgstr ""
+msgstr "기존 앨범 검색"
 
 #: ajapaik/ajapaik/templates/curator/curator_search_controls.html:9
 msgid "Search"
@@ -1444,7 +1444,7 @@ msgstr "모두 선택"
 
 #: ajapaik/ajapaik/templates/curator/curator_search_controls.html:58
 msgid "Filter existing"
-msgstr ""
+msgstr "기존 항목 필터링"
 
 #: ajapaik/ajapaik/templates/curator/curator_search_controls.html:62
 msgid "MUIS"
@@ -1468,11 +1468,11 @@ msgstr "UTLIB"
 
 #: ajapaik/ajapaik/templates/curator/curator_search_controls.html:82
 msgid "Fotis"
-msgstr ""
+msgstr "Fotis"
 
 #: ajapaik/ajapaik/templates/curator/curator_search_controls.html:86
 msgid "Finna"
-msgstr ""
+msgstr "Finna"
 
 #: ajapaik/ajapaik/templates/curator/curator_search_controls.html:90
 msgid "Wikimedia Commons"
@@ -1480,7 +1480,7 @@ msgstr "위키미디어 공용"
 
 #: ajapaik/ajapaik/templates/curator/curator_search_controls.html:95
 msgid "Europeana"
-msgstr ""
+msgstr "Europeana"
 
 #: ajapaik/ajapaik/templates/curator/curator_search_controls.html:101
 msgid "Flickr Commons"
@@ -1493,15 +1493,15 @@ msgstr "선택 항목 지우기"
 
 #: ajapaik/ajapaik/templates/curator/curator_search_controls.html:118
 msgid "Submit selection to Ajapaik"
-msgstr ""
+msgstr "선택 항목을 Ajapaik에 제출"
 
 #: ajapaik/ajapaik/templates/django_comments_xtd/email_followup_comment.txt:4
 msgid "There is a new comment following up yours."
-msgstr ""
+msgstr "내 댓글에 대한 새 후속 댓글이 있습니다."
 
 #: ajapaik/ajapaik/templates/django_comments_xtd/email_followup_comment.txt:20
 msgid "Kind regards"
-msgstr ""
+msgstr "감사합니다"
 
 #: ajapaik/ajapaik/templates/django_comments_xtd/reply.html:10
 msgid "Reply to"
@@ -1509,71 +1509,71 @@ msgstr "답장하기"
 
 #: ajapaik/ajapaik/templates/donate/_donate_details.html:3
 msgid "Your donation confirms the importance of Ajapaik"
-msgstr ""
+msgstr "기부는 Ajapaik의 중요성을 확인해 줍니다"
 
 #: ajapaik/ajapaik/templates/donate/_donate_details.html:4
 msgid "Details for one-time donations"
-msgstr ""
+msgstr "일회성 기부 세부 정보"
 
 #: ajapaik/ajapaik/templates/donate/_donate_details.html:5
 msgid "Beneficiary's name"
-msgstr ""
+msgstr "수혜자 이름"
 
 #: ajapaik/ajapaik/templates/donate/_donate_details.html:7
 msgid "Beneficiary's account no"
-msgstr ""
+msgstr "수혜자 계좌 번호"
 
 #: ajapaik/ajapaik/templates/donate/_donate_details.html:13
 msgid "Ajapaik is an open source non-profit crowdsourcing platform, it’s amount of content and technical complexity have grown considerably. The site’s audience is on par or higher than that of official cultural heritage repositories like Muis, Fotis et al."
-msgstr ""
+msgstr "Ajapaik는 오픈 소스 비영리 크라우드소싱 플랫폼이며, 콘텐츠의 양과 기술적 복잡성이 크게 증가했습니다. 사이트의 이용자 규모는 Muis, Fotis 등 공식 문화유산 저장소와 비슷하거나 더 높습니다."
 
 #: ajapaik/ajapaik/templates/donate/_donate_details.html:14
 msgid "Over the years Ajapaik has received public grant funding but we don’t have permanent funding that would enable us to keep the platform technically up to date or even more – enhance its usability, add new features."
-msgstr ""
+msgstr "수년 동안 Ajapaik는 공공 보조금 지원을 받아 왔지만, 플랫폼을 기술적으로 최신 상태로 유지하거나 더 나아가 사용성을 개선하고 새 기능을 추가할 수 있는 지속적인 자금은 없습니다."
 
 #: ajapaik/ajapaik/templates/donate/_donate_details.html:15
 msgid "Your donation is of big help and confirms that Ajapaik is needed. If possible consider setting up a standing payment."
-msgstr ""
+msgstr "여러분의 기부는 큰 도움이 되며 Ajapaik가 필요하다는 것을 확인해 줍니다. 가능하다면 정기 기부도 고려해 주세요."
 
 #: ajapaik/ajapaik/templates/donate/_donate_details.html:16
 msgid "Ajapaik is developed by the <a href='http://xn--fotoprand-z2a.org.ee/wp/mtu/' target='_blank'>Estonian Photographic Heritage Society (MTÜ Eesti Fotopärand)</a> listed in the list of non-profit associations, foundations and religious associations benefiting from income tax incentives. We declare your donations and you will get income tax refunds for that."
-msgstr ""
+msgstr "Ajapaik는 소득세 혜택을 받는 비영리 협회, 재단 및 종교 단체 목록에 등재된 <a href='http://xn--fotoprand-z2a.org.ee/wp/mtu/' target='_blank'>에스토니아 사진 유산 협회(MTÜ Eesti Fotopärand)</a>가 개발합니다. 저희는 여러분의 기부를 신고하며, 이에 대해 소득세 환급을 받을 수 있습니다."
 
 #: ajapaik/ajapaik/templates/donate/_donate_details.html:17
 msgid "Other ways of supporting us"
-msgstr ""
+msgstr "다른 지원 방법"
 
 #: ajapaik/ajapaik/templates/donate/_donate_details.html:18
 msgid "You can also help to <a href=\"https://translatewiki.net/wiki/Translating:Ajapaik\">translate Ajapaik’s user interface</a>"
-msgstr ""
+msgstr "<a href=\"https://translatewiki.net/wiki/Translating:Ajapaik\">Ajapaik 사용자 인터페이스 번역</a>을 도울 수도 있습니다"
 
 #: ajapaik/ajapaik/templates/donate/_donate_details.html:19
 msgid "All other kinds of help are also appreciated! For instance in promoting Ajapaik, creating partnerships etc."
-msgstr ""
+msgstr "그 밖의 모든 도움도 감사히 받습니다! 예를 들어 Ajapaik 홍보, 파트너십 구축 등이 있습니다."
 
 #: ajapaik/ajapaik/templates/donate/_donation_banner.html:3
 msgid "If Ajapaik helps to find historic pictures you’re interested in then please consider <a href=\"/donate/\">supporting</a> Ajapaik so that we could make it even better. Thank you!"
-msgstr ""
+msgstr "Ajapaik가 관심 있는 역사 사진을 찾는 데 도움이 된다면, Ajapaik를 더욱 개선할 수 있도록 <a href=\"/donate/\">지원</a>을 고려해 주세요. 감사합니다!"
 
 #: ajapaik/ajapaik/templates/donate/_supporters.html:4
 msgid "Ajapaik is currently using funding received from:"
-msgstr ""
+msgstr "Ajapaik는 현재 다음에서 받은 자금을 사용하고 있습니다:"
 
 #: ajapaik/ajapaik/templates/donate/_supporters.html:16
 msgid "Ajapaik has received donations from:"
-msgstr ""
+msgstr "Ajapaik는 다음으로부터 기부를 받았습니다:"
 
 #: ajapaik/ajapaik/templates/donate/_supporters.html:27
 msgid "Earlier funders:"
-msgstr ""
+msgstr "이전 후원자:"
 
 #: ajapaik/ajapaik/templates/donate/donate.html:14
 msgid "Supporters of Ajapaik"
-msgstr ""
+msgstr "Ajapaik 후원자"
 
 #: ajapaik/ajapaik/templates/dummy_translations.html:3
 msgid "Notify me about follow-up comments"
-msgstr ""
+msgstr "후속 댓글 알림 받기"
 
 #: ajapaik/ajapaik/templates/dummy_translations.html:4
 msgid "Current Password"
@@ -1605,11 +1605,11 @@ msgstr "필터"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:18
 msgid "film"
-msgstr ""
+msgstr "필름"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:21
 msgid "collections"
-msgstr ""
+msgstr "모음집"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:24
 msgid "people"
@@ -1617,23 +1617,23 @@ msgstr "사람"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:27
 msgid "back sides of pictures"
-msgstr ""
+msgstr "사진 뒷면"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:30
 msgid "pictures in portrait format"
-msgstr ""
+msgstr "세로 형식 사진"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:33
 msgid "pictures in square format"
-msgstr ""
+msgstr "정사각형 형식 사진"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:36
 msgid "pictures in landscape format"
-msgstr ""
+msgstr "가로 형식 사진"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:39
 msgid "pictures in panoramic format"
-msgstr ""
+msgstr "파노라마 형식 사진"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:42
 msgid "exteriors"
@@ -1645,19 +1645,19 @@ msgstr "내부"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:48
 msgid "pictures from the ground"
-msgstr ""
+msgstr "지상에서 찍은 사진"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:51
 msgid "pictures from a raised viewpoint"
-msgstr ""
+msgstr "높은 시점에서 찍은 사진"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:54
 msgid "aerial pictures"
-msgstr ""
+msgstr "항공 사진"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:57
 msgid "pictures which are not geotagged"
-msgstr ""
+msgstr "지오태그가 없는 사진"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:60
 msgid "high-quality pictures"
@@ -1675,11 +1675,11 @@ msgstr "인물 앨범 표시"
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:69
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:100
 msgid "Show pictures with faces"
-msgstr ""
+msgstr "얼굴이 있는 사진 표시"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:78
 msgid "Pictures by collections"
-msgstr ""
+msgstr "모음집별 사진"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:86
 msgid "Show film albums"
@@ -1687,47 +1687,47 @@ msgstr "영화 앨범 표시"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:108
 msgid "Show pictures with back sides"
-msgstr ""
+msgstr "뒷면이 있는 사진 표시"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:118
 msgid "Show portrait pictures"
-msgstr ""
+msgstr "세로 사진 표시"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:128
 msgid "Show square pictures"
-msgstr ""
+msgstr "정사각형 사진 표시"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:138
 msgid "Show landscape pictures"
-msgstr ""
+msgstr "가로 사진 표시"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:148
 msgid "Show panoramic pictures"
-msgstr ""
+msgstr "파노라마 사진 표시"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:158
 msgid "Show pictures made from the ground level"
-msgstr ""
+msgstr "지상 높이에서 찍은 사진 표시"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:168
 msgid "Show pictures made from a raised viewpoint"
-msgstr ""
+msgstr "높은 시점에서 찍은 사진 표시"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:178
 msgid "Show aerial pictures"
-msgstr ""
+msgstr "항공 사진 표시"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:188
 msgid "Show interior pictures"
-msgstr ""
+msgstr "실내 사진 표시"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:198
 msgid "Show exterior pictures"
-msgstr ""
+msgstr "실외 사진 표시"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:208
 msgid "Show pictures which are not geotagged"
-msgstr ""
+msgstr "지오태그가 없는 사진 표시"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:218
 msgid "Show high-quality pictures"
@@ -1735,55 +1735,55 @@ msgstr "고품질 사진 표시"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:231
 msgid "Sort by distance from you"
-msgstr ""
+msgstr "나와의 거리순으로 정렬"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:241
 msgid "Sort by time and ..."
-msgstr ""
+msgstr "시간 및 다음순으로 정렬"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:251
 msgid "Sort by photos' time added"
-msgstr ""
+msgstr "사진 추가 시간순으로 정렬"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:262
 msgid "Sort by stills' timestamp"
-msgstr ""
+msgstr "스틸컷의 타임스탬프순으로 정렬"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:273
 msgid "Sort by views' time added or amount"
-msgstr ""
+msgstr "조회 추가 시간 또는 수량순으로 정렬"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:283
 msgid "Sort by geotags' time added or amount"
-msgstr ""
+msgstr "지오태그 추가 시간 또는 수량순으로 정렬"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:293
 msgid "Sort by rephotos' time added or amount"
-msgstr ""
+msgstr "재촬영 추가 시간 또는 수량순으로 정렬"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:303
 msgid "Sort by annotations' time added or amount"
-msgstr ""
+msgstr "주석 추가 시간 또는 수량순으로 정렬"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:312
 msgid "Sort by transcriptions' time added or amount"
-msgstr ""
+msgstr "설명 추가 시간 또는 수량순으로 정렬"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:321
 msgid "Sort by datings' time added or amount"
-msgstr ""
+msgstr "날짜 지정 추가 시간 또는 수량순으로 정렬"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:331
 msgid "Sort by comments' time added or amount"
-msgstr ""
+msgstr "댓글 추가 시간 또는 수량순으로 정렬"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:341
 msgid "Sort by likes' time added or amount"
-msgstr ""
+msgstr "좋아요 추가 시간 또는 수량순으로 정렬"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:351
 msgid "Sort by amount and ..."
-msgstr ""
+msgstr "수량 및 다음순으로 정렬"
 
 #: ajapaik/ajapaik/templates/filtering/_filtering_dropdown.html:361
 msgid "Change sorting order"
@@ -1815,153 +1815,153 @@ msgstr "그리고"
 
 #: ajapaik/ajapaik/templates/filtering/_ordering_tutorial_modal.html:65
 msgid "1 of"
-msgstr ""
+msgstr "다음 중 1개:"
 
 #: ajapaik/ajapaik/templates/filtering/_ordering_tutorial_modal.html:98
 msgid "orders pictures by distance from you"
-msgstr ""
+msgstr "나와의 거리순으로 사진 정렬"
 
 #: ajapaik/ajapaik/templates/filtering/_ordering_tutorial_modal.html:105
 msgid "reverses sorting"
-msgstr ""
+msgstr "정렬 순서 반전"
 
 #: ajapaik/ajapaik/templates/geotaggers/_geotaggers_modal_content.html:6
 msgid "This user has suggested location for this picture"
-msgstr ""
+msgstr "이 사용자가 이 사진의 위치를 제안했습니다"
 
 #: ajapaik/ajapaik/templates/geotaggers/_geotaggers_modal_content.html:8
 msgid "These users have suggested location for this picture"
-msgstr ""
+msgstr "이 사용자들이 이 사진의 위치를 제안했습니다"
 
 #: ajapaik/ajapaik/templates/geotaggers/_geotaggers_modal_content.html:18
 msgid "Modified"
-msgstr ""
+msgstr "수정됨"
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:14
 msgid "Ajapaik is crowdsourcing additional metadata about pictorial heritage. Ajapaik is mostly hosting old photos, but there are also paintings, graphic art and historic films on Ajapaik."
-msgstr ""
+msgstr "Ajapaik는 사진 유산에 대한 추가 메타데이터를 크라우드소싱합니다. Ajapaik는 주로 오래된 사진을 호스팅하지만, 그림, 그래픽 아트 및 역사 필름도 포함하고 있습니다."
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:17
 msgid "As an Ajapaik user you can"
-msgstr ""
+msgstr "Ajapaik 사용자로서 할 수 있는 일"
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:19
 msgid "geotag pictures in order to improve the location based search,"
-msgstr ""
+msgstr "위치 기반 검색을 개선하기 위해 사진에 지오태그 지정,"
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:20
 msgid "rephotograph historic pictures to create then-and-now picture pairs,"
-msgstr ""
+msgstr "역사 사진을 재촬영하여 과거와 현재 사진 쌍 만들기,"
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:21
 msgid "tag persons on the pictures, add pictures to albums, categorize and comment pictures,"
-msgstr ""
+msgstr "사진 속 사람 태그하기, 사진을 앨범에 추가하기, 분류 및 댓글 작성하기,"
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:22
 msgid "transcribe handwritten messages on pictures or on the reverse sides of postcards,"
-msgstr ""
+msgstr "사진 또는 엽서 뒷면의 손글씨 글로 옮기기,"
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:23
 msgid "add historical imagery to Ajapaik – either by searching and importing from public collections or uploading yourself."
-msgstr ""
+msgstr "공개 모음집에서 검색하고 가져오거나 직접 업로드하여 Ajapaik에 역사 이미지를 추가하기."
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:27
 msgid "Ajapaik is a non-profit venture of the Estonian Photographic Heritage Society (MTÜ Eesti Fotopärand) that was created during a Garage48 hackathon in February 2011. Over the years Ajapaik has received grant funding but there is no permanent funding therefore we are very grateful if you can donate to <a href='/donate'>support us</a>."
-msgstr ""
+msgstr "Ajapaik는 2011년 2월 Garage48 해커톤 중 만들어진 에스토니아 사진 유산 협회(MTÜ Eesti Fotopärand)의 비영리 사업입니다. 수년 동안 Ajapaik는 보조금 지원을 받아 왔지만 지속적인 자금은 없으므로, 기부를 통해 <a href='/donate'>저희를 지원</a>해 주시면 매우 감사하겠습니다."
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:31
 #, python-format
 msgid "Ajapaik has <b>%(total_photo_count)s</b> historic pictures, out of which <b>%(total_photos_tagged)s</b> pictures have been put on the map by <b>%(contributing_users)s</b> users and <b>%(rephoto_count)s</b> rephotographs for <b>%(rephotographed_photo_count)s</b> pictures made by <b>%(rephotographing_users)s</b> users."
-msgstr ""
+msgstr "Ajapaik에는 <b>%(total_photo_count)s</b>장의 역사적인 사진이 있으며, 그중 <b>%(total_photos_tagged)s</b>장의 사진이 <b>%(contributing_users)s</b>명의 사용자에 의해 지도에 배치되었고, <b>%(rephoto_count)s</b>개의 재촬영이 <b>%(rephotographed_photo_count)s</b>장의 사진에 대해 <b>%(rephotographing_users)s</b>명의 사용자에 의해 만들어졌습니다."
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:38
 #, python-format
 msgid "There are <b>%(person_annotation_count)s</b> faces detected on the pictures, a person has been identified in <b>%(person_annotation_count_with_person_album)s</b> cases, age or gender is marked for <b>%(person_annotation_count_with_subject_data)s</b> faces."
-msgstr ""
+msgstr "사진에서 <b>%(person_annotation_count)s</b>개의 얼굴이 감지되었고, <b>%(person_annotation_count_with_person_album)s</b>건에서 사람이 식별되었으며, <b>%(person_annotation_count_with_subject_data)s</b>개의 얼굴에 나이 또는 성별이 표시되었습니다."
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:45
 msgid "Overview of your own contributions can be found on your <a href='/me'>user profile page</a>."
-msgstr ""
+msgstr "내 기여 개요는 <a href='/me'>사용자 프로필 페이지</a>에서 확인할 수 있습니다."
 
 #: ajapaik/ajapaik/templates/info/_general_info_modal_content.html:48
 msgid "General statistics refresh every 10 minutes."
-msgstr ""
+msgstr "일반 통계는 10분마다 새로 고쳐집니다."
 
 #: ajapaik/ajapaik/templates/info/_info_modal_content.html:14
 #: ajapaik/ajapaik/templates/info/_info_modal_content.html:21
 msgid "Album curated by"
-msgstr ""
+msgstr "앨범 큐레이션:"
 
 #: ajapaik/ajapaik/templates/info/_info_modal_content.html:23
 msgid "Contributors' leaderboard"
-msgstr ""
+msgstr "기여자 순위표"
 
 #: ajapaik/ajapaik/templates/info/_info_modal_content.html:27
 #, python-format
 msgid "Album has %(counter)s historic picture,"
 msgid_plural "Album has %(counter)s historic pictures,"
-msgstr[0] ""
+msgstr[0] "앨범에 역사 사진 %(counter)s장이 있습니다,"
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:102
 #: ajapaik/ajapaik/templates/info/_info_modal_content.html:28
 #, python-format
 msgid "%(counter)s user has put"
 msgid_plural "%(counter)s users have put"
-msgstr[0] ""
+msgstr[0] "%(counter)s명의 사용자가"
 
 #: ajapaik/ajapaik/templates/core/base_bootstrap.html:107
 #: ajapaik/ajapaik/templates/info/_info_modal_content.html:32
 #, python-format
 msgid "%(counter)s picture on the map."
 msgid_plural "%(counter)s pictures on the map."
-msgstr[0] ""
+msgstr[0] "지도에 사진 %(counter)s장을 배치했습니다."
 
 #: ajapaik/ajapaik/templates/info/_info_modal_content.html:37
 msgid "You haven't made any location suggestions for pictures in this album."
-msgstr ""
+msgstr "이 앨범의 사진에 대한 위치 제안을 아직 하지 않았습니다."
 
 #: ajapaik/ajapaik/templates/info/_info_modal_content.html:39
 msgid "You have made a location suggestion for"
-msgstr ""
+msgstr "다음에 대한 위치 제안을 했습니다:"
 
 #: ajapaik/ajapaik/templates/info/_info_modal_content.html:41
 msgid "all the pictures from this album."
-msgstr ""
+msgstr "이 앨범의 모든 사진."
 
 #: ajapaik/ajapaik/templates/info/_info_modal_content.html:43
 #, python-format
 msgid "%(counter)s picture in this album."
 msgid_plural "%(counter)s pictures in this album."
-msgstr[0] ""
+msgstr[0] "이 앨범에 사진 %(counter)s장이 있습니다."
 
 #: ajapaik/ajapaik/templates/info/_info_modal_content.html:50
 #, python-format
 msgid "%(counter)s user has made"
 msgid_plural "%(counter)s users have made"
-msgstr[0] ""
+msgstr[0] "%(counter)s명의 사용자가"
 
 #: ajapaik/ajapaik/templates/info/_info_modal_content.html:51
 #, python-format
 msgid "%(counter)s rephotograph"
 msgid_plural "%(counter)s rephotographs"
-msgstr[0] ""
+msgstr[0] "재촬영 %(counter)s개를"
 
 #: ajapaik/ajapaik/templates/info/_info_modal_content.html:52
 #: ajapaik/ajapaik/templates/info/_info_modal_content.html:59
 #, python-format
 msgid "for %(counter)s picture in the album."
 msgid_plural "for %(counter)s picture in the album."
-msgstr[0] ""
+msgstr[0] "앨범의 사진 %(counter)s장에 대해 만들었습니다."
 
 #: ajapaik/ajapaik/templates/info/_info_modal_content.html:58
 #, python-format
 msgid "You have made %(counter)s rephoto"
 msgid_plural "You have made %(counter)s rephotos"
-msgstr[0] ""
+msgstr[0] "재촬영 %(counter)s개를 만들었습니다"
 
 #: ajapaik/ajapaik/templates/info/_info_modal_content.html:65
 msgid "Some nearby albums"
-msgstr ""
+msgstr "몇몇 주변 앨범"
 
 #: ajapaik/ajapaik/templates/info/_info_modal_content.html:113
 msgid "Back to map"
@@ -1969,16 +1969,16 @@ msgstr "지도로 돌아가기"
 
 #: ajapaik/ajapaik/templates/leaderboard/_block_leaderboard.html:12
 msgid "Recent activity leaderboard"
-msgstr ""
+msgstr "최근 활동 순위표"
 
 #: ajapaik/ajapaik/templates/leaderboard/_block_leaderboard.html:15
 #, python-format
 msgid "Album %(album_name)s leaderboard"
-msgstr ""
+msgstr "앨범 %(album_name)s 순위표"
 
 #: ajapaik/ajapaik/templates/leaderboard/_block_leaderboard.html:18
 msgid "All time leaderboard"
-msgstr ""
+msgstr "전체 기간 순위표"
 
 #: ajapaik/ajapaik/templates/leaderboard/_leaderboard_positions.html:9
 #: ajapaik/ajapaik/templates/user/_user_picture.html:4
@@ -2005,7 +2005,7 @@ msgstr "차단 목록"
 #: ajapaik/ajapaik/templates/photo/_photo_comments_and_labels.html:9
 msgid "Picture belongs to album"
 msgid_plural "Picture belongs to albums:"
-msgstr[0] ""
+msgstr[0] "사진이 속한 앨범:"
 
 #: ajapaik/ajapaik/templates/photo/_photo_comments_and_labels.html:18
 #: ajapaik/ajapaik/templates/photo/_photo_comments_and_labels.html:19
@@ -2016,7 +2016,7 @@ msgstr "앨범에 추가"
 #: ajapaik/ajapaik/templates/photo/_photo_comments_and_labels.html:28
 msgid "Picture belongs to collection"
 msgid_plural "Picture belongs to collections:"
-msgstr[0] ""
+msgstr[0] "사진이 속한 컬렉션:"
 
 #: ajapaik/ajapaik/templates/photo/_photo_description_container.html:6
 msgid "Approximate address"
@@ -2025,7 +2025,7 @@ msgstr "대략적인 주소"
 #: ajapaik/ajapaik/templates/photo/_photo_modal.html:46
 #: ajapaik/ajapaik/templates/photo/photoview.html:69
 msgid "See the other side of photo"
-msgstr ""
+msgstr "사진의 다른 면 보기"
 
 #: ajapaik/ajapaik/templates/photo/_photo_modal.html:81
 #: ajapaik/ajapaik/templates/photo/_photo_modal.html:82
@@ -2039,7 +2039,7 @@ msgstr "비슷한 사진"
 #: ajapaik/ajapaik/templates/photo/photoview.html:140
 #: ajapaik/ajapaik/templates/photo/photoview.html:141
 msgid "duplicate photo"
-msgstr ""
+msgstr "중복 사진"
 
 #: ajapaik/ajapaik/templates/photo/_rephoto_description_container.html:37
 msgid "Date taken"
@@ -2060,35 +2060,35 @@ msgstr "유사 또는 중복으로 표시"
 
 #: ajapaik/ajapaik/templates/photo/selection/photo_selection.html:29
 msgid "Add categories to picture(s)"
-msgstr ""
+msgstr "사진에 분류 추가"
 
 #: ajapaik/ajapaik/templates/photo/selection/photo_selection.html:33
 msgid "Flip, rotate and invert picture(s)"
-msgstr ""
+msgstr "사진 뒤집기, 회전 및 반전"
 
 #: ajapaik/ajapaik/templates/photo/selection/photo_selection.html:46
 msgid "You can re-order photos by dragging and dropping"
-msgstr ""
+msgstr "사진을 끌어다 놓아 순서를 바꿀 수 있습니다"
 
 #: ajapaik/ajapaik/templates/photo/selection/photo_selection.html:109
 msgid "Images have overlapping content"
-msgstr ""
+msgstr "이미지의 내용이 겹칩니다"
 
 #: ajapaik/ajapaik/templates/photo/selection/photo_selection.html:109
 msgid "All images are of the same shot"
-msgstr ""
+msgstr "모든 이미지가 같은 촬영입니다"
 
 #: ajapaik/ajapaik/templates/photo/upload/photo_upload_choice.html:13
 msgid "Import from public collections"
-msgstr ""
+msgstr "공개 모음집에서 가져오기"
 
 #: ajapaik/ajapaik/templates/photo/upload/photo_upload_choice.html:20
 msgid "Upload yourself"
-msgstr ""
+msgstr "직접 업로드"
 
 #: ajapaik/ajapaik/templates/photo/upload/photo_upload_choice.html:28
 msgid "Muis Import"
-msgstr ""
+msgstr "Muis에서 가져오기"
 
 #: ajapaik/ajapaik/templates/photo/upload/photo_upload_choice.html:37
 msgid "CSV Import"
@@ -2106,7 +2106,7 @@ msgstr "파일 선택..."
 
 #: ajapaik/ajapaik/templates/rephoto_upload/_rephoto_upload_modal_content.html:36
 msgid "Make a contemporary rephoto from the very same place where the historic picture was taken and upload it. Uploaded rephotograph will be attributed to you under the"
-msgstr ""
+msgstr "역사 사진이 촬영된 바로 같은 장소에서 현대의 재촬영을 만들어 업로드하세요. 업로드된 재촬영은 다음에 따라 당신을 저작자로 표시합니다"
 
 #: ajapaik/ajapaik/templates/rephoto_upload/_rephoto_upload_modal_content.html:37
 msgid "licence"
@@ -2146,11 +2146,11 @@ msgstr "소셜 네트워크 계정을 통해 로그인을 시도하는 중 오�
 #: ajapaik/ajapaik/templates/socialaccount/connections_content.html:3
 #: ajapaik/ajapaik/views.py:3717
 msgid "Account Connections"
-msgstr ""
+msgstr "계정 연결"
 
 #: ajapaik/ajapaik/templates/socialaccount/connections_content.html:6
 msgid "You can sign in to your account using any of the following third party accounts:"
-msgstr ""
+msgstr "다음 제3자 계정 중 하나를 사용하여 계정에 로그인할 수 있습니다:"
 
 #: ajapaik/ajapaik/templates/socialaccount/connections_content.html:22
 #: ajapaik/ajapaik/templates/user/_user_card.html:11
@@ -2169,119 +2169,119 @@ msgstr "타사 계정 추가"
 
 #: ajapaik/ajapaik/templates/user/_current_user_info.html:3
 msgid "You have"
-msgstr ""
+msgstr "내 통계"
 
 #: ajapaik/ajapaik/templates/user/_current_user_info.html:8
 #: ajapaik/ajapaik/templates/user/_user_info.html:5
 #, python-format
 msgid "curated <b>%(curated_pictures)s</b> picture"
 msgid_plural "curated <b>%(curated_pictures)s</b> pictures"
-msgstr[0] ""
+msgstr[0] "사진 <b>%(curated_pictures)s</b>장을 큐레이션했습니다"
 
 #: ajapaik/ajapaik/templates/user/_current_user_info.html:13
 #: ajapaik/ajapaik/templates/user/_user_info.html:10
 #, python-format
 msgid "suggested location for <b>%(geotagged_pictures)s</b> picture"
 msgid_plural "suggested locations for <b>%(geotagged_pictures)s</b> picture"
-msgstr[0] ""
+msgstr[0] "사진 <b>%(geotagged_pictures)s</b>장의 위치를 제안했습니다"
 
 #: ajapaik/ajapaik/templates/user/_current_user_info.html:18
 #: ajapaik/ajapaik/templates/user/_user_info.html:15
 #, python-format
 msgid "confirmed location for <b>%(geotag_confirmations)s</b> picture"
 msgid_plural "confirmed locations for <b>%(geotag_confirmations)s</b> pictures"
-msgstr[0] ""
+msgstr[0] "사진 <b>%(geotag_confirmations)s</b>장의 위치를 확인했습니다"
 
 #: ajapaik/ajapaik/templates/user/_current_user_info.html:23
 #: ajapaik/ajapaik/templates/user/_user_info.html:20
 #, python-format
 msgid "made <b><a href=\"%(link)s\">%(rephotos)s rephoto</a></b> for"
 msgid_plural "made <b><a href=\"%(link)s\">%(rephotos)s rephotos</a></b> for"
-msgstr[0] ""
+msgstr[0] "다음에 대해 <b><a href=\"%(link)s\">%(rephotos)s개의 재촬영</a></b>을 만들었습니다"
 
 #: ajapaik/ajapaik/templates/user/_current_user_info.html:24
 #: ajapaik/ajapaik/templates/user/_user_info.html:21
 #, python-format
 msgid "<b>%(rephotographed_pictures)s</b> picture"
 msgid_plural "<b>%(rephotographed_pictures)s</b> pictures"
-msgstr[0] ""
+msgstr[0] "사진 <b>%(rephotographed_pictures)s</b>장"
 
 #: ajapaik/ajapaik/templates/user/_current_user_info.html:29
 #: ajapaik/ajapaik/templates/user/_user_info.html:26
 #, python-format
 msgid "commented on <b>%(commented_pictures)s</b> picture"
 msgid_plural "commented on <b>%(commented_pictures)s</b> pictures"
-msgstr[0] ""
+msgstr[0] "사진 <b>%(commented_pictures)s</b>장에 댓글을 달았습니다"
 
 #: ajapaik/ajapaik/templates/user/_current_user_info.html:34
 #, python-format
 msgid "specified a date for <b>%(datings)s</b> picture"
 msgid_plural "specified date for <b>%(datings)s</b> pictures"
-msgstr[0] ""
+msgstr[0] "사진 <b>%(datings)s</b>장의 날짜를 지정했습니다"
 
 #: ajapaik/ajapaik/templates/user/_current_user_info.html:39
 #: ajapaik/ajapaik/templates/user/_user_info.html:36
 #, python-format
 msgid "annotated <b>%(face_annotations)s</b> face on"
 msgid_plural "annotated <b>%(face_annotations)s</b> faces on"
-msgstr[0] ""
+msgstr[0] "다음 사진에 얼굴 <b>%(face_annotations)s</b>개를 주석 처리했습니다"
 
 #: ajapaik/ajapaik/templates/user/_current_user_info.html:40
 #: ajapaik/ajapaik/templates/user/_user_info.html:37
 #, python-format
 msgid "<b>%(face_annotations_pictures)s</b> picture"
 msgid_plural "<b>%(face_annotations_pictures)s</b> pictures"
-msgstr[0] ""
+msgstr[0] "사진 <b>%(face_annotations_pictures)s</b>장"
 
 #: ajapaik/ajapaik/templates/user/_current_user_info.html:45
 #: ajapaik/ajapaik/templates/user/_user_info.html:42
 #, python-format
 msgid "annotated <b>%(object_annotations)s</b> object on"
 msgid_plural "annotated <b>%(object_annotations)s</b> objects on"
-msgstr[0] ""
+msgstr[0] "다음 사진에 객체 <b>%(object_annotations)s</b>개를 주석 처리했습니다"
 
 #: ajapaik/ajapaik/templates/user/_current_user_info.html:46
 #, python-format
 msgid "<b>%(object_annotations_pictures)s</b> picture"
 msgid_plural "<b>%(object_annotations_pictures)s</b> pictures"
-msgstr[0] ""
+msgstr[0] "사진 <b>%(object_annotations_pictures)s</b>장"
 
 #: ajapaik/ajapaik/templates/user/_current_user_info.html:51
 #, python-format
 msgid "transcribed text on <b>%(transcriptions)s</b> picture"
 msgid_plural "added transcribed text on <b>%(transcriptions)s</b> pictures"
-msgstr[0] ""
+msgstr[0] "사진 <b>%(transcriptions)s</b>장의 텍스트를 글로 옮겼습니다"
 
 #: ajapaik/ajapaik/templates/user/_current_user_info.html:56
 #: ajapaik/ajapaik/templates/user/_user_info.html:53
 #, python-format
 msgid "connected <b>%(similar_pictures)s</b> similar picture"
 msgid_plural "connected <b>%(similar_pictures)s</b> similar pictures"
-msgstr[0] ""
+msgstr[0] "유사한 사진 <b>%(similar_pictures)s</b>장을 연결했습니다"
 
 #: ajapaik/ajapaik/templates/user/_current_user_info.html:61
 #: ajapaik/ajapaik/templates/user/_user_info.html:58
 #, python-format
 msgid "favorited <b>%(photolikes)s</b> picture"
 msgid_plural "favorited <b>%(photolikes)s</b> pictures"
-msgstr[0] ""
+msgstr[0] "사진 <b>%(photolikes)s</b>장을 즐겨찾기에 추가했습니다"
 
 #: ajapaik/ajapaik/templates/user/_current_user_info.html:66
 #: ajapaik/ajapaik/templates/user/_user_info.html:63
 #, python-format
 msgid "categorized <b>%(photo_suggestions)s</b> picture"
 msgid_plural "categorized <b>%(photo_suggestions)s</b> pictures"
-msgstr[0] ""
+msgstr[0] "사진 <b>%(photo_suggestions)s</b>장을 분류했습니다"
 
 #: ajapaik/ajapaik/templates/user/_current_user_info.html:72
 #, python-format
 msgid "You have <b>%(user_points)s point in total</b>"
 msgid_plural "You have <b>%(user_points)s</b> points in total"
-msgstr[0] ""
+msgstr[0] "총 <b>%(user_points)s</b>점을 보유하고 있습니다"
 
 #: ajapaik/ajapaik/templates/user/_current_user_info.html:77
 msgid "View your"
-msgstr ""
+msgstr "내 항목 보기"
 
 #: ajapaik/ajapaik/templates/user/_current_user_info.html:82
 msgid "rephotos"
@@ -2289,7 +2289,7 @@ msgstr "재촬영"
 
 #: ajapaik/ajapaik/templates/user/_current_user_info.html:87
 msgid "favorite pictures"
-msgstr ""
+msgstr "즐겨찾는 사진"
 
 #: ajapaik/ajapaik/templates/user/_user_card.html:8
 msgid "This account is connected to:"
@@ -2297,50 +2297,50 @@ msgstr "이 계정은 다음과 연결되어 있습니다:"
 
 #: ajapaik/ajapaik/templates/user/_user_card.html:15
 msgid "This account is not connected to any other"
-msgstr ""
+msgstr "이 계정은 다른 계정과 연결되어 있지 않습니다"
 
 #: ajapaik/ajapaik/templates/user/_user_info.html:31
 #, python-format
 msgid "specified date for <b>%(datings)s</b> picture"
 msgid_plural "specified date for <b>%(datings)s</b> pictures"
-msgstr[0] ""
+msgstr[0] "사진 <b>%(datings)s</b>장의 날짜를 지정했습니다"
 
 #: ajapaik/ajapaik/templates/user/_user_info.html:43
 #, python-format
 msgid "<b>%(object_annotations)s</b> picture"
 msgid_plural "<b>%(object_annotations)s</b> pictures"
-msgstr[0] ""
+msgstr[0] "사진 <b>%(object_annotations)s</b>장"
 
 #: ajapaik/ajapaik/templates/user/_user_info.html:48
 #, python-format
 msgid "added transcribed text on <b>%(transcriptions)s</b> picture"
 msgid_plural "transcribed text on <b>%(transcriptions)s</b> pictures"
-msgstr[0] ""
+msgstr[0] "사진 <b>%(transcriptions)s</b>장의 텍스트를 글로 옮겼습니다"
 
 #: ajapaik/ajapaik/templates/user/_user_info.html:68
 #, python-format
 msgid "<b>%(user_points)s point in total</b>"
 msgid_plural "<b>%(user_points)s</b> points in total"
-msgstr[0] ""
+msgstr[0] "총 <b>%(user_points)s</b>점"
 
 #: ajapaik/ajapaik/templates/user/merge/merge_accounts.html:10
 #: ajapaik/ajapaik/templates/user/merge/merge_accounts.html:15
 msgid "Keep this account (the other one will be merged)"
-msgstr ""
+msgstr "이 계정 유지(다른 계정은 병합됨)"
 
 #: ajapaik/ajapaik/templates/user/merge/merge_accounts.html:18
 #, python-format
 msgid "You are about to merge your current <a href=\"%(me)s\">account</a> with <a href=\"%(link)s\" target=\"_blank\">%(name)s</a>'s account. Your user id will be: %(id)s"
-msgstr ""
+msgstr "현재 <a href=\"%(me)s\">계정</a>을 <a href=\"%(link)s\" target=\"_blank\">%(name)s</a>의 계정과 병합하려고 합니다. 사용자 ID는 %(id)s입니다"
 
 #: ajapaik/ajapaik/templates/user/merge/merge_accounts.html:21
 #, python-format
 msgid "Your current <a href=\"%(me)s\">account</a> will be merged into <a href=\"%(link)s\" target=\"_blank\">%(name)s</a>'s account. Your user id will be: %(id)s"
-msgstr ""
+msgstr "현재 <a href=\"%(me)s\">계정</a>이 <a href=\"%(link)s\" target=\"_blank\">%(name)s</a>의 계정으로 병합됩니다. 사용자 ID는 %(id)s입니다"
 
 #: ajapaik/ajapaik/templates/user/merge/merge_accounts.html:24
 msgid "Please select which account would you like to keep using after"
-msgstr ""
+msgstr "이후로 계속 사용할 계정을 선택하세요"
 
 #: ajapaik/ajapaik/templates/user/merge/merge_accounts.html:27
 msgid "Merge the accounts"
@@ -2348,19 +2348,19 @@ msgstr "계정 통합"
 
 #: ajapaik/ajapaik/templates/user/merge/merge_accounts.html:32
 msgid "Invalid token, please try again or contact customer support"
-msgstr ""
+msgstr "유효하지 않은 토큰입니다. 다시 시도하거나 고객 지원팀에 문의하세요"
 
 #: ajapaik/ajapaik/templates/user/merge/merge_accounts.html:34
 msgid "Please login to transfer contributions and settings from one account to other"
-msgstr ""
+msgstr "한 계정에서 다른 계정으로 기여와 설정을 전송하려면 로그인하세요"
 
 #: ajapaik/ajapaik/templates/user/merge/merge_accounts.html:36
 msgid "To transfer settings and contributions from one account to other, please login with your other account"
-msgstr ""
+msgstr "한 계정에서 다른 계정으로 설정과 기여를 전송하려면 다른 계정으로 로그인하세요"
 
 #: ajapaik/ajapaik/templates/user/settings/_user_settings_modal.html:9
 msgid "Please specify whether you would like to receive the newsletter and what is your preferred language of communication."
-msgstr ""
+msgstr "뉴스레터 수신 여부와 선호하는 연락 언어를 지정하세요."
 
 #: ajapaik/ajapaik/templates/user/settings/user_settings.html:11
 #, python-format
@@ -2370,15 +2370,15 @@ msgstr "%(username)s 설정"
 #: ajapaik/ajapaik/templates/user/user.html:18
 #, python-format
 msgid "<b>%(name)s</b> has"
-msgstr ""
+msgstr "<b>%(name)s</b> 님의 보유 항목"
 
 #: ajapaik/ajapaik/templates/user/user.html:25
 msgid "You're welcome to browse and also contribute anonymously, but we encourage You to create yourself an Ajapaik account and join the contributors community."
-msgstr ""
+msgstr "익명으로 둘러보고 기여할 수도 있지만, Ajapaik 계정을 만들고 기여자 커뮤니티에 참여하는 것을 권장합니다."
 
 #: ajapaik/ajapaik/templates/user/user.html:28
 msgid "To create an account, click"
-msgstr ""
+msgstr "계정을 만들려면 클릭하세요"
 
 #: ajapaik/ajapaik/templates/user/user.html:28
 msgid "here"
@@ -2386,7 +2386,7 @@ msgstr "이 곳"
 
 #: ajapaik/ajapaik/templates/user/user.html:35
 msgid "Welcome to Ajapaik – crowdsourcing platform for historic photographs. You're welcome to geotag and to comment the pictures, tag faces etc."
-msgstr ""
+msgstr "Ajapaik (아이아파이크) 는 오신 것을 환영합니다. Ajapaik는 역사 사진을 위한 크라우드소싱 플랫폼입니다. 사진에 지오태그를 지정하고 댓글을 달거나 얼굴 태그 등을 할 수 있습니다."
 
 #: ajapaik/ajapaik/templates/user/user.html:51
 msgid "This user does not have any contributions."
@@ -2394,24 +2394,24 @@ msgstr "이 사용자는 어떠한 기여도 하지 않았습니다."
 
 #: ajapaik/ajapaik/templates/user_upload/user_upload.html:17
 msgid "Here you can upload historic pictures to Ajapaik (currently one picture at a time)"
-msgstr ""
+msgstr "여기에서 역사 사진을 Ajapaik에 업로드할 수 있습니다(현재 한 번에 한 장씩)"
 
 #: ajapaik/ajapaik/templates/user_upload/user_upload.html:26
 #, python-format
 msgid "I, %(user)s, the copyright holder of this work, irrevocably grant anyone the right to use this work under the <a href=\"https://creativecommons.org/licenses/by-sa/4.0/\" target=\"_blank\" rel=\"noopener nofollow\">Creative Commons Attribution ShareAlike 4.0 license (CC-BY-SA)</a>."
-msgstr ""
+msgstr "저작권자인 본인 %(user)s은(는) 누구에게나 이 저작물을 <a href=\"https://creativecommons.org/licenses/by-sa/4.0/\" target=\"_blank\" rel=\"noopener nofollow\">크리에이티브 커먼즈 저작자표시-동일조건변경허락 4.0 라이선스 (CC-BY-SA)</a>에 따라 사용할 권리를 부여하는 것입니다. 이는 철회할 수 없습니다."
 
 #: ajapaik/ajapaik/templates/user_upload/user_upload.html:29
 msgid "Add picture to some album(s)"
-msgstr ""
+msgstr "사진을 몇몇 앨범에 추가"
 
 #: ajapaik/ajapaik/templates/user_upload/user_upload.html:35
 msgid "You need to add the picture to atleast one album"
-msgstr ""
+msgstr "사진을 최소 한 개의 앨범에 추가해야 합니다"
 
 #: ajapaik/ajapaik/templates/user_upload/user_upload.html:48
 msgid "Please add the picture to some existing album(s) or create first a new album and then add the picture to it"
-msgstr ""
+msgstr "사진을 기존 앨범에 추가하거나 먼저 새 앨범을 만든 다음 사진을 추가하세요"
 
 #: ajapaik/ajapaik/templates/user_upload/user_upload.html:56
 msgid "Upload and mark on map"
@@ -2432,7 +2432,7 @@ msgstr "인증되지 않은 사용자"
 
 #: ajapaik/ajapaik/views.py:664
 msgid "Geotagging game"
-msgstr ""
+msgstr "지오태깅 게임"
 
 #: ajapaik/ajapaik/views.py:731
 #, python-format
@@ -2445,11 +2445,11 @@ msgstr "이 앨범에 업로드할 수 없습니다"
 
 #: ajapaik/ajapaik/views.py:1333
 msgid "Recuration successful"
-msgstr ""
+msgstr "재-큐레이션 성공"
 
 #: ajapaik/ajapaik/views.py:1335
 msgid "Faulty data submitted"
-msgstr ""
+msgstr "잘못된 데이터가 제출되었습니다"
 
 #: ajapaik/ajapaik/views.py:1712
 msgid "Browse photos on map"
@@ -2457,19 +2457,19 @@ msgstr "지도에서 사진 찾아보기"
 
 #: ajapaik/ajapaik/views.py:1854
 msgid "Your contribution didn't change the estimated location for the photo, not yet anyway."
-msgstr ""
+msgstr "당신의 기여는 사진의 추정 위치를 아직 변경하지 않았습니다."
 
 #: ajapaik/ajapaik/views.py:1856
 msgid "The photo has been mapped to a new location thanks to you."
-msgstr ""
+msgstr "덕분에 사진이 새 위치에 매핑되었습니다."
 
 #: ajapaik/ajapaik/views.py:1858
 msgid "Your suggestion was first."
-msgstr ""
+msgstr "그것이 첫 번째 제안이었습니다."
 
 #: ajapaik/ajapaik/views.py:2131
 msgid "Search for old photos, add them to Ajapaik, determine their locations and share the resulting album!"
-msgstr ""
+msgstr "오래된 사진을 검색하고 Ajapaik에 추가한 뒤 위치를 확인하고 결과 앨범을 공유하세요!"
 
 #: ajapaik/ajapaik/views.py:2478
 msgid "OK"
@@ -2495,7 +2495,7 @@ msgstr "제출된 데이터가 충분치 않음"
 #: ajapaik/ajapaik/views.py:3115
 #, python-format
 msgid "Still from \"%(film)s\" at %(time)s"
-msgstr ""
+msgstr "%(time)s의 \"%(film)s\" 스틸컷"
 
 #: ajapaik/ajapaik/views.py:3369
 msgid "Photo uploaded"
@@ -2523,7 +2523,7 @@ msgstr "소식지와 언어 설정"
 
 #: ajapaik/ajapaik/views.py:3719
 msgid "Merge another Ajapaik account with current one"
-msgstr ""
+msgstr "다른 Ajapaik 계정을 현재 계정과 병합"
 
 #: ajapaik/ajapaik/views.py:3802
 msgid "KulKa logo"
@@ -2543,15 +2543,15 @@ msgstr "KYSK 로고"
 
 #: ajapaik/ajapaik/views.py:3825
 msgid "Ministry of Culture"
-msgstr ""
+msgstr "문화부"
 
 #: ajapaik/ajapaik/views.py:3831
 msgid "Republic of Estonia National Heritage Board"
-msgstr ""
+msgstr "에스토니아 공화국 국가유산위원회"
 
 #: ajapaik/ajapaik/views.py:3838
 msgid "Year of Digital Culture 2020"
-msgstr ""
+msgstr "디지털 문화의 해 2020"
 
 #: ajapaik/ajapaik/views.py:3845
 msgid "Wikimedia Finland"
@@ -2567,7 +2567,7 @@ msgstr "생년월일"
 
 #: ajapaik/ajapaik_face_recognition/forms.py:22
 msgid "Is public figure"
-msgstr ""
+msgstr "공인 여부"
 
 #: ajapaik/ajapaik_face_recognition/forms.py:26
 msgid "Firstname Lastname"
@@ -2614,15 +2614,15 @@ msgstr "피카사"
 
 #: ajapaik/ajapaik_face_recognition/models.py:38
 msgid "SubjectPhoto"
-msgstr ""
+msgstr "SubjectPhoto"
 
 #: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:12
 msgid "Please indicate what are the gender and/or age of the highlighted person"
-msgstr ""
+msgstr "강조 표시된 사람의 성별 및/또는 나이가 무엇인지 표시하세요"
 
 #: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:14
 msgid "If you are not sure what the gender and/or age of the person is, please press"
-msgstr ""
+msgstr "그 사람의 성별 및/또는 나이가 확실하지 않다면 다음을 누르세요"
 
 #: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:14
 msgid "Not Sure"
@@ -2630,7 +2630,7 @@ msgstr "확실치 않음"
 
 #: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:16
 msgid "In case the rectangle is misplaced please choose"
-msgstr ""
+msgstr "사각형 위치가 잘못된 경우 다음을 선택하세요"
 
 #: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:16
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:62
@@ -2640,7 +2640,7 @@ msgstr "얼굴이 아님"
 
 #: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:18
 msgid "To see the description of the image, please press"
-msgstr ""
+msgstr "이미지 설명을 보려면 다음을 누르세요"
 
 #: ajapaik/ajapaik_face_recognition/templates/_add_subject_data_tutorial_modal.html:18
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:65
@@ -2650,7 +2650,7 @@ msgstr "정보"
 
 #: ajapaik/ajapaik_face_recognition/templates/add_subject.html:10
 msgid "Create a new person record"
-msgstr ""
+msgstr "새 인물 기록 만들기"
 
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:59
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:83
@@ -2663,11 +2663,11 @@ msgstr "건너뛰기"
 
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:99
 msgid "Currently the gender is"
-msgstr ""
+msgstr "현재 성별:"
 
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data.html:101
 msgid "Currently the age is"
-msgstr ""
+msgstr "현재 나이:"
 
 #: ajapaik/ajapaik_face_recognition/templates/add_subject_data_empty.html:10
 msgid "No data here, please come back later"
