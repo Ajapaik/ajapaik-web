@@ -259,6 +259,10 @@
     const retakeBtn = document.getElementById('btn-retake');
     const uploadBtn = document.getElementById('btn-upload');
     const loadingOverlay = document.getElementById('loading-overlay');
+    // Authentication state and login helpers
+    const userIsAuthenticated = {% if request.user.is_authenticated %}true{% else %}false{% endif %};
+    const userIsSocialConnected = {% if request.user.is_authenticated and request.user.profile and request.user.profile.is_legit %}true{% else %}false{% endif %};
+    const loginUrl = "{% url 'account_login' %}?next={{ request.get_full_path|urlencode }}";
     // Hide upload button until a photo has been captured
     uploadBtn.style.display = 'none';
 
@@ -544,6 +548,20 @@
     });
 
     uploadBtn.addEventListener('click', () => {
+      // Require login before uploading
+      if (!userIsAuthenticated || !userIsSocialConnected) {
+        try {
+          if (typeof window.openLoginModal === 'function') {
+            window.openLoginModal('rephoto');
+          } else {
+            window.location.href = loginUrl;
+          }
+        } catch (e) {
+          window.location.href = loginUrl;
+        }
+        return;
+      }
+
       loadingOverlay.style.display = 'flex';
       
       Promise.all([
