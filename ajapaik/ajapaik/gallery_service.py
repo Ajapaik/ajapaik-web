@@ -282,7 +282,13 @@ def get_filtered_data_for_gallery(
                 total=total,
                 max_page=max_page,
             )
-            photos = photos.filter(id__in=photo_ids[start:end])
+            # Preserve ordering as in original photo_ids list
+            page_ids_ordered = photo_ids[start:end]
+            order_case = Case(
+                *[When(id=pid, then=pos) for pos, pid in enumerate(page_ids_ordered)],
+                output_field=IntegerField(),
+            )
+            photos = Photo.objects.filter(id__in=page_ids_ordered).annotate(_order=order_case).order_by('_order')
         else:
             total = album_size_before_sorting or photos.count()
             start, end, max_page, page = get_pagination_parameters(page, total, page_size_or_default)
@@ -301,8 +307,15 @@ def get_filtered_data_for_gallery(
     # Limit auxiliary lists to the current page to avoid materializing huge querysets
     if page:
         # Important: 'photos' may be a sliced queryset here. Django forbids filtering a
-        # queryset after slicing, so build fresh querysets from the current page IDs.
+        # queryset after slicing. Materialize current page IDs, then rebuild a fresh
+        # unsliced queryset preserving the original order so we can safely annotate/select_related.
         page_ids = [p.id for p in list(photos)]
+        if page_ids:
+            order_case_page = Case(
+                *[When(id=pid, then=pos) for pos, pid in enumerate(page_ids)],
+                output_field=IntegerField(),
+            )
+            photos = Photo.objects.filter(id__in=page_ids).annotate(_order=order_case_page).order_by('_order')
         if wants_comments_list:
             photos_with_comments = Photo.objects.filter(id__in=page_ids, comment_count__gt=0)
         if wants_rephotos_list:
