@@ -22,7 +22,7 @@
     #camera-container { 
       position: relative; 
       width: 100vw; 
-      height: calc(var(--vh) * 100); 
+      height: calc(var(--vh, 1vh) * 100); 
       overflow: hidden; 
       background: #111;
     }
@@ -117,7 +117,7 @@
       top: 0; 
       left: 0; 
       width: 100vw; 
-      height: calc(var(--vh) * 100); 
+      height: calc(var(--vh, 1vh) * 100); 
       background: #000; 
       z-index: 20; 
     }
@@ -332,6 +332,7 @@
 
     container.addEventListener('mousedown', (e) => {
       if(e.target.closest('button') || e.target.closest('a')) return;
+      requestFullscreenIfPossible();
       isDragging = true;
       startX = e.clientX;
       startY = e.clientY;
@@ -456,6 +457,7 @@
     });
 
     function capturePhoto() {
+      requestFullscreenIfPossible();
       if (!video.videoWidth) return;
 
       const vw = window.innerWidth;
