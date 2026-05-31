@@ -5,11 +5,11 @@ from typing import Union
 from django.conf import settings
 from django.contrib.gis.db.models.functions import GeometryDistance
 from django.contrib.gis.geos import Point
-from django.db.models import BooleanField, Case, Count, F, Exists, OuterRef, Q, Value, When, IntegerField
+from django.db.models import Case, Count, F, Exists, OuterRef, When, IntegerField
 from haystack.inputs import AutoQuery
 from haystack.query import SearchQuerySet
 
-from ajapaik.ajapaik.models import Photo, Album, AlbumPhoto
+from ajapaik.ajapaik.models import Photo, Album, AlbumPhoto, PhotoLike
 from ajapaik.ajapaik.types import GalleryResults, UserMini, PaginationParameters
 from ajapaik.ajapaik.utils import get_pagination_parameters
 from ajapaik.ajapaik_face_recognition.models import FaceRecognitionRectangle
@@ -345,10 +345,11 @@ def get_filtered_data_for_gallery(
         try:
             if profile:
                 qs = qs.annotate(
-                    favorited=Case(
-                        When(Q(likes__profile=profile) & Q(likes__profile__isnull=False), then=Value(True)),
-                        default=Value(False),
-                        output_field=BooleanField(),
+                    favorited=Exists(
+                        PhotoLike.objects.filter(
+                            photo_id=OuterRef("pk"),
+                            profile=profile,
+                        )
                     )
                 )
         except Exception:
