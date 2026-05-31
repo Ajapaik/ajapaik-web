@@ -121,6 +121,8 @@ def get_filtered_data_for_gallery(
 
     photos_with_comments = Photo.objects.none()
     photos_with_rephotos = Photo.objects.none()
+    wants_comments_list = False
+    wants_rephotos_list = False
 
     # SORTING BELOW THIS LINE
     if order1 == 'closest' and lat and lon:
@@ -135,13 +137,13 @@ def get_filtered_data_for_gallery(
                 photos = photos.order_by('comment_count')
             else:
                 photos = photos.order_by('-comment_count')
-            photos_with_comments = photos.filter(comment_count__gt=0)
+            wants_comments_list = True
         elif order2 == 'rephotos':
             if order3 == 'reverse':
                 photos = photos.order_by('rephoto_count')
             else:
                 photos = photos.order_by('-rephoto_count')
-            photos_with_rephotos = photos.filter(rephoto_count__gt=0)
+            wants_rephotos_list = True
         elif order2 == 'geotags':
             if order3 == 'reverse':
                 photos = photos.order_by('geotag_count')
@@ -184,13 +186,13 @@ def get_filtered_data_for_gallery(
                 photos = photos.order_by(F('first_rephoto').asc(nulls_last=True))
             else:
                 photos = photos.order_by(F('latest_rephoto').desc(nulls_last=True))
-            photos_with_rephotos = photos.filter(first_rephoto__isnull=False)
+            wants_rephotos_list = True
         elif order2 == 'comments':
             if order3 == 'reverse':
                 photos = photos.order_by(F('first_comment').asc(nulls_last=True))
             else:
                 photos = photos.order_by(F('latest_comment').desc(nulls_last=True))
-            photos_with_comments = photos.filter(comment_count__gt=0)
+            wants_comments_list = True
         elif order2 == 'geotags':
             if order3 == 'reverse':
                 photos = photos.order_by(F('first_geotag').asc(nulls_last=True))
@@ -289,6 +291,25 @@ def get_filtered_data_for_gallery(
             photos = photos[start:end]
     else:
         pagination_parameters = None
+
+    # Limit auxiliary lists to the current page to avoid materializing huge querysets
+    if page:
+        if wants_comments_list:
+            photos_with_comments = photos.filter(comment_count__gt=0)
+        if wants_rephotos_list:
+            if order1 == 'time' and order2 == 'rephotos':
+                photos_with_rephotos = photos.filter(first_rephoto__isnull=False)
+            else:
+                photos_with_rephotos = photos.filter(rephoto_count__gt=0)
+    else:
+        # Preserve original behavior for non-paginated use cases
+        if wants_comments_list:
+            photos_with_comments = photos.filter(comment_count__gt=0)
+        if wants_rephotos_list:
+            if order1 == 'time' and order2 == 'rephotos':
+                photos_with_rephotos = photos.filter(first_rephoto__isnull=False)
+            else:
+                photos_with_rephotos = photos.filter(rephoto_count__gt=0)
 
     if default_ordering and album and album.ordered:
         album_photos_links_order = AlbumPhoto.objects.filter(album=album).order_by('pk').values_list('photo_id',
