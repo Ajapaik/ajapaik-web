@@ -22,7 +22,7 @@
     #camera-container { 
       position: relative; 
       width: 100vw; 
-      height: 100vh; 
+      height: calc(var(--vh) * 100); 
       overflow: hidden; 
       background: #111;
     }
@@ -117,7 +117,7 @@
       top: 0; 
       left: 0; 
       width: 100vw; 
-      height: 100vh; 
+      height: calc(var(--vh) * 100); 
       background: #000; 
       z-index: 20; 
     }
@@ -126,7 +126,7 @@
       display: flex;
       flex-direction: row;
       width: 100%;
-      height: calc(100vh - 100px);
+      height: calc(var(--vh) * 100 - 100px);
       padding: 10px;
       gap: 10px;
     }
@@ -259,6 +259,8 @@
     const retakeBtn = document.getElementById('btn-retake');
     const uploadBtn = document.getElementById('btn-upload');
     const loadingOverlay = document.getElementById('loading-overlay');
+    // Hide upload button until a photo has been captured
+    uploadBtn.style.display = 'none';
 
     let currentFacingMode = 'environment'; 
     let opacity = 0.5;
@@ -496,6 +498,8 @@
       previewOldImg.src = overlay.src;
       document.getElementById('camera-container').style.display = 'none';
       previewContainer.style.display = 'block';
+      // Show upload button now that we have an image to upload
+      uploadBtn.style.display = 'inline-block';
     }
 
     captureBtn.addEventListener('click', capturePhoto);
@@ -503,6 +507,8 @@
     retakeBtn.addEventListener('click', () => {
       previewContainer.style.display = 'none';
       document.getElementById('camera-container').style.display = 'block';
+      // Hide upload button again until a new photo is captured
+      uploadBtn.style.display = 'none';
     });
 
     uploadBtn.addEventListener('click', () => {

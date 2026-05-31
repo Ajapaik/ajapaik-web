@@ -337,18 +337,13 @@ def get_filtered_data_for_gallery(
         except Exception:
             # Fallback safely if annotation fails for any reason
             pass
-        return qs
+        return qs.distinct()
 
     optimized_photos = _optimize_photos_qs(photos)
     optimized_photos_with_comments = _optimize_photos_qs(
         photos_with_comments) if photos_with_comments is not None else None
     optimized_photos_with_rephotos = _optimize_photos_qs(
         photos_with_rephotos) if photos_with_rephotos is not None else None
-
-    if requested_photo:
-        fb_share_photos = [requested_photo]
-    else:
-        fb_share_photos = list(optimized_photos[:5])
 
     return GalleryResults(
         rephoto_album_author=rephoto_album_author,
