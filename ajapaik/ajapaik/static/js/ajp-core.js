@@ -72,25 +72,25 @@ window.galleryFilters = [
 window.albumFilters = ['film', 'collections', 'people'];
 
 $('.ajp-navbar').autoHidingNavbar();
-(function($) {
+(function ($) {
     'use strict';
 
     if (docCookies.getItem('hasSeenDonationModal') !== 'True') {
         $('#ajp-donation-banner').show();
     }
 
-    window.closeDonationBanner = function() {
+    window.closeDonationBanner = function () {
         const d = new Date();
         d.setTime(d.getTime() + 86400000);
         document.cookie = 'hasSeenDonationModal=True; path=/; expires=' + d;
         $('#ajp-donation-banner').hide();
     };
 
-    $('#ajp-donation-banner-close').on('click', function() {
+    $('#ajp-donation-banner-close').on('click', function () {
         window.closeDonationBanner();
     });
 
-    window.handleErrors = async function(response) {
+    window.handleErrors = async function (response) {
         const data = await response.json();
         if (data.error) {
             throw data.error;
@@ -108,7 +108,7 @@ $('.ajp-navbar').autoHidingNavbar();
         });
     }
 
-    Math.degrees = function(rad) {
+    Math.degrees = function (rad) {
         let ret = rad * (180 / Math.PI);
         if (ret < 0) {
             ret += 360;
@@ -117,11 +117,11 @@ $('.ajp-navbar').autoHidingNavbar();
         return ret;
     };
 
-    Math.radians = function(degrees) {
+    Math.radians = function (degrees) {
         return (degrees * Math.PI) / 180;
     };
 
-    Math.haversineDistance = function(start, end) {
+    Math.haversineDistance = function (start, end) {
         const R = 6371,
             dLat = Math.radians(end.latitude - start.latitude),
             dLon = Math.radians(end.longitude - start.longitude),
@@ -139,7 +139,7 @@ $('.ajp-navbar').autoHidingNavbar();
     };
 
     // Functions used on modal mini-map and map view, duplicates in geoTagger plugin to make it self-contained
-    Math.getAzimuthBetweenTwoPoints = function(p1, p2) {
+    Math.getAzimuthBetweenTwoPoints = function (p1, p2) {
         if (p1 && p2) {
             const x = p2.lat() - p1.lat(),
                 y = p2.lng() - p1.lng();
@@ -149,7 +149,7 @@ $('.ajp-navbar').autoHidingNavbar();
         return false;
     };
 
-    Math.degrees = function(rad) {
+    Math.degrees = function (rad) {
         let ret = rad * (180 / Math.PI);
         if (ret < 0) {
             ret += 360;
@@ -158,11 +158,11 @@ $('.ajp-navbar').autoHidingNavbar();
         return ret;
     };
 
-    Math.radians = function(degrees) {
+    Math.radians = function (degrees) {
         return (degrees * Math.PI) / 180;
     };
 
-    window.albumPhotoLinkClick = function(e) {
+    window.albumPhotoLinkClick = function (e) {
         e.preventDefault();
         let popoverTarget =
             $(e.target).data('bs.popover') === undefined
@@ -182,7 +182,7 @@ $('.ajp-navbar').autoHidingNavbar();
         }
     };
 
-    window.resizeMinimap = function() {
+    window.resizeMinimap = function () {
         const mapContainer = $('#ajp-photo-modal-map-container'),
             modalPhoto = $('#ajp-modal-photo'),
             photoviewPhoto = $('#ajp-photoview-main-photo');
@@ -192,14 +192,14 @@ $('.ajp-navbar').autoHidingNavbar();
         );
     };
 
-    window.positionMinimapCTAButton = function() {
+    window.positionMinimapCTAButton = function () {
         const mapCanvas = $('#ajp-photo-modal-map-canvas');
         $('.ajp-minimap-start-suggestion-CTA-button')
             .css('margin-left', mapCanvas.width() / 2 - 35 + 'px')
             .css('margin-top', mapCanvas.height() / 2 - 35 + 'px');
     };
 
-    window.getQueryParameterByName = function(name) {
+    window.getQueryParameterByName = function (name) {
         const match = new RegExp('[?&]' + name + '=([^&]*)').exec(
             window.location.search,
         );
@@ -209,8 +209,8 @@ $('.ajp-navbar').autoHidingNavbar();
     function openMainPhotoToFullScreen(fullScreenContainer) {
         window.fullscreenEnabled = true;
 
-        window.BigScreen.request(fullScreenContainer[0], function() {
-            setTimeout(function() {
+        window.BigScreen.request(fullScreenContainer[0], function () {
+            setTimeout(function () {
                 drawAnnotationContainer(fullScreenContainer);
                 copyAnnotateButtonToFullScreenView();
             }, 100);
@@ -238,8 +238,8 @@ $('.ajp-navbar').autoHidingNavbar();
         gtag(event, eventName, { 'category': eventCategory });
     }
 
-    const update_comment_likes = function(link) {
-        const update_badge = function(badge, count) {
+    const update_comment_likes = function (link) {
+        const update_badge = function (badge, count) {
             badge.text('(' + count + ')');
             if (count <= 0) {
                 badge.addClass('d-none');
@@ -249,7 +249,7 @@ $('.ajp-navbar').autoHidingNavbar();
         };
         const comment_id = link.data('comment-id');
 
-        $.get('/comments/like-count/' + comment_id + '/', {}, function(response) {
+        $.get('/comments/like-count/' + comment_id + '/', {}, function (response) {
             const like_count_badge = $('#ajp-comments-like-count-' + comment_id);
             const dislike_count_badge = $(
                 '#ajp-comments-dislike-count-' + comment_id,
@@ -259,7 +259,7 @@ $('.ajp-navbar').autoHidingNavbar();
         });
     };
 
-    $('.full-box div').on('click', function(e) {
+    $('.full-box div').on('click', function (e) {
         e.preventDefault();
         if (window.BigScreen.enabled) {
             fullscreenEnabled = false;
@@ -270,7 +270,7 @@ $('.ajp-navbar').autoHidingNavbar();
         }
     });
 
-    $(document).on('click', '#ajp-fullscreen-link', function(e) {
+    $(document).on('click', '#ajp-fullscreen-link', function (e) {
         e.preventDefault();
         window.lastScrollPosition = $(window).scrollTop();
         if (window.BigScreen.enabled) {
@@ -312,7 +312,7 @@ $('.ajp-navbar').autoHidingNavbar();
         }
     });
 
-    const handleFullScreenLinkClick = function(keyWord) {
+    const handleFullScreenLinkClick = function (keyWord) {
         if (window.BigScreen.enabled) {
             const div = $('#ajp-rephoto-fullscreen-image-container'),
                 img = div.find('img');
@@ -324,12 +324,12 @@ $('.ajp-navbar').autoHidingNavbar();
         }
     };
 
-    $(document).on('click', '#ajp-rephoto-full-screen-link', function(e) {
+    $(document).on('click', '#ajp-rephoto-full-screen-link', function (e) {
         e.preventDefault();
         handleFullScreenLinkClick('rephoto');
     });
 
-    $(document).on('click', '#ajp-similar-photo-full-screen-link', function(e) {
+    $(document).on('click', '#ajp-similar-photo-full-screen-link', function (e) {
         e.preventDefault();
         handleFullScreenLinkClick('similar');
     });
@@ -340,17 +340,17 @@ $('.ajp-navbar').autoHidingNavbar();
         }
     };
 
-    showScoreboard = function() {
+    showScoreboard = function () {
         $('.ajp-navbar').find('.score-container').slideDown();
         scoreboardShown = true;
     };
 
-    hideScoreboard = function() {
+    hideScoreboard = function () {
         $('.ajp-navbar').find('.score-container').slideUp();
         scoreboardShown = false;
     };
 
-    window.updateLeaderboard = function() {
+    window.updateLeaderboard = function () {
         const target = $('.score-container');
         if (window.albumId) {
             target
@@ -361,7 +361,7 @@ $('.ajp-navbar').autoHidingNavbar();
         }
     };
 
-    $(document).on('click', '#ajp-header-grid-button', function(e) {
+    $(document).on('click', '#ajp-header-grid-button', function (e) {
         if (!window.isPhotoview) {
             e.preventDefault();
             let originalUri = URI(window.location);
@@ -397,7 +397,7 @@ $('.ajp-navbar').autoHidingNavbar();
         }
     });
 
-    handlePhotoFilterChange = function(photoFilter) {
+    handlePhotoFilterChange = function (photoFilter) {
         let uri = URI(window.location);
         let photoFilters = [];
 
@@ -452,7 +452,7 @@ $('.ajp-navbar').autoHidingNavbar();
     $(document).on(
         'click',
         '#ajp-header-people, #ajp-header-backsides, #ajp-header-collections, #ajp-header-film, #ajp-header-interiors, #ajp-header-exteriors, #ajp-header-ground_viewpoint_elevation, #ajp-header-raised_viewpoint_elevation, #ajp-header-aerial_viewpoint_elevation, #ajp-header-no_geotags, #ajp-header-high_quality, #ajp-header-portrait, #ajp-header-square, #ajp-header-panoramic, #ajp-header-landscape',
-        function(e) {
+        function (e) {
             e.preventDefault();
             let idComponents = e.currentTarget.id.split('-');
             window.handlePhotoFilterChange(idComponents[idComponents.length - 1]);
@@ -462,7 +462,7 @@ $('.ajp-navbar').autoHidingNavbar();
     $(document).on(
         'click',
         '#removeDateFilters',
-        function(e) {
+        function (e) {
             e.preventDefault();
             let uri = URI(window.location);
 
@@ -481,7 +481,7 @@ $('.ajp-navbar').autoHidingNavbar();
     $(document).on(
         'click',
         '#applyDateFilters',
-        function(e) {
+        function (e) {
             e.preventDefault();
             let uri = URI(window.location);
             let dateFromValue = document.getElementById('startingFrom').innerText;
@@ -511,7 +511,7 @@ $('.ajp-navbar').autoHidingNavbar();
     );
 
 
-    handleGeolocation = function(position) {
+    handleGeolocation = function (position) {
         $('#ajp-geolocation-error').hide();
         window.location.href =
             '/map?lat=' +
@@ -521,7 +521,7 @@ $('.ajp-navbar').autoHidingNavbar();
             '&limitToAlbum=0&zoom=15';
     };
 
-    geolocationError = function(error) {
+    geolocationError = function (error) {
         const targetElement = $('#ajp-geolocation-error-message');
         switch (error.code) {
             case error.PERMISSION_DENIED:
@@ -541,12 +541,12 @@ $('.ajp-navbar').autoHidingNavbar();
                 break;
         }
         $('#ajp-geolocation-error').show();
-        window.setTimeout(function() {
+        window.setTimeout(function () {
             $('#ajp-geolocation-error').hide();
         }, 3000);
     };
 
-    $(document).on('click', '#ajp-header-map', function(e) {
+    $(document).on('click', '#ajp-header-map', function (e) {
         e.preventDefault();
         if (window.isSelection) {
             window.history.go(-1);
@@ -564,7 +564,7 @@ $('.ajp-navbar').autoHidingNavbar();
         }
     });
 
-    $(document).on('click', '.ajp-minimap-confirm-geotag-button', function() {
+    $(document).on('click', '.ajp-minimap-confirm-geotag-button', function () {
         const $this = $(this);
         if (!$this.hasClass('ajp-minimap-confirm-geotag-button-done')) {
             const photoId = $(this).data('id');
@@ -574,7 +574,7 @@ $('.ajp-navbar').autoHidingNavbar();
                     photo: photoId,
                     csrfmiddlewaretoken: docCookies.getItem('csrftoken'),
                 },
-                function(response) {
+                function (response) {
                     $this.addClass('ajp-minimap-confirm-geotag-button-done');
                     updateStatDiv(response.new_geotag_count);
                 },
@@ -591,7 +591,7 @@ $('.ajp-navbar').autoHidingNavbar();
     $(document).on(
         'click',
         '.ajp-minimap-start-suggestion-CTA-button',
-        function() {
+        function () {
             pushAnalyticsEvent('event', 'specify_location');
 
             if (window.isGame) {
@@ -605,7 +605,7 @@ $('.ajp-navbar').autoHidingNavbar();
     $(document).on(
         'click',
         '.ajp-show-rephoto-selection-overlay-button',
-        function() {
+        function () {
             $(this).hide();
             userClosedRephotoTools = false;
             $('.ajp-close-similar-photo-overlay-button').click();
@@ -654,19 +654,19 @@ $('.ajp-navbar').autoHidingNavbar();
         },
     );
 
-    $(document).on('click', '.ajp-album-selection-item', function(e) {
+    $(document).on('click', '.ajp-album-selection-item', function (e) {
         e.preventDefault();
         const $this = $(this);
         window.albumId = $this.data('id');
         handleAlbumChange();
     });
 
-    $('#ajp-comment-form-register-link').click(function(e) {
+    $('#ajp-comment-form-register-link').click(function (e) {
         e.preventDefault();
         window.openLoginModal('comment');
     });
 
-    $(document).on('click', '.ajp-photo-modal-rephoto-thumb', function() {
+    $(document).on('click', '.ajp-photo-modal-rephoto-thumb', function () {
         let targetId = $(this).data('id'),
             infoDiv = $('#ajp-photo-rephoto-info-column'),
             photoDiv = $('#ajp-modal-rephoto-container'),
@@ -707,7 +707,7 @@ $('.ajp-navbar').autoHidingNavbar();
         }
     });
 
-    $(document).on('click', '#ajp-header-profile', function(e) {
+    $(document).on('click', '#ajp-header-profile', function (e) {
         e.preventDefault();
         if (!window.isTop50 && !window.isLeaderboard) {
             window.updateLeaderboard();
@@ -719,7 +719,7 @@ $('.ajp-navbar').autoHidingNavbar();
         }
     });
 
-    updateStatDiv = function(count) {
+    updateStatDiv = function (count) {
         let statDiv = $('.ajp-minimap-geotagging-user-number');
         if (statDiv.length === 0) {
             statDiv = $(
@@ -739,7 +739,7 @@ $('.ajp-navbar').autoHidingNavbar();
         }
     };
 
-    window.backClick = function() {
+    window.backClick = function () {
         if (document.referrer.indexOf(window.location.origin) === 0) {
             history.go(-1);
             return false;
@@ -748,7 +748,7 @@ $('.ajp-navbar').autoHidingNavbar();
         }
     };
 
-    $(document).on('click', '#ajp-photo-modal-close-button', function(e) {
+    $(document).on('click', '#ajp-photo-modal-close-button', function (e) {
         e.preventDefault();
         window.closePhotoDrawer();
     });
@@ -756,7 +756,7 @@ $('.ajp-navbar').autoHidingNavbar();
     $(document).on(
         'change',
         '#ajp-curator-create-new-album-checkbox',
-        function() {
+        function () {
             const $this = $(this),
                 creationFields = $('.ajp-curator-new-album-creation-field'),
                 existingFields = $('.ajp-curator-add-to-existing-album-field');
@@ -770,14 +770,14 @@ $('.ajp-navbar').autoHidingNavbar();
         },
     );
 
-    $(document).on('keyup', '#ajp-curator-album-filter', function() {
+    $(document).on('keyup', '#ajp-curator-album-filter', function () {
         const filter = $(this).val().toLowerCase();
         if (filter === '') {
             $('option').show();
         } else {
             $('#ajp-curator-album-select')
                 .find('option')
-                .each(function() {
+                .each(function () {
                     if ($(this).text().toLowerCase().indexOf(filter) > -1) {
                         $(this).show();
                     } else {
@@ -787,11 +787,11 @@ $('.ajp-navbar').autoHidingNavbar();
         }
     });
 
-    $(document).on('hidden.bs.modal', '#ajp-choose-albums-modal', function() {
+    $(document).on('hidden.bs.modal', '#ajp-choose-albums-modal', function () {
         $('#ajp-curator-album-filter').val(null);
     });
 
-    $(document).on('click', '#ajp-header-album-more', function(e) {
+    $(document).on('click', '#ajp-header-album-more', function (e) {
         e.preventDefault();
         e.stopPropagation();
         const targetDiv = $('#ajp-info-modal');
@@ -807,9 +807,9 @@ $('.ajp-navbar').autoHidingNavbar();
                     fbShareMap: window.fbShareMap,
                     fbShareGallery: window.fbShareGallery,
                 },
-                success: function(resp) {
+                success: function (resp) {
                     targetDiv.html(resp);
-                    targetDiv.modal().on('shown.bs.modal', function() {
+                    targetDiv.modal().on('shown.bs.modal', function () {
                         window.FB.XFBML.parse($('#ajp-info-modal-like').get(0));
                     });
                 },
@@ -822,7 +822,7 @@ $('.ajp-navbar').autoHidingNavbar();
     $(document).on(
         'click',
         '.ajp-album-selection-album-more-button',
-        function(e) {
+        function (e) {
             e.preventDefault();
             e.stopPropagation();
             const targetDiv = $('#ajp-info-modal');
@@ -860,9 +860,9 @@ $('.ajp-navbar').autoHidingNavbar();
                         fbShareMap: fbShareMap,
                         fbShareGame: fbShareGame,
                     },
-                    success: function(resp) {
+                    success: function (resp) {
                         targetDiv.html(resp);
-                        targetDiv.modal().on('shown.bs.modal', function() {
+                        targetDiv.modal().on('shown.bs.modal', function () {
                             window.FB.XFBML.parse($('#ajp-info-modal-like').get(0));
                         });
                     },
@@ -872,25 +872,25 @@ $('.ajp-navbar').autoHidingNavbar();
         },
     );
 
-    $('.ajp-email-login-button').click(function() {
+    $('.ajp-email-login-button').click(function () {
         if (window.reportEmailLoginClick) {
             window.reportEmailLoginClick();
         }
     });
 
-    $('#ajp-email-register-button').click(function() {
+    $('#ajp-email-register-button').click(function () {
         if (window.reportEmailRegisterClick) {
             window.reportEmailRegisterClick();
         }
     });
 
-    $('.google-connect').click(function() {
+    $('.google-connect').click(function () {
         if (window.reportGooglePlusLoginClick) {
             window.reportGooglePlusLoginClick();
         }
     });
 
-    $(document).on('click', '.ajp-change-language-link', function(e) {
+    $(document).on('click', '.ajp-change-language-link', function (e) {
         e.preventDefault();
         $('#ajp-language').val($(this).attr('data-lang-code'));
         $('input[name=csrfmiddlewaretoken]').val(docCookies.getItem('csrftoken'));
@@ -902,42 +902,42 @@ $('.ajp-navbar').autoHidingNavbar();
         $('#ajp-change-language-form').submit();
     });
 
-    $(document).on('click', '#ajp-filter-closest-link', function(e) {
+    $(document).on('click', '#ajp-filter-closest-link', function (e) {
         e.preventDefault();
         getGeolocation(window.handleGeolocation);
     });
 
-    $(document).on('click', '.ajp-album-info-modal-album-link', function() {
+    $(document).on('click', '.ajp-album-info-modal-album-link', function () {
         pushAnalyticsEvent('event', 'open_nearby_album_from_album_info');
     });
 
-    $(document).on('click', '#ajp-mapview-close-streetview-button', function() {
+    $(document).on('click', '#ajp-mapview-close-streetview-button', function () {
         map.getStreetView().setVisible(false);
     });
 
-    $(document).on('click', '#ajp-ordering-help', function(e) {
+    $(document).on('click', '#ajp-ordering-help', function (e) {
         e.preventDefault();
         e.stopPropagation();
         $('#ajp-ordering-tutorial-modal').modal();
     });
 
-    $(document).on('click', '.ajp-minimap-geotagger-list-item', function(e) {
+    $(document).on('click', '.ajp-minimap-geotagger-list-item', function (e) {
         e.preventDefault();
     });
 
-    $(document).on('click', '#ajp-close-ordering-tutorial-modal', function(e) {
+    $(document).on('click', '#ajp-close-ordering-tutorial-modal', function (e) {
         e.stopPropagation();
         $('#ajp-ordering-tutorial-modal').modal('hide');
     });
 
-    $(window).on('resize', function() {
+    $(window).on('resize', function () {
         if (window.innerWidth > 768) {
             $('.navbar-collapse').removeClass('in');
         }
     });
 
     if (typeof String.prototype.startsWith !== 'function') {
-        String.prototype.startsWith = function(str) {
+        String.prototype.startsWith = function (str) {
             return this.indexOf(str) === 0;
         };
     }
@@ -945,7 +945,7 @@ $('.ajp-navbar').autoHidingNavbar();
     if (!window.isFrontpage) {
         $('#ajp-mode-select')
             .find('a')
-            .click(function(e) {
+            .click(function (e) {
                 if (!window.isFrontpage && !window.isSelection) {
                     e.preventDefault();
                     let $this = $(this),
@@ -990,14 +990,14 @@ $('.ajp-navbar').autoHidingNavbar();
     $(document).on(
         'click',
         '#ajp-add-to-album-button, #add-new-subject-button',
-        function(event) {
+        function (event) {
             event.preventDefault();
         },
     );
     $(document).on(
         'click',
         '#ajp-photo-selection-create-album-button,#ajp-add-to-album-button',
-        function() {
+        function () {
             if (!window.currentProfileEmail) {
                 window.openLoginModal('add-photos');
                 return;
@@ -1013,7 +1013,7 @@ $('.ajp-navbar').autoHidingNavbar();
     $(document).on(
         'click',
         '#ajp-curator-confirm-album-selection-button',
-        function() {
+        function () {
             if (window.location.pathname.indexOf('curator') > -1) {
                 return;
             }
@@ -1041,7 +1041,7 @@ $('.ajp-navbar').autoHidingNavbar();
                     albums: albums,
                     csrfmiddlewaretoken: docCookies.getItem('csrftoken'),
                 },
-                success: function(response) {
+                success: function (response) {
                     $('#ajp-loading-overlay').hide();
                     const ajpSelectionTopPanel = $('#ajp-selection-top-panel');
                     if (response.error) {
@@ -1076,11 +1076,22 @@ $('.ajp-navbar').autoHidingNavbar();
                         window.areaLng = null;
                         window.loadPossibleParentAlbums();
                         window.loadSelectableAlbums();
+
+                        if (response.albums && (window.currentlySelectedPhotoId || window.currentlyOpenPhotoId)) {
+                            const labelsContainer = $('.ajp-photo-modal-album-icon').parent().find('div.d-inline-flex');
+                            labelsContainer.find('.ajp-pebble').remove();
+                            response.albums.forEach(album => {
+                                const pebble = $('<div class="mr-2 mt-2 d-flex align-items-center ajp-pebble" data-toggle="popover" onclick="window.albumPhotoLinkClick(event)">');
+                                const link = $('<a class="ajp-photo-album-link">').attr('data-id', album.id).attr('href', '#').text(album.name);
+                                pebble.append(link);
+                                labelsContainer.prepend(pebble);
+                            });
+                        }
                     }
                     window.loadSelectableAlbums();
                     pushAnalyticsEvent('event', 'upload_success');
                 },
-                error: function() {
+                error: function () {
                     $('#ajp-loading-overlay').hide();
                     $('#ajp-curator-upload-error').show();
                     $('#ajp-selection-top-panel')
@@ -1096,7 +1107,7 @@ $('.ajp-navbar').autoHidingNavbar();
     $(document).on(
         'click',
         '#ajp-photo-modal-map-canvas > div.leaflet-control-container > div.leaflet-top.leaflet-right, .ajp-minimap-geotagging-user-number, #ajp-geotagger-stats-container > i, #ajp-geotagger-stats-container > span',
-        function() {
+        function () {
             const targetDiv = $('#ajp-geotaggers-modal');
             $('#ajp-loading-overlay').show();
             if (window.geotaggersListURL && window.currentlyOpenPhotoId) {
@@ -1106,10 +1117,10 @@ $('.ajp-navbar').autoHidingNavbar();
                 );
                 $.ajax({
                     url,
-                    success: function(resp) {
+                    success: function (resp) {
                         targetDiv.html(resp).modal();
                     },
-                    complete: function() {
+                    complete: function () {
                         $('#ajp-loading-overlay').hide();
                     },
                 });
@@ -1120,7 +1131,7 @@ $('.ajp-navbar').autoHidingNavbar();
     $(document).on(
         'click',
         '#ajp-comment-list a[data-action="like"],a[data-action="dislike"]',
-        function(event) {
+        function (event) {
             event.preventDefault();
             const link = $(this);
             $.post(
@@ -1128,7 +1139,7 @@ $('.ajp-navbar').autoHidingNavbar();
                 {
                     csrfmiddlewaretoken: docCookies.getItem('csrftoken'),
                 },
-                function(response, status) {
+                function (response, status) {
                     if (status === 'success') {
                         update_comment_likes(link);
                     }
@@ -1138,7 +1149,7 @@ $('.ajp-navbar').autoHidingNavbar();
         },
     );
 
-    $(document).on('click', 'a', function() {
+    $(document).on('click', 'a', function () {
         if (!window.audioContext) {
             window.audioContext = new AudioContext();
             if (window.audioContext.state !== 'running') {
@@ -1147,76 +1158,124 @@ $('.ajp-navbar').autoHidingNavbar();
         }
     });
 
-    $(document).on('click', '#ajp-grab-link', function(e) {
+    $(document).on('click', '#ajp-grab-link', function (e) {
         e.stopPropagation();
     });
-    $(document).on('click', '#ajp-comment-tabs li', function() {
+    $(document).on('click', '#ajp-comment-tabs li', function () {
         window.FB.XFBML.parse($('#ajp-rephoto-comments').get(0));
         window.FB.XFBML.parse($('#ajp-original-photo-comments').get(0));
     });
-    $(document).on('click', '.ajp-thumbnail-selection-icon', function(e) {
-        e.stopPropagation();
-        const $this = $(this),
-            other = $(
-                '.ajp-frontpage-image-container[data-id=\'' + $this.data('id') + '\']',
-            ).find('.ajp-thumbnail-selection-icon');
-        if ($this.hasClass('ajp-thumbnail-selection-icon-blue')) {
-            $this.removeClass('ajp-thumbnail-selection-icon-blue');
+    const updateSelectionUI = (count) => {
+        const target = $('#ajp-header-selection-indicator');
+        if (count > 0) {
+            target.removeClass('d-none');
         } else {
-            $this.addClass('ajp-thumbnail-selection-icon-blue');
+            target.addClass('d-none');
         }
-        if ($this.parent().attr('id') === 'ajp-modal-photo-container') {
-            if (other) {
-                if (other.hasClass('ajp-thumbnail-selection-icon-blue')) {
-                    other.removeClass('ajp-thumbnail-selection-icon-blue');
-                } else {
-                    other.addClass('ajp-thumbnail-selection-icon-blue');
-                    other.show();
+        target.find('div').html(count);
+
+        if (count < 2) {
+            $('#ajp-photo-selection-add-similarity').addClass('d-none');
+            $('#ajp-photo-selection-add-duplicate').addClass('d-none');
+        } else {
+            $('#ajp-photo-selection-add-similarity').removeClass('d-none');
+            $('#ajp-photo-selection-add-duplicate').removeClass('d-none');
+        }
+        if (count < 1) {
+            $('#ajp-photo-selection-create-album-button').addClass('d-none');
+            $('#ajp-photo-selection-clear-selection-button').addClass('d-none');
+            $('#ajp-photo-selection-categorize-scenes-button').addClass('d-none');
+            $('#ajp-photo-selection-edit-pictures-button').addClass('d-none');
+        } else {
+            $('#ajp-photo-selection-create-album-button').removeClass('d-none');
+            $('#ajp-photo-selection-clear-selection-button').removeClass('d-none');
+            $('#ajp-photo-selection-categorize-scenes-button').removeClass('d-none');
+            $('#ajp-photo-selection-edit-pictures-button').removeClass('d-none');
+        }
+    };
+
+    $(document).on('click', '.ajp-thumbnail-selection-icon', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        const $this = $(this);
+        const photoId = String($this.data('id'));
+        const isSelected = !$this.hasClass('ajp-thumbnail-selection-icon-blue');
+
+        const updateUI = (id, selected) => {
+            const icons = $('.ajp-thumbnail-selection-icon[data-id=\'' + id + '\']');
+            if (selected) {
+                icons.addClass('ajp-thumbnail-selection-icon-blue').show();
+            } else {
+                icons.removeClass('ajp-thumbnail-selection-icon-blue');
+                const containers = icons.closest('.ajp-frontpage-image-container');
+                if (containers.length > 0 && !containers.is(':hover')) {
+                    icons.hide();
                 }
             }
-        }
-        const data = {
-            id: $this.data('id'),
-            csrfmiddlewaretoken: docCookies.getItem('csrftoken'),
         };
-        $.post(window.photoSelectionURL, data, function(response) {
-            const len = Object.keys(response).length,
-                target = $('#ajp-header-selection-indicator');
-            if (len > 0) {
-                target.removeClass('d-none');
-            } else {
-                target.addClass('d-none');
+
+        let idsToToggle = [photoId];
+        if (e.shiftKey && window.lastSelectedPhotoId) {
+            const container = $(this).closest('.panel-body, #ajp-photo-selection-gallery, .ajp-frontpage-historic-photos, #ajp-curator-imports, .row');
+            const allIcons = container.find('.ajp-thumbnail-selection-icon');
+            const allPhotos = allIcons.map(function () {
+                return String($(this).data('id'));
+            }).get();
+            const start = allPhotos.indexOf(String(window.lastSelectedPhotoId));
+            const end = allPhotos.indexOf(photoId);
+            if (start !== -1 && end !== -1) {
+                idsToToggle = allPhotos.slice(Math.min(start, end), Math.max(start, end) + 1);
             }
-            target.find('div').html(len);
+        }
+        window.lastSelectedPhotoId = photoId;
+
+        const data = {
+            csrfmiddlewaretoken: docCookies.getItem('csrftoken'),
+            selection: JSON.stringify(idsToToggle),
+            action: isSelected ? 'add' : 'remove',
+            photo_id: idsToToggle.length === 1 ? idsToToggle[0] : undefined
+        };
+
+        idsToToggle.forEach(id => updateUI(id, isSelected));
+
+        $.post(window.photoSelectionURL, data, function (response) {
+            const count = response.photo_selection ? response.photo_selection.length : 0;
+            updateSelectionUI(count);
+            if (window.isSelection) {
+                idsToToggle.forEach(function (id) {
+                    if (!isSelected) {
+                        $('#ajp-frontpage-image-container-' + id).remove();
+                    }
+                });
+            }
+            if (response.ts) {
+                localStorage.setItem('photo_selection_ts', response.ts);
+            }
         });
     });
-    // Hover on dynamic elements doesn't work...
-    $(document).on('mouseenter', '.ajp-frontpage-image-container', function() {
-        $(this).find('.ajp-thumbnail-selection-icon').show('fade', 250);
-    });
-    $(document).on('mouseleave', '.ajp-frontpage-image-container', function() {
-        const icon = $(this).find('.ajp-thumbnail-selection-icon');
-        if (!icon.hasClass('ajp-thumbnail-selection-icon-blue')) {
-            $(this).find('.ajp-thumbnail-selection-icon').hide('fade', 250);
+
+    window.addEventListener('storage', function (e) {
+        if (e.key === 'photo_selection_ts') {
+            window.location.reload();
         }
     });
-    $(document).on('mouseenter', '.ajp-thumbnail-selection-icon', function() {
+    // Hover on dynamic elements
+    $(document).on('mouseenter', '.ajp-frontpage-image-container', function () {
+        const icon = $(this).find('.ajp-thumbnail-selection-icon');
+        if (!icon.hasClass('ajp-thumbnail-selection-icon-blue')) {
+            icon.show();
+        }
+    });
+    $(document).on('mouseleave', '.ajp-frontpage-image-container', function () {
+        const icon = $(this).find('.ajp-thumbnail-selection-icon');
+        if (!icon.hasClass('ajp-thumbnail-selection-icon-blue')) {
+            icon.hide();
+        }
+    });
+    $(document).on('mouseenter', '.ajp-thumbnail-selection-icon', function () {
         $(this).show();
     });
-    $(document.body).delegate(
-        '.ajp-frontpage-image-container',
-        'hover',
-        function() {
-            $(this).find('.ajp-thumbnail-selection-icon').show('fade', 250);
-        },
-        function() {
-            const icon = $(this).find('.ajp-thumbnail-selection-icon');
-            if (!icon.hasClass('ajp-thumbnail-selection-icon-blue')) {
-                $(this).find('.ajp-thumbnail-selection-icon').hide('fade', 250);
-            }
-        },
-    );
-    window.loadPossibleParentAlbums = function(
+    window.loadPossibleParentAlbums = function (
         parentAlbum,
         currentAlbumId,
         customSelector,
@@ -1242,14 +1301,14 @@ $('.ajp-navbar').autoHidingNavbar();
         }
         pushAnalyticsEvent('event', 'load_parent_albums_success');
     };
-    window.loadSelectableAlbums = function() {
+    window.loadSelectableAlbums = function () {
         $.ajax({
             type: 'POST',
             url: window.curatorSelectableAlbumsURL,
             data: {
                 csrfmiddlewaretoken: docCookies.getItem('csrftoken'),
             },
-            success: function(response) {
+            success: function (response) {
                 const targetDiv = $('#ajp-curator-album-select');
                 targetDiv.empty();
                 targetDiv.append(
@@ -1279,7 +1338,7 @@ $('.ajp-navbar').autoHidingNavbar();
                     pushAnalyticsEvent('event', 'load_album_selection_success');
                 }
             },
-            error: function() {
+            error: function () {
                 if (window.isCurator || window.isSelection) {
                     pushAnalyticsEvent('event', 'load_album_selection_error');
 
@@ -1287,10 +1346,10 @@ $('.ajp-navbar').autoHidingNavbar();
             },
         });
     };
-    $(document).on('click', '#ajp-sharing-dropdown-button', function() {
+    $(document).on('click', '#ajp-sharing-dropdown-button', function () {
         pushAnalyticsEvent('event', 'share_photo');
     });
-    $(document).on('click', '#full_leaderboard', function(e) {
+    $(document).on('click', '#full_leaderboard', function (e) {
         e.preventDefault();
         let url = window.leaderboardFullURL;
         if (window.albumId) {
@@ -1298,7 +1357,7 @@ $('.ajp-navbar').autoHidingNavbar();
         }
         $.ajax({
             url: url,
-            success: function(response) {
+            success: function (response) {
                 const modalWindow = $('#ajp-full-leaderboard-modal');
                 modalWindow.find('.scoreboard').html(response);
                 modalWindow.find('.score-container').show();
@@ -1309,7 +1368,7 @@ $('.ajp-navbar').autoHidingNavbar();
 
         pushAnalyticsEvent('event', 'full_leaderboard');
     });
-    $(document).on('click', '#ajp-info-window-leaderboard-link', function(e) {
+    $(document).on('click', '#ajp-info-window-leaderboard-link', function (e) {
         e.preventDefault();
         window.albumId = $(this).data('id');
         $('#full_leaderboard').click();
@@ -1318,7 +1377,7 @@ $('.ajp-navbar').autoHidingNavbar();
     $(document).on(
         'click',
         '.ajp-invert-similar-photo-overlay-button',
-        function(e) {
+        function (e) {
             e.preventDefault();
             e.stopPropagation();
             let targetDiv = $('#ajp-modal-similar-photo');
@@ -1341,7 +1400,7 @@ $('.ajp-navbar').autoHidingNavbar();
         },
     );
 
-    $(document).on('click', '.ajp-invert-rephoto-overlay-button', function(e) {
+    $(document).on('click', '.ajp-invert-rephoto-overlay-button', function (e) {
         e.preventDefault();
         e.stopPropagation();
         let targetDiv = $('#ajp-modal-rephoto');
@@ -1363,7 +1422,7 @@ $('.ajp-navbar').autoHidingNavbar();
         }
     });
 
-    $(document).on('click', '.ajp-photo-modal-similar-photo-thumb', function() {
+    $(document).on('click', '.ajp-photo-modal-similar-photo-thumb', function () {
         let targetId = $(this).data('id');
         const infoDiv = $('#ajp-photo-modal-similar-photo-info-column'),
             photoDiv = $('#ajp-modal-similar-photo-container'),
@@ -1403,7 +1462,7 @@ $('.ajp-navbar').autoHidingNavbar();
     $(document).on(
         'click',
         '.ajp-show-similar-photo-selection-overlay-button',
-        function() {
+        function () {
             $(this).hide();
             userClosedSimilarPhotoTools = false;
             $('.ajp-close-rephoto-overlay-button').click();
@@ -1449,24 +1508,24 @@ $('.ajp-navbar').autoHidingNavbar();
             }
         },
     );
-    $(document).on('click', '#ajp-photo-source', function() {
+    $(document).on('click', '#ajp-photo-source', function () {
         pushAnalyticsEvent('event', 'source_click');
     });
-    $(document).on('click', '#ajp-rephoto-source', function() {
+    $(document).on('click', '#ajp-rephoto-source', function () {
         pushAnalyticsEvent('event', 'rephoto_source_click');
     });
 
-    $(document).on('click', '#ajp-header-about-button', function(e) {
+    $(document).on('click', '#ajp-header-about-button', function (e) {
         e.preventDefault();
         $('#ajp-loading-overlay').show();
         const targetDiv = $('#ajp-general-info-modal');
         if (window.generalInfoModalURL) {
             $.ajax({
                 url: window.generalInfoModalURL,
-                success: function(resp) {
+                success: function (resp) {
                     targetDiv.html(resp).modal();
                 },
-                complete: function() {
+                complete: function () {
                     $('#ajp-loading-overlay').hide();
                 },
             });
@@ -1474,7 +1533,7 @@ $('.ajp-navbar').autoHidingNavbar();
         pushAnalyticsEvent('event', 'about_button_click');
     });
 
-    $(document).on('focus', '#id_comment', function() {
+    $(document).on('focus', '#id_comment', function () {
         $('.ajp-photo-modal-previous-button')
             .addClass('ajp-photo-modal-previous-button-disabled')
             .addClass('disabled');
@@ -1483,7 +1542,7 @@ $('.ajp-navbar').autoHidingNavbar();
             .addClass('disabled');
     });
 
-    $(document).on('blur', '#id_comment', function() {
+    $(document).on('blur', '#id_comment', function () {
         $('.ajp-photo-modal-previous-button')
             .removeClass('ajp-photo-modal-previous-button-disabled')
             .removeClass('disabled');
@@ -1492,7 +1551,7 @@ $('.ajp-navbar').autoHidingNavbar();
             .removeClass('disabled');
     });
 
-    $(document).on('click', '.ajp-photo-modal-previous-button', function(e) {
+    $(document).on('click', '.ajp-photo-modal-previous-button', function (e) {
         const $this = $(this);
         if (!isPhotoview) {
             e.preventDefault();
@@ -1523,37 +1582,48 @@ $('.ajp-navbar').autoHidingNavbar();
         }
     });
 
-    $(document).on('click', '.ajp-like-photo-overlay-button', function() {
+    $(document).on('click', '.ajp-like-photo-overlay-button', function () {
         const $this = $(this),
-            $favoriteIcon = $this.find('#favorite-icon'),
+            photoId = $this.data('id') || window.currentlyOpenPhotoId,
+            $favoriteIcon = $this.find('#favorite-icon, .material-icons'),
             $likeCount = $this.find('.ajp-like-count');
         $.post(
             photoLikeURL,
             {
-                photo: window.currentlyOpenPhotoId,
+                photo: photoId,
                 csrfmiddlewaretoken: docCookies.getItem('csrftoken'),
             },
-            function(response) {
+            function (response) {
+                const $allBtns = $('.ajp-like-photo-overlay-button[data-id="' + photoId + '"]');
+                const $allIcons = $allBtns.find('.material-icons, #favorite-icon');
+
                 if (response.level === 0) {
                     $favoriteIcon.html('favorite_border');
                     $this.removeClass('active big');
+                    $allIcons.html('favorite_border');
+                    $allBtns.removeClass('active big');
                     pushAnalyticsEvent('event', 'unlike_photo');
                 } else if (response.level === 1) {
                     $favoriteIcon.html('favorite');
                     $this.addClass('active');
+                    $allIcons.html('favorite');
+                    $allBtns.addClass('active');
                     pushAnalyticsEvent('event', 'like_photo');
                 } else if (response.level === 2) {
                     $favoriteIcon.html('favorite');
                     $this.addClass('big');
+                    $allIcons.html('favorite');
+                    $allBtns.addClass('big');
                     pushAnalyticsEvent('event', 'favorite_photo');
                 }
                 $likeCount.html(response.likeCount);
+                $('.ajp-like-count[data-id="' + photoId + '"]').html(response.likeCount);
                 $('#ajp-frontpage-show-liked-link').removeClass('disabled');
             },
         );
     });
 
-    $(document).on('click', '.ajp-photo-modal-next-button', function(e) {
+    $(document).on('click', '.ajp-photo-modal-next-button', function (e) {
         pushAnalyticsEvent('event', 'next_photo_modal');
         if (!isPhotoview) {
             e.preventDefault();
@@ -1579,7 +1649,7 @@ $('.ajp-navbar').autoHidingNavbar();
         }
     });
 
-    $(document).on('click', '#ajp-reverse-side-button', function(e) {
+    $(document).on('click', '#ajp-reverse-side-button', function (e) {
         if (!window.isPhotoview) {
             e.preventDefault();
             if (window.currentPhotoReverseId) {
@@ -1588,25 +1658,25 @@ $('.ajp-navbar').autoHidingNavbar();
         }
     });
 
-    $(document).on('mouseenter', '.annotation-label', function(el) {
+    $(document).on('mouseenter', '.annotation-label', function (el) {
         $(el.target).addClass('d-none');
     });
 
     $(document).on(
         'mouseleave',
         '.ajp-modal-photo-container, .ajp-photo',
-        function() {
+        function () {
             $('.annotation-label').removeClass('d-none');
         },
     );
 
-    $(document).on('mouseenter', '.ajp-face-rectangle', function(el) {
+    $(document).on('mouseenter', '.ajp-face-rectangle', function (el) {
         if ($(el.target).children()) {
             $($(el.target).children()[0]).removeClass('d-none');
         }
     });
 
-    $(document).on('click', '.ajp-close-rephoto-overlay-button', function(e) {
+    $(document).on('click', '.ajp-close-rephoto-overlay-button', function (e) {
         e.preventDefault();
         e.stopPropagation();
         $('#ajp-photo-modal-rephoto-column').hide();
@@ -1649,7 +1719,7 @@ $('.ajp-navbar').autoHidingNavbar();
     $(document).on(
         'click',
         '.ajp-close-similar-photo-overlay-button',
-        function(e) {
+        function (e) {
             e.preventDefault();
             e.stopPropagation();
             $('#ajp-photo-modal-similar-photo-column').hide();
@@ -1695,7 +1765,7 @@ $('.ajp-navbar').autoHidingNavbar();
     $(document).on(
         'click',
         '#ajp-photo-modal-specify-location, .ajp-minimap-start-suggestion-button',
-        function(e) {
+        function (e) {
             e.preventDefault();
             pushAnalyticsEvent('event', 'photo_modal_specify_location');
 
@@ -1725,7 +1795,7 @@ $('.ajp-navbar').autoHidingNavbar();
             enableCloseButton: true,
             visible: false,
         };
-        window.getMap = function(startPoint, startingZoom, isGameMap, mapType) {
+        window.getMap = function (startPoint, startingZoom, isGameMap, mapType) {
             let latLng, zoomLevel, mapTypeIds;
             const allowedMapTypes = {
                 roadmap: google.maps.MapTypeId.ROADMAP,
@@ -1816,7 +1886,7 @@ $('.ajp-navbar').autoHidingNavbar();
             map.mapTypes.set(
                 'OSM',
                 new google.maps.ImageMapType({
-                    getTileUrl: function(coord, zoom) {
+                    getTileUrl: function (coord, zoom) {
                         return (
                             'https://a.tile.openstreetmap.org/' +
                             zoom +
@@ -1840,7 +1910,7 @@ $('.ajp-navbar').autoHidingNavbar();
             } else {
                 commonVgmapi = new VanalinnadGooglemApi(null, false, map);
             }
-            const cityDataDoneCallback = function() {
+            const cityDataDoneCallback = function () {
                 commonVgmapi.buildVanalinnadMapCityControl();
                 commonVgmapi.buildMapYearControl();
                 if (window.map.getMapTypeId() === 'old-maps') {
@@ -1872,10 +1942,10 @@ $('.ajp-navbar').autoHidingNavbar();
                     document.getElementById('pac-input-mapview')
                 );
                 $(input)
-                    .on('focus', function() {
+                    .on('focus', function () {
                         window.hotkeysActive = false;
                     })
-                    .on('blur', function() {
+                    .on('blur', function () {
                         window.hotkeysActive = true;
                     });
                 map.controls[google.maps.ControlPosition.TOP_RIGHT].push(input);
@@ -1888,9 +1958,9 @@ $('.ajp-navbar').autoHidingNavbar();
                     closeStreetviewButton,
                 );
                 searchBox = new google.maps.places.SearchBox(
-                    /** @type {HTMLInputElement} */ (input),
+                    /** @type {HTMLInputElement} */(input),
                 );
-                google.maps.event.addListener(searchBox, 'places_changed', function() {
+                google.maps.event.addListener(searchBox, 'places_changed', function () {
                     const places = searchBox.getPlaces();
                     if (places.length === 0) {
                         return;
@@ -1899,7 +1969,7 @@ $('.ajp-navbar').autoHidingNavbar();
                     map.setZoom(16);
                 });
 
-                google.maps.event.addListener(map, 'idle', function() {
+                google.maps.event.addListener(map, 'idle', function () {
                     google.maps.event.trigger(map, 'resize');
                     const bounds = map.getBounds();
                     searchBox.setBounds(bounds);
@@ -1910,7 +1980,7 @@ $('.ajp-navbar').autoHidingNavbar();
             streetviewVisibleChangedListener = google.maps.event.addListener(
                 streetPanorama,
                 'visible_changed',
-                function() {
+                function () {
                     // Works only in map view
                     let openButton = $('#open-btn');
                     if (streetPanorama.getVisible()) {
@@ -1937,7 +2007,7 @@ $('.ajp-navbar').autoHidingNavbar();
             streetviewPanoChangedListener = google.maps.event.addListener(
                 streetPanorama,
                 'pano_changed',
-                function() {
+                function () {
                     // Works only in map view
                     pushAnalyticsEvent('event', 'streetview_movement');
                 },
@@ -1946,7 +2016,7 @@ $('.ajp-navbar').autoHidingNavbar();
             mapTypeChangedListener = google.maps.event.addListener(
                 map,
                 'maptypeid_changed',
-                function() {
+                function () {
                     // Works only in map view
                     pushAnalyticsEvent('event', 'map_type_changed');
                     if (window.map.getMapTypeId() === 'old-maps') {
@@ -1959,7 +2029,7 @@ $('.ajp-navbar').autoHidingNavbar();
             );
         };
 
-        Math.simpleCalculateMapLineEndPoint = function(
+        Math.simpleCalculateMapLineEndPoint = function (
             azimuth,
             startPoint,
             lineLength,
@@ -1971,7 +2041,7 @@ $('.ajp-navbar').autoHidingNavbar();
             return new google.maps.LatLng(newX, newY);
         };
 
-        Math.calculateMapLineEndPoint = function(bearing, startPoint, distance) {
+        Math.calculateMapLineEndPoint = function (bearing, startPoint, distance) {
             const earthRadius = 6371e3,
                 angularDistance = distance / earthRadius,
                 bearingRadians = Math.radians(bearing),
@@ -2022,18 +2092,18 @@ $('.ajp-navbar').autoHidingNavbar();
             clickable: false,
         });
 
-        window.showPhotoMapIfApplicable = function(isPhotoview) {
+        window.showPhotoMapIfApplicable = function (isPhotoview) {
             const arrowIcon = {
-                    path: 'M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71z',
-                    strokeColor: 'white',
-                    strokeOpacity: 1,
-                    strokeWeight: 1,
-                    fillColor: 'black',
-                    fillOpacity: 1,
-                    rotation: 0,
-                    scale: 1.5,
-                    anchor: new google.maps.Point(12, 12),
-                },
+                path: 'M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71z',
+                strokeColor: 'white',
+                strokeOpacity: 1,
+                strokeWeight: 1,
+                fillColor: 'black',
+                fillOpacity: 1,
+                rotation: 0,
+                scale: 1.5,
+                anchor: new google.maps.Point(12, 12),
+            },
                 locationIcon = {
                     path: 'M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z',
                     strokeColor: 'white',
@@ -2152,7 +2222,7 @@ $('.ajp-navbar').autoHidingNavbar();
                     }
                     window.miniMap.controls[
                         google.maps.ControlPosition.BOTTOM_CENTER
-                        ].push(minimapConfirmGeotagButton);
+                    ].push(minimapConfirmGeotagButton);
                     const minimapStartSuggestionButton = document.createElement('button');
                     $(minimapStartSuggestionButton)
                         .addClass('btn')
@@ -2168,7 +2238,7 @@ $('.ajp-navbar').autoHidingNavbar();
                         .popover();
                     window.miniMap.controls[
                         google.maps.ControlPosition.BOTTOM_CENTER
-                        ].push(minimapStartSuggestionButton);
+                    ].push(minimapStartSuggestionButton);
                     $('.ajp-minimap-geotagging-user-number').remove();
                     const minimapGeotaggingUserNumber = document.createElement('div');
                     const minimapGeotaggingUserNumberSpan =
@@ -2246,7 +2316,7 @@ $('.ajp-navbar').autoHidingNavbar();
                             }
                         }
                         $(minimapGeotaggingUserNumber).append(dropdown);
-                        $.each(window.photoModalFirstGeotaggers, function(k, v) {
+                        $.each(window.photoModalFirstGeotaggers, function (k, v) {
                             $(dropdown).append(
                                 $(
                                     '<li class="ajp-minimap-geotagger-list-item" data-lat="' +
@@ -2266,7 +2336,7 @@ $('.ajp-navbar').autoHidingNavbar();
                     window.miniMap.mapTypes.set(
                         'OSM',
                         new google.maps.ImageMapType({
-                            getTileUrl: function(coord, zoom) {
+                            getTileUrl: function (coord, zoom) {
                                 return (
                                     'https://a.tile.openstreetmap.org/' +
                                     zoom +
@@ -2365,7 +2435,7 @@ $('.ajp-navbar').autoHidingNavbar();
                     google.maps.event.addListener(
                         window.miniMapStreetView,
                         'visible_changed',
-                        function() {
+                        function () {
                             if (window.miniMapMarker) {
                                 if (window.miniMapStreetView.getVisible()) {
                                     window.miniMapMarker.setIcon(locationIcon);
@@ -2381,7 +2451,7 @@ $('.ajp-navbar').autoHidingNavbar();
             }
         };
 
-        $(window).resize(function() {
+        $(window).resize(function () {
             if (
                 !$('#ajp-modal-rephoto-container').is(':visible') &&
                 !$('#ajp-modal-similar-photo-container').is(':visible') &&
@@ -2424,7 +2494,7 @@ $('.ajp-navbar').autoHidingNavbar();
             displayElement.innerHTML = slide1 + ' - ' + slide2;
         }
 
-        window.onload = function() {
+        window.onload = function () {
             // Initialize Sliders
             var sliderSections = document.getElementsByClassName('range-slider');
             for (var x = 0; x < sliderSections.length; x++) {

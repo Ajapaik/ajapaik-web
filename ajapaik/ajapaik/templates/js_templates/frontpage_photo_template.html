@@ -1,13 +1,16 @@
 {% verbatim %}
-    <script id="ajp-frontpage-photo-template" type="text/x-tmpl">
+<script id="ajp-frontpage-photo-template" type="text/x-tmpl">
         <a target="_blank" href="{%=photoURL%}{%=o.id%}/{%=o.slug%}" class="ajp-frontpage-image-container"
         id="ajp-frontpage-image-container-{%=o.id%}" data-id="{%=o.id%}" onclick="return false;" rel="noopener">
             <img alt="{%=o.display_text%}" title="{%=o.display_text%}" src="" data-src="{%=photoThumbURL%}{%=o.id%}/400/{%=o.slug%}/"
                 class="ajp-frontpage-image lazyload img-fluid" data-id="{%=o.id%}"
                 width="{%=o.width%}" height="{%=o.height%}"/>
             {% if (userIsSocialConnected) { %}
-                <button class="ajp-thumbnail-selection-icon{% if (o.geotag_count == 1) { %} ajp-thumbnail-selection-icon-blue{% } %}" data-id="{%=o.id%}">
+                <button class="ajp-thumbnail-selection-icon{% if (o.in_selection) { %} ajp-thumbnail-selection-icon-blue{% } %}" data-id="{%=o.id%}">
                     <span class="material-icons notranslate">check_circle</span>
+                </button>
+                <button class="ajp-like-photo-overlay-button{% if (o.favorited) { %} active{% } %}" data-id="{%=o.id%}">
+                    <span id="favorite-icon" class="material-icons notranslate">{% if (o.favorited) { %}favorite{% } else { %}favorite_border{% } %}</span>
                 </button>
             {% } %}
             <div class="ajp-thumbnail-info-container">

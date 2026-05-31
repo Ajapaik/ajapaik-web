@@ -29,7 +29,7 @@ from sorl.thumbnail import delete
 from sorl.thumbnail import get_thumbnail
 
 from ajapaik.ajapaik.forms import AddAlbumForm, AlbumSelectionForm, AddAreaForm, \
-    GameNextPhotoForm, PhotoSelectionForm, SelectionUploadForm, \
+    GameNextPhotoForm, SelectionUploadForm, \
     AlbumInfoModalForm, PhotoLikeForm, \
     AlbumSelectionFilteringForm, CuratorWholeSetAlbumsSelectionForm, GalleryFilteringForm
 from ajapaik.ajapaik.models import Photo, GeoTag, Points, \
@@ -370,46 +370,93 @@ def frontpage_async_albums(request):
     return HttpResponse(json.dumps(context), content_type='application/json')
 
 
+@ensure_csrf_cookie
 def photo_selection(request):
-    form = PhotoSelectionForm(request.POST)
-    if 'photo_selection' not in request.session:
-        request.session['photo_selection'] = {}
-    if form.is_valid():
-        if form.cleaned_data['clear']:
-            request.session['photo_selection'] = {}
-        elif form.cleaned_data['id']:
-            photo_id = str(form.cleaned_data['id'].id)
-            helper = request.session['photo_selection']
-            if photo_id not in request.session['photo_selection']:
-                helper[photo_id] = True
-            else:
-                del helper[photo_id]
-            request.session['photo_selection'] = helper
+    # Retrieve and normalize the current selection to a set of integers
+    photo_ids_set = set()
+    if selection := request.session.get('photo_selection'):
+        for pid in selection:
+            try:
+                photo_ids_set.add(int(pid))
+            except (ValueError, TypeError):
+                continue
 
-    return HttpResponse(json.dumps(request.session['photo_selection']), content_type='application/json')
+    if request.method == 'POST':
+        if 'selection' in request.POST:
+            try:
+                ids_to_toggle = json.loads(request.POST['selection'])
+                action = request.POST.get('action')
+                for photo_id in ids_to_toggle:
+                    try:
+                        pid = int(photo_id)
+                        if action == 'add':
+                            photo_ids_set.add(pid)
+                        elif action == 'remove':
+                            photo_ids_set.discard(pid)
+                        else:  # toggle
+                            if pid in photo_ids_set:
+                                photo_ids_set.remove(pid)
+                            else:
+                                photo_ids_set.add(pid)
+                    except (ValueError, TypeError):
+                        continue
+            except (ValueError, TypeError, json.JSONDecodeError):
+                pass
+        elif 'photo_id' in request.POST:
+            try:
+                pid = int(request.POST['photo_id'])
+                action = request.POST.get('action')
+                if action == 'add':
+                    photo_ids_set.add(pid)
+                elif action == 'remove':
+                    photo_ids_set.discard(pid)
+                else:  # toggle
+                    if pid in photo_ids_set:
+                        photo_ids_set.remove(pid)
+                    else:
+                        photo_ids_set.add(pid)
+            except (ValueError, TypeError):
+                pass
+
+        if 'clear' in request.POST:
+            photo_ids_set = set()
+
+        # Update session with sorted list of ints
+        new_selection = sorted(list(photo_ids_set))
+        request.session['photo_selection'] = new_selection
+        request.session['photo_selection_ts'] = int(time() * 1000)
+        request.session.modified = True
+
+    # Final normalization before return (redundant but safe)
+    current_selection = sorted(list(photo_ids_set))
+    return HttpResponse(json.dumps({
+        'photo_selection': current_selection,
+        'ts': request.session.get('photo_selection_ts', 0)
+    }), content_type='application/json')
 
 
 def list_photo_selection(request):
-    photos = None
+    photo_ids = [int(pid) for pid in Photo.photo_ids_from_session(request)]
     at_least_one_photo_has_location = False
     count_with_location = 0
     whole_set_albums_selection_form = CuratorWholeSetAlbumsSelectionForm()
-    if 'photo_selection' in request.session:
-        photos = Photo.objects.filter(pk__in=request.session['photo_selection']).values_list('id', 'width', 'height',
-                                                                                             'flip', 'description',
-                                                                                             'lat', 'lon')
-        photos = [list(each) for each in photos]
-        for p in photos:
-            if p[5] and p[6]:
-                at_least_one_photo_has_location = True
-                count_with_location += 1
-            p[1], p[2] = calculate_thumbnail_size_max_height(p[1], p[2], 300)
+
+    photos_qs = Photo.objects.filter(pk__in=photo_ids)
+    photos = []
+    for p in photos_qs:
+        if p.lat and p.lon:
+            at_least_one_photo_has_location = True
+            count_with_location += 1
+        p.width, p.height = calculate_thumbnail_size_max_height(p.width, p.height, 300)
+        photos.append(p)
+
     context = {
         'is_selection': True,
         'photos': photos,
         'at_least_one_photo_has_location': at_least_one_photo_has_location,
         'count_with_location': count_with_location,
-        'whole_set_albums_selection_form': whole_set_albums_selection_form
+        'whole_set_albums_selection_form': whole_set_albums_selection_form,
+        'selection_ts': request.session.get('photo_selection_ts', 0)
     }
 
     return render(request, 'photo/selection/photo_selection.html', context)
@@ -462,6 +509,15 @@ def upload_photo_selection(request):
         profile.set_calculated_fields()
         profile.save()
         context['message'] = _('Recuration successful')
+
+        if len(photo_ids) == 1:
+            photo_obj = Photo.objects.get(pk=photo_ids[0])
+            context['albums'] = []
+            for ap in photo_obj.albumphoto.all():
+                context['albums'].append({
+                    'id': ap.album.id,
+                    'name': ap.album.name
+                })
     else:
         context['error'] = _('Faulty data submitted')
 
@@ -531,7 +587,7 @@ def photo_slug(request, photo_id=None, pseudo_slug=None):
     is_frontpage = False
     is_mapview = False
     is_selection = False
-    if is_ajax(request):
+    if is_ajax(request) or pseudo_slug == 'modal':
         template = 'photo/_photo_modal.html'
         if request.GET.get('isFrontpage'):
             is_frontpage = True

@@ -1821,7 +1821,7 @@ class PhotoSuggestion(AjapaikAPIView):
             photo_viewpoint_elevation_suggestions = []
 
             for photo_id in photo_ids:
-                if not photo_id.isdigit():
+                if not str(photo_id).isdigit():
                     return JsonResponse({'error': INVALID_PHOTO_ID}, status=400)
 
                 photo = Photo.objects.filter(id=photo_id).first()
@@ -1934,7 +1934,7 @@ class PhotoAppliedOperations(AjapaikAPIView):
         original_rotation = 0
 
         for photo_id in photo_ids:
-            if not photo_id.isdigit():
+            if not str(photo_id).isdigit():
                 return JsonResponse({'error': INVALID_PHOTO_ID}, status=400)
 
             photo = Photo.objects.filter(id=photo_id).first()

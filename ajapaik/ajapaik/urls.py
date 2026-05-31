@@ -69,6 +69,8 @@ urlpatterns = [
     path('top50/album/<int:album_id>/', leaderboard_views.top50, name='album_top50'),
     path('photo/<int:photo_id>/upload/', rephoto_views.rephoto_upload,
          name='rephoto_upload'),
+    path('photo/<int:photo_id>/capture/', rephoto_views.rephoto_capture,
+         name='rephoto_capture'),
     path('photo/<int:photo_id>/info.json/', iiif.photo_info, name='iiif_photo_info'),
     path('photo/<int:photo_id>/manifest.json/', iiif.photo_manifest_v2, name='iiif_photo_manifest_v2'),
     path('photo/<int:photo_id>/v2/manifest.json/', iiif.photo_manifest_v2, name='iiif_photo_manifest_v2'),

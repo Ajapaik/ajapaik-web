@@ -185,6 +185,7 @@ class PhotoSerializer(PhotoRepresentationSerializer):
     high_quality = serializers.SerializerMethodField()
     slug = serializers.SerializerMethodField()
     date_text = serializers.SerializerMethodField()
+    in_selection = serializers.SerializerMethodField()
 
     def get_date_text(self, instance: Photo) -> str:
         if instance.date:
@@ -192,8 +193,24 @@ class PhotoSerializer(PhotoRepresentationSerializer):
         else:
             return instance.date_text
 
+    def get_in_selection(self, instance: Photo):
+        request = self.context.get('request')
+        if request and 'photo_selection' in request.session:
+            # photo_selection contains sets of integer IDs or string IDs
+            selection = request.session['photo_selection']
+            return instance.id in selection or str(instance.id) in selection
+        return False
+
     def get_favorited(self, instance: Photo):
-        return instance.likes.exists()
+        if hasattr(instance, 'favorited'):
+            return instance.favorited
+
+        request = self.context.get('request')
+        user = request.user if request else None
+        if user and user.is_authenticated:
+            return instance.likes.filter(profile=user.profile).exists()
+
+        return False
 
     def get_high_quality(self, instance: Photo):
         if instance.height:
@@ -237,7 +254,7 @@ class PhotoSerializer(PhotoRepresentationSerializer):
             'image', 'full_image', 'width', 'height', 'title',
             'author', 'source', 'latitude', 'longitude', 'azimuth',
             'favorited', 'high_quality', 'slug', 'comment_count',
-            'rephoto_count', 'date_text'
+            'rephoto_count', 'date_text', 'in_selection'
         )
 
 
@@ -324,7 +341,8 @@ class PhotoDetailsSerializer(PhotoRepresentationSerializer):
         ).data
 
     def get_in_selection(self, instance: Photo) -> bool:
-        return instance.id in self.context['request'].session.get('photo_selection', [])
+        selection = self.context['request'].session.get('photo_selection', [])
+        return instance.id in selection or str(instance.id) in selection
 
     def get_like_count(self, instance: Photo) -> int:
         return instance.likes.count()
@@ -473,6 +491,14 @@ class APIPhotoSerializer(serializers.ModelSerializer):
     azimuth = serializers.FloatField()
     rephotos = serializers.SerializerMethodField()
     favorited = serializers.BooleanField()
+    in_selection = serializers.SerializerMethodField()
+
+    def get_in_selection(self, instance: Photo):
+        request = self.context.get('request')
+        if request and 'photo_selection' in request.session:
+            selection = request.session['photo_selection']
+            return instance.id in selection or str(instance.id) in selection
+        return False
 
     @classmethod
     def annotate_photos(cls, photos_queryset, user_profile):
@@ -545,5 +571,5 @@ class APIPhotoSerializer(serializers.ModelSerializer):
         fields = (
             'id', 'image', 'full_image', 'width', 'height', 'title', 'date',
             'author', 'source', 'latitude', 'longitude', 'azimuth', 'rephotos',
-            'favorited',
+            'favorited', 'in_selection',
         )

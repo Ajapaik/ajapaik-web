@@ -2,57 +2,56 @@
 {% load i18n compress static %}
 
 {% block header %}
-    {% include "core/_header.html" %}
+{% include "core/_header.html" %}
 {% endblock %}
 
 {% block layout %}
-    <div class="modal fade" id="ajp-game-photo-modal" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-xxl mx-auto pt-3">
-            <div class="modal-content pr-3">
-                <div class="modal-header" id="ajp-game-modal-header">
-                    <button id="ajp-game-close-game-modal" type="button" class="close" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+<div class="modal fade" id="ajp-game-photo-modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-xxl mx-auto pt-3">
+        <div class="modal-content pr-3">
+            <div class="modal-header" id="ajp-game-modal-header">
+                <button id="ajp-game-close-game-modal" type="button" class="close" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body row" id="ajp-game-modal-body">
+                <div id="ajp-modal-photo-container" class="ajp-photo col-xl-8 col-lg-8 col-md-6 col-sm-6 col-xs-6">
+                    <div id="ajp-game-modal-photo-container">
+                        <button class="ajp-photo-modal-previous-button ajp-game-previous-photo-button" {% if
+                            request.user_agent.is_pc %}style="display: none;" {% endif %}>
+                            <span class="material-icons ajp-icon-48 notranslate">navigate_before</span>
+                        </button>
+                        <a class="fullscreen" id="ajp-fullscreen-link" rel="" href="">
+                            <img class="img-fluid col-xs-12" id="ajp-game-modal-photo" src="" alt="{% trans " Game modal
+                                photo" %}" />
+                        </a>
+                        <button class="ajp-photo-modal-next-button ajp-game-next-photo-button" {% if
+                            request.user_agent.is_pc %}style="display: none;" {% endif %}>
+                            <span class="material-icons ajp-icon-48 notranslate">navigate_next</span>
+                        </button>
+                        <button id="ajp-game-flip-button" style="display: none;">
+                            <span class="material-icons notranslate">flip</span>
+                        </button>
+                        {% if request.user.profile.is_legit %}
+                        <button data-id="{{ item.id }}" class="ajp-like-photo-overlay-button">
+                            <span class="material-icons notranslate">favorite_border</span>
+                            <span class="ajp-like-count">{{ item.like_count }}</span>
+                        </button>
+                        {% endif %}
+                    </div>
                 </div>
-                <div class="modal-body row" id="ajp-game-modal-body">
-                    <div id="ajp-modal-photo-container" class="ajp-photo col-xl-8 col-lg-8 col-md-6 col-sm-6 col-xs-6">
-                        <div id="ajp-game-modal-photo-container">
-                            <button class="ajp-photo-modal-previous-button ajp-game-previous-photo-button"
-                                    {% if request.user_agent.is_pc %}style="display: none;"{% endif %}>
-                                <span class="material-icons ajp-icon-48 notranslate">navigate_before</span>
-                            </button>
-                            <a class="fullscreen" id="ajp-fullscreen-link" rel="" href="">
-                                <img class="img-fluid col-xs-12" id="ajp-game-modal-photo"
-                                     src="" alt="{% trans "Game modal photo" %}" />
-                            </a>
-                            <button class="ajp-photo-modal-next-button ajp-game-next-photo-button"
-                                    {% if request.user_agent.is_pc %}style="display: none;"{% endif %}>
-                                <span class="material-icons ajp-icon-48 notranslate">navigate_next</span>
-                            </button>
-                            <button id="ajp-game-flip-button" style="display: none;">
-                                <span class="material-icons notranslate">flip</span>
-                            </button>
-                            <button class="ajp-like-photo-overlay-button">
-                                <span id="favorite-icon" class="material-icons notranslate">favorite_border</span>
-                                <span class="ajp-like-count"></span>
-                            </button>
-                        </div>
-                    </div>
-                    <div id="ajp-photo-modal-map-container" class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-xs-6"
-                         style="display: none;">
-                        <div id="ajp-minimap-disabled-overlay"></div>
-                        <div id="ajp-photo-modal-map-canvas"></div>
-                    </div>
+                <div id="ajp-photo-modal-map-container" class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-xs-6"
+                    style="display: none;">
+                    <div id="ajp-minimap-disabled-overlay"></div>
+                    <div id="ajp-photo-modal-map-canvas"></div>
                 </div>
                 <div class="modal-footer d-inline-block">
-                    <a id="ajp-game-show-description" href="#"
-                       class="ajp-game-show-description-button"
-                       title="{% trans "Show description" %}">
+                    <a id="ajp-game-show-description" href="#" class="ajp-game-show-description-button"
+                        title="{% trans " Show description" %}">
                         <span class="material-icons notranslate">subject</span>
                     </a>
-                    <span id="ajp-photo-modal-specify-location"
-                          class="ajp-game-specify-location-button float-left"
-                          title="{% trans "Pick the shooting location!" %}">
+                    <span id="ajp-photo-modal-specify-location" class="ajp-game-specify-location-button float-left"
+                        title="{% trans " Pick the shooting location!" %}">
                         <span class="material-icons notranslate ajp-icon-36">add_location</span>
                     </span>
                     <ul class="list-unstyled">
@@ -84,8 +83,8 @@
             <img id="ajp-similar-photo-full-screen-image" alt="" src="" />
         </div>
     </div>
-{% endblock %}
-{% block specific_js %}
+    {% endblock %}
+    {% block specific_js %}
     <script>
         var streamURL = "{% url 'fetch_stream' %}",
             difficultyFeedbackURL = "{% url 'difficulty_feedback' %}",
@@ -95,7 +94,7 @@
             albumId = "{{ album.id }}";
         window.albumId = albumId;
         {% if photo %}
-            window.preselectedPhotoId = {{ photo.id | safe }};
+        window.preselectedPhotoId = {{ photo.id | safe }};
         {% endif %}
         window.linkToMap = true;
         window.linkToGame = false;
@@ -103,14 +102,14 @@
         window.fbShareGame = true;
         window.isGame = true;
         {% if album.lat and album.lon %}
-            window.startLocation = [{{ album.lon | safe }}, {{ album.lat | safe }}];
+        window.startLocation = [{{ album.lon | safe }}, {{ album.lat | safe }}];
         {% elif area.lat and area.lon %}
-            window.startLocation = [{{ area.lon | safe }}, {{ area.lat | safe }}];
+        window.startLocation = [{{ area.lon | safe }}, {{ area.lat | safe }}];
         {% else %}
-            window.startLocation = [26, 59];
+        window.startLocation = [26, 59];
         {% endif %}
 
-        flipImages = function() {
+        flipImages = function () {
             $('#ajp-game-flip-button').toggleClass('active');
             $('#ajp-game-modal-photo').toggleClass('ajp-photo-flipped');
             $('#ajp-fullscreen-image').toggleClass('ajp-photo-flipped');
@@ -118,11 +117,11 @@
             window.photoModalCurrentPhotoFlipped = !window.photoModalCurrentPhotoFlipped;
         },
 
-            $('#ajp-game-flip-button').click(function() {
+            $('#ajp-game-flip-button').click(function () {
                 flipImages();
             });
     </script>
     {% compress js %}
-        <script src="{% static 'js/ajp-game.js' %}"></script>
+    <script src="{% static 'js/ajp-game.js' %}"></script>
     {% endcompress %}
-{% endblock %}
+    {% endblock %}

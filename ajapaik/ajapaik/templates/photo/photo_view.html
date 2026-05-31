@@ -2,7 +2,7 @@
 {% load i18n comments static %}
 
 {% block header %}
-    {% include "core/_header.html" with photo=photo %}
+{% include "core/_header.html" with photo=photo %}
 {% endblock %}
 
 {% block layout %}
@@ -18,20 +18,18 @@
     <div class="full-pic" id="ajp-fullscreen-image-container">
         <div id="ajp-fullscreen-image-wrapper">
             <img id="ajp-fullscreen-image" style="display: none;" src="{{ fullscreen.url }}"
-                alt="{{ photo.display_text }}" title="{{ photo.display_text }}"/>
+                alt="{{ photo.display_text }}" title="{{ photo.display_text }}" />
         </div>
     </div>
 </div>
 {% if rephoto %}
-    <div class="full-box rephoto-full-box">
-        <div class="full-pic" id="ajp-rephoto-fullscreen-image-container">
-            <img id="ajp-rephoto-full-screen-image" class="lazyload" style="display: none;"
-                alt="{{ photo.display_text }} {% trans "rephoto" %}"
-                src="{% url "image_full" rephoto.id rephoto.slug%}"
-                data-src="{% url "image_full" rephoto.id rephoto.slug%}"
-                title="{{ photo.display_text }} {% trans "rephoto" %}" />
-        </div>
+<div class="full-box rephoto-full-box">
+    <div class="full-pic" id="ajp-rephoto-fullscreen-image-container">
+        <img id="ajp-rephoto-full-screen-image" class="lazyload" style="display: none;"
+            alt="{{ photo.display_text }} {% trans "rephoto" %}" src="{% url "image_full" rephoto.id rephoto.slug %}"
+            data-src="{% url "image_full" rephoto.id rephoto.slug %}" title="{{ photo.display_text }} {% trans "rephoto" %}" />
     </div>
+</div>
 {% endif %}
 <div class="container pt-5" id="ajp-photoview-container">
     <div class="row">
@@ -103,23 +101,24 @@
                 {% include "photo/_photo_description_container.html" %}
             {% endwith %}
 
-        </div>
-        {% if rephoto %}
-            <div>
-                <div id="ajp-photoview-rephoto-wrapper">
-                    <div id="ajp-photoview-rephoto-container">
-                        <a class="fullscreen" id="ajp-rephoto-full-screen-link">
-                            <img id="ajp-photoview-rephoto" class="ajp-max-48vw" alt="{{ photo.get_display_text }} {% trans "rephoto" %}"
-                                src="{% url 'image_thumb' rephoto.id 800 rephoto.slug%}" />
-                        </a>
-                        <button class="btn ajp-close-rephoto-overlay-button"
-                            {% if request.user_agent.is_pc %}style="display: none;" {% endif %}><span
-                                class="material-icons notranslate">close</span></button>
-                        <button class="btn ajp-invert-rephoto-overlay-button"
-                            {% if request.user_agent.is_pc %}style="display: none;" {% endif %}><span
-                                class="material-icons notranslate">invert_colors</span></button>
-                    </div>
-                    {% with rephoto=rephoto|default:rephoto %}
+                </div>
+                {% if rephoto %}
+                <div>
+                    <div id="ajp-photoview-rephoto-wrapper">
+                        <div id="ajp-photoview-rephoto-container">
+                            <a class="fullscreen" id="ajp-rephoto-full-screen-link">
+                                <img id="ajp-photoview-rephoto" class="ajp-max-48vw"
+                                    alt="{{ photo.get_display_text }} {% trans "rephoto" %}"
+                                    src="{% url 'image_thumb' rephoto.id 800 rephoto.slug%}" />
+                            </a>
+                            <button class="btn ajp-close-rephoto-overlay-button" {% if request.user_agent.is_pc %}
+                                style="display: none;" {% endif %}><span
+                                    class="material-icons notranslate">close</span></button>
+                            <button class="btn ajp-invert-rephoto-overlay-button" {% if request.user_agent.is_pc %}
+                                style="display: none;" {% endif %}><span
+                                    class="material-icons notranslate">invert_colors</span></button>
+                        </div>
+                        {% with rephoto=rephoto|default:rephoto %}
                         {% include "photo/_rephoto_description_container.html" %}
                     {% endwith %}
                 </div>
@@ -151,19 +150,19 @@
                                     <span class="material-icons notranslate">compare</span>
                             </a>
                         </div>
-                    {% endfor %}
+                        {% endfor %}
+                    </div>
                 </div>
-            </div>
-        {% endif %}
-        {% if not rephoto and rephotos|length > 0 %}
-            <div id="ajp-photoview-rephoto-selection" class="col-xs-3">
-                {% for rephoto in rephotos %}
+                {% endif %}
+                {% if not rephoto and rephotos|length > 0 %}
+                <div id="ajp-photoview-rephoto-selection" class="col-xs-3">
+                    {% for rephoto in rephotos %}
                     <div class="row ajp-no-right-margin-row ajp-no-left-margin-row">
                         <a class="w-100" href="{% url 'photo' rephoto.id rephoto.slug%}">
                             <img src="{% url 'image_thumb' rephoto.id 250 rephoto.slug%}"
                                 class="img-responsive col-xs-12 ajp-photoview-thumbnail"
                                 alt="{{ photo.display_text }} {% trans "rephoto" %}"
-                                title="{{ photo.display_text }} {% trans "rephoto" %}"/>
+                                title="{{ photo.display_text }} {% trans "rephoto" %}" />
                         </a>
                     </div>
                 {% endfor %}
@@ -182,9 +181,9 @@
         {% endif %}
     </div>
     {% if not request.user_agent.is_pc %}
-        <div class="row p-0 pt-2">
-            {% include 'photo/_photo_comments_and_labels.html' %}
-        </div>
+    <div class="row p-0 pt-2">
+        {% include 'photo/_photo_comments_and_labels.html' %}
+    </div>
     {% endif %}
     <div id="ajp-geotagging-container"></div>
 </div>
@@ -223,15 +222,15 @@
     window.hostname = "{{ hostname }}";
     // Some fake variables to reuse photo modal mini-map component
     {% if photo.lat and photo.lon %}
-        window.photoModalPhotoLat = {{ photo.lat | safe }};
-        window.photoModalPhotoLng = {{ photo.lon | safe }};
+    window.photoModalPhotoLat = {{ photo.lat | safe }};
+    window.photoModalPhotoLng = {{ photo.lon | safe }};
     {% endif %}
     {% if photo.azimuth %}
-        window.photoModalPhotoAzimuth = {{ photo.azimuth | safe }};
+    window.photoModalPhotoAzimuth = {{ photo.azimuth | safe }};
     {% endif %}
     {% if album.lat and album.lon %}
-        window.albumLat = {{ album.lat | safe }};
-        window.albumLon = {{ album.lot | safe }};
+    window.albumLat = {{ album.lat | safe }};
+    window.albumLon = {{ album.lot | safe }};
     {% endif %}
     window.currentPhotoSourceName = "{{ photo.source.description }}";
     window.currentPhotoSourceKey = "{{ photo.source.key }}";
@@ -313,95 +312,96 @@
             }
         });
         $(document).on('click', '#ajp-photoview-map-button', function () {
-        {% if album.0 %}
-            window.location.href = '/map/photo/' + {{ photo.id }} + '?album=' + {{ album.0 }};
-        {% else %}
-            window.location.href = '/map/photo/' + {{ photo.id }};
-        {% endif %}
+            {% if album.0 %}
+            window.location.href = '/map/photo/' + {{ photo.id }
+        } + '?album=' + {{ album.0 }};
+
+    window.location.href = '/map/photo/' + {{ photo.id }};
+    {% endif %}
                 });
-        $(document).on('click', '#ajp-photoview-header-game-button', function () {
-            const albumId = $('#id_album').val(),
-                gameURL = "{% url 'game' %}";
-            window.location.href = gameURL + '?album=' + albumId;
-        });
-        $(document).on('click', '#ajp-photoview-header-map-button', function () {
-            const albumId = $('#id_album').val(),
-                mapURL = "{% url 'map' %}";
-            window.location.href = mapURL + '?album=' + albumId;
-        });
-        $(document).on('click', '.ajp-close-rephoto-overlay-button', function (e) {
-            e.stopPropagation();
-            window.location.href = "/photo/" + "{{ photo.id }}" + "/{{ photo.slug}}";
-        });
+    $(document).on('click', '#ajp-photoview-header-game-button', function () {
+        const albumId = $('#id_album').val(),
+            gameURL = "{% url 'game' %}";
+        window.location.href = gameURL + '?album=' + albumId;
+    });
+    $(document).on('click', '#ajp-photoview-header-map-button', function () {
+        const albumId = $('#id_album').val(),
+            mapURL = "{% url 'map' %}";
+        window.location.href = mapURL + '?album=' + albumId;
+    });
+    $(document).on('click', '.ajp-close-rephoto-overlay-button', function (e) {
+        e.stopPropagation();
+        window.location.href = "/photo/" + "{{ photo.id }}" + "/{{ photo.slug}}";
+    });
 
-        $(document).on('click', '#ajp-show-similar-photoview-overlay-button', function () {
-            $('#ajp-photoview-similar-photo-selection').removeClass('d-none').addClass('d-block');
-            $('#ajp-photoview-rephoto-selection').addClass('d-none');
-            $('#ajp-photoview-rephoto-wrapper').addClass('d-none');
-            $('#ajp-show-rephotos-photoview-overlay-button').removeClass('d-none');
-            $('#ajp-show-similar-photoview-overlay-button').addClass('d-none');
-        });
-        $(document).on('click', '#ajp-show-rephotos-photoview-overlay-button', function () {
-            $('#ajp-photoview-rephoto-selection').removeClass('d-none');
-            $('#ajp-photoview-rephoto-wrapper').removeClass('d-none');
-            $('#ajp-photoview-similar-photo-selection').removeClass('d-block');
-            $('#ajp-show-similar-photoview-overlay-button').removeClass('d-none');
-            $('#ajp-show-rephotos-photoview-overlay-button').addClass('d-none');
-        });
-        window.uploadCompleted = function (response) {
-            $('#ajp-rephoto-upload-modal').modal('hide');
-            if (response && response.new_id) {
-                window.location.reload();
-            }
-        };
-        window.syncStateToUrl = function () {
-            $.noop();
-        };
-        $('#ajp-photoview-start-geotagging-button').click(function () {
-            window.startSuggestionLocation();
-        });
-        window.startSuggestionLocation = function () {
-            if (window.albumId) {
-                window.open('/geotag/?album=' + window.albumId + '&photo=' + window.currentlyOpenPhotoId, '_blank');
-            } else {
-                window.open('/geotag/?photo=' + window.currentlyOpenPhotoId, '_blank');
-            }
-        };
-        window.stopSuggestionLocation = function () {
-            $('#ajp-photoview-container').show();
-            $('html').removeClass('ajp-html-game-map');
-            $('body').removeClass('ajp-body-game-map');
-            $('#ajp-geotagging-container').hide();
-            window.locationToolsOpen = false;
-            $('.footer').show();
-        };
-
-        // Leaflet map
-        if (typeof get_photoviewModalOptions === 'function') {
-            const options = get_photoviewModalOptions();
-            const photoModalMapContainer = $('#ajp-photo-modal-map-container');
-            photoModalMapContainer.AjapaikMinimap(options);
-            $('.ajp-minimap-start-suggestion-CTA-button').remove();
-                const minimapConfirmGeotagButton = document.createElement('button');
-                $(minimapConfirmGeotagButton).addClass('btn').addClass('btn-light')
-                    .addClass('ajp-minimap-confirm-geotag-button')
-                    .data('id', window.currentlyOpenPhotoId).data('trigger', 'hover')
-                    .data('placement', 'top').data('toggle', 'popover')
-                    .data('content', gettext('Confirm correct location'))
-                    .html('<span class="material-icons notranslate ajp-icon-36">beenhere</span>').popover();
-                if (window.photoModalUserHasConfirmedThisLocation) {
-                    $(minimapConfirmGeotagButton).addClass('ajp-minimap-confirm-geotag-button-done');
-                }
-                photoModalMapContainer.append(minimapConfirmGeotagButton);
-                const minimapStartSuggestionButton = document.createElement('button');
-                $(minimapStartSuggestionButton).addClass('btn').addClass('btn-light')
-                    .addClass('ajp-minimap-start-suggestion-button')
-                    .data('trigger', 'hover')
-                    .data('placement', 'top').data('toggle', 'popover')
-                    .data('content', gettext('Submit your own location'))
-                    .html('<span class="material-icons notranslate ajp-icon-36">edit_location</span>').popover();
-                photoModalMapContainer.append(minimapStartSuggestionButton);
+    $(document).on('click', '#ajp-show-similar-photoview-overlay-button', function () {
+        $('#ajp-photoview-similar-photo-selection').removeClass('d-none').addClass('d-block');
+        $('#ajp-photoview-rephoto-selection').addClass('d-none');
+        $('#ajp-photoview-rephoto-wrapper').addClass('d-none');
+        $('#ajp-show-rephotos-photoview-overlay-button').removeClass('d-none');
+        $('#ajp-show-similar-photoview-overlay-button').addClass('d-none');
+    });
+    $(document).on('click', '#ajp-show-rephotos-photoview-overlay-button', function () {
+        $('#ajp-photoview-rephoto-selection').removeClass('d-none');
+        $('#ajp-photoview-rephoto-wrapper').removeClass('d-none');
+        $('#ajp-photoview-similar-photo-selection').removeClass('d-block');
+        $('#ajp-show-similar-photoview-overlay-button').removeClass('d-none');
+        $('#ajp-show-rephotos-photoview-overlay-button').addClass('d-none');
+    });
+    window.uploadCompleted = function (response) {
+        $('#ajp-rephoto-upload-modal').modal('hide');
+        if (response && response.new_id) {
+            window.location.reload();
         }
+    };
+    window.syncStateToUrl = function () {
+        $.noop();
+    };
+    $('#ajp-photoview-start-geotagging-button').click(function () {
+        window.startSuggestionLocation();
+    });
+    window.startSuggestionLocation = function () {
+        if (window.albumId) {
+            window.open('/geotag/?album=' + window.albumId + '&photo=' + window.currentlyOpenPhotoId, '_blank');
+        } else {
+            window.open('/geotag/?photo=' + window.currentlyOpenPhotoId, '_blank');
+        }
+    };
+    window.stopSuggestionLocation = function () {
+        $('#ajp-photoview-container').show();
+        $('html').removeClass('ajp-html-game-map');
+        $('body').removeClass('ajp-body-game-map');
+        $('#ajp-geotagging-container').hide();
+        window.locationToolsOpen = false;
+        $('.footer').show();
+    };
+
+    // Leaflet map
+    if (typeof get_photoviewModalOptions === 'function') {
+        const options = get_photoviewModalOptions();
+        const photoModalMapContainer = $('#ajp-photo-modal-map-container');
+        photoModalMapContainer.AjapaikMinimap(options);
+        $('.ajp-minimap-start-suggestion-CTA-button').remove();
+        const minimapConfirmGeotagButton = document.createElement('button');
+        $(minimapConfirmGeotagButton).addClass('btn').addClass('btn-light')
+            .addClass('ajp-minimap-confirm-geotag-button')
+            .data('id', window.currentlyOpenPhotoId).data('trigger', 'hover')
+            .data('placement', 'top').data('toggle', 'popover')
+            .data('content', gettext('Confirm correct location'))
+            .html('<span class="material-icons notranslate ajp-icon-36">beenhere</span>').popover();
+        if (window.photoModalUserHasConfirmedThisLocation) {
+            $(minimapConfirmGeotagButton).addClass('ajp-minimap-confirm-geotag-button-done');
+        }
+        photoModalMapContainer.append(minimapConfirmGeotagButton);
+        const minimapStartSuggestionButton = document.createElement('button');
+        $(minimapStartSuggestionButton).addClass('btn').addClass('btn-light')
+            .addClass('ajp-minimap-start-suggestion-button')
+            .data('trigger', 'hover')
+            .data('placement', 'top').data('toggle', 'popover')
+            .data('content', gettext('Submit your own location'))
+            .html('<span class="material-icons notranslate ajp-icon-36">edit_location</span>').popover();
+        photoModalMapContainer.append(minimapStartSuggestionButton);
+    }
     });
 </script>
 <script src="{% static 'js/ajp-comments.js' %}"></script>
