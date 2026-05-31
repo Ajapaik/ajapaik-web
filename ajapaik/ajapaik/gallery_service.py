@@ -251,29 +251,42 @@ def get_filtered_data_for_gallery(
     if requested_photo and requested_photo.id:
         exists = photos.filter(id=requested_photo.id).exists()
         if exists:
-            photo_ids = photos.values_list("id", flat=True)
-            photo_count_before_requested = list(photo_ids).index(requested_photo.id)
-            page = ceil(float(photo_count_before_requested) / float(page_size_or_default))
+            photo_ids = list(photos.values_list("id", flat=True))
+            try:
+                photo_count_before_requested = photo_ids.index(requested_photo.id)
+                page = ceil(float(photo_count_before_requested) / float(page_size_or_default))
+            except ValueError:
+                pass
     elif page_size:
         page = 1
 
     if page:
-        # Note seeking (start:end) has been done when results are limited using photo_ids above
-        if not photo_ids:
-            photo_ids = photos.values_list('id', flat=True)
-
-        total = album_size_before_sorting or len(photo_ids)
-        start, end, max_page, page = get_pagination_parameters(page, total, page_size_or_default)
-        pagination_parameters = PaginationParameters(
-            start=start,
-            end=end,
-            page=page,
-            total=total,
-            max_page=max_page,
-        )
-
-        # limit QuerySet to selected photos, so it is faster to evaluate in next steps
-        photos = photos.filter(id__in=photo_ids[start:end])
+        # When a specific photo is requested and exists in the queryset,
+        # we computed photo_ids above to find its index. Otherwise, avoid
+        # materializing the full id list and use efficient slicing.
+        if photo_ids is not None:
+            total = album_size_before_sorting or len(photo_ids)
+            start, end, max_page, page = get_pagination_parameters(page, total, page_size_or_default)
+            pagination_parameters = PaginationParameters(
+                start=start,
+                end=end,
+                page=page,
+                total=total,
+                max_page=max_page,
+            )
+            photos = photos.filter(id__in=photo_ids[start:end])
+        else:
+            total = album_size_before_sorting or photos.count()
+            start, end, max_page, page = get_pagination_parameters(page, total, page_size_or_default)
+            pagination_parameters = PaginationParameters(
+                start=start,
+                end=end,
+                page=page,
+                total=total,
+                max_page=max_page,
+            )
+            # Apply slicing directly to the queryset to avoid loading all ids
+            photos = photos[start:end]
     else:
         pagination_parameters = None
 
