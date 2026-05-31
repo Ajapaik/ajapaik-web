@@ -368,6 +368,7 @@
 
     container.addEventListener('touchstart', (e) => {
       if(e.target.closest('button') || e.target.closest('a')) return;
+      requestFullscreenIfPossible();
       
       if (e.touches.length === 1) {
         isDragging = true;
@@ -460,8 +461,8 @@
       requestFullscreenIfPossible();
       if (!video.videoWidth) return;
 
-      const vw = window.innerWidth;
-      const vh = window.innerHeight;
+      const vw = (window.visualViewport ? window.visualViewport.width : window.innerWidth);
+      const vh = (window.visualViewport ? window.visualViewport.height : window.innerHeight);
       const screenAspect = vw / vh;
       
       const imgAspect = overlay.naturalWidth / overlay.naturalHeight;
