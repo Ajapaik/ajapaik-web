@@ -337,7 +337,7 @@ def get_filtered_data_for_gallery(
         except Exception:
             # Fallback safely if annotation fails for any reason
             pass
-        return qs.distinct()
+        return qs
 
     optimized_photos = _optimize_photos_qs(photos)
     optimized_photos_with_comments = _optimize_photos_qs(
