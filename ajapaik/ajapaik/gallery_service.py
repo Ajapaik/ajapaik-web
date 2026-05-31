@@ -5,7 +5,7 @@ from typing import Union
 from django.conf import settings
 from django.contrib.gis.db.models.functions import GeometryDistance
 from django.contrib.gis.geos import Point
-from django.db.models import BooleanField, Case, Count, F, Exists, OuterRef, Q, Value, When
+from django.db.models import BooleanField, Case, Count, F, Exists, OuterRef, Q, Value, When, IntegerField
 from haystack.inputs import AutoQuery
 from haystack.query import SearchQuerySet
 
@@ -248,6 +248,12 @@ def get_filtered_data_for_gallery(
             photos = photos.order_by('-id')
     if not cleaned_data['backsides'] and not order2 == 'transcriptions':
         photos = photos.filter(back_of__isnull=True)
+
+    # Remove duplicates caused by JOINs (e.g., filtering by rephotos, datings, etc.)
+    # Do this BEFORE pagination/slicing to avoid Django's error about distinct after slicing.
+    photos = photos.distinct()
+    # Reset cached pre-count to avoid using a total that counted duplicates
+    album_size_before_sorting = None
 
     photo_ids = None
     if requested_photo and requested_photo.id:
