@@ -288,7 +288,7 @@ def frontpage(request):
         return render(request, 'common/frontpage.html', {**base_context, "page": request.GET.get("page") or 1})
 
     data = get_filtered_data_for_gallery(profile, form.cleaned_data)
-    # Using "nulls last" here as it uses same index
+    # Using "nulls last" here as it uses the same index
     # which is already used in _get_filtered_data_for_frontpage()
     highlight_filter_icon = (data.order2 != 'added' or data.order3 == 'reverse') or \
                             any(filter in request.GET for filter in PHOTO_FILTERS)

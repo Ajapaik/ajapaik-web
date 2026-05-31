@@ -110,7 +110,6 @@ def get_filtered_data_for_gallery(
     if date_to:
         photos = photos.prefetch_related("datings").filter(datings__end__lte=date_to)
 
-    photos = photos.distinct()
     if q:
         sqs_ids = SearchQuerySet().models(Photo).filter(content=AutoQuery(q)).values_list("pk", flat=True)
         photos = photos.filter(pk__in=sqs_ids, rephoto_of__isnull=True)
