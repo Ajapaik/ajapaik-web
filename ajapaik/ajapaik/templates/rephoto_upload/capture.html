@@ -262,6 +262,35 @@
     // Hide upload button until a photo has been captured
     uploadBtn.style.display = 'none';
 
+    // Mobile viewport height fix to avoid address bar pushing content
+    function setViewportHeightUnit() {
+      const vh = (window.visualViewport ? window.visualViewport.height : window.innerHeight) * 0.01;
+      document.documentElement.style.setProperty('--vh', `${vh}px`);
+    }
+    setViewportHeightUnit();
+    window.addEventListener('resize', setViewportHeightUnit);
+    if (window.visualViewport) {
+      window.visualViewport.addEventListener('resize', setViewportHeightUnit);
+    }
+
+    // Best-effort fullscreen request on user gesture
+    function isInFullscreen() {
+      return document.fullscreenElement || document.webkitFullscreenElement || document.msFullscreenElement;
+    }
+    function requestFullscreenIfPossible() {
+      if (isInFullscreen()) return;
+      const el = document.documentElement; // or container
+      const req = el.requestFullscreen || el.webkitRequestFullscreen || el.msRequestFullscreen || el.mozRequestFullScreen;
+      if (req) {
+        try { req.call(el); } catch (e) { /* ignore */ }
+      }
+    }
+
+    // Recompute vh when fullscreen changes
+    ['fullscreenchange','webkitfullscreenchange','msfullscreenchange'].forEach(evt => {
+      document.addEventListener(evt, setViewportHeightUnit);
+    });
+
     let currentFacingMode = 'environment'; 
     let opacity = 0.5;
     let imgScale = 1;
