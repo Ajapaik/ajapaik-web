@@ -110,6 +110,7 @@ def get_filtered_data_for_gallery(
     if date_to:
         photos = photos.prefetch_related("datings").filter(datings__end__lte=date_to)
 
+    photos = photos.distinct()
     if q:
         sqs_ids = SearchQuerySet().models(Photo).filter(content=AutoQuery(q)).values_list("pk", flat=True)
         photos = photos.filter(pk__in=sqs_ids, rephoto_of__isnull=True)
@@ -252,8 +253,6 @@ def get_filtered_data_for_gallery(
     # Remove duplicates caused by JOINs (e.g., filtering by rephotos, datings, etc.)
     # Do this BEFORE pagination/slicing to avoid Django's error about distinct after slicing.
     photos = photos.distinct()
-    # Reset cached pre-count to avoid using a total that counted duplicates
-    album_size_before_sorting = None
 
     photo_ids = None
     if requested_photo and requested_photo.id:
