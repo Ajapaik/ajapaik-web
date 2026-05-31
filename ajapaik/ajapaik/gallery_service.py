@@ -294,13 +294,16 @@ def get_filtered_data_for_gallery(
 
     # Limit auxiliary lists to the current page to avoid materializing huge querysets
     if page:
+        # Important: 'photos' may be a sliced queryset here. Django forbids filtering a
+        # queryset after slicing, so build fresh querysets from the current page IDs.
+        page_ids = [p.id for p in list(photos)]
         if wants_comments_list:
-            photos_with_comments = photos.filter(comment_count__gt=0)
+            photos_with_comments = Photo.objects.filter(id__in=page_ids, comment_count__gt=0)
         if wants_rephotos_list:
             if order1 == 'time' and order2 == 'rephotos':
-                photos_with_rephotos = photos.filter(first_rephoto__isnull=False)
+                photos_with_rephotos = Photo.objects.filter(id__in=page_ids, first_rephoto__isnull=False)
             else:
-                photos_with_rephotos = photos.filter(rephoto_count__gt=0)
+                photos_with_rephotos = Photo.objects.filter(id__in=page_ids, rephoto_count__gt=0)
     else:
         # Preserve original behavior for non-paginated use cases
         if wants_comments_list:
