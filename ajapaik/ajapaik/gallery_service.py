@@ -5,7 +5,7 @@ from typing import Union
 from django.conf import settings
 from django.contrib.gis.db.models.functions import GeometryDistance
 from django.contrib.gis.geos import Point
-from django.db.models import Count, F, Exists, OuterRef
+from django.db.models import BooleanField, Case, Count, F, Exists, OuterRef, Q, Value, When
 from haystack.inputs import AutoQuery
 from haystack.query import SearchQuerySet
 
@@ -287,10 +287,35 @@ def get_filtered_data_for_gallery(
         for each in album_photos_links_order:
             photos = sorted(photos, key=lambda x: x[0] == each)
 
+    def _optimize_photos_qs(qs):
+        # If it's not a QuerySet (e.g., already evaluated/sorted list), return as is
+        if not hasattr(qs, 'select_related'):
+            return qs
+        qs = qs.select_related('source').prefetch_related('likes')
+        try:
+            if profile:
+                qs = qs.annotate(
+                    favorited=Case(
+                        When(Q(likes__profile=profile) & Q(likes__profile__isnull=False), then=Value(True)),
+                        default=Value(False),
+                        output_field=BooleanField(),
+                    )
+                )
+        except Exception:
+            # Fallback safely if annotation fails for any reason
+            pass
+        return qs
+
+    optimized_photos = _optimize_photos_qs(photos)
+    optimized_photos_with_comments = _optimize_photos_qs(
+        photos_with_comments) if photos_with_comments is not None else None
+    optimized_photos_with_rephotos = _optimize_photos_qs(
+        photos_with_rephotos) if photos_with_rephotos is not None else None
+
     if requested_photo:
         fb_share_photos = [requested_photo]
     else:
-        fb_share_photos = photos[:5]
+        fb_share_photos = list(optimized_photos[:5])
 
     return GalleryResults(
         rephoto_album_author=rephoto_album_author,
@@ -299,9 +324,9 @@ def get_filtered_data_for_gallery(
         videos=[],
         photo=requested_photo,
         fb_share_photos=fb_share_photos,
-        photos=photos.prefetch_related("source", "likes"),
-        photos_with_comments=photos_with_comments,
-        photos_with_rephotos=photos_with_rephotos,
+        photos=optimized_photos,
+        photos_with_comments=optimized_photos_with_comments,
+        photos_with_rephotos=optimized_photos_with_rephotos,
         my_likes_only=my_likes_only,
         start=pagination_parameters.start if pagination_parameters else None,
         end=pagination_parameters.end if pagination_parameters else None,
