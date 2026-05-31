@@ -58,7 +58,7 @@
                                     <span style="top:-10px; position: relative;">{% if similarities|length > 9 %}9+{% else %}{{ confirmed_similar_photo_count }}/{{ similarities|length }}{% endif %}</span>
                                 </button>
                                 {% endif %}
-                                {% if rephotos %}
+                                {% if rephotos|length > 0 %}
                                     <button class="ajp-show-rephoto-selection-overlay-button"
                                             {% if request.user_agent.is_pc %}style="display: none;"{% endif %}>
                                         {% if rephotos|length < 10 %}
