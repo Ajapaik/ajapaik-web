@@ -24,7 +24,7 @@ from ajapaik.ajapaik.forms import CuratorWholeSetAlbumsSelectionForm, CuratorAlb
 from ajapaik.ajapaik.fotis_utils import parse_fotis_timestamp_data
 from ajapaik.ajapaik.models import Album, AlbumPhoto, Photo, Licence, Source, GeoTag, Points, Dating, \
     ApplicationException
-from ajapaik.ajapaik.serializers import CuratorMyAlbumListAlbumSerializer, CuratorAlbumSelectionAlbumSerializer, \
+from ajapaik.ajapaik.serializers import CuratorAlbumSelectionAlbumSerializer, \
     CuratorAlbumInfoSerializer
 from ajapaik.ajapaik.utils import ImportBlacklistService, _join_2_json_objects
 from ajapaik.ajapaik_curator.curator_drivers.common import CuratorSearchForm
@@ -119,12 +119,13 @@ def curator_search(request):
 def curator_my_album_list(request):
     user_profile = request.get_user().profile
     albums = Album.objects.filter(Q(profile=user_profile, atype__in=[Album.CURATED, Album.PERSON])).order_by('-created')
+
     data = []
     for a in albums:
         data.append({
             'id': a.id,
             'name': a.name,
-            'photo_count': a.photo_count
+            'photo_count': a.photo_count_with_subalbums,
         })
     return HttpResponse(json.dumps(data), content_type='application/json')
 
