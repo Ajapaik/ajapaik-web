@@ -13,7 +13,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2026-05-18 12:26:07+0000\n"
+"PO-Revision-Date: 2026-06-04 12:00:21+0000\n"
 "X-POT-Import-Date: 2021-10-10 16:30:23+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -30,7 +30,7 @@ msgstr "De gebruiker heeft het verzoek om geolocatie afgewezen."
 
 #: ajapaik/ajapaik/static/js/ajp-core.js:398
 msgid "Location information is unavailable."
-msgstr "Locatie-informatie is niet beschikbaar."
+msgstr "Locatiegegevens zijn niet beschikbaar."
 
 #: ajapaik/ajapaik/static/js/ajp-core.js:401
 msgid "The request to get user location timed out."
@@ -54,7 +54,7 @@ msgstr "Niet geselecteerd"
 
 #: ajapaik/ajapaik/static/js/ajp-core.js:1601
 msgid "Go to my location"
-msgstr "Ga naar mijn locatie"
+msgstr "Naar mijn locatie gaan"
 
 #: ajapaik/ajapaik/static/js/ajp-core.js:1613
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:438
@@ -178,7 +178,7 @@ msgstr "Annuleren"
 #: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:166
 #: ajapaik/ajapaik/static/js/constants.js:62
 msgid "Submit"
-msgstr "Indienen"
+msgstr "Opslaan"
 
 #: ajapaik/ajapaik/static/js/ajp-dater-plugin.js:454
 msgid "Comment your dating"
@@ -247,7 +247,7 @@ msgstr "Scène categoriseren"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:13
 msgid "Comments in album"
-msgstr "Opemrkingen in album"
+msgstr "Opmerkingen in het album"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:14
 msgid "Comments"
@@ -503,7 +503,7 @@ msgstr "Er zijn geen leuk gevonden foto's gevonden in dit album."
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:78
 msgid "Number"
-msgstr "Nummer"
+msgstr "Getal"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:79
 msgid "Picture added to album by:"
@@ -654,15 +654,15 @@ msgstr "Ongeïdentificeerde volwassen persoon"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:118
 msgid "Unidentified elderly man"
-msgstr "Ongeïdentificeerde bejaarde man"
+msgstr "Ongeïdentificeerde oudere man"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:119
 msgid "Unidentified elderly woman"
-msgstr "Ongeïdentificeerde bejaarde vrouw"
+msgstr "Ongeïdentificeerde oudere vrouw"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:120
 msgid "Unidentified elderly person"
-msgstr "Ongeïdentificeerde bejaarde"
+msgstr "Ongeïdentificeerde oudere"
 
 #: ajapaik/ajapaik/static/js/ajp-extra-js-translations.js:121
 msgid "Unidentified man"
@@ -706,7 +706,7 @@ msgstr "laatste"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:112
 msgid "least"
-msgstr "minst"
+msgstr "minste"
 
 #: ajapaik/ajapaik/static/js/ajp-frontpage.js:114
 msgid "most"
@@ -858,7 +858,7 @@ msgstr "Uw suggestie"
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:700
 msgid "How much has the depicted location changed?"
-msgstr "Hoeveel is de afgebeelde locatie veranderd?"
+msgstr "In hoeverre is de afgebeelde locatie veranderd?"
 
 #: ajapaik/ajapaik/static/js/ajp-geotagger-plugin.js:701
 msgid "Continue"
@@ -1106,7 +1106,7 @@ msgstr "Het verwijderen van de gezichtsannotatie is mislukt"
 
 #: ajapaik/ajapaik/static/js/constants.js:98
 msgid "Find object"
-msgstr "Vind object"
+msgstr "Object zoeken"
 
 #: ajapaik/ajapaik/static/js/constants.js:99
 #: ajapaik/ajapaik/static/js/constants.js:106
@@ -1115,7 +1115,7 @@ msgstr "Zoeken"
 
 #: ajapaik/ajapaik/static/js/constants.js:100
 msgid "Search for object"
-msgstr "Zoek naar object"
+msgstr "Naar object zoeken"
 
 #: ajapaik/ajapaik/static/js/constants.js:101
 #: ajapaik/ajapaik/static/js/constants.js:108
@@ -1129,7 +1129,7 @@ msgstr "Geen resultaten gevonden"
 
 #: ajapaik/ajapaik/static/js/constants.js:105
 msgid "Find existing person"
-msgstr "Bestaande persoon vinden"
+msgstr "Bestaande persoon zoeken"
 
 #: ajapaik/ajapaik/static/js/constants.js:107
 msgid "Enter person name"
@@ -1146,7 +1146,7 @@ msgstr "Geef de naam van de persoon op"
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:107
 msgid "Modify existing annotations, click on an annotation to start"
-msgstr "Wijzig bestaande aantekeningen, klik op een aantekening om te starten"
+msgstr "Bestaande aantekeningen wijzigen; klik op een aantekening om te beginnen"
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:109
 msgid "Tag a face"
@@ -1158,14 +1158,14 @@ msgstr "Teken een gezichtsaantekening en voeg de naam van de persoon toe"
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:123
 msgid "Draw and tag a face"
-msgstr "Teken en label een gezicht"
+msgstr "Een gezicht tekenen en labelen"
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:134
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:136
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:217
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:219
 msgid "Open album"
-msgstr "Open album"
+msgstr "Album openen"
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:147
 msgid "Tag <em>%(personName)s</em>"
@@ -1178,7 +1178,7 @@ msgstr "Annotatie is toegevoegd door %(profileLink)s"
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:182
 msgid "Automatically detected face"
-msgstr "Automatisch gedetecteerde gezichten"
+msgstr "Automatisch gedetecteerd gezicht"
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:191
 msgid "%(photoCount)s picture"
@@ -1192,11 +1192,11 @@ msgstr "Voeg een persoonsnaam toe aan een gezicht"
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:203
 msgid "Identify person"
-msgstr "Identificeer persoon"
+msgstr "Persoon identificeren"
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:203
 msgid "Edit person annotation"
-msgstr "Wijzig persoons aantekening"
+msgstr "Persoonsannotatie bewerken"
 
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:308
 msgid "Automatically detected object"
@@ -1205,5 +1205,5 @@ msgstr "Automatisch gedetecteerd object"
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:311
 #: ajapaik/ajapaik/static/js/photoview/annotations.js:313
 msgid "View object on Wikidata"
-msgstr "Geef object weer op Wikidata"
+msgstr "Object weergeven op Wikidata"
 

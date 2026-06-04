@@ -5,6 +5,7 @@
 # Author: Buntschann
 # Author: Omotecho
 # Author: Shirayuki
+# Author: Tensama0415
 # Author: Weather Top Wizard
 # --
 # This file is part of the Ajapaik Project
@@ -13,7 +14,7 @@
 msgid ""
 msgstr ""
 ""
-"PO-Revision-Date: 2026-05-18 12:26:06+0000\n"
+"PO-Revision-Date: 2026-06-04 12:00:20+0000\n"
 "X-POT-Import-Date: 2021-10-10 16:30:23+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -944,9 +945,8 @@ msgid "This transcription is correct"
 msgstr ""
 
 #: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:165
-#, fuzzy
 msgid "What is written on the picture?"
-msgstr "画像には何が書かれていますか？"
+msgstr "写真には何が書かれていますか？"
 
 #: ajapaik/ajapaik/static/js/ajp-transcriber-plugin.js:178
 msgid "You're anonymous, please login to add transcriptions"
