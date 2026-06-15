@@ -353,7 +353,7 @@ const AjpRephotoUploader = {
       <div class="ajp-upload-header">
         <div class="ajp-upload-title">
           <span class="ajp-spinner-small" style="display:inline-block; width:12px; height:12px; border:2px solid #fca311; border-top-color:transparent; border-radius:50%; animation: ajp-spin 1s linear infinite;"></span>
-          <b>Re-foto üleslaadimine</b>
+          <b>Refoto üleslaadimine</b>
         </div>
         <div class="ajp-upload-status" id="ajp-upload-status-text">Ootel...</div>
       </div>
@@ -403,7 +403,7 @@ const AjpRephotoUploader = {
       <div class="ajp-upload-header" style="color: #4caf50;">
         <div class="ajp-upload-title">
           <span>✓</span>
-          <b>Re-foto edukalt salvestatud!</b>
+          <b>Refoto edukalt salvestatud!</b>
         </div>
       </div>
       <div class="ajp-upload-progress-container">
