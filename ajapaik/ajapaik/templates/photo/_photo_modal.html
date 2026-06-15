@@ -234,8 +234,8 @@
             fullscreen_url: "{% url 'image_full' rephoto.id rephoto.slug%}",
             fullscreen_width: "{{ rephoto.width }}",
             fullscreen_height: "{{ rephoto.height }}",
-            {% if rephoto.date_text %}
-                date: "{{ rephoto.date_text }}",
+            {% if rephoto.date %}
+                date: "{{ rephoto.date }}",
             {% endif %}
             {% if request.user.is_superuser %}
                 admin: "request.user.is_superuser",

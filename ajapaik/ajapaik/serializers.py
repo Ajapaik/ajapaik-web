@@ -261,12 +261,21 @@ class PhotoSerializer(PhotoRepresentationSerializer):
 class RephotoDetailsSerializer(PhotoRepresentationSerializer):
     user_id = serializers.IntegerField(source='user.id', required=False)
     user_name = serializers.CharField(source='user.get_display_name', required=False)
+    date = serializers.SerializerMethodField()
+
+    def get_date(self, instance: Photo) -> str:
+        if instance.date:
+            return instance.date.strftime('%d.%m.%Y')
+        if instance.created:
+            return instance.created.strftime('%d.%m.%Y')
+        return ""
 
     class Meta(PhotoRepresentationSerializer.Meta):
         model = Photo
         fields = (
             *PhotoRepresentationSerializer.Meta.fields,
             'author', 'date_text', 'licence', 'slug', 'source_key', 'source_url', 'user_id', 'user_name',
+            'date',
         )
 
 

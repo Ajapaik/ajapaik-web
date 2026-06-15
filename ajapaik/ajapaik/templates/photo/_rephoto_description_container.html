@@ -1,7 +1,7 @@
 {% load i18n %}
 <div id="ajp-photo-rephoto-info-column" class="col-lg-6 col-md-12 col-xs-12">
     {% if rephoto.author %}
-        <div class="w-100"><b>{{ rephoto.author }}</b>
+        <div class="w-100"><b>{{ rephoto.author }}{% if rephoto.date %}, {{ rephoto.date }}{% endif %}</b>
             {% if rephoto.licence %}
                 {% include "photo/_licence.html" with licence=rephoto.licence %}
             {% endif %}
@@ -13,7 +13,7 @@
                 rel="noopener nofollow"
                 href="{{ rephoto.source_url }}" target="_blank">
                 {{ rephoto.source.description }} {{ rephoto.source_key }}
-            </a>
+            </a>{% if rephoto.date %}, {{ rephoto.date }}{% endif %}
         </div>
     {% else %}
         <div class="w-100">
@@ -21,7 +21,7 @@
                 {% if rephoto.user_id %} href="/user/{{rephoto.user_id}}" {% endif %}
                 target="_blank">
                 {{ rephoto.user_name }}
-            </a>
+            </a>{% if rephoto.date %}, {{ rephoto.date }}{% endif %}
         <br>
         {% include 'photo/_licence.html' %}
         </div>
