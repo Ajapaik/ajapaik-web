@@ -444,7 +444,15 @@
                 height: { ideal: 2160 } 
             }
         };
-        const stream = await navigator.mediaDevices.getUserMedia(constraints);
+        let stream;
+        try {
+          stream = await navigator.mediaDevices.getUserMedia(constraints);
+        } catch (constraintsError) {
+          console.warn("Kaamera ei toetanud kõrget resolutsiooni, proovin tavalist režiimi:", constraintsError);
+          stream = await navigator.mediaDevices.getUserMedia({
+              video: { facingMode: currentFacingMode }
+          });
+        }
         video.srcObject = stream;
         
         if (currentFacingMode === 'user') {
@@ -454,6 +462,7 @@
         }
       } catch (err) {
         console.error("Kaamera viga:", err);
+        alert("Kaamera viga: " + err.name + " - " + err.message);
       }
     }
 
@@ -586,9 +595,13 @@
       });
     });
 
-    overlay.onload = () => {
+    if (overlay.complete) {
       initCamera();
-    };
+    } else {
+      overlay.onload = () => {
+        initCamera();
+      };
+    }
   </script>
 </body>
 </html>
