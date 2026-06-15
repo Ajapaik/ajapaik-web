@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n static %}
 <!DOCTYPE html>
 <html lang="et">
 <head>
@@ -202,6 +202,7 @@
       font-size: 24px;
     }
   </style>
+  <script src="{% static 'js/ajp-rephoto-uploader.js' %}"></script>
 </head>
 <body>
 
@@ -562,36 +563,24 @@
         return;
       }
 
+      loadingOverlay.innerHTML = 'Salvestan järjekorda...';
       loadingOverlay.style.display = 'flex';
       
       Promise.all([
           new Promise(resolve => canvas.toBlob(resolve, 'image/jpeg', 0.95)),
           new Promise(resolve => fullCanvas.toBlob(resolve, 'image/jpeg', 0.95))
       ]).then(([croppedBlob, fullBlob]) => {
-        const formData = new FormData();
-        formData.append('user_file[]', fullBlob, 'rephoto.jpg');
-        formData.append('cropped_file', croppedBlob, 'rephoto_cropped.jpg');
-        formData.append('scale_factor', currentUploadScaleFactor);
-        
-        fetch('{% url "rephoto_upload" photo.id %}', {
-          method: 'POST',
-          body: formData,
-          headers: {
-            // Need to pass CSRF token if required, but rephoto_upload is @csrf_exempt
-          }
-        })
-        .then(response => response.json())
-        .then(data => {
-          if(data.error) {
-              alert("Viga: " + data.error);
-              loadingOverlay.style.display = 'none';
-          } else {
-              window.location.href = "{% url 'photo' photo.id photo.get_pseudo_slug %}";
-          }
-        })
-        .catch(error => {
-          console.error('Error:', error);
-          alert('Viga üleslaadimisel');
+        AjpRephotoUploader.enqueue(
+          {{ photo.id }},
+          '{{ photo.get_pseudo_slug }}',
+          fullBlob,
+          croppedBlob,
+          currentUploadScaleFactor,
+          '{% url "rephoto_upload" photo.id %}',
+          '{% url "photo" photo.id photo.get_pseudo_slug %}'
+        ).catch(error => {
+          console.error('Error queueing upload:', error);
+          alert('Viga järjekorda lisamisel');
           loadingOverlay.style.display = 'none';
         });
       });
