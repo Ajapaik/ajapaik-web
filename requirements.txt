@@ -35,7 +35,7 @@ Pillow==9.0.1
 psycopg2-binary==2.8.6
 pyOpenSSL==20.0.1
 pysolr==3.9.0
-redis==3.5.3
+redis==4.4.4
 requests==2.26.0
 responses==0.13.4
 scikit-learn==0.24.2
