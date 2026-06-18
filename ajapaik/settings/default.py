@@ -197,6 +197,7 @@ INSTALLED_APPS = [
     'leaflet',
     'ajapaik.ajapaik_face_recognition',
     'ajapaik.ajapaik_object_recognition',
+    'ajapaik.ajapaik_object_categorization',
     'django_user_agents',
     'corsheaders',
 
