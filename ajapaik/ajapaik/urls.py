@@ -5,6 +5,7 @@ from django.conf.urls import include, i18n
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.auth.decorators import login_required
+from ajapaik.ajapaik.decorators import registered_login_required
 from django.contrib.staticfiles.views import serve
 from django.urls import re_path, path
 from django.views.decorators.cache import cache_page
@@ -50,15 +51,15 @@ urlpatterns = [
     path('geotag/confirm/', geotags_views.geotag_confirm, name='geotag_confirm'),
     path('general-info-modal-content/', views.get_general_info_modal_content, name='general_info_modal_content'),
     path('info-modal-content/', views.get_album_info_modal_content, name='info_modal_content'),
-    path('game/', geotags_views.game, name='game'),
+    path('game/', registered_login_required(geotags_views.game), name='game'),
     path('geotaggers-modal/<int:photo_id>/', geotags_views.geotaggers_modal,
          name='photo_geotaggers'),
-    path('geotag/', geotags_views.game, name='game'),
+    path('geotag/', registered_login_required(geotags_views.game), name='game'),
     path('login-modal/', auth_views.login_modal, name='login_modal'),
-    path('map/', map_views.mapview, name='map'),
-    path('map/photo/<int:photo_id>/', map_views.mapview, name='map'),
-    path('map/rephoto/<int:rephoto_id>/', map_views.mapview, name='map'),
-    path('map/photo/<int:photo_id>/rephoto/<int:rephoto_id>/', map_views.mapview, name='map'),
+    path('map/', registered_login_required(map_views.mapview), name='map'),
+    path('map/photo/<int:photo_id>/', registered_login_required(map_views.mapview), name='map'),
+    path('map/rephoto/<int:rephoto_id>/', registered_login_required(map_views.mapview), name='map'),
+    path('map/photo/<int:photo_id>/rephoto/<int:rephoto_id>/', registered_login_required(map_views.mapview), name='map'),
     path('map-data/', map_views.map_objects_by_bounding_box, name='map_objects_by_bounding_box'),
     path('leaderboard/', leaderboard_views.leaderboard, name='leaderboard'),
     path('leaderboard/album/<int:album_id>/', leaderboard_views.leaderboard,
