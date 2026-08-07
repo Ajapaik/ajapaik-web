@@ -1,6 +1,12 @@
 from django.conf import settings
 from django.contrib.auth.decorators import user_passes_test
 
+try:
+    # Optional import: only used to detect that the user has linked a social account
+    from allauth.socialaccount.models import SocialAccount  # type: ignore
+except Exception:  # pragma: no cover - allauth always installed in this project
+    SocialAccount = None  # type: ignore
+
 
 def _is_registered_user(user):
     """Return True only for authenticated, non-anonymous (non-bot/session) users.
@@ -9,9 +15,28 @@ def _is_registered_user(user):
     pseudo users for anonymous sessions and bots. These users have usernames that
     start with an underscore (e.g., "_session_<...>") or with the pattern "_bot_".
 
-    Real, registered users should therefore not have usernames starting with "_".
+    Consider the user registered when:
+    - user is authenticated AND username does not start with '_' (typical real users), OR
+    - user is authenticated AND has any linked SocialAccount (defensive: in case
+      some real users happen to have usernames starting with '_').
     """
-    return bool(user and user.is_authenticated and not getattr(user, "username", "").startswith("_"))
+    if not user or not getattr(user, "is_authenticated", False):
+        return False
+
+    username = getattr(user, "username", "") or ""
+    if username and not username.startswith("_"):
+        return True
+
+    # Fallback: treat users with a social account as registered even if
+    # the username happens to start with an underscore for historical reasons.
+    if SocialAccount is not None:
+        try:
+            return SocialAccount.objects.filter(user_id=getattr(user, "id", None)).exists()
+        except Exception:
+            # If DB is not reachable for some reason, fall back to the strict rule
+            return False
+
+    return False
 
 
 def registered_login_required(function=None, redirect_field_name="next", login_url=None):
