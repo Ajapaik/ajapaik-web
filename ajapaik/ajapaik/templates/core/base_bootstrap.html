@@ -417,6 +417,9 @@
     {% if is_curator or not is_frontpage and not is_photoview and is_game or not is_frontpage and not is_photoview and is_mapview %}
         <script
             src="https://maps.google.com/maps/api/js?v=3&amp;libraries=places,visualization&key={{ google_maps_api_key }}"></script>
+        <!-- deck.gl for heatmaps over Google Maps -->
+        <script src="https://unpkg.com/deck.gl@8.9.36/dist.min.js"></script>
+        <script src="https://unpkg.com/@deck.gl/google-maps@8.9.36/dist.min.js"></script>
     {% else %}
         {% leaflet_js %}
     {% endif %}

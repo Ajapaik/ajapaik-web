@@ -803,12 +803,21 @@
                     window.reportGeotaggerSendFeedback(feedbackVal);
                 }
             });
+            // Initialize realMarker with a safe, finite position
+            var __mLat = Number(that.options.startLat), __mLng = Number(that.options.startLng);
+            var __mPos = null;
+            if (Number.isFinite(__mLat) && Number.isFinite(__mLng)) {
+                __mPos = new google.maps.LatLng(__mLat, __mLng);
+            } else if (that.map && typeof that.map.getCenter === 'function') {
+                __mPos = that.map.getCenter();
+            } else if (window.startLocation && window.startLocation.length === 2 && Number.isFinite(Number(window.startLocation[1])) && Number.isFinite(Number(window.startLocation[0]))) {
+                __mPos = new google.maps.LatLng(Number(window.startLocation[1]), Number(window.startLocation[0]));
+            } else {
+                __mPos = new google.maps.LatLng(59, 26);
+            }
             this.realMarker = new google.maps.Marker({
                 draggable: false,
-                position: new google.maps.LatLng(
-                    that.options.startLat,
-                    that.options.startLng,
-                ),
+                position: __mPos,
                 visible: false,
                 map: this.map,
                 icon: '/static/images/material-design-icons/ajapaik_photo_camera_arrow_drop_down_mashup.svg',
@@ -1023,7 +1032,8 @@
             this.azimuthLineEndPoint = null;
             this.saveAzimuth = false;
             this.drawAzimuthLineOnMouseMove = !isMobile;
-            if (this.heatmap) {
+            if (this.heatmap && typeof this.heatmap.setMap === 'function') {
+                // Detach any previously rendered heatmap overlay (Google or deck.gl)
                 this.heatmap.setMap(null);
             }
             if (this.playerSuggestionMarker) {
@@ -1041,9 +1051,26 @@
             this.feedbackMode = false;
             this.suggestionStarted = true;
             google.maps.event.trigger(this.map, 'resize');
-            this.map.setCenter(
-                new google.maps.LatLng(options.startLat, options.startLng),
-            );
+            // Center map with robust numeric checks to avoid NaN lat/lng
+            var _initLat = Number(options.startLat),
+                _initLng = Number(options.startLng),
+                _fallbackLatLng = null;
+
+            if (Number.isFinite(_initLat) && Number.isFinite(_initLng)) {
+                _fallbackLatLng = new google.maps.LatLng(_initLat, _initLng);
+            } else if (window.startLocation && window.startLocation.length === 2) {
+                var _slLng = Number(window.startLocation[0]); // note: startLocation is [lon, lat]
+                var _slLat = Number(window.startLocation[1]);
+                if (Number.isFinite(_slLat) && Number.isFinite(_slLng)) {
+                    _fallbackLatLng = new google.maps.LatLng(_slLat, _slLng);
+                }
+            }
+            if (!_fallbackLatLng) {
+                // Final safe default (Tallinn-like)
+                _fallbackLatLng = new google.maps.LatLng(59, 26);
+                try { console.warn('AjapaikGeotagger: Falling back to default center due to invalid startLat/startLng', options && options.startLat, options && options.startLng); } catch (e) {}
+            }
+            this.map.setCenter(_fallbackLatLng);
             this.map.setZoom(16);
         },
         radiansToDegrees: function(rad) {
@@ -1100,7 +1127,39 @@
             this.customNonFFWheelFunctionActive = true;
             this.mapMarkerDragListenerActive = false;
             this.mapMarkerDragendListenerActive = false;
-            this.map.setCenter(this.realMarker.position);
+
+            // Safely center map to marker or a valid fallback to avoid NaN errors
+            var __pos = (this.realMarker && typeof this.realMarker.getPosition === 'function') ? this.realMarker.getPosition() : this.realMarker && this.realMarker.position;
+            var __lat = __pos && typeof __pos.lat === 'function' ? __pos.lat() : (__pos && __pos.lat);
+            var __lng = __pos && typeof __pos.lng === 'function' ? __pos.lng() : (__pos && __pos.lng);
+            var __center = null;
+            if (Number.isFinite(__lat) && Number.isFinite(__lng)) {
+                __center = new google.maps.LatLng(__lat, __lng);
+            } else if (this.map && typeof this.map.getCenter === 'function') {
+                // use current valid map center if present
+                var c = this.map.getCenter();
+                var clat = c && typeof c.lat === 'function' ? c.lat() : (c && c.lat);
+                var clng = c && typeof c.lng === 'function' ? c.lng() : (c && c.lng);
+                if (Number.isFinite(clat) && Number.isFinite(clng)) {
+                    __center = new google.maps.LatLng(clat, clng);
+                }
+            }
+            if (!__center && window.startLocation && window.startLocation.length === 2) {
+                var slat = Number(window.startLocation[1]);
+                var slng = Number(window.startLocation[0]);
+                if (Number.isFinite(slat) && Number.isFinite(slng)) {
+                    __center = new google.maps.LatLng(slat, slng);
+                }
+            }
+            if (!__center) {
+                __center = new google.maps.LatLng(59, 26);
+            }
+            this.map.setCenter(__center);
+            // Ensure marker position is valid and synced to center when locking
+            if (!(Number.isFinite(__lat) && Number.isFinite(__lng))) {
+                this.realMarker.setPosition(__center);
+            }
+
             this.setCursorToPanorama();
             this.options.markerLocked = true;
             this.azimuthLine.setVisible(false);
@@ -1468,15 +1527,44 @@
                 this.map.fitBounds(latLngBounds);
             }
             this.realMarker.setZIndex(google.maps.Marker.MAX_ZINDEX + 1);
-            heatmapPoints = new google.maps.MVCArray(heatmapPoints);
-            this.heatmap = new google.maps.visualization.HeatmapLayer({
-                data: heatmapPoints,
+
+            // Build deck.gl HeatmapLayer data
+            var deckData = heatmapPoints.map(function(latlng) {
+                return { position: [latlng.lng(), latlng.lat()], weight: 1 };
             });
-            this.heatmap.setMap(this.map);
-            this.heatmap.setOptions({
-                radius: 50,
-                dissipating: true,
-            });
+
+            // If a previous overlay exists (deck.gl GoogleMapsOverlay), detach it
+            if (this.heatmap && typeof this.heatmap.setMap === 'function') {
+                try { this.heatmap.setMap(null); } catch (e) {}
+            }
+
+            // Render deck.gl heatmap over Google Maps if available
+            if (window.deck && deck.GoogleMapsOverlay && deck.HeatmapLayer) {
+                var overlay = new deck.GoogleMapsOverlay({
+                    layers: [
+                        new deck.HeatmapLayer({
+                            id: 'ajp-geotagger-heatmap',
+                            data: deckData,
+                            getPosition: function(d) { return d.position; },
+                            getWeight: function(d) { return d.weight || 1; },
+                            radiusPixels: 50,
+                            intensity: 1,
+                            threshold: 0.05,
+                            aggregation: 'SUM',
+                        }),
+                    ],
+                });
+                overlay.setMap(this.map);
+                this.heatmap = overlay;
+            } else if (google && google.maps && google.maps.visualization && google.maps.visualization.HeatmapLayer) {
+                // Fallback to Google HeatmapLayer if deck.gl is not available
+                var mvc = new google.maps.MVCArray(heatmapPoints);
+                this.heatmap = new google.maps.visualization.HeatmapLayer({ data: mvc });
+                this.heatmap.setMap(this.map);
+                if (typeof this.heatmap.setOptions === 'function') {
+                    this.heatmap.setOptions({ radius: 50, dissipating: true });
+                }
+            }
         },
         delayedReportSearch: function(term) {
             if (this.searchReportTimeout) {

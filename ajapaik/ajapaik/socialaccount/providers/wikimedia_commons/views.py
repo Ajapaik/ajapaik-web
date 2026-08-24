@@ -4,6 +4,7 @@ from allauth.socialaccount.providers.oauth2.views import (
     OAuth2CallbackView,
     OAuth2LoginView,
 )
+from allauth.socialaccount.providers.oauth2.client import OAuth2Error
 
 from .client import WikimediaCommonsOAuth2Client
 from .provider import WikimediaCommonsProvider
@@ -24,7 +25,11 @@ class WikimediaCommonsOAuth2Adapter(OAuth2Adapter):
         headers = {'Authorization': 'Bearer {0}'.format(token.token)}
         resp = requests.get(self.profile_url, headers=headers)
         resp.raise_for_status()
-        extra_data = resp.json()
+        try:
+            extra_data = resp.json()
+        except Exception:
+            # Provide clearer error than JSONDecodeError and include snippet of body
+            raise OAuth2Error(f'Error retrieving profile: non-JSON response ({resp.status_code}): {resp.text[:500]}')
         login = self.get_provider() \
             .sociallogin_from_response(request,
                                        extra_data)

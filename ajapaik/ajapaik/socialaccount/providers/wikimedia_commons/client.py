@@ -41,16 +41,20 @@ class WikimediaCommonsOAuth2Client(OAuth2Client):
         if self.access_token_method == 'GET':
             params = data
             data = None
-        # TODO: Proper exception handling
         resp = requests.request(self.access_token_method,
                                 url,
                                 params=params,
                                 data=data)
         access_token = None
         if resp.status_code == 200:
-            access_token = resp.json()
+            try:
+                access_token = resp.json()
+            except Exception:
+                # Non-JSON response; raise a clear error with raw text
+                raise OAuth2Error(f'Error retrieving access token: non-JSON response ({resp.status_code}): {resp.text[:500]}')
+            # Wikimedia sends very long-lived tokens; normalize to max int
             access_token['expires_in'] = 2147483647
         if not access_token or 'access_token' not in access_token:
-            raise OAuth2Error('Error retrieving access token: %s'
-                              % resp.json())
+            # Avoid calling resp.json() again; may not be JSON on error
+            raise OAuth2Error('Error retrieving access token: %s' % (resp.text[:500] if resp.text else f'Status {resp.status_code}'))
         return access_token
