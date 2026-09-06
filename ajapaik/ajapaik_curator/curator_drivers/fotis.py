@@ -1,6 +1,7 @@
 from datetime import datetime, timedelta
 from json import dumps, loads
 
+from django.conf import settings
 from requests import get
 
 from ajapaik.ajapaik.models import Photo, AlbumPhoto, Album
@@ -34,9 +35,13 @@ class FotisDriver(object):
         else:
             url = self.broad_search_url % (query, query, query, query, query, page)
 
-        response = get(url)
+        headers = {'User-Agent': settings.UA}
+        response = get(url, headers=headers, timeout=15)
         response_headers = response.headers
-        results = loads(response.text)
+        if response.status_code == 200:
+            results = loads(response.text)
+        else:
+            results = []
 
         # Ensure we always return a dictionary consistent with expected structure
         return {
