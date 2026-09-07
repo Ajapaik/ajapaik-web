@@ -389,22 +389,43 @@ def curator_photo_upload_handler(request):
                         if upload_form.cleaned_data['collections'] == 'DIGAR':
                             photo.image = f'uploads/DIGAR_{str(photo.source_key).split(":")[1]}_1.jpg'
                         else:
-                            # Enable plain http and broken SSL
-                            ssl._create_default_https_context = ssl._create_unverified_context
-                            opener = build_opener()
-                            headers = [('User-Agent', settings.UA)]
+                            img_content = None
+                            if institution == 'Fotis' and muis_id:
+                                try:
+                                    meediateek_url = f'https://www.meediateek.ee/photo/full?id={muis_id}'
+                                    meediateek_headers = {
+                                        'User-Agent': settings.UA,
+                                        'Referer': f'https://www.meediateek.ee/photo/view?id={muis_id}'
+                                    }
+                                    res = requests.get(
+                                        meediateek_url,
+                                        headers=meediateek_headers,
+                                        timeout=15,
+                                        allow_redirects=False
+                                    )
+                                    if res.status_code == 200 and 'image' in res.headers.get('Content-Type', ''):
+                                        img_content = res.content
+                                except Exception:
+                                    img_content = None
 
-                            if etera_token:
-                                headers.append(('Authorization', f'Bearer {etera_token}'))
-                            opener.addheaders = headers
-                            img_response = opener.open(upload_form.cleaned_data['imageUrl'])
+                            if not img_content:
+                                # Enable plain http and broken SSL
+                                ssl._create_default_https_context = ssl._create_unverified_context
+                                opener = build_opener()
+                                headers = [('User-Agent', settings.UA)]
+
+                                if etera_token:
+                                    headers.append(('Authorization', f'Bearer {etera_token}'))
+                                opener.addheaders = headers
+                                img_response = opener.open(upload_form.cleaned_data['imageUrl'])
+                                img_content = img_response.read()
 
                             if 'ETERA' in photo.source.description:
-                                img = ContentFile(img_response.read())
+                                img = ContentFile(img_content)
                                 photo.image_no_watermark.save('etera.jpg', img)
                                 photo.watermark()
                             else:
-                                photo.image.save('muis.jpg', ContentFile(img_response.read()))
+                                photo.image.save('muis.jpg', ContentFile(img_content))
 
                         if photo.invert or photo.rotated or photo.flip:
                             photo_path = f'{settings.MEDIA_ROOT}/{str(photo.image)}'
