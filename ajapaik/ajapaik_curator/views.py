@@ -400,7 +400,7 @@ def curator_photo_upload_handler(request):
                                     res = requests.get(
                                         meediateek_url,
                                         headers=meediateek_headers,
-                                        timeout=15,
+                                        timeout=8,
                                         allow_redirects=False
                                     )
                                     if res.status_code == 200 and 'image' in res.headers.get('Content-Type', ''):
@@ -588,21 +588,20 @@ def curator_photo_upload_handler(request):
 
                     raise e
 
-    if general_albums:
-        game_reverse = request.build_absolute_uri(reverse('game'))
-        for ga in general_albums:
-            requests.post(
-                f'https://graph.facebook.com/v7.0/?id={game_reverse}?album={str(ga.id)}&scrape=true'
-            )
-
     for cp in all_curating_points:
         total_points_for_curating += cp.points
 
     context['total_points_for_curating'] = total_points_for_curating
-    if general_albums.exists():
-        for album in general_albums:
-            album.save()
-            if album.subalbum_of:
-                album.subalbum_of.save()
+
+    success_count = sum(1 for p in context['photos'].values() if p.get('success'))
+    if success_count > 0 and general_albums.exists():
+        general_albums.update(photo_count_with_subalbums=F('photo_count_with_subalbums') + success_count)
+        parent_ids = list(general_albums.filter(subalbum_of__isnull=False).values_list('subalbum_of_id', flat=True))
+        if parent_ids:
+            Album.objects.filter(id__in=parent_ids).update(
+                photo_count_with_subalbums=F('photo_count_with_subalbums') + success_count
+            )
+        if 'photo' in locals() and photo:
+            general_albums.filter(cover_photo=None).update(cover_photo=photo)
 
     return HttpResponse(json.dumps(context), content_type='application/json')
