@@ -6,6 +6,7 @@ import traceback
 from urllib.request import build_opener
 
 import threading
+import time
 
 import requests
 from PIL import Image, ImageOps
@@ -343,32 +344,53 @@ def process_single_curator_import_item(item: CuratorImportItem) -> bool:
             else:
                 img_content = None
                 if institution == 'Fotis' and muis_id:
-                    try:
-                        meediateek_url = f'https://www.meediateek.ee/photo/full?id={muis_id}'
-                        meediateek_headers = {
-                            'User-Agent': settings.UA,
-                            'Referer': f'https://www.meediateek.ee/photo/view?id={muis_id}'
-                        }
-                        res = requests.get(
-                            meediateek_url,
-                            headers=meediateek_headers,
-                            timeout=15,
-                            allow_redirects=False
-                        )
-                        if res.status_code == 200 and 'image' in res.headers.get('Content-Type', ''):
-                            img_content = res.content
-                    except Exception:
-                        img_content = None
+                    meediateek_url = f'https://www.meediateek.ee/photo/full?id={muis_id}'
+                    meediateek_headers = {
+                        'User-Agent': settings.UA,
+                        'Referer': f'https://www.meediateek.ee/photo/view?id={muis_id}'
+                    }
+                    for attempt in range(3):
+                        try:
+                            res = requests.get(
+                                meediateek_url,
+                                headers=meediateek_headers,
+                                timeout=15,
+                                allow_redirects=False
+                            )
+                            if res.status_code == 200 and 'image' in res.headers.get('Content-Type', ''):
+                                img_content = res.content
+                                break
+                            elif res.status_code in (500, 502, 503, 504):
+                                if attempt < 2:
+                                    time.sleep(1.5)
+                                    continue
+                            else:
+                                break
+                        except (requests.RequestException, ssl.SSLError):
+                            if attempt < 2:
+                                time.sleep(1.5)
+                            else:
+                                img_content = None
 
                 if not img_content:
-                    ssl._create_default_https_context = ssl._create_unverified_context
-                    opener = build_opener()
-                    headers = [('User-Agent', settings.UA)]
-                    if etera_token:
-                        headers.append(('Authorization', f'Bearer {etera_token}'))
-                    opener.addheaders = headers
-                    img_response = opener.open(upload_form.cleaned_data['imageUrl'])
-                    img_content = img_response.read()
+                    image_url = upload_form.cleaned_data['imageUrl']
+                    for attempt in range(3):
+                        try:
+                            ssl._create_default_https_context = ssl._create_unverified_context
+                            opener = build_opener()
+                            headers = [('User-Agent', settings.UA)]
+                            if etera_token:
+                                headers.append(('Authorization', f'Bearer {etera_token}'))
+                            opener.addheaders = headers
+                            img_response = opener.open(image_url, timeout=15)
+                            img_content = img_response.read()
+                            if img_content:
+                                break
+                        except Exception as e:
+                            if attempt < 2:
+                                time.sleep(1.5)
+                            else:
+                                raise e
 
                 if photo.source and 'ETERA' in photo.source.description:
                     img = ContentFile(img_content)
@@ -528,6 +550,13 @@ def process_curator_import_queue():
     global _worker_running
     try:
         close_old_connections()
+        # Crash recovery: reset stale PROCESSING items (> 10 min) back to PENDING
+        stale_cutoff = timezone.now() - datetime.timedelta(minutes=10)
+        CuratorImportItem.objects.filter(
+            status=CuratorImportItem.PROCESSING,
+            modified__lt=stale_cutoff
+        ).update(status=CuratorImportItem.PENDING, modified=timezone.now())
+
         while True:
             item = CuratorImportItem.objects.filter(
                 status=CuratorImportItem.PENDING
@@ -679,7 +708,25 @@ def curator_import_status(request):
         profile = None
 
     if not profile:
-        return JsonResponse({'active': False, 'pending': 0, 'completed': 0, 'failed': 0})
+        return JsonResponse({'active': False, 'pending': 0, 'completed': 0, 'failed': 0, 'failed_items': []})
+
+    if request.method == 'POST' and request.POST.get('action') == 'clear_failed':
+        CuratorImportItem.objects.filter(
+            user=profile,
+            status=CuratorImportItem.FAILED
+        ).delete()
+        return JsonResponse({'success': True})
+
+    # Crash recovery: reset stale PROCESSING items (> 10 min) back to PENDING
+    stale_cutoff = timezone.now() - datetime.timedelta(minutes=10)
+    CuratorImportItem.objects.filter(
+        status=CuratorImportItem.PROCESSING,
+        modified__lt=stale_cutoff
+    ).update(status=CuratorImportItem.PENDING, modified=timezone.now())
+
+    # If pending items exist but worker thread died or server restarted, resume worker
+    if CuratorImportItem.objects.filter(status=CuratorImportItem.PENDING).exists() and not _worker_running:
+        start_curator_import_worker()
 
     pending_count = CuratorImportItem.objects.filter(
         user=profile,
@@ -692,15 +739,42 @@ def curator_import_status(request):
         status=CuratorImportItem.SUCCESS,
         modified__gte=recent_since
     ).count()
-    failed_count = CuratorImportItem.objects.filter(
+
+    failed_qs = CuratorImportItem.objects.filter(
         user=profile,
         status=CuratorImportItem.FAILED,
         modified__gte=recent_since
-    ).count()
+    ).order_by('-modified')
+    failed_count = failed_qs.count()
+
+    failed_items = []
+    for fi in failed_qs[:50]:
+        title = (fi.data or {}).get('title', '')
+        ref_code = (fi.data or {}).get('identifyingNumber', '') or fi.identifying_number
+        url_to_record = (fi.data or {}).get('urlToRecord', '')
+        err = fi.error_message or ''
+        if 'HTTP Error 404: Not Found' in err:
+            clean_err = _('Photo not found in archive (404)')
+        elif 'timed out' in err.lower() or 'timeout' in err.lower():
+            clean_err = _('Archive connection timed out')
+        else:
+            clean_err = err
+
+        failed_items.append({
+            'id': fi.id,
+            'external_id': fi.external_id,
+            'reference_code': ref_code,
+            'title': title,
+            'url_to_record': url_to_record,
+            'error': clean_err,
+            'source': fi.source_description,
+            'time': fi.modified.strftime('%H:%M:%S')
+        })
 
     return JsonResponse({
         'active': pending_count > 0 or _worker_running,
         'pending': pending_count,
         'completed': completed_count,
-        'failed': failed_count
+        'failed': failed_count,
+        'failed_items': failed_items
     })

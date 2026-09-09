@@ -34,6 +34,13 @@
                         <span class="badge badge-success" id="ajp-curator-bg-import-pending-count">0</span>
                     </a>
                 </li>
+                <li role="presentation" id="ajp-curator-bg-failed-tab" style="display: none;">
+                    <a href="#" id="ajp-curator-view-failed-button" style="color: #dc3545; font-weight: bold;" title="{% trans 'View failed imports' %}">
+                        <span style="display: inline-block; vertical-align: -1px; font-size: 14px;">⚠</span>
+                        <span>{% trans "Errors" %}: </span>
+                        <span class="badge badge-danger" id="ajp-curator-bg-failed-count" style="background-color: #dc3545; color: white;">0</span>
+                    </a>
+                </li>
             </ul>
             <style>
                 @keyframes ajp-spin { to { transform: rotate(360deg); } }
