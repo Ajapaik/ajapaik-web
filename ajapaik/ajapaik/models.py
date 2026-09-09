@@ -28,7 +28,7 @@ from django.core.cache import cache
 from django.core.exceptions import ObjectDoesNotExist, ValidationError
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.core.validators import MaxValueValidator, MinValueValidator
-from django.db.models import CASCADE, DateField, FileField, Lookup, Transform, Q, F, Sum, Index, Model, OneToOneField, \
+from django.db.models import CASCADE, SET_NULL, DateField, FileField, Lookup, Transform, Q, F, Sum, Index, Model, OneToOneField, \
     CharField, TextField, DateTimeField, PositiveIntegerField, BooleanField, ForeignKey, OuterRef, Exists, Count
 from django.db.models import JSONField
 from django.db.models.fields import Field
@@ -2068,3 +2068,39 @@ def get_pseudo_slug_for_photo(description, source_key, id, created=None):
         slug = slugify(str(id))
 
     return slug
+
+
+class CuratorImportItem(Model):
+    PENDING = 0
+    PROCESSING = 1
+    SUCCESS = 2
+    FAILED = 3
+    STATUS_CHOICES = (
+        (PENDING, 'Pending'),
+        (PROCESSING, 'Processing'),
+        (SUCCESS, 'Success'),
+        (FAILED, 'Failed'),
+    )
+
+    user = ForeignKey('ajapaik.Profile', on_delete=CASCADE, related_name='curator_imports')
+    source_description = CharField(max_length=100, db_index=True)
+    external_id = CharField(max_length=255, db_index=True)
+    identifying_number = CharField(max_length=255, null=True, blank=True)
+    data = JSONField(default=dict)
+    album_ids = JSONField(default=list)
+    auto_album_id = IntegerField(null=True, blank=True)
+    status = PositiveSmallIntegerField(choices=STATUS_CHOICES, default=PENDING, db_index=True)
+    result_photo = ForeignKey('ajapaik.Photo', null=True, blank=True, on_delete=SET_NULL)
+    error_message = TextField(null=True, blank=True)
+    created = DateTimeField(auto_now_add=True, db_index=True)
+    modified = DateTimeField(auto_now=True)
+
+    class Meta:
+        db_table = 'project_curator_import_item'
+        indexes = [
+            Index(fields=['source_description', 'external_id', 'status']),
+        ]
+
+    def __str__(self):
+        return f'{self.source_description}:{self.external_id} ({self.get_status_display()})'
+

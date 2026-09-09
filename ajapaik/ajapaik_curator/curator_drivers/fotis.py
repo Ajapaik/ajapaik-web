@@ -5,7 +5,7 @@ from django.conf import settings
 from requests import get
 
 from ajapaik.ajapaik.models import Photo, AlbumPhoto, Album
-from ajapaik.ajapaik_curator.utils import transform_fotis_persons_response
+from ajapaik.ajapaik_curator.utils import transform_fotis_persons_response, get_pending_curator_import_ids
 
 
 class FotisDriver(object):
@@ -61,10 +61,12 @@ class FotisDriver(object):
             }
         }
         existing_photos = Photo.objects.filter(source__description='Fotis', external_id__in=ids).all()
+        pending_ids = get_pending_curator_import_ids('Fotis', ids)
         for p in response['records']:
             existing_photo = existing_photos.filter(external_id=p['id']).first()
+            is_pending = str(p['id']) in pending_ids
 
-            if remove_existing and existing_photo:
+            if remove_existing and (existing_photo or is_pending):
                 continue
             else:
                 persons_str = p.get('person')  # Fotis API doesn't have a nice name for persons
@@ -99,6 +101,8 @@ class FotisDriver(object):
                     album_ids = AlbumPhoto.objects.filter(photo=existing_photo).values_list('album_id', flat=True)
                     transformed_item['albums'] = list(Album.objects.filter(pk__in=album_ids, atype=Album.CURATED)
                                                       .values_list('id', 'name').distinct())
+                elif is_pending:
+                    transformed_item['isPending'] = True
                 transformed['result']['firstRecordViews'].append(transformed_item)
         transformed = dumps(transformed)
 

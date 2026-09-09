@@ -27,7 +27,17 @@
                         <span class="badge curator-badge" id="ajp-curator-imports-size">0</span>
                     </a>
                 </li>
+                <li role="presentation" id="ajp-curator-bg-import-tab" style="display: none;">
+                    <a href="#ajp-curator-imports-tab" role="tab" data-toggle="tab" style="color: #28a745; font-weight: bold;" title="{% trans 'Background import is active' %}">
+                        <span style="width: 14px; height: 14px; display: inline-block; vertical-align: -2px; border: 2px solid currentColor; border-right-color: transparent; border-radius: 50%; animation: ajp-spin .75s linear infinite;"></span>
+                        <span>{% trans "Background import" %}: </span>
+                        <span class="badge badge-success" id="ajp-curator-bg-import-pending-count">0</span>
+                    </a>
+                </li>
             </ul>
+            <style>
+                @keyframes ajp-spin { to { transform: rotate(360deg); } }
+            </style>
         </div>
         <div class="tab-content">
             <div role="tabpanel" class="tab-pane active" id="ajp-curator-results-tab">
