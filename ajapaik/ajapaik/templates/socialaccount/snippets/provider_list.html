@@ -7,13 +7,13 @@
 {% for brand in provider.get_brands %}
     <a title="{{brand.name}}"
         class="socialaccount_provider {{provider.id}} {{brand.id}}"
-        href="{% provider_login_url provider.id openid=brand.openid_url process=process %}"
+        href="{% provider_login_url provider.id openid=brand.openid_url process=process next=redirect_field_value %}"
         >{{brand.name}}</a>
     <br>
 {% endfor %}
 {% endif %}
 <li>
   <a title="{{provider.name}}" class="socialaccount_provider {{provider.id}}"
-     href="{% provider_login_url provider.id process=process scope=scope auth_params=auth_params %}">{{provider.name}}</a>
+     href="{% provider_login_url provider.id process=process scope=scope auth_params=auth_params next=redirect_field_value %}">{{provider.name}}</a>
 </li>
 {% endfor %}

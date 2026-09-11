@@ -1,6 +1,7 @@
 from datetime import datetime, timedelta
 from json import dumps, loads
 
+from django.conf import settings
 from requests import get
 
 from ajapaik.ajapaik.models import Photo, AlbumPhoto, Album
@@ -34,9 +35,13 @@ class FotisDriver(object):
         else:
             url = self.broad_search_url % (query, query, query, query, query, page)
 
-        response = get(url)
+        headers = {'User-Agent': settings.UA}
+        response = get(url, headers=headers, timeout=15)
         response_headers = response.headers
-        results = loads(response.text)
+        if response.status_code == 200:
+            results = loads(response.text)
+        else:
+            results = []
 
         # Ensure we always return a dictionary consistent with expected structure
         return {
@@ -79,8 +84,7 @@ class FotisDriver(object):
                     'title': title,
                     'institution': 'Fotis',
                     'cachedThumbnailUrl': p['_links']['image']['href'],
-                    # HACK: new image url for image files without the black strip below
-                    'imageUrl': f'https://www.meediateek.ee/photo/full?id={p["id"]}',
+                    'imageUrl': p['_links']['image']['href'],
                     'urlToRecord': f'https://www.meediateek.ee/photo/view?id={p["id"]}',
                     'creators': p['author'],
                     'persons': transform_fotis_persons_response(persons_str) if persons_str else [],

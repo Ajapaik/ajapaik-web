@@ -237,8 +237,9 @@
                     locationIndicator.hide();
                     noLocationIndicator.show();
                 }
-                if (currentPhoto.lat && currentPhoto.lon) {
-                    window.map.setCenter(new google.maps.LatLng(currentPhoto.lat, currentPhoto.lon));
+                var _cLat = Number(currentPhoto.lat), _cLon = Number(currentPhoto.lon);
+                if (Number.isFinite(_cLat) && Number.isFinite(_cLon)) {
+                    window.map.setCenter(new google.maps.LatLng(_cLat, _cLon));
                 }
                 nextPhotoLoading = false;
                 window.syncStateToUrl();

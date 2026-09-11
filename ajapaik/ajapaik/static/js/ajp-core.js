@@ -2377,13 +2377,7 @@ $('.ajp-navbar').autoHidingNavbar();
                             strokeOpacity: 0,
                             icons: [
                                 {
-                                    icon: {
-                                        path: dottedAzimuthLineSymbol,
-                                        strokeOpacity: 1,
-                                        strokeWeight: 1.5,
-                                        strokeColor: 'red',
-                                        scale: 0.75,
-                                    },
+                                    icon: dottedAzimuthLineSymbol,
                                     offset: '0',
                                     repeat: '7px',
                                 },
