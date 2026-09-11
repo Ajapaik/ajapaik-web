@@ -334,9 +334,16 @@ $('.ajp-navbar').autoHidingNavbar();
         handleFullScreenLinkClick('similar');
     });
 
-    getGeolocation = function getLocation(callback) {
+    getGeolocation = function getLocation(callback, errorCallback) {
         if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(callback, geolocationError);
+            navigator.geolocation.getCurrentPosition(callback, function (error) {
+                $('#ajp-loading-overlay').hide();
+                if (typeof errorCallback === 'function') {
+                    errorCallback(error);
+                } else {
+                    geolocationError(error);
+                }
+            });
         }
     };
 
@@ -522,6 +529,7 @@ $('.ajp-navbar').autoHidingNavbar();
     };
 
     geolocationError = function (error) {
+        $('#ajp-loading-overlay').hide();
         const targetElement = $('#ajp-geolocation-error-message');
         switch (error.code) {
             case error.PERMISSION_DENIED:

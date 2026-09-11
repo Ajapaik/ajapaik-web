@@ -323,6 +323,7 @@
                                     tmpl('ajp-frontpage-album-template', response.albums[i]),
                                 );
                             }
+                            albumSelectionDiv.removeClass('ajp-invisible');
                             albumSelectionDiv.justifiedGallery();
                         } else {
                             const queryStr = interpolate(
@@ -407,15 +408,17 @@
                         window.updateFrontpagePhotosAsync();
                     }
                 }
-                selectedModeDiv
-                    .find('#ajp-header-title')
-                    .html(
-                        title +
-                        ' <span id="ajp-header-arrow-drop-down" class="material-icons notranslate">arrow_drop_down</span>',
-                    );
+                if (title) {
+                    selectedModeDiv
+                        .find('#ajp-header-title')
+                        .html(
+                            title +
+                            ' <span id="ajp-header-arrow-drop-down" class="material-icons notranslate">arrow_drop_down</span>',
+                        );
+                }
             };
             window.updateModeSelection = updateModeSelection;
-            doDelayedPhotoFiltering = function (val) {
+            const doDelayedPhotoFiltering = function (val) {
                 if (timeout) {
                     clearTimeout(timeout);
                 }
@@ -430,8 +433,8 @@
                         window.updateFrontpagePhotosAsync();
                     }
                 }, 1000);
-            },
-            doDelayedAlbumFiltering = function (val) {
+            };
+            const doDelayedAlbumFiltering = function (val) {
                 if (albumSearchTimeout) {
                     clearTimeout(albumSearchTimeout);
                 }
@@ -598,6 +601,7 @@
                                 tmpl('ajp-frontpage-photo-template', response.photos[i]),
                             );
                         }
+                        historicPhotoGalleryDiv.removeClass('ajp-invisible');
                         historicPhotoGalleryDiv.justifiedGallery();
                     }
                     if (
