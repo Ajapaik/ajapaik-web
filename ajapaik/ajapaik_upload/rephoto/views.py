@@ -43,19 +43,31 @@ def rephoto_upload(request, photo_id):
                 pass
 
         file_obj = ContentFile(f.read())
+
+        def parse_float(val):
+            if val not in (None, '', 'null', 'undefined'):
+                try:
+                    return float(val)
+                except (ValueError, TypeError):
+                    return None
+            return None
+
+        scale_factor = parse_float(data.get('scale_factor'))
+        cam_scale_factor = round(scale_factor, 6) if scale_factor is not None else None
+
         rephoto = Photo(
             rephoto_of=photo,
             area=photo.area,
             licence=Licence.objects.get(id=17),  # CC BY 4.0
             description=data.get('description', photo.get_display_text),
-            lat=data.get('lat', None),
-            lon=data.get('lon', None),
+            lat=parse_float(data.get('lat')),
+            lon=parse_float(data.get('lon')),
             date_text=data.get('date_text', None),
             user=profile,
-            cam_scale_factor=round(float(data['scale_factor']), 6) if data.get('scale_factor') else None,
-            cam_yaw=data.get('yaw'),
-            cam_pitch=data.get('pitch'),
-            cam_roll=data.get('roll'),
+            cam_scale_factor=cam_scale_factor,
+            cam_yaw=parse_float(data.get('yaw')),
+            cam_pitch=parse_float(data.get('pitch')),
+            cam_roll=parse_float(data.get('roll')),
         )
         if parsed_date_taken:
             photo.date = parsed_date_taken
