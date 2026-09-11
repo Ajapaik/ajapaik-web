@@ -100,6 +100,14 @@
                     </div>
                 {% endif %}
             </div>
+            {% if not rephoto %}
+            <div class="w-100 my-2 px-1 text-center ajp-quick-rephoto-wrapper">
+                <a href="{% url 'rephoto_capture' photo.id %}" class="btn btn-block font-weight-bold d-flex align-items-center justify-content-center shadow-sm text-dark py-2 ajp-btn-quick-capture" style="background-color: #fca311; border: none; border-radius: 25px; font-size: 15px; max-width: 400px; margin: 6px auto;">
+                    <span class="material-icons mr-2 notranslate" style="font-size: 22px;">camera_alt</span>
+                    <span>{% trans "Rephotograph" %}</span>
+                </a>
+            </div>
+            {% endif %}
             <!-- start of transcriber block -->
             {% include "transcriber/_transcriber.html" with is_modal=False %}
             <!-- end of transcriber block -->

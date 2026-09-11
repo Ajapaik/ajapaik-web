@@ -2770,3 +2770,6 @@ msgstr "Ülepildistamine minu lähedal"
 msgid "Back to nearby photos list"
 msgstr "Tagasi ülepildistamise nimekirja"
 
+msgid "Rephotograph"
+msgstr "Ülepildista"
+
