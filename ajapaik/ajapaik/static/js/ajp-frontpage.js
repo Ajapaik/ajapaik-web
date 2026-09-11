@@ -244,7 +244,11 @@
                 }
                 if (window.order1 === 'closest') {
                     $('#ajp-mobile-rephoto-banner').addClass('d-none');
-                    $('#ajp-header-nearby-rephotos-icon').removeClass('d-none').show();
+                    if (window.showPhotos) {
+                        $('#ajp-header-album-icon').addClass('d-none').hide();
+                        $('#ajp-header-pictures-icon').addClass('d-none').hide();
+                        $('#ajp-header-nearby-rephotos-icon').removeClass('d-none').show();
+                    }
                 } else {
                     $('#ajp-mobile-rephoto-banner').removeClass('d-none');
                     $('#ajp-header-nearby-rephotos-icon').addClass('d-none').hide();
@@ -362,25 +366,31 @@
                     },
                 });
             },
-            updateModeSelection = function () {
+            updateModeSelection = function (skipFetch) {
                 let selectedModeDiv = $('#ajp-header-selected-mode'),
                     title;
-                selectedModeDiv.find('i, span.material-icons').not('#ajp-header-arrow-drop-down').hide();
+                selectedModeDiv.find('i, span.material-icons').not('#ajp-header-arrow-drop-down').hide().addClass('d-none');
                 albumSelectionDiv.addClass('ajp-invisible d-none');
                 historicPhotoGalleryDiv.removeClass('ajp-invisible d-none');
+                $('#album-filters-div').addClass('d-none');
+                $('#picture-filters-div').removeClass('d-none');
                 if (!window.showPhotos) {
                     title = gettext('Albums');
                     albumSelectionDiv.removeClass('ajp-invisible d-none');
                     historicPhotoGalleryDiv.addClass('ajp-invisible d-none');
-                    $('#ajp-header-album-icon').show();
-                    updateFrontpageAlbumsAsync();
+                    $('#album-filters-div').removeClass('d-none');
+                    $('#picture-filters-div').addClass('d-none');
+                    $('#ajp-header-album-icon').removeClass('d-none').show();
+                    if (!skipFetch) {
+                        updateFrontpageAlbumsAsync();
+                    }
                 } else {
                     if (window.order1 === 'closest') {
                         title = gettext('Rephotograph nearby');
                         $('#ajp-header-nearby-rephotos-icon').removeClass('d-none').show();
                     } else if (window.myLikes) {
                         title = gettext('My favorites');
-                        $('#ajp-header-likes-icon').show();
+                        $('#ajp-header-likes-icon').removeClass('d-none').show();
                     } else if (window.rephotosBy) {
                         if (window.rephotosBy === window.currentProfileId) {
                             title = gettext('My rephotos');
@@ -388,15 +398,14 @@
                             const fmt = gettext('Rephotos by %(user)s');
                             title = interpolate(fmt, { user: window.rephotosByName }, true);
                         }
-                        $('#ajp-header-rephotos-icon').show();
+                        $('#ajp-header-rephotos-icon').removeClass('d-none').show();
                     } else if (!window.albumId) {
                         title = gettext('All pictures');
-                        $('#ajp-header-pictures-icon').show();
-                        $('#ajp-header-album-icon').hide();
-                        albumSelectionDiv.addClass('ajp-invisible d-none');
-                        historicPhotoGalleryDiv.removeClass('ajp-invisible d-none');
+                        $('#ajp-header-pictures-icon').removeClass('d-none').show();
                     }
-                    window.updateFrontpagePhotosAsync();
+                    if (!skipFetch) {
+                        window.updateFrontpagePhotosAsync();
+                    }
                 }
                 selectedModeDiv
                     .find('#ajp-header-title')
@@ -404,7 +413,8 @@
                         title +
                         ' <span id="ajp-header-arrow-drop-down" class="material-icons notranslate">arrow_drop_down</span>',
                     );
-            },
+            };
+            window.updateModeSelection = updateModeSelection;
             doDelayedPhotoFiltering = function (val) {
                 if (timeout) {
                     clearTimeout(timeout);
@@ -439,7 +449,8 @@
             };
         window.updateFrontpagePhotosAsync = function () {
             const targetDiv = $('#ajp-frontpage-historic-photos');
-            targetDiv.removeClass('hidden ajp-invisible');
+            targetDiv.removeClass('hidden ajp-invisible d-none');
+            $('#ajp-album-selection').addClass('ajp-invisible d-none');
             $('#ajp-album-filter-box').addClass('d-none');
             $('#ajp-photo-filter-box').removeClass('d-none');
             syncStateToUrl();
@@ -781,6 +792,10 @@
                 $('#ajp-geolocation-error').hide();
                 window.userLat = location.coords.latitude;
                 window.userLon = location.coords.longitude;
+                window.showPhotos = true;
+                if (typeof window.updateModeSelection === 'function') {
+                    window.updateModeSelection(true);
+                }
                 syncStateToUrl();
                 syncFilteringHighlights();
                 window.updateFrontpagePhotosAsync();
