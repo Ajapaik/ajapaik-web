@@ -549,6 +549,10 @@ def photo_slug(request, photo_id=None, pseudo_slug=None):
     if hasattr(photo_obj, 'rephoto_of') and photo_obj.rephoto_of is not None:
         rephoto = photo_obj
         photo_obj = photo_obj.rephoto_of
+    elif request.GET.get('rephoto'):
+        rephoto_cand = Photo.objects.filter(id=request.GET.get('rephoto'), rephoto_of=photo_obj).first()
+        if rephoto_cand:
+            rephoto = rephoto_cand
 
     geotag_count = 0
     azimuth_count = 0

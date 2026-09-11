@@ -31,17 +31,23 @@
     </div>
 </div>
 {% endif %}
-<div class="container pt-5" id="ajp-photoview-container">
+<div class="container pt-3" id="ajp-photoview-container">
+    <div id="ajp-return-to-rephoto-container" class="w-100 mb-3 d-none">
+        <a href="#" id="ajp-btn-return-to-rephotos" class="btn font-weight-bold d-inline-flex align-items-center shadow-sm text-dark" style="background-color: #fca311; border: none; border-radius: 20px; padding: 7px 16px; font-size: 14px;">
+            <span class="material-icons mr-1 notranslate" style="font-size: 20px;">arrow_back</span>
+            <span id="ajp-return-to-rephotos-text">{% trans "Back to nearby photos list" %}</span>
+        </a>
+    </div>
     <div class="row">
         {% if request.user_agent.is_pc %}
             {% include '_toolbox.html' with photo=photo sidebar=True flexEnd=True %}
             <div class="text-left" style="width:calc(100vw - 212px);left:150px;position:relative;">
                 <div class="row" style="margin:0 auto;">
         {% endif %}
-        <div class="ajp-photoview-main-photo-wrapper" class="ajp-photo col-auto h-100 p-0 mr-3 mw-50">
-            <div class="ajp-photo" id="ajp-photoview-main-photo-container">
+        <div class="{% if rephoto %}col-12 col-md-6 ajp-comparison-col p-1 mb-3{% else %}ajp-photoview-main-photo-wrapper ajp-photo col-auto h-100 p-0 mr-3 mw-50{% endif %}">
+            <div class="ajp-photo{% if rephoto %} ajp-comparison-photo-container{% endif %}" id="ajp-photoview-main-photo-container">
                 <a class="fullscreen" id="ajp-fullscreen-link">
-                    <img id="ajp-photoview-main-photo" {% if rephoto %}class="ajp-max-48vw" {% endif %}alt="{{ photo.display_text }}"
+                    <img id="ajp-photoview-main-photo" {% if rephoto %}class="ajp-comparison-photo" {% endif %}alt="{{ photo.display_text }}"
                         src="{% url 'image_thumb' photo.id 800 photo.slug%}" />
                 </a>
                 {% if previous_photo %}
@@ -102,27 +108,27 @@
             {% endwith %}
 
                 </div>
-                {% if rephoto %}
-                <div>
-                    <div id="ajp-photoview-rephoto-wrapper">
-                        <div id="ajp-photoview-rephoto-container">
-                            <a class="fullscreen" id="ajp-rephoto-full-screen-link">
-                                <img id="ajp-photoview-rephoto" class="ajp-max-48vw"
-                                    alt="{{ photo.get_display_text }} {% trans "rephoto" %}"
-                                    src="{% url 'image_thumb' rephoto.id 800 rephoto.slug%}" />
-                            </a>
-                            <button class="btn ajp-close-rephoto-overlay-button" {% if request.user_agent.is_pc %}
-                                style="display: none;" {% endif %}><span
-                                    class="material-icons notranslate">close</span></button>
-                            <button class="btn ajp-invert-rephoto-overlay-button" {% if request.user_agent.is_pc %}
-                                style="display: none;" {% endif %}><span
-                                    class="material-icons notranslate">invert_colors</span></button>
-                        </div>
-                        {% with rephoto=rephoto|default:rephoto %}
-                        {% include "photo/_rephoto_description_container.html" %}
-                    {% endwith %}
+        {% if rephoto %}
+        <div class="col-12 col-md-6 ajp-comparison-col p-1 mb-3">
+            <div id="ajp-photoview-rephoto-wrapper" class="w-100">
+                <div id="ajp-photoview-rephoto-container" class="ajp-comparison-photo-container">
+                    <a class="fullscreen" id="ajp-rephoto-full-screen-link">
+                        <img id="ajp-photoview-rephoto" class="ajp-comparison-photo"
+                            alt="{{ photo.get_display_text }} {% trans "rephoto" %}"
+                            src="{% url 'image_thumb' rephoto.id 800 rephoto.slug%}" />
+                    </a>
+                    <button class="btn ajp-close-rephoto-overlay-button" {% if request.user_agent.is_pc %}
+                        style="display: none;" {% endif %}><span
+                            class="material-icons notranslate">close</span></button>
+                    <button class="btn ajp-invert-rephoto-overlay-button" {% if request.user_agent.is_pc %}
+                        style="display: none;" {% endif %}><span
+                            class="material-icons notranslate">invert_colors</span></button>
                 </div>
+                {% with rephoto=rephoto|default:rephoto %}
+                    {% include "photo/_rephoto_description_container.html" %}
+                {% endwith %}
             </div>
+        </div>
         {% endif %}
         {% if similarities|length > 0 %}
             <div id="ajp-photoview-similar-photo-selection" class="col-auto px-0{% if rephoto or rephotos|length > 0 %} d-none{% endif %}">
@@ -246,6 +252,26 @@
     window.isPhotoview = true;
     window.updateLeaderboard();
     $(document).ready(function () {
+        let returnUrl = null;
+        try {
+            returnUrl = sessionStorage.getItem('lastRephotoListUrl');
+        } catch (e) {}
+
+        if (!returnUrl && document.referrer && (document.referrer.indexOf('order1=closest') > -1 || document.referrer.indexOf('mode=rephoto') > -1)) {
+            returnUrl = document.referrer;
+        }
+
+        {% if rephoto %}
+        if (!returnUrl) {
+            returnUrl = '/?order1=closest&mode=rephoto';
+        }
+        {% endif %}
+
+        if (returnUrl) {
+            $('#ajp-btn-return-to-rephotos').attr('href', returnUrl);
+            $('#ajp-return-to-rephoto-container').removeClass('d-none');
+        }
+
         window.lastRotateWas90 = false;
         const originalFullscreen = $('#ajp-fullscreen-image');
         $('#ajp-dater-container').AjapaikDater();

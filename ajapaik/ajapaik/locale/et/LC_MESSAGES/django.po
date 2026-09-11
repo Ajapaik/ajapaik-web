@@ -2764,3 +2764,9 @@ msgstr "Su pakkumine on salvestatud"
 msgid "You must specify a new value when making a suggestion"
 msgstr "Soovituse tegemisel pead sisestama uue väärtuse"
 
+msgid "Rephotograph nearby"
+msgstr "Ülepildistamine minu lähedal"
+
+msgid "Back to nearby photos list"
+msgstr "Tagasi ülepildistamise nimekirja"
+

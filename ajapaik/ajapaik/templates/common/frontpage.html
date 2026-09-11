@@ -14,6 +14,14 @@
 
 {% block layout %}
     <div class="container-fluid" id="ajp-frontpage-container">
+        <div id="ajp-mobile-rephoto-banner" class="row d-md-none px-2 pt-2 pb-1{% if order1 == 'closest' %} d-none{% endif %}">
+            <div class="col-12">
+                <a href="/?order1=closest&mode=rephoto" id="ajp-btn-mobile-nearby-rephoto" class="btn btn-block py-2 font-weight-bold d-flex align-items-center justify-content-center shadow-sm text-dark" style="background-color: #fca311; border: none; border-radius: 8px; font-size: 15px;">
+                    <span class="material-icons mr-2 notranslate" style="font-size: 22px;">camera_alt</span>
+                    <span>{% trans "Rephotograph nearby" %}</span>
+                </a>
+            </div>
+        </div>
         <div class="row">
             <div id="ajp-album-selection" class="ajp-invisible{% if show_photos %} d-none{% endif %}"></div>
             <div id="ajp-frontpage-historic-photos"
@@ -172,6 +180,38 @@
             $('#ajp-header-likes-icon').addClass('d-none');
             $('#album-filters-div').addClass('d-none');
             $('#picture-filters-div').removeClass('d-none');
+        });
+        $(document).on('click', '#ajp-btn-mobile-nearby-rephoto', function (e) {
+            try {
+                sessionStorage.setItem('ajp_rephoto_mode', '1');
+            } catch(err) {}
+            if (typeof window.getGeolocation === 'function' && typeof window.handleGeolocation === 'function') {
+                e.preventDefault();
+                window.showPhotos = true;
+                window.order1 = 'closest';
+                window.order2 = null;
+                window.order3 = null;
+                $('#ajp-mobile-rephoto-banner').addClass('d-none');
+                if (!window.userLat || !window.userLon) {
+                    window.useButtonLink = false;
+                    window.getGeolocation(window.handleGeolocation);
+                } else {
+                    if (typeof syncStateToUrl === 'function') syncStateToUrl();
+                    if (typeof syncFilteringHighlights === 'function') syncFilteringHighlights();
+                    if (typeof window.updateFrontpagePhotosAsync === 'function') window.updateFrontpagePhotosAsync();
+                }
+            }
+        });
+        $(document).on('click', '#ajp-frontpage-show-nearby-rephotos-link', function (e) {
+            e.preventDefault();
+            try {
+                sessionStorage.setItem('ajp_rephoto_mode', '1');
+            } catch(err) {}
+            if (window.albumId) {
+                window.location.href = '/?album=' + window.albumId + '&order1=closest&mode=rephoto';
+            } else {
+                window.location.href = '/?order1=closest&mode=rephoto';
+            }
         });
     </script>
     {% include "js_templates/frontpage_album_template.html" %}

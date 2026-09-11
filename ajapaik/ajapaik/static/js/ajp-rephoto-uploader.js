@@ -364,6 +364,7 @@ const AjpRephotoUploader = {
           if (res.error) {
             this.handleFailure(upload, res.error);
           } else {
+            upload.newPhotoId = res.new_id;
             await this.handleSuccess(upload);
           }
         } catch (e) {
@@ -477,9 +478,20 @@ const AjpRephotoUploader = {
 
     // Check if user is currently on the photo page of the uploaded photo
     const isOnPhotoPage = window.location.pathname.includes(`/photo/${upload.photoId}/`);
-    let refreshBtnHtml = '';
-    if (isOnPhotoPage) {
-      refreshBtnHtml = `<button class="ajp-upload-btn ajp-upload-btn-primary" onclick="window.location.reload()">Värskenda lehte</button>`;
+    let viewBtnHtml = '';
+    if (upload.newPhotoId) {
+      viewBtnHtml = `<a class="ajp-upload-btn ajp-upload-btn-primary" href="/photo/${upload.newPhotoId}/" style="text-decoration:none; display:inline-flex; align-items:center; justify-content:center;">Vaata refotot</a>`;
+    } else if (isOnPhotoPage) {
+      viewBtnHtml = `<button class="ajp-upload-btn ajp-upload-btn-primary" onclick="window.location.reload()">Värskenda lehte</button>`;
+    }
+
+    let returnListBtnHtml = '';
+    let lastListUrl = null;
+    try {
+      lastListUrl = sessionStorage.getItem('lastRephotoListUrl');
+    } catch (e) {}
+    if (lastListUrl) {
+      returnListBtnHtml = `<a class="ajp-upload-btn" href="${lastListUrl}" style="text-decoration:none; display:inline-flex; align-items:center; justify-content:center;">Lähimad fotod</a>`;
     }
 
     widget.innerHTML = `
@@ -493,7 +505,8 @@ const AjpRephotoUploader = {
         <div class="ajp-upload-progress-bar" style="width: 100%; background: #4caf50;"></div>
       </div>
       <div class="ajp-upload-actions">
-        ${refreshBtnHtml}
+        ${viewBtnHtml}
+        ${returnListBtnHtml}
         <button class="ajp-upload-btn" onclick="AjpRephotoUploader.hideWidget()">Sulge</button>
       </div>
     `;

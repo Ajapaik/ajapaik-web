@@ -2249,6 +2249,54 @@ div.gm-style-mtc>div:nth-of-type(2)>div>label {
     display: table;
 }
 
+.ajp-comparison-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.ajp-comparison-col #ajp-photoview-rephoto-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.ajp-comparison-photo-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 100%;
+}
+
+.ajp-comparison-photo {
+    display: block;
+    max-width: 100% !important;
+    width: auto !important;
+    height: auto !important;
+    max-height: 65vh !important;
+    object-fit: contain !important;
+    margin: 0 auto;
+}
+
+@media (max-width: 767px) {
+    .ajp-comparison-photo {
+        max-height: 45vh !important;
+    }
+}
+
+@media (orientation: landscape) and (max-height: 550px) {
+    .ajp-comparison-col {
+        flex: 0 0 50% !important;
+        max-width: 50% !important;
+    }
+    .ajp-comparison-photo {
+        max-height: 75vh !important;
+    }
+}
+
 #ajp-modal-similar-photo-container:hover #modal-compare-similar {
     opacity: 1 !important;
 }
