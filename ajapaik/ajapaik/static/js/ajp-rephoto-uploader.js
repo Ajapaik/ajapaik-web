@@ -155,6 +155,7 @@ const AjpRephotoUploader = {
         justify-content: flex-end;
         gap: 8px;
         margin-top: 4px;
+        flex-wrap: wrap;
       }
       .ajp-upload-btn {
         background: rgba(255,255,255,0.08);
@@ -188,8 +189,70 @@ const AjpRephotoUploader = {
     document.head.appendChild(style);
   },
 
-  async enqueue(photoId, photoSlug, fullBlob, croppedBlob, scaleFactor, uploadUrl, redirectUrl) {
+  async injectJpegComment(blob, commentString) {
+    try {
+      const arrayBuffer = await blob.arrayBuffer();
+      const view = new DataView(arrayBuffer);
+      
+      if (arrayBuffer.byteLength < 4 || view.getUint16(0) !== 0xFFD8) {
+        console.warn("Not a valid JPEG blob, skipping metadata injection");
+        return blob;
+      }
+      
+      const commentBytes = new TextEncoder().encode(commentString);
+      const commentLength = commentBytes.length + 2;
+      
+      const marker = new Uint8Array(4 + commentBytes.length);
+      marker[0] = 0xFF;
+      marker[1] = 0xFE;
+      marker[2] = (commentLength >> 8) & 0xFF;
+      marker[3] = commentLength & 0xFF;
+      marker.set(commentBytes, 4);
+      
+      const original = new Uint8Array(arrayBuffer);
+      const result = new Uint8Array(original.length + marker.length);
+      
+      result.set(original.subarray(0, 2), 0);
+      result.set(marker, 2);
+      result.set(original.subarray(2), 2 + marker.length);
+      
+      return new Blob([result], { type: 'image/jpeg' });
+    } catch (e) {
+      console.error("Failed to inject JPEG comment:", e);
+      return blob;
+    }
+  },
+
+  async downloadUpload(uploadId) {
+    try {
+      const uploads = await this.db.getUploads();
+      const upload = uploads.find(u => u.id === uploadId);
+      if (!upload) {
+        alert("Üleslaadimist ei leitud");
+        return;
+      }
+      
+      const url = URL.createObjectURL(upload.croppedBlob);
+      const a = document.createElement('a');
+      a.href = url;
+      
+      const authorId = upload.authorId || 'unknown';
+      const scaleText = `scale-${upload.scaleFactor.toFixed(3)}`;
+      a.download = `Ajapaik-rephotography-${authorId}-${upload.photoId}-${scaleText}.jpg`;
+      
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    } catch (e) {
+      console.error("Failed to download upload:", e);
+      alert("Allalaadimine ebaõnnestus");
+    }
+  },
+
+  async enqueue(authorId, photoId, photoSlug, fullBlob, croppedBlob, scaleFactor, uploadUrl, redirectUrl, lat, lon, yaw, pitch, roll) {
     const upload = {
+      authorId,
       photoId,
       photoSlug,
       fullBlob,
@@ -197,6 +260,11 @@ const AjpRephotoUploader = {
       scaleFactor,
       uploadUrl,
       redirectUrl,
+      lat,
+      lon,
+      yaw,
+      pitch,
+      roll,
       status: 'pending',
       progress: 0,
       error: null,
@@ -261,6 +329,21 @@ const AjpRephotoUploader = {
     formData.append('user_file[]', upload.fullBlob, 'rephoto.jpg');
     formData.append('cropped_file', upload.croppedBlob, 'rephoto_cropped.jpg');
     formData.append('scale_factor', upload.scaleFactor);
+    if (upload.lat !== null && upload.lat !== undefined) {
+      formData.append('lat', upload.lat);
+    }
+    if (upload.lon !== null && upload.lon !== undefined) {
+      formData.append('lon', upload.lon);
+    }
+    if (upload.yaw !== null && upload.yaw !== undefined) {
+      formData.append('yaw', upload.yaw);
+    }
+    if (upload.pitch !== null && upload.pitch !== undefined) {
+      formData.append('pitch', upload.pitch);
+    }
+    if (upload.roll !== null && upload.roll !== undefined) {
+      formData.append('roll', upload.roll);
+    }
 
     xhr.open('POST', upload.uploadUrl, true);
     xhr.withCredentials = true; // Send session cookies
@@ -437,6 +520,7 @@ const AjpRephotoUploader = {
       </div>
       <div style="font-size: 11px; color: #ccc;">${errorMessage}</div>
       <div class="ajp-upload-actions">
+        <button class="ajp-upload-btn" onclick="AjpRephotoUploader.downloadUpload(${upload.id})">Salvesta seadmesse</button>
         <button class="ajp-upload-btn" onclick="AjpRephotoUploader.cancelUpload(${upload.id})">Kustuta järjekorrast</button>
         <button class="ajp-upload-btn ajp-upload-btn-primary" onclick="AjpRephotoUploader.processQueue()">Proovi uuesti</button>
       </div>

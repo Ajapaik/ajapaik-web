@@ -201,6 +201,14 @@
       align-items: center;
       font-size: 24px;
     }
+    @keyframes ajp-rotate-icon {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    .ajp-rotate-ani {
+      display: inline-block;
+      animation: ajp-rotate-icon 2s linear infinite;
+    }
   </style>
   <script src="{% static 'js/ajp-rephoto-uploader.js' %}"></script>
 </head>
@@ -210,6 +218,11 @@
     <video id="camera-stream" autoplay playsinline></video>
     <img id="historical-overlay" src="{% url 'image_thumb' photo.id 800 photo.get_pseudo_slug %}" alt="{{ photo.display_text }}">
     
+    <div id="orientation-hint" style="display: none; position: absolute; top: 120px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.75); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.25); padding: 10px 18px; border-radius: 20px; font-size: 13px; color: #fff; z-index: 15; text-align: center; pointer-events: none; align-items: center; gap: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.5); white-space: nowrap;">
+      <span class="ajp-rotate-ani" style="font-size: 16px;">🔄</span>
+      <span id="orientation-hint-text">Soovitus: pööra telefon külili paremaks ühtivuseks</span>
+    </div>
+
     <div class="hint-text">
       <b>Läbipaistvus:</b> ekraani pikemal küljel<br>
       <b>Zoom:</b> rulli / kaksikpuude<br>
@@ -249,6 +262,10 @@
   </div>
 
   <script>
+    window.onerror = function(message, source, lineno, colno, error) {
+      alert("JS VIGA: " + message + " (rida " + lineno + ", veerg " + colno + ")");
+      return false;
+    };
     const video = document.getElementById('camera-stream');
     const overlay = document.getElementById('historical-overlay');
     const container = document.getElementById('camera-container');
@@ -263,6 +280,7 @@
     // Authentication state and login helpers
     const userIsAuthenticated = {% if request.user.is_authenticated %}true{% else %}false{% endif %};
     const userIsSocialConnected = {% if request.user.is_authenticated and request.user.profile and request.user.profile.is_legit %}true{% else %}false{% endif %};
+    const currentUserId = {% if request.user.is_authenticated %}{{ request.user.id }}{% else %}null{% endif %};
     const loginUrl = "{% url 'account_login' %}?next={{ request.get_full_path|urlencode }}";
     // Hide upload button until a photo has been captured
     uploadBtn.style.display = 'none';
@@ -302,6 +320,71 @@
     let currentUploadScaleFactor = 1;
     let fullCanvas = null;
 
+    // GPS & Orientation variables
+    let deviceLat = null;
+    let deviceLon = null;
+    let currentYaw = null;
+    let currentPitch = null;
+    let currentRoll = null;
+    let deviceOrientationInitialized = false;
+
+    // Start geolocation immediately on load
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          deviceLat = position.coords.latitude;
+          deviceLon = position.coords.longitude;
+          console.log("GPS coordinates acquired:", deviceLat, deviceLon);
+        },
+        (error) => {
+          console.warn("Geolocation error:", error);
+        },
+        {
+          enableHighAccuracy: true,
+          timeout: 10000,
+          maximumAge: 0
+        }
+      );
+    }
+
+    function handleOrientation(event) {
+      currentPitch = event.beta !== null ? Math.round(event.beta) : null;
+      currentRoll = event.gamma !== null ? Math.round(event.gamma) : null;
+
+      if (event.webkitCompassHeading !== undefined && event.webkitCompassHeading !== null) {
+        currentYaw = Math.round(event.webkitCompassHeading);
+      } else if (event.alpha !== null) {
+        let heading = 360 - event.alpha;
+        currentYaw = Math.round(heading % 360);
+      }
+    }
+
+    function requestOrientationPermission() {
+      if (deviceOrientationInitialized) return;
+      
+      if (window.DeviceOrientationEvent && typeof DeviceOrientationEvent.requestPermission === 'function') {
+        DeviceOrientationEvent.requestPermission()
+          .then(permissionState => {
+            if (permissionState === 'granted') {
+              deviceOrientationInitialized = true;
+              if ('ondeviceorientationabsolute' in window) {
+                window.addEventListener('deviceorientationabsolute', handleOrientation);
+              } else {
+                window.addEventListener('deviceorientation', handleOrientation);
+              }
+            }
+          })
+          .catch(console.error);
+      } else if (window.DeviceOrientationEvent) {
+        deviceOrientationInitialized = true;
+        if ('ondeviceorientationabsolute' in window) {
+          window.addEventListener('deviceorientationabsolute', handleOrientation);
+        } else {
+          window.addEventListener('deviceorientation', handleOrientation);
+        }
+      }
+    }
+
     let isDragging = false;
     let startX = 0;
     let startY = 0;
@@ -337,6 +420,7 @@
 
     container.addEventListener('mousedown', (e) => {
       if(e.target.closest('button') || e.target.closest('a')) return;
+      requestOrientationPermission();
       requestFullscreenIfPossible();
       isDragging = true;
       startX = e.clientX;
@@ -350,7 +434,7 @@
       checkDragCancelLongTap(e.clientX, e.clientY);
       
       let delta = isLandscape ? (e.clientX - startX) : (e.clientY - startY);
-      let newOpacity = startOpacity - (delta / 300);
+      let newOpacity = startOpacity + (delta / 300);
       opacity = Math.max(0, Math.min(1, newOpacity));
       updateOverlay();
     });
@@ -373,6 +457,7 @@
 
     container.addEventListener('touchstart', (e) => {
       if(e.target.closest('button') || e.target.closest('a')) return;
+      requestOrientationPermission();
       requestFullscreenIfPossible();
       
       if (e.touches.length === 1) {
@@ -400,7 +485,7 @@
         checkDragCancelLongTap(e.touches[0].clientX, e.touches[0].clientY);
         
         let delta = isLandscape ? (e.touches[0].clientX - startX) : (e.touches[0].clientY - startY);
-        let newOpacity = startOpacity - (delta / 300);
+        let newOpacity = startOpacity + (delta / 300);
         opacity = Math.max(0, Math.min(1, newOpacity));
         updateOverlay();
       } else if (e.touches.length === 2 && initialPinchDistance) {
@@ -552,7 +637,10 @@
       uploadBtn.style.display = 'inline-block';
     }
 
-    captureBtn.addEventListener('click', capturePhoto);
+    captureBtn.addEventListener('click', () => {
+      requestOrientationPermission();
+      capturePhoto();
+    });
 
     retakeBtn.addEventListener('click', () => {
       previewContainer.style.display = 'none';
@@ -579,18 +667,41 @@
       loadingOverlay.innerHTML = 'Salvestan järjekorda...';
       loadingOverlay.style.display = 'flex';
       
+      const scaleFactor = currentUploadScaleFactor;
+      const metadata = JSON.stringify({
+        author_id: currentUserId,
+        ajapaik_parent_photo_id: {{ photo.id }},
+        scale_factor: scaleFactor,
+        created_at: Date.now(),
+        lat: deviceLat,
+        lon: deviceLon,
+        yaw: currentYaw,
+        pitch: currentPitch,
+        roll: currentRoll
+      });
+
       Promise.all([
           new Promise(resolve => canvas.toBlob(resolve, 'image/jpeg', 0.95)),
           new Promise(resolve => fullCanvas.toBlob(resolve, 'image/jpeg', 0.95))
-      ]).then(([croppedBlob, fullBlob]) => {
+      ]).then(async ([croppedBlob, fullBlob]) => {
+        // Inject metadata into JPEG comment marker
+        const croppedWithMeta = await AjpRephotoUploader.injectJpegComment(croppedBlob, metadata);
+        const fullWithMeta = await AjpRephotoUploader.injectJpegComment(fullBlob, metadata);
+
         AjpRephotoUploader.enqueue(
+          currentUserId,
           {{ photo.id }},
           '{{ photo.get_pseudo_slug }}',
-          fullBlob,
-          croppedBlob,
-          currentUploadScaleFactor,
+          fullWithMeta,
+          croppedWithMeta,
+          scaleFactor,
           '{% url "rephoto_upload" photo.id %}',
-          '{% url "photo" photo.id photo.get_pseudo_slug %}'
+          '{% url "photo" photo.id photo.get_pseudo_slug %}',
+          deviceLat,
+          deviceLon,
+          currentYaw,
+          currentPitch,
+          currentRoll
         ).catch(error => {
           console.error('Error queueing upload:', error);
           alert('Viga järjekorda lisamisel');
@@ -599,13 +710,38 @@
       });
     });
 
-    if (overlay.complete) {
-      initCamera();
-    } else {
-      overlay.onload = () => {
-        initCamera();
-      };
+    const orientationHint = document.getElementById('orientation-hint');
+    const orientationHintText = document.getElementById('orientation-hint-text');
+
+    function checkOrientation() {
+      if (!overlay.naturalWidth) return;
+      
+      const imgAspect = overlay.naturalWidth / overlay.naturalHeight;
+      const screenAspect = window.innerWidth / window.innerHeight;
+      
+      if (imgAspect > 1.1) {
+        if (screenAspect < 1) {
+          orientationHintText.innerText = "Soovitus: pööra telefon külili paremaks ühtivuseks";
+          orientationHint.style.display = 'inline-flex';
+          return;
+        }
+      } else if (imgAspect < 0.9) {
+        if (screenAspect > 1) {
+          orientationHintText.innerText = "Soovitus: hoia telefoni püsti paremaks ühtivuseks";
+          orientationHint.style.display = 'inline-flex';
+          return;
+        }
+      }
+      orientationHint.style.display = 'none';
     }
+
+    window.addEventListener('resize', checkOrientation);
+    window.addEventListener('orientationchange', checkOrientation);
+    overlay.addEventListener('load', checkOrientation);
+    checkOrientation();
+
+    // Start camera immediately without waiting for historical image load
+    initCamera();
   </script>
 </body>
 </html>
