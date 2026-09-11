@@ -32,12 +32,14 @@
 </div>
 {% endif %}
 <div class="container pt-3" id="ajp-photoview-container">
-    <div id="ajp-return-to-rephoto-container" class="w-100 mb-3 d-none">
+    {% if not request.user_agent.is_pc %}
+    <div id="ajp-return-to-rephoto-container" class="w-100 mb-3 d-none d-md-none">
         <a href="#" id="ajp-btn-return-to-rephotos" class="btn font-weight-bold d-inline-flex align-items-center shadow-sm text-dark" style="background-color: #fca311; border: none; border-radius: 20px; padding: 7px 16px; font-size: 14px;">
             <span class="material-icons mr-1 notranslate" style="font-size: 20px;">arrow_back</span>
             <span id="ajp-return-to-rephotos-text">{% trans "Back to nearby photos list" %}</span>
         </a>
     </div>
+    {% endif %}
     <div class="row">
         {% if request.user_agent.is_pc %}
             {% include '_toolbox.html' with photo=photo sidebar=True flexEnd=True %}
@@ -100,8 +102,8 @@
                     </div>
                 {% endif %}
             </div>
-            {% if not rephoto %}
-            <div class="w-100 my-2 px-1 text-center ajp-quick-rephoto-wrapper">
+            {% if not request.user_agent.is_pc and not rephoto %}
+            <div class="w-100 my-2 px-1 text-center ajp-quick-rephoto-wrapper d-md-none">
                 <a href="{% url 'rephoto_capture' photo.id %}" class="btn btn-block font-weight-bold d-flex align-items-center justify-content-center shadow-sm text-dark py-2 ajp-btn-quick-capture" style="background-color: #fca311; border: none; border-radius: 25px; font-size: 15px; max-width: 400px; margin: 6px auto;">
                     <span class="material-icons mr-2 notranslate" style="font-size: 22px;">camera_alt</span>
                     <span>{% trans "Rephotograph" %}</span>
