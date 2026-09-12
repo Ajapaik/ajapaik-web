@@ -2427,6 +2427,17 @@ div.gm-style-mtc>div:nth-of-type(2)>div>label {
     position: relative;
     z-index: 5;
     clear: both;
+    margin-top: 18px !important;
+    margin-bottom: 14px !important;
+}
+
+@media (max-width: 991px) {
+    #ajp-modal-photo-container {
+        float: none !important;
+        margin: 0 auto 12px auto !important;
+        display: block !important;
+        text-align: center;
+    }
 }
 
 .ajp-btn-quick-capture {
