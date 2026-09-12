@@ -2630,6 +2630,7 @@ div.gm-style-mtc>div:nth-of-type(2)>div>label {
 .ajp-pwa-toast {
     position: fixed;
     bottom: 20px;
+    bottom: calc(20px + env(safe-area-inset-bottom, 0px));
     left: 12px;
     right: 12px;
     max-width: 460px;
@@ -2641,7 +2642,7 @@ div.gm-style-mtc>div:nth-of-type(2)>div>label {
     border: 1px solid rgba(255, 255, 255, 0.15);
     border-radius: 16px;
     padding: 10px 14px;
-    z-index: 10000;
+    z-index: 10005;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
     animation: ajpPwaSlideUp 0.3s ease-out;
 }
@@ -2663,6 +2664,8 @@ div.gm-style-mtc>div:nth-of-type(2)>div>label {
     border-radius: 10px;
     flex-shrink: 0;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+    background-color: #ffffff;
+    object-fit: contain;
 }
 
 .ajp-pwa-title {
@@ -2695,4 +2698,22 @@ div.gm-style-mtc>div:nth-of-type(2)>div>label {
 
 .ajp-pwa-toast .close:hover {
     opacity: 1;
+}
+
+/* Suppress Tawk.to chat widget */
+#tawk-default-container,
+#tawk-bubble-container,
+div[id^="tawk-"],
+iframe[src*="tawk.to"],
+iframe[title*="chat" i][src*="tawk.to"],
+.widget-visible {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    width: 0 !important;
+    height: 0 !important;
+    position: absolute !important;
+    top: -9999px !important;
+    left: -9999px !important;
 }

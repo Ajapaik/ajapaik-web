@@ -182,6 +182,56 @@
 
         gtag('config', 'G-34VT1155KC');
     </script>
+    <!-- Suppress Tawk.to chat widget -->
+    <script>
+        window.Tawk_API = window.Tawk_API || {};
+        window.Tawk_API.hideWidget = function() {};
+        window.Tawk_API.onLoad = function() {
+            try {
+                if (window.Tawk_API && typeof window.Tawk_API.hideWidget === 'function') {
+                    window.Tawk_API.hideWidget();
+                }
+            } catch (e) {}
+        };
+        (function() {
+            var origCreateElement = document.createElement;
+            document.createElement = function(tagName) {
+                var el = origCreateElement.apply(document, arguments);
+                if (typeof tagName === 'string' && tagName.toLowerCase() === 'script') {
+                    var origSetAttribute = el.setAttribute;
+                    el.setAttribute = function(name, val) {
+                        if (name === 'src' && typeof val === 'string' && val.indexOf('tawk.to') !== -1) {
+                            return;
+                        }
+                        return origSetAttribute.apply(el, arguments);
+                    };
+                    Object.defineProperty(el, 'src', {
+                        set: function(val) {
+                            if (typeof val === 'string' && val.indexOf('tawk.to') !== -1) {
+                                return;
+                            }
+                            this.setAttribute('src', val);
+                        },
+                        get: function() {
+                            return this.getAttribute('src') || '';
+                        }
+                    });
+                }
+                return el;
+            };
+            if (window.MutationObserver) {
+                var observer = new MutationObserver(function() {
+                    var targets = document.querySelectorAll('[id^="tawk"], iframe[src*="tawk.to"], .widget-visible');
+                    for (var i = 0; i < targets.length; i++) {
+                        targets[i].remove();
+                    }
+                });
+                if (document.documentElement) {
+                    observer.observe(document.documentElement, { childList: true, subtree: true });
+                }
+            }
+        })();
+    </script>
     <!-- Google Tag Manager -->
     <script>(function(w, d, s, l, i) {
         w[l] = w[l] || [];
