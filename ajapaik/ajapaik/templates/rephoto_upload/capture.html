@@ -230,8 +230,12 @@
     </div>
 
     <div class="top-bar">
-      <a href="{% url 'photo' photo.id photo.get_pseudo_slug %}" class="btn-close">Sulge</a>
+      <div id="compass-badge" class="btn-switch" style="display: inline-flex; align-items: center; gap: 6px; padding: 10px 14px; font-size: 13px;" title="Kompassi suund">
+        <span id="compass-icon" style="display:inline-block; transition: transform 0.15s ease;">🧭</span>
+        <span id="compass-text">--°</span>
+      </div>
       <button class="btn-switch" id="switch-camera">↻ Vaheta kaamerat</button>
+      <a href="{% url 'photo' photo.id photo.get_pseudo_slug %}" class="btn-close">Sulge</a>
     </div>
 
     <div class="controls">
@@ -347,43 +351,124 @@
       );
     }
 
-    function handleOrientation(event) {
-      currentPitch = event.beta !== null ? Math.round(event.beta) : null;
-      currentRoll = event.gamma !== null ? Math.round(event.gamma) : null;
+    let orientationEventsCount = 0;
+    let lastEventRaw = null;
 
-      if (event.webkitCompassHeading !== undefined && event.webkitCompassHeading !== null) {
-        currentYaw = Math.round(event.webkitCompassHeading);
-      } else if (event.alpha !== null) {
-        let heading = 360 - event.alpha;
-        currentYaw = Math.round(heading % 360);
+    function updateOrientationUI() {
+      const badge = document.getElementById('compass-badge');
+      const text = document.getElementById('compass-text');
+      const icon = document.getElementById('compass-icon');
+      if (!badge || !text) return;
+
+      if (currentYaw !== null && currentYaw !== undefined) {
+        text.innerText = `${currentYaw}°`;
+        if (icon) icon.style.transform = `rotate(${currentYaw}deg)`;
+        badge.style.borderColor = 'rgba(76, 175, 80, 0.6)';
+        badge.style.color = '#81c784';
+      } else {
+        text.innerText = '--°';
+      }
+    }
+
+    function processOrientationData(alpha, beta, gamma, webkitHeading, isAbsolute) {
+      orientationEventsCount++;
+      lastEventRaw = { alpha, beta, gamma, webkitHeading, isAbsolute };
+
+      if (beta !== null && beta !== undefined) {
+        currentPitch = Math.round(beta);
+      }
+      if (gamma !== null && gamma !== undefined) {
+        currentRoll = Math.round(gamma);
+      }
+
+      let heading = null;
+      if (webkitHeading !== undefined && webkitHeading !== null) {
+        heading = webkitHeading;
+      } else if (alpha !== null && alpha !== undefined) {
+        heading = (360 - alpha) % 360;
+        if (heading < 0) heading += 360;
+      }
+
+      if (heading !== null) {
+        let screenAngle = 0;
+        if (window.screen && window.screen.orientation && window.screen.orientation.angle !== undefined) {
+          screenAngle = window.screen.orientation.angle;
+        } else if (window.orientation !== undefined) {
+          screenAngle = window.orientation;
+        }
+        let adjusted = Math.round((heading + screenAngle) % 360);
+        if (adjusted < 0) adjusted += 360;
+        currentYaw = adjusted;
+      }
+      updateOrientationUI();
+    }
+
+    function handleOrientation(event) {
+      processOrientationData(
+        event.alpha,
+        event.beta,
+        event.gamma,
+        event.webkitCompassHeading,
+        event.absolute
+      );
+    }
+
+    function attachListeners() {
+      if (deviceOrientationInitialized) return;
+      deviceOrientationInitialized = true;
+      window.addEventListener('deviceorientation', handleOrientation, true);
+      if ('ondeviceorientationabsolute' in window) {
+        window.addEventListener('deviceorientationabsolute', handleOrientation, true);
+      }
+
+      // Modern Generic Sensor API fallback in Chromium/Android
+      try {
+        if (window.AbsoluteOrientationSensor) {
+          const sensor = new AbsoluteOrientationSensor({ frequency: 10 });
+          sensor.addEventListener('reading', () => {
+            const q = sensor.quaternion;
+            if (q) {
+              const siny_cosp = 2 * (q[3] * q[2] + q[0] * q[1]);
+              const cosy_cosp = 1 - 2 * (q[1] * q[1] + q[2] * q[2]);
+              let yaw = Math.atan2(siny_cosp, cosy_cosp);
+              let deg = Math.round(yaw * (180 / Math.PI));
+              if (deg < 0) deg += 360;
+              let screenAngle = (window.screen?.orientation?.angle || window.orientation || 0);
+              let adjusted = Math.round((deg + screenAngle) % 360);
+              if (adjusted < 0) adjusted += 360;
+              currentYaw = adjusted;
+              orientationEventsCount++;
+              lastEventRaw = { source: 'AbsoluteOrientationSensor', quaternion: q, yaw: currentYaw };
+              updateOrientationUI();
+            }
+          });
+          sensor.start();
+        }
+      } catch (e) {
+        console.warn('AbsoluteOrientationSensor not available:', e);
       }
     }
 
     function requestOrientationPermission() {
-      if (deviceOrientationInitialized) return;
-      
-      if (window.DeviceOrientationEvent && typeof DeviceOrientationEvent.requestPermission === 'function') {
+      if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
         DeviceOrientationEvent.requestPermission()
           .then(permissionState => {
             if (permissionState === 'granted') {
-              deviceOrientationInitialized = true;
-              if ('ondeviceorientationabsolute' in window) {
-                window.addEventListener('deviceorientationabsolute', handleOrientation);
-              } else {
-                window.addEventListener('deviceorientation', handleOrientation);
-              }
+              attachListeners();
             }
           })
           .catch(console.error);
-      } else if (window.DeviceOrientationEvent) {
-        deviceOrientationInitialized = true;
-        if ('ondeviceorientationabsolute' in window) {
-          window.addEventListener('deviceorientationabsolute', handleOrientation);
-        } else {
-          window.addEventListener('deviceorientation', handleOrientation);
-        }
+      } else {
+        attachListeners();
       }
     }
+
+    // Attempt immediately (works on Android and desktop)
+    requestOrientationPermission();
+
+    // Also request on first touch gesture for iOS Safari/Brave
+    document.addEventListener('touchstart', requestOrientationPermission, { once: true });
+    document.addEventListener('click', requestOrientationPermission, { once: true });
 
     let isDragging = false;
     let startX = 0;
@@ -641,6 +726,40 @@
       requestOrientationPermission();
       capturePhoto();
     });
+
+    const compassBadge = document.getElementById('compass-badge');
+    if (compassBadge) {
+      compassBadge.addEventListener('click', async (e) => {
+        e.stopPropagation();
+        let details = `Andurite olek:\n` +
+          `• Sündmusi: ${orientationEventsCount}\n` +
+          `• Viimased andmed: ${lastEventRaw ? JSON.stringify(lastEventRaw) : 'pole laekunud'}\n` +
+          `• Tuvastatud suund (yaw): ${currentYaw !== null ? currentYaw + '°' : 'puudub'}\n` +
+          `• isSecureContext: ${window.isSecureContext}\n` +
+          `• Protokoll: ${window.location.protocol}\n`;
+
+        if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
+          try {
+            const res = await DeviceOrientationEvent.requestPermission();
+            details += `• iOS luba: ${res}\n`;
+            if (res === 'granted') {
+              attachListeners();
+            }
+          } catch (err) {
+            details += `• Loa küsimise viga: ${err.message}\n`;
+          }
+        } else {
+          attachListeners();
+        }
+
+        if (orientationEventsCount === 0) {
+          details += `\n⚠️ Brauserilt ei ole laekunud ühtegi liikumisanduri sündmust.\n` +
+            `• Brave brauseris: ava aadressiribal lõvi ikoon (Brave Shields) ja lülita "Shields: DOWN" või luba "Fingerprinting".\n` +
+            `• Chrome'is: ava Seaded -> Saidi seaded -> Liikumisandurid -> Luba.`;
+        }
+        alert(details);
+      });
+    }
 
     retakeBtn.addEventListener('click', () => {
       previewContainer.style.display = 'none';

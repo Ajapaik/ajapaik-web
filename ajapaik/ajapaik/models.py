@@ -1948,7 +1948,7 @@ class Profile(Model):
         return self.user_id
 
     def is_legit(self):
-        if self.user.is_active and (self.user.email or self.user.socialaccount_set.all()):
+        if self.user.is_active and (self.user.email or self.user.socialaccount_set.all() or self.user.is_superuser or self.user.is_staff):
             return True
 
         return False

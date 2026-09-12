@@ -33,10 +33,10 @@
 {% endif %}
 <div class="container pt-3" id="ajp-photoview-container">
     {% if not request.user_agent.is_pc %}
-    <div id="ajp-return-to-rephoto-container" class="w-100 mb-3 d-none d-md-none">
+    <div id="ajp-return-to-rephoto-container" class="w-100 mb-3 d-none">
         <a href="#" id="ajp-btn-return-to-rephotos" class="btn font-weight-bold d-inline-flex align-items-center shadow-sm text-dark" style="background-color: #fca311; border: none; border-radius: 20px; padding: 7px 16px; font-size: 14px;">
             <span class="material-icons mr-1 notranslate" style="font-size: 20px;">arrow_back</span>
-            <span id="ajp-return-to-rephotos-text">{% trans "Back to nearby photos list" %}</span>
+            <span id="ajp-return-to-rephotos-text">{% trans "Back to nearest images" %}</span>
         </a>
     </div>
     {% endif %}
@@ -103,10 +103,10 @@
                 {% endif %}
             </div>
             {% if not request.user_agent.is_pc and not rephoto %}
-            <div class="w-100 my-2 px-1 text-center ajp-quick-rephoto-wrapper d-md-none">
+            <div class="w-100 my-2 px-1 text-center ajp-quick-rephoto-wrapper">
                 <a href="{% url 'rephoto_capture' photo.id %}" class="btn btn-block font-weight-bold d-flex align-items-center justify-content-center shadow-sm text-dark py-2 ajp-btn-quick-capture" style="background-color: #fca311; border: none; border-radius: 25px; font-size: 15px; max-width: 400px; margin: 6px auto;">
                     <span class="material-icons mr-2 notranslate" style="font-size: 22px;">camera_alt</span>
-                    <span>{% trans "Rephotograph" %}</span>
+                    <span>{% trans "Take a rephoto" %}</span>
                 </a>
             </div>
             {% endif %}
@@ -311,6 +311,8 @@
             $('#ajp-reverse-side-button').show();
             $('.ajp-show-similar-photoview-overlay-button').show();
             $('.ajp-show-rephotos-photoview-overlay-button').show();
+            $('.ajp-thumbnail-selection-icon').show();
+            $('.ajp-like-photo-overlay-button').show();
         }
         // Do not try to use mainPhotoContainer variable here, mouseout will not trigger correctly, probably loading order issue
         $(document).on('mouseenter', '#ajp-photoview-main-photo-container', function () {
@@ -322,8 +324,9 @@
                 }
 
                 displayAnnotations(true, true);
+                $('.ajp-thumbnail-selection-icon').show("fade", 250);
+                $('.ajp-like-photo-overlay-button').show("fade", 250);
             }
-            $('.ajp-thumbnail-selection-icon').show("fade", 250);
         });
         $(document).on('mouseleave', '#ajp-photoview-main-photo-container', function () {
             if (!window.isMobile) {
@@ -332,8 +335,13 @@
                 $('.ajp-show-rephotos-photoview-overlay-button').hide("fade", 250);
 
                 hideAnnotationsWithoutOpenPopover();
+                if (!$('.ajp-thumbnail-selection-icon').hasClass('ajp-thumbnail-selection-icon-blue')) {
+                    $('.ajp-thumbnail-selection-icon').hide("fade", 250);
+                }
+                if (!$('.ajp-like-photo-overlay-button').hasClass('active')) {
+                    $('.ajp-like-photo-overlay-button').hide("fade", 250);
+                }
             }
-            $('.ajp-thumbnail-selection-icon').hide("fade", 250);
         });
         $(document).on('mouseenter', '#ajp-photoview-rephoto-container', function () {
             if (!window.isMobile) {

@@ -12,6 +12,12 @@
     /*global gtag*/
     /*global interpolate*/
     $(document).ready(function () {
+        if (!window.userLat && getQueryParameterByName('lat')) {
+            window.userLat = parseFloat(getQueryParameterByName('lat'));
+        }
+        if (!window.userLon && getQueryParameterByName('lon')) {
+            window.userLon = parseFloat(getQueryParameterByName('lon'));
+        }
         let pagingNextButton = $('#ajp-paging-next-button'),
             pagingPreviousButton = $('#ajp-paging-previous-button'),
             historicPhotoGalleryDiv = $('#ajp-frontpage-historic-photos'),
@@ -597,8 +603,25 @@
                     }
                     if (response.photos.length > 0) {
                         for (let i = 0, l = response.photos.length; i < l; i += 1) {
+                            let photo = response.photos[i];
+                            if (!photo.distance_text && (photo.distance === null || photo.distance === undefined) && photo.latitude && photo.longitude && window.userLat && window.userLon && typeof Math.haversineDistance === 'function') {
+                                let distMeters = Math.haversineDistance(
+                                    { latitude: window.userLat, longitude: window.userLon },
+                                    { latitude: photo.latitude, longitude: photo.longitude }
+                                ) * 1000;
+                                photo.distance = Math.round(distMeters * 10) / 10;
+                                if (distMeters < 10) {
+                                    photo.distance_text = '< 10 m';
+                                } else if (distMeters < 1000) {
+                                    photo.distance_text = Math.round(distMeters) + ' m';
+                                } else if (distMeters < 10000) {
+                                    photo.distance_text = (distMeters / 1000).toFixed(1) + ' km';
+                                } else {
+                                    photo.distance_text = Math.round(distMeters / 1000) + ' km';
+                                }
+                            }
                             targetDiv.append(
-                                tmpl('ajp-frontpage-photo-template', response.photos[i]),
+                                tmpl('ajp-frontpage-photo-template', photo),
                             );
                         }
                         historicPhotoGalleryDiv.removeClass('ajp-invisible');
@@ -820,7 +843,7 @@
             try {
                 sessionStorage.setItem('lastRephotoListUrl', window.location.href);
             } catch (e) {}
-            if (!getQueryParameterByName('lat') || !getQueryParameterByName('lon')) {
+            if (!window.userLat || !window.userLon) {
                 window.useButtonLink = false;
                 window.getGeolocation(window.handleGeolocation);
             }

@@ -89,8 +89,13 @@
         window.useButtonLink = true;
         window.currentlySelectedPhotoId = "{{ photo.id }}";
         window.albumId = null;
+        {% if request.GET.lat and request.GET.lon %}
+        window.userLat = parseFloat("{{ request.GET.lat }}");
+        window.userLon = parseFloat("{{ request.GET.lon }}");
+        {% else %}
         window.userLat = null;
         window.userLon = null;
+        {% endif %}
         window.order1 = "{{ order1 }}";
         window.order2 = "{{ order2 }}";
         window.order3 = "{{ order3 }}";
@@ -226,11 +231,14 @@
             try {
                 sessionStorage.setItem('ajp_rephoto_mode', '1');
             } catch(err) {}
+            let targetUrl = '/?order1=closest&mode=rephoto';
             if (window.albumId) {
-                window.location.href = '/?album=' + window.albumId + '&order1=closest&mode=rephoto';
-            } else {
-                window.location.href = '/?order1=closest&mode=rephoto';
+                targetUrl = '/?album=' + window.albumId + '&order1=closest&mode=rephoto';
             }
+            if (window.userLat && window.userLon) {
+                targetUrl += '&lat=' + window.userLat + '&lon=' + window.userLon;
+            }
+            window.location.href = targetUrl;
         });
     </script>
     {% include "js_templates/frontpage_album_template.html" %}

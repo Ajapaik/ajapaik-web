@@ -33,7 +33,7 @@
             var map = L.map('ajp-photo-modal-map-canvas', { fullscreenControl: true });
 
             // OSM layer
-            var osmUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+            var osmUrl = 'https://tile.openstreetmap.de/{z}/{x}/{y}.png';
             var osmAttrib = 'Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors';
             var osm = new L.TileLayer(osmUrl, {minZoom: 5, maxZoom: 18, attribution: osmAttrib});
 

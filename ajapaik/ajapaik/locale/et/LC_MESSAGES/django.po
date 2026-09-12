@@ -2767,9 +2767,10 @@ msgstr "Soovituse tegemisel pead sisestama uue väärtuse"
 msgid "Rephotograph nearby"
 msgstr "Ülepildistamine minu lähedal"
 
-msgid "Back to nearby photos list"
-msgstr "Tagasi ülepildistamise nimekirja"
+msgid "Back to nearest images"
+msgstr "Tagasi lähimate fotode juurde"
 
-msgid "Rephotograph"
-msgstr "Ülepildista"
+msgid "Take a rephoto"
+msgstr "Pildista üle"
+
 

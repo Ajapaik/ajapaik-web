@@ -186,6 +186,31 @@ class PhotoSerializer(PhotoRepresentationSerializer):
     slug = serializers.SerializerMethodField()
     date_text = serializers.SerializerMethodField()
     in_selection = serializers.SerializerMethodField()
+    distance = serializers.SerializerMethodField()
+    distance_text = serializers.SerializerMethodField()
+
+    def get_distance(self, instance: Photo):
+        if hasattr(instance, 'distance') and instance.distance is not None:
+            dist = instance.distance
+            if hasattr(dist, 'm'):
+                dist = dist.m
+            try:
+                return round(float(dist), 1)
+            except (ValueError, TypeError):
+                return None
+        return None
+
+    def get_distance_text(self, instance: Photo):
+        dist = self.get_distance(instance)
+        if dist is None:
+            return None
+        if dist < 10:
+            return '< 10 m'
+        if dist < 1000:
+            return f'{int(round(dist))} m'
+        if dist < 10000:
+            return f'{dist / 1000:.1f} km'
+        return f'{int(round(dist / 1000))} km'
 
     def get_date_text(self, instance: Photo) -> str:
         if instance.date:
@@ -254,7 +279,8 @@ class PhotoSerializer(PhotoRepresentationSerializer):
             'image', 'full_image', 'width', 'height', 'title',
             'author', 'source', 'latitude', 'longitude', 'azimuth',
             'favorited', 'high_quality', 'slug', 'comment_count',
-            'rephoto_count', 'date_text', 'in_selection'
+            'rephoto_count', 'date_text', 'in_selection',
+            'distance', 'distance_text',
         )
 
 

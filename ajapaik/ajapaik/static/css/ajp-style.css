@@ -766,6 +766,7 @@ a.fullscreen {
     top: 0;
     left: 0;
     display: none;
+    transition: transform 0.15s ease, color 0.15s ease;
 }
 
 .ajp-photo-selection-thumbnail-link {
@@ -949,24 +950,81 @@ a.fullscreen {
     top: 0;
 }
 
-.ajp-close-rephoto-overlay-button,
-.ajp-close-similar-photo-overlay-button,
-.ajp-compare-similar-overlay-button,
 .ajp-compare-similar-overlay-button,
 .ajp-show-rephoto-selection-overlay-button,
 .ajp-show-similar-photo-selection-overlay-button,
 .ajp-show-similar-photoview-overlay-button,
 .ajp-show-rephotos-photoview-overlay-button,
-.ajp-invert-rephoto-overlay-button,
-.ajp-invert-similar-photo-overlay-button,
 #ajp-reverse-side-button {
-    color: rgb(0, 0, 0);
-    background-color: rgba(255, 255, 255, 0.3);
+    color: white !important;
+    background-color: transparent !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+    padding: 0 !important;
+    filter: drop-shadow(0px 0px 4px rgba(0, 0, 0, 0.9));
     width: 48px;
     height: 48px;
+    margin: 0;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none !important;
+    transition: transform 0.15s ease, color 0.15s ease, opacity 0.15s ease;
+}
+
+.ajp-show-rephoto-selection-overlay-button .material-icons,
+.ajp-show-rephotos-photoview-overlay-button .material-icons,
+.ajp-show-similar-photo-selection-overlay-button .material-icons,
+.ajp-show-similar-photoview-overlay-button .material-icons,
+.ajp-compare-similar-overlay-button .material-icons,
+#ajp-reverse-side-button .material-icons {
+    font-size: 28px;
+    text-shadow: 0 0 4px rgba(0, 0, 0, 0.9);
+}
+
+.ajp-close-rephoto-overlay-button,
+.ajp-close-similar-photo-overlay-button,
+.ajp-invert-rephoto-overlay-button,
+.ajp-invert-similar-photo-overlay-button {
+    color: white !important;
+    background-color: transparent !important;
+    background: transparent !important;
+    border: none !important;
+    filter: drop-shadow(0px 0px 4px rgba(0, 0, 0, 0.9));
+    width: 44px;
+    height: 44px;
     padding: 0;
     margin: 0;
     cursor: pointer;
+    box-shadow: none !important;
+    outline: none !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.15s ease, color 0.15s ease, opacity 0.15s ease;
+    opacity: 0.9;
+    z-index: 3001;
+}
+
+.ajp-close-rephoto-overlay-button:hover,
+.ajp-close-similar-photo-overlay-button:hover,
+.ajp-invert-rephoto-overlay-button:hover,
+.ajp-invert-similar-photo-overlay-button:hover {
+    color: #fca311 !important;
+    background-color: transparent !important;
+    transform: scale(1.15);
+    opacity: 1;
+}
+
+.ajp-close-rephoto-overlay-button .material-icons,
+.ajp-close-similar-photo-overlay-button .material-icons,
+.ajp-invert-rephoto-overlay-button .material-icons,
+.ajp-invert-similar-photo-overlay-button .material-icons {
+    font-size: 26px;
+    text-shadow: 0 0 4px rgba(0, 0, 0, 0.9);
 }
 
 .ajp-like-photo-overlay-button {
@@ -983,6 +1041,7 @@ a.fullscreen {
     cursor: pointer;
     border: none;
     display: none;
+    transition: transform 0.15s ease, color 0.15s ease;
 }
 
 .ajp-invert-rephoto-overlay-button,
@@ -1016,29 +1075,39 @@ a.fullscreen {
 
 .ajp-compare-similar-overlay-button:hover,
 .ajp-compare-similar-overlay-button:active,
-.ajp-like-photo-overlay-button:hover,
-.ajp-close-similar-photo-overlay-button:hover,
-.ajp-close-rephoto-overlay-button:hover,
-.ajp-invert-rephoto-overlay-button:hover,
-.ajp-invert-similar-photo-overlay-button:hover,
 .ajp-show-rephotos-photoview-overlay-button:active,
 .ajp-show-rephotos-photoview-overlay-button:hover,
 .ajp-show-similar-photoview-overlay-button:active,
 .ajp-show-similar-photoview-overlay-button:hover,
 .ajp-show-similar-photo-selection-overlay-button:active,
 .ajp-show-similar-photo-selection-overlay-button:hover,
-.ajp-thumbnail-selection-icon:hover,
-.ajp-thumbnail-selection-icon-blue,
-.ajp-thumbnail-selection-icon-blue:hover,
 .ajp-show-rephoto-selection-overlay-button:hover,
 .ajp-show-rephoto-selection-overlay-button:active,
 #ajp-reverse-side-button:hover,
 #ajp-reverse-side-button:active {
-    color: #007fff;
+    color: #fca311 !important;
+    background-color: transparent !important;
+    transform: scale(1.15);
     cursor: pointer;
+    text-decoration: none !important;
 }
 
 .ajp-thumbnail-selection-icon:hover {
+    color: #007fff !important;
+    cursor: pointer;
+    transform: scale(1.15);
+}
+
+.ajp-thumbnail-selection-icon-blue,
+.ajp-thumbnail-selection-icon-blue:hover {
+    color: #007fff !important;
+    cursor: pointer;
+    transform: scale(1.15);
+}
+
+.ajp-like-photo-overlay-button:hover {
+    color: #ffffff !important;
+    transform: scale(1.15);
     cursor: pointer;
 }
 
@@ -1053,18 +1122,22 @@ a.fullscreen {
 }
 
 .ajp-like-photo-overlay-button.active {
-    color: #A42733;
+    color: #ffffff !important;
+}
+
+.ajp-like-photo-overlay-button.active:hover {
+    color: #ffffff !important;
+    transform: scale(1.15);
 }
 
 .ajp-like-photo-overlay-button.active.big {
     width: 60px;
-    color: #981D2A;
+    color: #ffffff !important;
 }
 
 .ajp-show-rephoto-selection-overlay-button {
     top: 0;
     position: relative;
-    background-color: rgba(255, 255, 255, 0.3);
     border: none;
     float: right;
 }
@@ -1100,48 +1173,51 @@ a.fullscreen {
     border-radius: 0;
 }
 
-.ajp-photo-modal-previous-button {
-    display: block;
+.ajp-photo-modal-previous-button,
+.ajp-photo-modal-next-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 48px;
     height: 48px;
     cursor: pointer;
-    background-color: rgba(255, 255, 255, 0.3);
-    background-size: 48px;
+    background-color: transparent !important;
+    background: transparent !important;
+    color: white !important;
+    filter: drop-shadow(0px 0px 4px rgba(0, 0, 0, 0.9));
     position: absolute;
-    left: 10px;
     top: calc(50% - 24px);
-    z-index: 1;
-    border: none;
+    z-index: 10;
+    border: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+    text-decoration: none !important;
+    transition: transform 0.15s ease, color 0.15s ease, opacity 0.15s ease;
 }
 
-.ajp-photo-modal-previous-button:hover {
-    color: #007fff;
-}
-
-.ajp-photo-modal-previous-button-disabled {
-    color: gray;
+.ajp-photo-modal-previous-button {
+    left: 10px;
 }
 
 .ajp-photo-modal-next-button {
-    display: block;
-    width: 48px;
-    height: 48px;
-    cursor: pointer;
-    float: right;
-    background-color: rgba(255, 255, 255, 0.3);
-    background-size: 48px;
-    position: absolute;
     right: 10px;
-    top: calc(50% - 24px);
-    border: none;
+    float: right;
 }
 
+.ajp-photo-modal-previous-button:hover,
 .ajp-photo-modal-next-button:hover {
-    color: #007fff;
+    color: #fca311 !important;
+    transform: scale(1.15);
+    text-decoration: none !important;
 }
 
+.ajp-photo-modal-previous-button-disabled,
 .ajp-photo-modal-next-button-disabled {
-    color: gray;
+    color: rgba(255, 255, 255, 0.3) !important;
+    cursor: default !important;
+    pointer-events: none !important;
+    transform: none !important;
+    filter: none !important;
 }
 
 #ajp-mini-map-geotaggers-dropdown {
@@ -1867,9 +1943,18 @@ footer a {
     opacity: 1;
 }
 
-@media (hover: none) {
+@media (hover: none), (max-width: 992px) {
     #ajp-selection-middle-panel .ajp-thumbnail-selection-icon-blue {
         opacity: 1;
+    }
+
+    #ajp-modal-photo-container .ajp-thumbnail-selection-icon,
+    #ajp-modal-photo-container .ajp-like-photo-overlay-button,
+    #ajp-photoview-main-photo-container .ajp-thumbnail-selection-icon,
+    #ajp-photoview-main-photo-container .ajp-like-photo-overlay-button {
+        display: inline-flex !important;
+        align-items: center;
+        justify-content: center;
     }
 }
 
@@ -2507,4 +2592,36 @@ div.gm-style-mtc>div:nth-of-type(2)>div>label {
 .suggestion-button:focus,
 .suggestion-button:active {
     outline: none;
+}
+
+.ajp-frontpage-distance-badge {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    background: rgba(0, 0, 0, 0.75);
+    color: #fff;
+    padding: 2px 7px 2px 5px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 18px;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    pointer-events: none;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+    letter-spacing: 0.2px;
+    transition: left 0.15s ease-in-out;
+}
+
+.ajp-frontpage-distance-badge .material-icons {
+    font-size: 14px;
+    color: #fca311;
+    line-height: 1;
+}
+
+.ajp-thumbnail-selection-icon-blue ~ .ajp-frontpage-distance-badge,
+.ajp-thumbnail-selection-icon:hover ~ .ajp-frontpage-distance-badge {
+    left: 36px;
 }

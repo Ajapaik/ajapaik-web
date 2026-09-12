@@ -251,7 +251,9 @@ const AjpRephotoUploader = {
   },
 
   async enqueue(authorId, photoId, photoSlug, fullBlob, croppedBlob, scaleFactor, uploadUrl, redirectUrl, lat, lon, yaw, pitch, roll) {
+    const uploadId = `${Date.now()}_${authorId || 'anon'}_${photoId}_${Math.random().toString(36).substring(2, 8)}`;
     const upload = {
+      uploadId,
       authorId,
       photoId,
       photoSlug,
@@ -326,6 +328,7 @@ const AjpRephotoUploader = {
     this.currentXhr = xhr;
 
     const formData = new FormData();
+    formData.append('client_upload_id', upload.uploadId || `${upload.createdAt}_${upload.authorId}_${upload.photoId}`);
     formData.append('user_file[]', upload.fullBlob, 'rephoto.jpg');
     formData.append('cropped_file', upload.croppedBlob, 'rephoto_cropped.jpg');
     formData.append('scale_factor', upload.scaleFactor);
@@ -491,7 +494,7 @@ const AjpRephotoUploader = {
       lastListUrl = sessionStorage.getItem('lastRephotoListUrl');
     } catch (e) {}
     if (lastListUrl) {
-      returnListBtnHtml = `<a class="ajp-upload-btn" href="${lastListUrl}" style="text-decoration:none; display:inline-flex; align-items:center; justify-content:center;">Lähimad fotod</a>`;
+      returnListBtnHtml = `<a class="ajp-upload-btn" href="${lastListUrl}" style="text-decoration:none; display:inline-flex; align-items:center; justify-content:center;">Tagasi lähimate fotode juurde</a>`;
     }
 
     widget.innerHTML = `
