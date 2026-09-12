@@ -762,11 +762,23 @@
       });
     }
 
+    function stopCamera() {
+      if (video && video.srcObject) {
+        try {
+          video.srcObject.getTracks().forEach(track => track.stop());
+        } catch (e) {}
+        video.srcObject = null;
+      }
+    }
+
     retakeBtn.addEventListener('click', () => {
       previewContainer.style.display = 'none';
       document.getElementById('camera-container').style.display = 'block';
       // Hide upload button again until a new photo is captured
       uploadBtn.style.display = 'none';
+      if (!video.srcObject || !video.srcObject.active) {
+        initCamera();
+      }
     });
 
     uploadBtn.addEventListener('click', () => {
@@ -784,7 +796,14 @@
         return;
       }
 
-      loadingOverlay.innerHTML = 'Salvestan järjekorda...';
+      stopCamera();
+
+      loadingOverlay.innerHTML = `
+        <div style="text-align:center; padding: 20px;">
+          <div class="ajp-rotate-ani" style="font-size: 36px; margin-bottom: 12px;">⏳</div>
+          <div id="loading-overlay-status" style="font-size: 16px; font-weight: 600;">Töötlen fotot...</div>
+        </div>
+      `;
       loadingOverlay.style.display = 'flex';
       
       const scaleFactor = currentUploadScaleFactor;
@@ -801,14 +820,19 @@
       });
 
       Promise.all([
-          new Promise(resolve => canvas.toBlob(resolve, 'image/jpeg', 0.95)),
-          new Promise(resolve => fullCanvas.toBlob(resolve, 'image/jpeg', 0.95))
+          new Promise(resolve => canvas.toBlob(resolve, 'image/jpeg', 0.88)),
+          new Promise(resolve => fullCanvas.toBlob(resolve, 'image/jpeg', 0.88))
       ]).then(async ([croppedBlob, fullBlob]) => {
+        const statusEl = document.getElementById('loading-overlay-status');
+        if (statusEl) statusEl.innerText = 'Salvestan seadmesse...';
+
         // Inject metadata into JPEG comment marker
         const croppedWithMeta = await AjpRephotoUploader.injectJpegComment(croppedBlob, metadata);
         const fullWithMeta = await AjpRephotoUploader.injectJpegComment(fullBlob, metadata);
 
-        AjpRephotoUploader.enqueue(
+        if (statusEl) statusEl.innerText = 'Valmis! Suunan edasi...';
+
+        await AjpRephotoUploader.enqueue(
           currentUserId,
           {{ photo.id }},
           '{{ photo.get_pseudo_slug }}',

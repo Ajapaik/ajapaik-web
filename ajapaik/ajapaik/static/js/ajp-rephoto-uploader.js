@@ -210,13 +210,7 @@ const AjpRephotoUploader = {
       marker.set(commentBytes, 4);
       
       const original = new Uint8Array(arrayBuffer);
-      const result = new Uint8Array(original.length + marker.length);
-      
-      result.set(original.subarray(0, 2), 0);
-      result.set(marker, 2);
-      result.set(original.subarray(2), 2 + marker.length);
-      
-      return new Blob([result], { type: 'image/jpeg' });
+      return new Blob([original.subarray(0, 2), marker, original.subarray(2)], { type: 'image/jpeg' });
     } catch (e) {
       console.error("Failed to inject JPEG comment:", e);
       return blob;
@@ -275,7 +269,7 @@ const AjpRephotoUploader = {
     await this.db.addUpload(upload);
     
     // Redirect immediately to prevent user blocking
-    window.location.href = redirectUrl;
+    window.location.replace(redirectUrl);
   },
 
   async processQueue() {
