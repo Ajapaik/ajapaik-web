@@ -334,9 +334,16 @@ $('.ajp-navbar').autoHidingNavbar();
         handleFullScreenLinkClick('similar');
     });
 
-    getGeolocation = function getLocation(callback) {
+    getGeolocation = function getLocation(callback, errorCallback) {
         if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(callback, geolocationError);
+            navigator.geolocation.getCurrentPosition(callback, function (error) {
+                $('#ajp-loading-overlay').hide();
+                if (typeof errorCallback === 'function') {
+                    errorCallback(error);
+                } else {
+                    geolocationError(error);
+                }
+            });
         }
     };
 
@@ -522,11 +529,14 @@ $('.ajp-navbar').autoHidingNavbar();
     };
 
     geolocationError = function (error) {
+        $('#ajp-loading-overlay').hide();
         const targetElement = $('#ajp-geolocation-error-message');
         switch (error.code) {
             case error.PERMISSION_DENIED:
                 targetElement.html(gettext('User denied the request for Geolocation.'));
-                window.location.href = '/map/';
+                if (window.clickedMapButton) {
+                    window.location.href = '/map/';
+                }
                 break;
             case error.POSITION_UNAVAILABLE:
                 targetElement.html(gettext('Location information is unavailable.'));
@@ -1888,7 +1898,7 @@ $('.ajp-navbar').autoHidingNavbar();
                 new google.maps.ImageMapType({
                     getTileUrl: function (coord, zoom) {
                         return (
-                            'https://a.tile.openstreetmap.org/' +
+                            'https://tile.openstreetmap.de/' +
                             zoom +
                             '/' +
                             coord.x +
@@ -2338,7 +2348,7 @@ $('.ajp-navbar').autoHidingNavbar();
                         new google.maps.ImageMapType({
                             getTileUrl: function (coord, zoom) {
                                 return (
-                                    'https://a.tile.openstreetmap.org/' +
+                                    'https://tile.openstreetmap.de/' +
                                     zoom +
                                     '/' +
                                     coord.x +

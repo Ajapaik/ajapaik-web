@@ -47,7 +47,7 @@ function VanalinnadGooglemApi(city, isGeotagger, map) {
             if (x < 0) {
                 x = tilesPerGlobe + x;
             }
-            return 'https://a.tile.openstreetmap.org/' + zoom + '/' + x + '/' + coord.y + '.png';
+            return 'https://tile.openstreetmap.de/' + zoom + '/' + x + '/' + coord.y + '.png';
         },
         tileSize: new google.maps.Size(256, 256),
         name: gettext('Historic maps'),

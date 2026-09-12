@@ -520,7 +520,7 @@
                 new google.maps.ImageMapType({
                     getTileUrl: function(coord, zoom) {
                         return (
-                            'https://a.tile.openstreetmap.org/' +
+                            'https://tile.openstreetmap.de/' +
                             zoom +
                             '/' +
                             coord.x +

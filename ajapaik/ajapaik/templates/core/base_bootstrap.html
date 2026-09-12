@@ -182,6 +182,56 @@
 
         gtag('config', 'G-34VT1155KC');
     </script>
+    <!-- Suppress Tawk.to chat widget -->
+    <script>
+        window.Tawk_API = window.Tawk_API || {};
+        window.Tawk_API.hideWidget = function() {};
+        window.Tawk_API.onLoad = function() {
+            try {
+                if (window.Tawk_API && typeof window.Tawk_API.hideWidget === 'function') {
+                    window.Tawk_API.hideWidget();
+                }
+            } catch (e) {}
+        };
+        (function() {
+            var origCreateElement = document.createElement;
+            document.createElement = function(tagName) {
+                var el = origCreateElement.apply(document, arguments);
+                if (typeof tagName === 'string' && tagName.toLowerCase() === 'script') {
+                    var origSetAttribute = el.setAttribute;
+                    el.setAttribute = function(name, val) {
+                        if (name === 'src' && typeof val === 'string' && val.indexOf('tawk.to') !== -1) {
+                            return;
+                        }
+                        return origSetAttribute.apply(el, arguments);
+                    };
+                    Object.defineProperty(el, 'src', {
+                        set: function(val) {
+                            if (typeof val === 'string' && val.indexOf('tawk.to') !== -1) {
+                                return;
+                            }
+                            this.setAttribute('src', val);
+                        },
+                        get: function() {
+                            return this.getAttribute('src') || '';
+                        }
+                    });
+                }
+                return el;
+            };
+            if (window.MutationObserver) {
+                var observer = new MutationObserver(function() {
+                    var targets = document.querySelectorAll('[id^="tawk"], iframe[src*="tawk.to"], .widget-visible');
+                    for (var i = 0; i < targets.length; i++) {
+                        targets[i].remove();
+                    }
+                });
+                if (document.documentElement) {
+                    observer.observe(document.documentElement, { childList: true, subtree: true });
+                }
+            }
+        })();
+    </script>
     <!-- Google Tag Manager -->
     <script>(function(w, d, s, l, i) {
         w[l] = w[l] || [];
@@ -202,7 +252,12 @@
         <script src="{% static 'js/html5shiv-3.7.3.js' %}"></script>
     <![endif]-->
     <link rel="shortcut icon" type="image/ico" href="{% static "images/favicon.ico" %}" />
-    <link rel="apple-touch-icon" href="{% static "images/ajapaik_marker_57px.png" %}" />
+    <link rel="manifest" href="{% static "manifest.json" %}" />
+    <meta name="theme-color" content="#1c1d21" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Ajapaik refoto" />
+    <link rel="apple-touch-icon" href="{% static "images/pwa-icon-192.png" %}" />
     {% leaflet_css %}
     {% compress css %}
         <link rel="stylesheet" href="{% static "css/material-icons.css" %}">
@@ -458,6 +513,7 @@
     <script src="{% static "js/ajp-juks-gmaps.js" %}"></script>
     <script src="{% static "js/ajp-ga.js" %}"></script>
     <script src="{% static "js/ajp-core.js" %}"></script>
+    <script src="{% static "js/ajp-rephoto-uploader.js" %}"></script>
     {% if not is_frontpage and not is_photoview or is_game or is_mapview %}
         <script src="{% static "js/ajp-geotagger-plugin.js" %}"></script>
     {% else %}
@@ -510,5 +566,49 @@
     </script>
 {% endblock %}
 {% block specific_js %}{% endblock %}
+
+{% if not request.user_agent.is_pc %}
+    <!-- PWA Install Banner for Android / Chromium -->
+    <div id="ajp-pwa-install-banner" class="d-none ajp-pwa-toast shadow-lg">
+        <div class="d-flex align-items-center justify-content-between">
+            <div class="d-flex align-items-center pr-2">
+                <img src="{% static 'images/pwa-icon-192.png' %}" alt="Ajapaik refoto" class="ajp-pwa-app-icon mr-2">
+                <div>
+                    <div class="ajp-pwa-title font-weight-bold">Ajapaik refoto</div>
+                    <div class="ajp-pwa-desc text-muted small">{% trans "Salvesta avaekraanile kiireks avamiseks" %}</div>
+                </div>
+            </div>
+            <div class="d-flex align-items-center flex-shrink-0">
+                <button id="ajp-pwa-install-btn" class="btn btn-sm font-weight-bold px-3 py-1 mr-2 ajp-pwa-btn-install">
+                    {% trans "Lisa" %}
+                </button>
+                <button type="button" class="close ajp-pwa-dismiss-btn p-1" aria-label="{% trans "Sulge" %}">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PWA iOS Safari Instruction Banner -->
+    <div id="ajp-pwa-ios-banner" class="d-none ajp-pwa-toast shadow-lg">
+        <div class="d-flex align-items-center justify-content-between">
+            <div class="d-flex align-items-center pr-2">
+                <img src="{% static 'images/pwa-icon-192.png' %}" alt="Ajapaik refoto" class="ajp-pwa-app-icon mr-2">
+                <div>
+                    <div class="ajp-pwa-title font-weight-bold">Ajapaik refoto</div>
+                    <div class="ajp-pwa-desc text-muted small">
+                        {% trans "Avaekraanile lisamiseks vajuta all Jaga" %} <span class="material-icons align-middle" style="font-size:15px;">ios_share</span> {% trans "ja vali 'Lisa avaekraanile'" %}
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex align-items-center flex-shrink-0">
+                <button class="btn btn-sm btn-secondary font-weight-bold px-2 py-1 ajp-pwa-dismiss-btn" style="border-radius: 20px; font-size: 13px;">
+                    {% trans "Sain aru" %}
+                </button>
+            </div>
+        </div>
+    </div>
+    <script src="{% static "js/ajp-pwa.js" %}"></script>
+{% endif %}
 </body>
 </html>
