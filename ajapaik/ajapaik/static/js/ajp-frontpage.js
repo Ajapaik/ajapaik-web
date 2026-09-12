@@ -131,13 +131,17 @@
                     .removeSearch('q')
                     .removeSearch('locationToolsOpen')
                     .removeSearch('myLikes')
-                    .removeSearch('rephotosBy');
+                    .removeSearch('rephotosBy')
+                    .removeSearch('mode');
                 if (window.currentlySelectedPhotoId) {
                     currentUrl.addSearch('photo', window.currentlySelectedPhotoId);
                 }
                 if (window.showPhotos) {
                     if (window.order1) {
                         currentUrl.addSearch('order1', window.order1);
+                    }
+                    if (window.order1 === 'closest') {
+                        currentUrl.addSearch('mode', 'rephoto');
                     }
                     if (window.order2) {
                         currentUrl.addSearch('order2', window.order2);
@@ -149,11 +153,13 @@
                 if (window.currentPage) {
                     currentUrl.addSearch('page', window.currentPage);
                 }
-                if (window.userLat) {
-                    currentUrl.addSearch('lat', window.userLat);
-                }
-                if (window.userLon) {
-                    currentUrl.addSearch('lon', window.userLon);
+                if (window.showPhotos && window.order1 === 'closest') {
+                    if (window.userLat) {
+                        currentUrl.addSearch('lat', window.userLat);
+                    }
+                    if (window.userLon) {
+                        currentUrl.addSearch('lon', window.userLon);
+                    }
                 }
                 if (window.myLikes) {
                     currentUrl.addSearch('myLikes', 1);
@@ -998,27 +1004,20 @@
             .find('a')
             .click(function (e) {
                 e.preventDefault();
+                e.stopPropagation();
                 let $this = $(this),
                     selectedMode = $this.data('mode');
                 if ($this.hasClass('disabled')) {
                     return false;
                 }
-                if (!window.order1) {
-                    window.order1 = 'time';
-                }
-                if (!window.order2) {
-                    window.order2 = 'added';
-                }
                 window.currentPage = 1;
-                syncStateToUrl();
-                syncFilteringHighlights();
-                window.myLikes = false;
-                window.rephotosBy = null;
-                window.rephotosByName = null;
-                let currentUrl = window.URI(window.location.href);
-                currentUrl.removeSearch('photos');
-                window.showPhotos = true;
+                window.albumQuery = null;
+                window.photoQuery = null;
+                $('#ajp-album-filter-box').val('');
+                $('#ajp-photo-filter-box').val('');
+
                 const ajpHeaderCollections = $('#ajp-header-collections');
+
                 switch (selectedMode) {
                     case 'nearby_rephotos':
                         ajpHeaderCollections.addClass('d-none');
@@ -1026,40 +1025,86 @@
                         window.order1 = 'closest';
                         window.order2 = null;
                         window.order3 = null;
+                        window.myLikes = false;
+                        window.rephotosBy = null;
+                        window.rephotosByName = null;
                         if (!window.userLat || !window.userLon) {
                             window.useButtonLink = false;
-                            window.getGeolocation(window.handleGeolocation);
+                            $('#ajp-loading-overlay').show();
+                            if (typeof window.getGeolocation === 'function') {
+                                window.getGeolocation(function (location) {
+                                    $('#ajp-loading-overlay').hide();
+                                    $('#ajp-geolocation-error').hide();
+                                    window.userLat = location.coords.latitude;
+                                    window.userLon = location.coords.longitude;
+                                    syncStateToUrl();
+                                    syncFilteringHighlights();
+                                    updateModeSelection();
+                                }, function () {
+                                    $('#ajp-loading-overlay').hide();
+                                    syncStateToUrl();
+                                    syncFilteringHighlights();
+                                    updateModeSelection();
+                                });
+                            }
                         } else {
                             syncStateToUrl();
                             syncFilteringHighlights();
-                            window.updateFrontpagePhotosAsync();
+                            updateModeSelection();
                         }
-                        break;
+                        return;
+
                     case 'pictures':
                         ajpHeaderCollections.addClass('d-none');
-                        window.history.replaceState(null, window.title, currentUrl);
+                        window.showPhotos = true;
+                        window.order1 = 'time';
+                        window.order2 = 'added';
+                        window.order3 = null;
+                        window.myLikes = false;
+                        window.rephotosBy = null;
+                        window.rephotosByName = null;
                         break;
+
                     case 'albums':
                         ajpHeaderCollections.removeClass('d-none');
                         if (window.albumId) {
                             window.location.href = '/';
+                            return;
                         }
                         window.showPhotos = false;
-                        window.history.replaceState(null, window.title, currentUrl);
                         window.order1 = null;
                         window.order2 = null;
                         window.order3 = null;
+                        window.myLikes = false;
+                        window.rephotosBy = null;
+                        window.rephotosByName = null;
                         break;
+
                     case 'likes':
                         ajpHeaderCollections.addClass('d-none');
+                        window.showPhotos = true;
+                        window.order1 = 'time';
+                        window.order2 = 'added';
+                        window.order3 = null;
                         window.myLikes = true;
+                        window.rephotosBy = null;
+                        window.rephotosByName = null;
                         break;
+
                     case 'rephotos':
                         ajpHeaderCollections.addClass('d-none');
+                        window.showPhotos = true;
+                        window.order1 = 'time';
+                        window.order2 = 'added';
+                        window.order3 = null;
+                        window.myLikes = false;
                         window.rephotosBy = window.currentProfileId;
                         window.rephotosByName = window.currentProfileName;
                         break;
                 }
+
+                syncStateToUrl();
+                syncFilteringHighlights();
                 updateModeSelection();
             });
         $(document).on(

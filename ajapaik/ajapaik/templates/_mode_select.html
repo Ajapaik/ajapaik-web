@@ -76,7 +76,7 @@
             <span id="ajp-header-image-icon" class="material-icons notranslate d-none">insert_image</span>
             <span id="ajp-header-likes-icon" class="material-icons notranslate d-none">favorite</span>
             <span id="ajp-header-rephotos-icon" class="material-icons notranslate d-none">library_add</span>
-            <span id="ajp-header-nearby-rephotos-icon" class="material-icons notranslate{% if order1 != 'closest' or request.user_agent.is_pc %} d-none{% endif %}">camera_alt</span>
+            <span id="ajp-header-nearby-rephotos-icon" class="material-icons notranslate{% if order1 != 'closest' %} d-none{% endif %}">camera_alt</span>
             <span id="ajp-header-title" title="" class="d-block">
                 <span id="ajp-header-arrow-drop-down" class="material-icons notranslate"
                       title="{% trans 'Click to choose' %}">arrow_drop_down</span>
@@ -84,7 +84,7 @@
         </a>
         <div class="dropdown-menu ajp-dropdown" id="ajp-mode-select">
             {% if not request.user_agent.is_pc %}
-            <a href="#" class="dropdown-item d-md-none" id="ajp-frontpage-show-nearby-rephotos-link" data-mode="nearby_rephotos"
+            <a href="#" class="dropdown-item" id="ajp-frontpage-show-nearby-rephotos-link" data-mode="nearby_rephotos"
                title="{% trans "Rephotograph nearby" %}">
                 <span class="material-icons notranslate">camera_alt</span>
                 <span class="ajp-bottom-4px">{% trans "Rephotograph nearby" %}</span>
