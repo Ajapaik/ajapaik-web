@@ -18,6 +18,16 @@
         if (!window.userLon && getQueryParameterByName('lon')) {
             window.userLon = parseFloat(getQueryParameterByName('lon'));
         }
+        if (getQueryParameterByName('mode') === 'rephoto') {
+            window.order1 = 'closest';
+            window.order2 = null;
+            window.order3 = null;
+            window.showPhotos = true;
+            if (!window.userLat || !window.userLon) {
+                window.useButtonLink = false;
+                window.getGeolocation(window.handleGeolocation, window.geolocationError);
+            }
+        }
         let pagingNextButton = $('#ajp-paging-next-button'),
             pagingPreviousButton = $('#ajp-paging-previous-button'),
             historicPhotoGalleryDiv = $('#ajp-frontpage-historic-photos'),

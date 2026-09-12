@@ -1,0 +1,25 @@
+{
+  "name": "Ajapaik refoto",
+  "short_name": "Ajapaik refoto",
+  "description": "Ajapaiga ülepildistamine ja lähimad ajaloolised fotod",
+  "start_url": "/?mode=rephoto",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#1c1d21",
+  "theme_color": "#1c1d21",
+  "icons": [
+    {
+      "src": "/static/images/pwa-icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/static/images/pwa-icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
