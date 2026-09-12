@@ -2,7 +2,7 @@
   "name": "Ajapaik refoto",
   "short_name": "Ajapaik refoto",
   "description": "Ajapaiga ülepildistamine ja lähimad ajaloolised fotod",
-  "start_url": "/?mode=rephoto",
+  "start_url": "/?mode=rephoto&order1=closest",
   "scope": "/",
   "display": "standalone",
   "orientation": "any",

@@ -23,9 +23,38 @@
             window.order2 = null;
             window.order3 = null;
             window.showPhotos = true;
+            $('#ajp-album-selection').addClass('ajp-invisible d-none');
+            $('#ajp-frontpage-historic-photos').removeClass('ajp-invisible d-none');
+            $('#ajp-mobile-rephoto-banner').addClass('d-none');
+            $('#album-filters-div').addClass('d-none');
+            $('#picture-filters-div').removeClass('d-none');
+            $('#ajp-header-selected-mode').find('i, span.material-icons').not('#ajp-header-arrow-drop-down').hide().addClass('d-none');
+            $('#ajp-header-nearby-rephotos-icon').removeClass('d-none').show();
+            if (typeof window.updateModeSelection === 'function') {
+                window.updateModeSelection(true);
+            }
             if (!window.userLat || !window.userLon) {
                 window.useButtonLink = false;
-                window.getGeolocation(window.handleGeolocation, window.geolocationError);
+                if (typeof window.getGeolocation === 'function') {
+                    window.getGeolocation(function (location) {
+                        $('#ajp-loading-overlay').hide();
+                        $('#ajp-geolocation-error').hide();
+                        window.userLat = location.coords.latitude;
+                        window.userLon = location.coords.longitude;
+                        window.showPhotos = true;
+                        window.order1 = 'closest';
+                        if (typeof syncStateToUrl === 'function') syncStateToUrl();
+                        if (typeof syncFilteringHighlights === 'function') syncFilteringHighlights();
+                        if (typeof window.updateFrontpagePhotosAsync === 'function') window.updateFrontpagePhotosAsync();
+                    }, function (err) {
+                        $('#ajp-loading-overlay').hide();
+                        window.showPhotos = true;
+                        window.order1 = 'closest';
+                        if (typeof syncStateToUrl === 'function') syncStateToUrl();
+                        if (typeof syncFilteringHighlights === 'function') syncFilteringHighlights();
+                        if (typeof window.updateFrontpagePhotosAsync === 'function') window.updateFrontpagePhotosAsync();
+                    });
+                }
             }
         }
         let pagingNextButton = $('#ajp-paging-next-button'),
@@ -74,8 +103,20 @@
                         if (window.FB) {
                             window.FB.XFBML.parse($('#ajp-photo-modal-like').get(0));
                         }
+                        if (window.ajapaikminimap && typeof window.ajapaikminimap.invalidateSize === 'function') {
+                            setTimeout(function () {
+                                window.ajapaikminimap.invalidateSize();
+                            }, 200);
+                        }
                         $('#ajp-video-modal').hide();
                     });
+                photoModal.one('shown.bs.modal', function () {
+                    if (window.ajapaikminimap && typeof window.ajapaikminimap.invalidateSize === 'function') {
+                        setTimeout(function () {
+                            window.ajapaikminimap.invalidateSize();
+                        }, 150);
+                    }
+                });
             },
             syncStateToUrl = function () {
                 let currentUrl = window.URI(window.location.href);
@@ -789,14 +830,24 @@
                                 .addClass('col-lg-12');
                         }
                     }
+                    const isTouchMobile = window.isMobile || window.innerWidth < 992;
                     if (
-                        (!window.photoModalPhotoLat && !window.photoModalPhotoLng) ||
-                        (window.photoModalRephotoArray.length > 0 &&
-                            !window.userClosedRephotoTools) ||
-                        (window.photoModalSimilarPhotoArray.length > 0 &&
-                            !window.userClosedSimilarPhotoTools)
+                        (!window.photoModalPhotoLat && !window.photoModalPhotoLng && !window.photoModalExtraLat) ||
+                        (!isTouchMobile && (
+                            (window.photoModalRephotoArray.length > 0 &&
+                                !window.userClosedRephotoTools) ||
+                            (window.photoModalSimilarPhotoArray.length > 0 &&
+                                !window.userClosedSimilarPhotoTools)
+                        ))
                     ) {
                         $('#ajp-photo-modal-map-container').hide();
+                    } else if (isTouchMobile && (window.photoModalPhotoLat || window.photoModalExtraLat)) {
+                        $('#ajp-photo-modal-map-container').show();
+                    }
+                    if (window.ajapaikminimap && typeof window.ajapaikminimap.invalidateSize === 'function') {
+                        setTimeout(function () {
+                            window.ajapaikminimap.invalidateSize();
+                        }, 250);
                     }
                     if (
                         window.photoModalRephotoArray &&
