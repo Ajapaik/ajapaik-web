@@ -1,6 +1,7 @@
 from django.contrib.sitemaps import Sitemap
-from ajapaik.ajapaik.models import Photo, Video
 from django.urls import reverse
+
+from ajapaik.ajapaik.models import Photo
 
 
 class PhotoSitemap(Sitemap):
@@ -9,16 +10,6 @@ class PhotoSitemap(Sitemap):
 
     def items(self):
         return Photo.objects.all()
-
-    def lastmod(self, obj):
-        return obj.modified
-
-
-class VideoSitemap(Sitemap):
-    priority = 1
-
-    def items(self):
-        return Video.objects.all()
 
     def lastmod(self, obj):
         return obj.modified

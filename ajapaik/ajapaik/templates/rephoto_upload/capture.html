@@ -1,0 +1,891 @@
+{% load i18n static %}
+<!DOCTYPE html>
+<html lang="et">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Ajapaik Rephoto PWA Prototüüp</title>
+  <style>
+    /* Reset & baasstiilid */
+    * { box-sizing: border-box; }
+    body { 
+      margin: 0; 
+      overflow: hidden; 
+      background: #000; 
+      color: white; 
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; 
+      touch-action: none; 
+      user-select: none; 
+      -webkit-user-select: none;
+    }
+    
+    #camera-container { 
+      position: relative; 
+      width: 100vw; 
+      height: calc(var(--vh, 1vh) * 100); 
+      overflow: hidden; 
+      background: #111;
+    }
+    
+    video { 
+      width: 100%; 
+      height: 100%; 
+      object-fit: cover; 
+    }
+    
+    #historical-overlay { 
+      position: absolute; 
+      top: 0; 
+      left: 0; 
+      width: 100%; 
+      height: 100%; 
+      object-fit: contain; 
+      opacity: 0.5; 
+      pointer-events: none; 
+      transform-origin: center center;
+      will-change: transform, opacity;
+    }
+
+    .top-bar { 
+      position: absolute; 
+      top: 20px; 
+      right: 20px; 
+      z-index: 10; 
+      display: flex;
+      gap: 10px;
+    }
+    .btn-switch, .btn-close { 
+      background: rgba(0, 0, 0, 0.4); 
+      backdrop-filter: blur(10px); 
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.2); 
+      color: white; 
+      padding: 12px 20px; 
+      border-radius: 20px; 
+      cursor: pointer; 
+      font-size: 14px; 
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .hint-text {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      z-index: 10;
+      background: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      padding: 12px 15px;
+      border-radius: 15px;
+      font-size: 13px;
+      color: #ccc;
+      border: 1px solid rgba(255,255,255,0.1);
+      pointer-events: none;
+    }
+
+    .controls { 
+      position: absolute; 
+      bottom: 40px; 
+      left: 0; 
+      width: 100%; 
+      display: flex; 
+      flex-direction: column; 
+      align-items: center; 
+      z-index: 10; 
+    }
+    
+    .btn-capture { 
+      width: 76px; 
+      height: 76px; 
+      border-radius: 50%; 
+      background: rgba(255, 255, 255, 0.9); 
+      border: 4px solid #111; 
+      outline: 3px solid rgba(255, 255, 255, 0.8); 
+      outline-offset: 2px; 
+      cursor: pointer; 
+      transition: transform 0.1s; 
+    }
+    .btn-capture:active { 
+      transform: scale(0.92); 
+      background: #ccc;
+    }
+
+    #preview-container { 
+      display: none; 
+      position: absolute; 
+      top: 0; 
+      left: 0; 
+      width: 100vw; 
+      height: calc(var(--vh, 1vh) * 100); 
+      background: #000; 
+      z-index: 20; 
+    }
+    
+    .split-view {
+      display: flex;
+      flex-direction: row;
+      width: 100%;
+      height: calc(var(--vh) * 100 - 100px);
+      padding: 10px;
+      gap: 10px;
+    }
+    @media (max-aspect-ratio: 1/1) {
+      .split-view {
+        flex-direction: column;
+      }
+    }
+    
+    .split-pane {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      background: #111;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    
+    .split-pane img, .split-pane canvas {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+    
+    .pane-label {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: rgba(0,0,0,0.6);
+      padding: 5px 10px;
+      border-radius: 5px;
+      font-size: 12px;
+      color: white;
+      z-index: 5;
+    }
+    
+    .preview-controls { 
+      position: absolute; 
+      bottom: 24px;
+      bottom: max(24px, env(safe-area-inset-bottom, 24px)); 
+      left: 0;
+      width: 100%; 
+      display: flex; 
+      justify-content: center; 
+      align-items: center;
+      gap: 12px; 
+      padding: 0 16px;
+      box-sizing: border-box;
+      z-index: 30;
+    }
+    .btn-action { 
+      padding: 14px 20px; 
+      font-size: 15px; 
+      border-radius: 30px; 
+      border: none; 
+      font-weight: bold; 
+      cursor: pointer; 
+      white-space: nowrap;
+      flex: 1;
+      max-width: 130px;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+    }
+    .btn-cancel { 
+      background: rgba(255,255,255,0.2); 
+      color: white; 
+      backdrop-filter: blur(10px);
+    }
+    .btn-save { 
+      background: #fca311; 
+      color: black; 
+    }
+    
+    #loading-overlay {
+      display: none;
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.8);
+      z-index: 50;
+      color: white;
+      justify-content: center;
+      align-items: center;
+      font-size: 24px;
+    }
+    @keyframes ajp-rotate-icon {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    .ajp-rotate-ani {
+      display: inline-block;
+      animation: ajp-rotate-icon 2s linear infinite;
+    }
+  </style>
+  <script src="{% static 'js/ajp-rephoto-uploader.js' %}"></script>
+</head>
+<body>
+
+  <div id="camera-container">
+    <video id="camera-stream" autoplay playsinline></video>
+    <img id="historical-overlay" src="{% url 'image_thumb' photo.id 800 photo.get_pseudo_slug %}" alt="{{ photo.display_text }}">
+    
+    <div id="orientation-hint" style="display: none; position: absolute; top: 120px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.75); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.25); padding: 10px 18px; border-radius: 20px; font-size: 13px; color: #fff; z-index: 15; text-align: center; pointer-events: none; align-items: center; gap: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.5); white-space: nowrap;">
+      <span class="ajp-rotate-ani" style="font-size: 16px;">🔄</span>
+      <span id="orientation-hint-text">Soovitus: pööra telefon külili paremaks ühtivuseks</span>
+    </div>
+
+    <div class="hint-text">
+      <b>Läbipaistvus:</b> ekraani pikemal küljel<br>
+      <b>Zoom:</b> rulli / kaksikpuude<br>
+      <b>Pildista:</b> nupp või vajuta pikalt
+    </div>
+
+    <div class="top-bar">
+      <div id="compass-badge" class="btn-switch" style="display: inline-flex; align-items: center; gap: 6px; padding: 10px 14px; font-size: 13px;" title="Kompassi suund">
+        <span id="compass-icon" style="display:inline-block; transition: transform 0.15s ease;">🧭</span>
+        <span id="compass-text">--°</span>
+      </div>
+      <button class="btn-switch" id="switch-camera">↻ Vaheta kaamerat</button>
+      <a href="{% url 'photo' photo.id photo.get_pseudo_slug %}" class="btn-close">Sulge</a>
+    </div>
+
+    <div class="controls">
+      <button class="btn-capture" id="capture-btn" aria-label="Tee pilt"></button>
+    </div>
+  </div>
+
+  <div id="preview-container">
+    <div class="split-view">
+      <div class="split-pane">
+        <div class="pane-label">Vana foto</div>
+        <img id="preview-old-img" src="" alt="Vana foto preview">
+      </div>
+      <div class="split-pane">
+        <div class="pane-label">Uus foto (kropitud)</div>
+        <canvas id="preview-canvas"></canvas>
+      </div>
+    </div>
+    <div class="preview-controls">
+      <a href="{% url 'photo' photo.id photo.get_pseudo_slug %}" class="btn-action btn-cancel" style="text-decoration:none; display:flex; align-items:center; justify-content:center;">Loobu</a>
+      <button class="btn-action btn-cancel" id="btn-retake">Uuesti</button>
+      <button class="btn-action btn-save" id="btn-upload">Salvesta</button>
+    </div>
+  </div>
+  
+  <div id="loading-overlay">
+    Salvestan...
+  </div>
+
+  <script>
+    window.onerror = function(message, source, lineno, colno, error) {
+      alert("JS VIGA: " + message + " (rida " + lineno + ", veerg " + colno + ")");
+      return false;
+    };
+    const video = document.getElementById('camera-stream');
+    const overlay = document.getElementById('historical-overlay');
+    const container = document.getElementById('camera-container');
+    const captureBtn = document.getElementById('capture-btn');
+    const switchBtn = document.getElementById('switch-camera');
+    const previewContainer = document.getElementById('preview-container');
+    const canvas = document.getElementById('preview-canvas');
+    const previewOldImg = document.getElementById('preview-old-img');
+    const retakeBtn = document.getElementById('btn-retake');
+    const uploadBtn = document.getElementById('btn-upload');
+    const loadingOverlay = document.getElementById('loading-overlay');
+    // Authentication state and login helpers
+    const userIsAuthenticated = {% if request.user.is_authenticated %}true{% else %}false{% endif %};
+    const userIsSocialConnected = {% if request.user.is_authenticated and request.user.profile and request.user.profile.is_legit %}true{% else %}false{% endif %};
+    const currentUserId = {% if request.user.is_authenticated %}{{ request.user.id }}{% else %}null{% endif %};
+    const loginUrl = "{% url 'account_login' %}?next={{ request.get_full_path|urlencode }}";
+    // Hide upload button until a photo has been captured
+    uploadBtn.style.display = 'none';
+
+    // Mobile viewport height fix to avoid address bar pushing content
+    function setViewportHeightUnit() {
+      const vh = (window.visualViewport ? window.visualViewport.height : window.innerHeight) * 0.01;
+      document.documentElement.style.setProperty('--vh', `${vh}px`);
+    }
+    setViewportHeightUnit();
+    window.addEventListener('resize', setViewportHeightUnit);
+    if (window.visualViewport) {
+      window.visualViewport.addEventListener('resize', setViewportHeightUnit);
+    }
+
+
+
+    // Recompute vh when fullscreen changes
+    ['fullscreenchange','webkitfullscreenchange','msfullscreenchange'].forEach(evt => {
+      document.addEventListener(evt, setViewportHeightUnit);
+    });
+
+    let currentFacingMode = 'environment'; 
+    let opacity = 0.5;
+    let imgScale = 1;
+    let currentUploadScaleFactor = 1;
+    let fullCanvas = null;
+
+    // GPS & Orientation variables
+    let deviceLat = null;
+    let deviceLon = null;
+    let currentYaw = null;
+    let currentPitch = null;
+    let currentRoll = null;
+    let deviceOrientationInitialized = false;
+
+    // Start geolocation immediately on load
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          deviceLat = position.coords.latitude;
+          deviceLon = position.coords.longitude;
+          console.log("GPS coordinates acquired:", deviceLat, deviceLon);
+        },
+        (error) => {
+          console.warn("Geolocation error:", error);
+        },
+        {
+          enableHighAccuracy: true,
+          timeout: 10000,
+          maximumAge: 0
+        }
+      );
+    }
+
+    let orientationEventsCount = 0;
+    let lastEventRaw = null;
+
+    function updateOrientationUI() {
+      const badge = document.getElementById('compass-badge');
+      const text = document.getElementById('compass-text');
+      const icon = document.getElementById('compass-icon');
+      if (!badge || !text) return;
+
+      if (currentYaw !== null && currentYaw !== undefined) {
+        text.innerText = `${currentYaw}°`;
+        if (icon) icon.style.transform = `rotate(${currentYaw}deg)`;
+        badge.style.borderColor = 'rgba(76, 175, 80, 0.6)';
+        badge.style.color = '#81c784';
+      } else {
+        text.innerText = '--°';
+      }
+    }
+
+    function processOrientationData(alpha, beta, gamma, webkitHeading, isAbsolute) {
+      orientationEventsCount++;
+      lastEventRaw = { alpha, beta, gamma, webkitHeading, isAbsolute };
+
+      if (beta !== null && beta !== undefined) {
+        currentPitch = Math.round(beta);
+      }
+      if (gamma !== null && gamma !== undefined) {
+        currentRoll = Math.round(gamma);
+      }
+
+      let heading = null;
+      if (webkitHeading !== undefined && webkitHeading !== null) {
+        heading = webkitHeading;
+      } else if (alpha !== null && alpha !== undefined) {
+        heading = (360 - alpha) % 360;
+        if (heading < 0) heading += 360;
+      }
+
+      if (heading !== null) {
+        let screenAngle = 0;
+        if (window.screen && window.screen.orientation && window.screen.orientation.angle !== undefined) {
+          screenAngle = window.screen.orientation.angle;
+        } else if (window.orientation !== undefined) {
+          screenAngle = window.orientation;
+        }
+        let adjusted = Math.round((heading + screenAngle) % 360);
+        if (adjusted < 0) adjusted += 360;
+        currentYaw = adjusted;
+      }
+      updateOrientationUI();
+    }
+
+    function handleOrientation(event) {
+      processOrientationData(
+        event.alpha,
+        event.beta,
+        event.gamma,
+        event.webkitCompassHeading,
+        event.absolute
+      );
+    }
+
+    function attachListeners() {
+      if (deviceOrientationInitialized) return;
+      deviceOrientationInitialized = true;
+      window.addEventListener('deviceorientation', handleOrientation, true);
+      if ('ondeviceorientationabsolute' in window) {
+        window.addEventListener('deviceorientationabsolute', handleOrientation, true);
+      }
+
+      // Modern Generic Sensor API fallback in Chromium/Android
+      try {
+        if (window.AbsoluteOrientationSensor) {
+          const sensor = new AbsoluteOrientationSensor({ frequency: 10 });
+          sensor.addEventListener('reading', () => {
+            const q = sensor.quaternion;
+            if (q) {
+              const siny_cosp = 2 * (q[3] * q[2] + q[0] * q[1]);
+              const cosy_cosp = 1 - 2 * (q[1] * q[1] + q[2] * q[2]);
+              let yaw = Math.atan2(siny_cosp, cosy_cosp);
+              let deg = Math.round(yaw * (180 / Math.PI));
+              if (deg < 0) deg += 360;
+              let screenAngle = (window.screen?.orientation?.angle || window.orientation || 0);
+              let adjusted = Math.round((deg + screenAngle) % 360);
+              if (adjusted < 0) adjusted += 360;
+              currentYaw = adjusted;
+              orientationEventsCount++;
+              lastEventRaw = { source: 'AbsoluteOrientationSensor', quaternion: q, yaw: currentYaw };
+              updateOrientationUI();
+            }
+          });
+          sensor.start();
+        }
+      } catch (e) {
+        console.warn('AbsoluteOrientationSensor not available:', e);
+      }
+    }
+
+    function requestOrientationPermission() {
+      if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
+        DeviceOrientationEvent.requestPermission()
+          .then(permissionState => {
+            if (permissionState === 'granted') {
+              attachListeners();
+            }
+          })
+          .catch(console.error);
+      } else {
+        attachListeners();
+      }
+    }
+
+    // Attempt immediately (works on Android and desktop)
+    requestOrientationPermission();
+
+    // Also request on first touch gesture for iOS Safari/Brave
+    document.addEventListener('touchstart', requestOrientationPermission, { once: true });
+    document.addEventListener('click', requestOrientationPermission, { once: true });
+
+    let isDragging = false;
+    let startX = 0;
+    let startY = 0;
+    let startOpacity = 0;
+    let isLandscape = window.innerWidth > window.innerHeight;
+
+    window.addEventListener('resize', () => {
+      isLandscape = window.innerWidth > window.innerHeight;
+    });
+
+    let longTapTimer = null;
+    const LONG_TAP_DURATION = 600;
+
+    function startLongTap() {
+      cancelLongTap();
+      longTapTimer = setTimeout(() => {
+        capturePhoto();
+      }, LONG_TAP_DURATION);
+    }
+
+    function cancelLongTap() {
+      if (longTapTimer) {
+        clearTimeout(longTapTimer);
+        longTapTimer = null;
+      }
+    }
+
+    function checkDragCancelLongTap(currentX, currentY) {
+      if (Math.abs(currentX - startX) > 10 || Math.abs(currentY - startY) > 10) {
+        cancelLongTap();
+      }
+    }
+
+    container.addEventListener('mousedown', (e) => {
+      if(e.target.closest('button') || e.target.closest('a')) return;
+      requestOrientationPermission();
+      isDragging = true;
+      startX = e.clientX;
+      startY = e.clientY;
+      startOpacity = opacity;
+      startLongTap();
+    });
+
+    window.addEventListener('mousemove', (e) => {
+      if (!isDragging) return;
+      checkDragCancelLongTap(e.clientX, e.clientY);
+      
+      let delta = isLandscape ? (e.clientX - startX) : (e.clientY - startY);
+      let newOpacity = startOpacity + (delta / 300);
+      opacity = Math.max(0, Math.min(1, newOpacity));
+      updateOverlay();
+    });
+
+    window.addEventListener('mouseup', () => {
+      cancelLongTap();
+      isDragging = false;
+    });
+
+    container.addEventListener('wheel', (e) => {
+      e.preventDefault();
+      imgScale -= e.deltaY * 0.005;
+      imgScale = Math.max(0.2, Math.min(5, imgScale));
+      updateOverlay();
+    }, { passive: false });
+
+
+    let initialPinchDistance = null;
+    let startScale = 1;
+
+    container.addEventListener('touchstart', (e) => {
+      if(e.target.closest('button') || e.target.closest('a')) return;
+      requestOrientationPermission();
+      
+      if (e.touches.length === 1) {
+        isDragging = true;
+        startX = e.touches[0].clientX;
+        startY = e.touches[0].clientY;
+        startOpacity = opacity;
+        startLongTap();
+      } else if (e.touches.length === 2) {
+        isDragging = false;
+        cancelLongTap();
+        initialPinchDistance = Math.hypot(
+          e.touches[0].clientX - e.touches[1].clientX,
+          e.touches[0].clientY - e.touches[1].clientY
+        );
+        startScale = imgScale;
+      }
+    });
+
+    container.addEventListener('touchmove', (e) => {
+      if(e.target.closest('button') || e.target.closest('a')) return;
+      e.preventDefault(); 
+      
+      if (e.touches.length === 1 && isDragging) {
+        checkDragCancelLongTap(e.touches[0].clientX, e.touches[0].clientY);
+        
+        let delta = isLandscape ? (e.touches[0].clientX - startX) : (e.touches[0].clientY - startY);
+        let newOpacity = startOpacity + (delta / 300);
+        opacity = Math.max(0, Math.min(1, newOpacity));
+        updateOverlay();
+      } else if (e.touches.length === 2 && initialPinchDistance) {
+        const currentDistance = Math.hypot(
+          e.touches[0].clientX - e.touches[1].clientX,
+          e.touches[0].clientY - e.touches[1].clientY
+        );
+        imgScale = startScale * (currentDistance / initialPinchDistance);
+        imgScale = Math.max(0.2, Math.min(5, imgScale));
+        updateOverlay();
+      }
+    }, { passive: false });
+
+    container.addEventListener('touchend', (e) => {
+      cancelLongTap();
+      if (e.touches.length < 2) {
+        initialPinchDistance = null;
+      }
+      if (e.touches.length === 0) {
+        isDragging = false;
+      }
+    });
+
+    function updateOverlay() {
+      overlay.style.opacity = opacity;
+      overlay.style.transform = `scale(${imgScale})`;
+    }
+    updateOverlay();
+
+    async function initCamera() {
+      if (!navigator.mediaDevices) {
+        alert("Turvalise ühenduse viga: Veebikaamera kasutamiseks peab ühendus olema turvaline (HTTPS või localhost). Telefonis testimiseks kasuta pordi suunamist (Port Forwarding) või HTTPS tunnelit.");
+        return;
+      }
+      try {
+        if (video.srcObject) {
+          video.srcObject.getTracks().forEach(track => track.stop());
+        }
+        
+        // Let's try to get higher resolution
+        const constraints = {
+            video: { 
+                facingMode: currentFacingMode,
+                width: { ideal: 4096 },
+                height: { ideal: 2160 } 
+            }
+        };
+        let stream;
+        try {
+          stream = await navigator.mediaDevices.getUserMedia(constraints);
+        } catch (constraintsError) {
+          console.warn("Kaamera ei toetanud kõrget resolutsiooni, proovin tavalist režiimi:", constraintsError);
+          stream = await navigator.mediaDevices.getUserMedia({
+              video: { facingMode: currentFacingMode }
+          });
+        }
+        video.srcObject = stream;
+        
+        if (currentFacingMode === 'user') {
+          video.style.transform = 'scaleX(-1)';
+        } else {
+          video.style.transform = 'none';
+        }
+      } catch (err) {
+        console.error("Kaamera viga:", err);
+        alert("Kaamera viga: " + err.name + " - " + err.message);
+      }
+    }
+
+    switchBtn.addEventListener('click', () => {
+      currentFacingMode = currentFacingMode === 'environment' ? 'user' : 'environment';
+      initCamera();
+    });
+
+    function capturePhoto() {
+      if (!video.videoWidth) return;
+
+      const vw = (window.visualViewport ? window.visualViewport.width : window.innerWidth);
+      const vh = (window.visualViewport ? window.visualViewport.height : window.innerHeight);
+      const screenAspect = vw / vh;
+      
+      const imgAspect = overlay.naturalWidth / overlay.naturalHeight;
+      let baseW, baseH;
+      if (screenAspect > imgAspect) {
+        baseH = vh;
+        baseW = vh * imgAspect;
+      } else {
+        baseW = vw;
+        baseH = vw / imgAspect;
+      }
+      
+      const displayW = baseW * imgScale;
+      const displayH = baseH * imgScale;
+      
+      const startX = (vw - displayW) / 2;
+      const startY = (vh - displayH) / 2;
+      
+      const videoAspect = video.videoWidth / video.videoHeight;
+      let renderVideoW, renderVideoH;
+      if (screenAspect > videoAspect) {
+        renderVideoW = vw;
+        renderVideoH = vw / videoAspect;
+      } else {
+        renderVideoH = vh;
+        renderVideoW = vh * videoAspect;
+      }
+      
+      const videoOffsetX = (renderVideoW - vw) / 2;
+      const videoOffsetY = (renderVideoH - vh) / 2;
+      
+      const vidX = startX + videoOffsetX;
+      const vidY = startY + videoOffsetY;
+      
+      const scaleFactor = video.videoWidth / renderVideoW;
+      let cropX = vidX * scaleFactor;
+      let cropY = vidY * scaleFactor;
+      let cropW = displayW * scaleFactor;
+      let cropH = displayH * scaleFactor;
+
+      const tempCanvas = document.createElement('canvas');
+      tempCanvas.width = video.videoWidth;
+      tempCanvas.height = video.videoHeight;
+      const tCtx = tempCanvas.getContext('2d');
+      
+      if (currentFacingMode === 'user') {
+        tCtx.translate(tempCanvas.width, 0);
+        tCtx.scale(-1, 1);
+      }
+      tCtx.drawImage(video, 0, 0, tempCanvas.width, tempCanvas.height);
+      
+      canvas.width = cropW;
+      canvas.height = cropH;
+      const ctx = canvas.getContext('2d');
+      
+      ctx.drawImage(tempCanvas, cropX, cropY, cropW, cropH, 0, 0, canvas.width, canvas.height);
+      
+      currentUploadScaleFactor = 1 / imgScale;
+
+      fullCanvas = document.createElement('canvas');
+      fullCanvas.width = tempCanvas.width;
+      fullCanvas.height = tempCanvas.height;
+      fullCanvas.getContext('2d').drawImage(tempCanvas, 0, 0);
+
+      previewOldImg.src = overlay.src;
+      document.getElementById('camera-container').style.display = 'none';
+      previewContainer.style.display = 'block';
+      // Exit fullscreen if active so system toasts do not obscure controls
+      if (document.fullscreenElement && document.exitFullscreen) {
+        document.exitFullscreen().catch(() => {});
+      }
+      // Show upload button now that we have an image to upload
+      uploadBtn.style.display = 'inline-block';
+    }
+
+    captureBtn.addEventListener('click', () => {
+      requestOrientationPermission();
+      capturePhoto();
+    });
+
+    const compassBadge = document.getElementById('compass-badge');
+    if (compassBadge) {
+      compassBadge.addEventListener('click', async (e) => {
+        e.stopPropagation();
+        let details = `Andurite olek:\n` +
+          `• Sündmusi: ${orientationEventsCount}\n` +
+          `• Viimased andmed: ${lastEventRaw ? JSON.stringify(lastEventRaw) : 'pole laekunud'}\n` +
+          `• Tuvastatud suund (yaw): ${currentYaw !== null ? currentYaw + '°' : 'puudub'}\n` +
+          `• isSecureContext: ${window.isSecureContext}\n` +
+          `• Protokoll: ${window.location.protocol}\n`;
+
+        if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
+          try {
+            const res = await DeviceOrientationEvent.requestPermission();
+            details += `• iOS luba: ${res}\n`;
+            if (res === 'granted') {
+              attachListeners();
+            }
+          } catch (err) {
+            details += `• Loa küsimise viga: ${err.message}\n`;
+          }
+        } else {
+          attachListeners();
+        }
+
+        if (orientationEventsCount === 0) {
+          details += `\n⚠️ Brauserilt ei ole laekunud ühtegi liikumisanduri sündmust.\n` +
+            `• Brave brauseris: ava aadressiribal lõvi ikoon (Brave Shields) ja lülita "Shields: DOWN" või luba "Fingerprinting".\n` +
+            `• Chrome'is: ava Seaded -> Saidi seaded -> Liikumisandurid -> Luba.`;
+        }
+        alert(details);
+      });
+    }
+
+    function stopCamera() {
+      if (video && video.srcObject) {
+        try {
+          video.srcObject.getTracks().forEach(track => track.stop());
+        } catch (e) {}
+        video.srcObject = null;
+      }
+    }
+
+    retakeBtn.addEventListener('click', () => {
+      previewContainer.style.display = 'none';
+      document.getElementById('camera-container').style.display = 'block';
+      // Hide upload button again until a new photo is captured
+      uploadBtn.style.display = 'none';
+      if (!video.srcObject || !video.srcObject.active) {
+        initCamera();
+      }
+    });
+
+    uploadBtn.addEventListener('click', () => {
+      // Require login before uploading
+      if (!userIsAuthenticated || !userIsSocialConnected) {
+        try {
+          if (typeof window.openLoginModal === 'function') {
+            window.openLoginModal('rephoto');
+          } else {
+            window.location.href = loginUrl;
+          }
+        } catch (e) {
+          window.location.href = loginUrl;
+        }
+        return;
+      }
+
+      stopCamera();
+
+      loadingOverlay.innerHTML = `
+        <div style="text-align:center; padding: 20px;">
+          <div class="ajp-rotate-ani" style="font-size: 36px; margin-bottom: 12px;">⏳</div>
+          <div id="loading-overlay-status" style="font-size: 16px; font-weight: 600;">Töötlen fotot...</div>
+        </div>
+      `;
+      loadingOverlay.style.display = 'flex';
+      
+      const scaleFactor = currentUploadScaleFactor;
+      const metadata = JSON.stringify({
+        author_id: currentUserId,
+        ajapaik_parent_photo_id: {{ photo.id }},
+        scale_factor: scaleFactor,
+        created_at: Date.now(),
+        lat: deviceLat,
+        lon: deviceLon,
+        yaw: currentYaw,
+        pitch: currentPitch,
+        roll: currentRoll
+      });
+
+      Promise.all([
+          new Promise(resolve => canvas.toBlob(resolve, 'image/jpeg', 0.88)),
+          new Promise(resolve => fullCanvas.toBlob(resolve, 'image/jpeg', 0.88))
+      ]).then(async ([croppedBlob, fullBlob]) => {
+        const statusEl = document.getElementById('loading-overlay-status');
+        if (statusEl) statusEl.innerText = 'Salvestan seadmesse...';
+
+        // Inject metadata into JPEG comment marker
+        const croppedWithMeta = await AjpRephotoUploader.injectJpegComment(croppedBlob, metadata);
+        const fullWithMeta = await AjpRephotoUploader.injectJpegComment(fullBlob, metadata);
+
+        if (statusEl) statusEl.innerText = 'Valmis! Suunan edasi...';
+
+        await AjpRephotoUploader.enqueue(
+          currentUserId,
+          {{ photo.id }},
+          '{{ photo.get_pseudo_slug }}',
+          fullWithMeta,
+          croppedWithMeta,
+          scaleFactor,
+          '{% url "rephoto_upload" photo.id %}',
+          '{% url "photo" photo.id photo.get_pseudo_slug %}',
+          deviceLat,
+          deviceLon,
+          currentYaw,
+          currentPitch,
+          currentRoll
+        ).catch(error => {
+          console.error('Error queueing upload:', error);
+          alert('Viga järjekorda lisamisel');
+          loadingOverlay.style.display = 'none';
+        });
+      });
+    });
+
+    const orientationHint = document.getElementById('orientation-hint');
+    const orientationHintText = document.getElementById('orientation-hint-text');
+
+    function checkOrientation() {
+      if (!overlay.naturalWidth) return;
+      
+      const imgAspect = overlay.naturalWidth / overlay.naturalHeight;
+      const screenAspect = window.innerWidth / window.innerHeight;
+      
+      if (imgAspect > 1.1) {
+        if (screenAspect < 1) {
+          orientationHintText.innerText = "Soovitus: pööra telefon külili paremaks ühtivuseks";
+          orientationHint.style.display = 'inline-flex';
+          return;
+        }
+      } else if (imgAspect < 0.9) {
+        if (screenAspect > 1) {
+          orientationHintText.innerText = "Soovitus: hoia telefoni püsti paremaks ühtivuseks";
+          orientationHint.style.display = 'inline-flex';
+          return;
+        }
+      }
+      orientationHint.style.display = 'none';
+    }
+
+    window.addEventListener('resize', checkOrientation);
+    window.addEventListener('orientationchange', checkOrientation);
+    overlay.addEventListener('load', checkOrientation);
+    checkOrientation();
+
+    // Start camera immediately without waiting for historical image load
+    initCamera();
+  </script>
+</body>
+</html>

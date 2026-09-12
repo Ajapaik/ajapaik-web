@@ -31,7 +31,5 @@ class Command(BaseCommand):
         people = Album.objects.filter(atype=Album.PERSON).all()
         print('Found %s people to run on' % people.count())
         # TODO: multiprocessing is probably too error-prone to actually use it...
-        # with multiprocessing.Pool() as pool:
-        #     pool.map(map_single_person, people)
         for person in people:
             map_single_person(person)

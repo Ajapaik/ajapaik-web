@@ -7,10 +7,6 @@
         this.node = node;
 
         this.options = $.extend({}, options);
-        // Do not show map if isMobile is true
-        if (options.isMobile) {
-            return;
-        }
         // Create map only if we have coordinates
         if (options.latitude && options.longitude) {
             this.UI = $([
@@ -21,6 +17,13 @@
 
             $(this.node).html(this.UI);
             $(this.node).css('z-index', '99');
+            if (options.isMobile || window.innerWidth < 992) {
+                $(this.node).css({
+                    'display': 'block',
+                    'width': '100%',
+                    'height': '220px'
+                });
+            }
             $(this.node).show();
             this.initializeMap();
         }
@@ -33,7 +36,7 @@
             var map = L.map('ajp-photo-modal-map-canvas', { fullscreenControl: true });
 
             // OSM layer
-            var osmUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+            var osmUrl = 'https://tile.openstreetmap.de/{z}/{x}/{y}.png';
             var osmAttrib = 'Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors';
             var osm = new L.TileLayer(osmUrl, {minZoom: 5, maxZoom: 18, attribution: osmAttrib});
 
@@ -70,6 +73,10 @@
             $('#ajp-photo-modal-map-textbox').append(coordinatelink);
 
             // In modal view map doesn't know it's size until elements are created
+            setTimeout(function () {
+                map.invalidateSize();
+            }, 200);
+
             setTimeout(function () {
                 map.invalidateSize();
 

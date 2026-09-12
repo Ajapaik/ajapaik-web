@@ -1,7 +1,7 @@
 {% load i18n %}
 <div id="ajp-photo-rephoto-info-column" class="col-lg-6 col-md-12 col-xs-12">
     {% if rephoto.author %}
-        <div class="w-100"><b>{{ rephoto.author }}</b>
+        <div class="w-100"><b>{{ rephoto.author }}{% if rephoto.date %}, {{ rephoto.date }}{% endif %}</b>
             {% if rephoto.licence %}
                 {% include "photo/_licence.html" with licence=rephoto.licence %}
             {% endif %}
@@ -13,29 +13,23 @@
                 rel="noopener nofollow"
                 href="{{ rephoto.source_url }}" target="_blank">
                 {{ rephoto.source.description }} {{ rephoto.source_key }}
-            </a>
+            </a>{% if rephoto.date %}, {{ rephoto.date }}{% endif %}
         </div>
     {% else %}
         <div class="w-100">
             <a id="ajp-photo-modal-rephoto-user-link"
-                {% if rephoto.user.id %} href="/user/{{rephoto.user.id}}" {% endif %}
+                {% if rephoto.user_id %} href="/user/{{rephoto.user_id}}" {% endif %}
                 target="_blank">
-                {% if rephoto.user.fb_name %}
-                    {{ rephoto.user.fb_name }}
-                {% elif rephoto.user.fb_name %}
-                    {{ rephoto.user.google_plus_name }}
-                {% else %}
-                    {{ rephoto.user.get_display_name }}
-                {% endif %}
-            </a>
+                {{ rephoto.user_name }}
+            </a>{% if rephoto.date %}, {{ rephoto.date }}{% endif %}
         <br>
         {% include 'photo/_licence.html' %}
         </div>
     {% endif %}
-    {% if rephoto.date %}
+    {% if rephoto.date_text %}
         <div class="w-100">
             {% trans "Date taken" %}&nbsp;
-            <div id="ajp-photoview-date-taken">{{ rephoto.date|date:"d.m.Y" }}</div>
+            <div id="ajp-photoview-date-taken">{{ rephoto.date_text }}</div>
         </div>
     {% endif %}
     {% if request.user.is_superuser %}

@@ -11,11 +11,11 @@ from ajapaik.ajapaik_object_recognition.object_annotation_utils import AGE_NOT_S
 
 
 def update_face_annotation(request: FaceAnnotationUpdateRequest, http_request: HttpRequest) -> bool:
-    annotation = FaceRecognitionRectangle.objects.get(pk=request.annotation_id)
+    annotation: FaceRecognitionRectangle = FaceRecognitionRectangle.objects.get(pk=request.annotation_id)
 
     is_annotation_editable = object_annotation_utils.is_face_annotation_editable(
-        request.user_id,
-        annotation
+        user_id=request.user_id,
+        annotation=annotation
     )
 
     if not is_annotation_editable:
@@ -48,7 +48,7 @@ def get_existing_user_suggestion(annotation: FaceRecognitionRectangle, request: 
     try:
         return FaceRecognitionUserSuggestion.objects.get(
             rectangle=annotation,
-            user_id=request.user_id
+            id=request.user_id
         )
     except FaceRecognitionUserSuggestion.DoesNotExist:
         return None
@@ -79,7 +79,7 @@ def update_user_suggestions(http_request: HttpRequest, annotation_id: int, updat
 
 
 def create_user_feeback(annotation: FaceRecognitionRectangle, update_request: FaceAnnotationUpdateRequest):
-    proposer = Profile.objects.filter(user_id=update_request.user_id).first()
+    proposer = Profile.objects.filter(id=update_request.user_id).first()
     new_suggestion = FaceRecognitionRectangleSubjectDataSuggestion(face_recognition_rectangle=annotation,
                                                                    proposer=proposer,
                                                                    gender=update_request.new_gender_suggestion,
@@ -94,14 +94,5 @@ def get_existing_user_additional_data_suggestion(proposer, annotation_id):
             proposer=proposer,
             face_recognition_rectangle_id=annotation_id
         )
-    except FaceRecognitionRectangleSubjectDataSuggestion.DoesNotExist:
-        return None
-
-
-def get_existing_data_suggestion(annotation_id):
-    try:
-        return FaceRecognitionRectangleSubjectDataSuggestion.objects.get(
-            face_recognition_rectangle_id=annotation_id
-        ).first()
     except FaceRecognitionRectangleSubjectDataSuggestion.DoesNotExist:
         return None

@@ -11,6 +11,7 @@ from django.utils import timezone
 from rest_framework.renderers import JSONRenderer
 
 from ajapaik.ajapaik.models import Album, AlbumPhoto, Points
+from ajapaik.ajapaik.serializers import PhotoFaceCategorizationSerializer
 from ajapaik.ajapaik_face_recognition.domain.face_annotation_feedback_request import FaceAnnotationFeedbackRequest
 from ajapaik.ajapaik_face_recognition.domain.face_annotation_remove_request import FaceAnnotationRemoveRequest
 from ajapaik.ajapaik_face_recognition.domain.face_annotation_update_request import FaceAnnotationUpdateRequest
@@ -32,6 +33,7 @@ def add_subject(request: HttpRequest) -> HttpResponse:
     context = {'form': form}
     status = 200
     if request.method == 'POST':
+        profile = request.get_user().profile
         form = FaceRecognitionAddPersonForm(request.POST.copy())
         context['form'] = form
         if form.is_valid():
@@ -39,7 +41,7 @@ def add_subject(request: HttpRequest) -> HttpResponse:
             new_album.atype = Album.PERSON
             new_album.is_public = True
             new_album.open = True
-            new_album.profile = request.user.profile
+            new_album.profile = profile
             new_album.save()
 
             status = 201
@@ -56,7 +58,7 @@ def _get_consensus_subject(rectangle: FaceRecognitionRectangle) -> Optional[int]
 
     suggestions_so_far_for_this_rectangle = FaceRecognitionUserSuggestion.objects.filter(rectangle=rectangle) \
         .distinct('user').order_by('user', '-created').all()
-    subject_counts = OrderedCounter(g.subject_album.id for g in suggestions_so_far_for_this_rectangle)
+    subject_counts = OrderedCounter(g.subject_album_id for g in suggestions_so_far_for_this_rectangle)
     dict_keys = list(subject_counts)
     if len(dict_keys) == 0:
         return None
@@ -64,13 +66,13 @@ def _get_consensus_subject(rectangle: FaceRecognitionRectangle) -> Optional[int]
     return dict_keys[0]
 
 
-def save_subject_object(subject_album, rectangle, user_id, user_profile):
+def save_subject_object(subject_album, rectangle, user_profile):
     status = 200
 
     new_suggestion = FaceRecognitionUserSuggestion(
         subject_album=subject_album,
         rectangle=rectangle,
-        user_id=user_id,
+        user_id=user_profile.id,
         origin=FaceRecognitionUserSuggestion.USER
     )
     new_suggestion.save()
@@ -148,8 +150,10 @@ def add_person_rectangle(values, photo, user_id):
 
 
 def add_rectangle_feedback(request, annotation_id):
+    profile = request.get_user().profile
+
     face_annotation_feedback_request = FaceAnnotationFeedbackRequest(
-        request.user.id,
+        profile.id,
         annotation_id,
         QueryDict(request.body)
     )
@@ -161,11 +165,11 @@ def add_rectangle_feedback(request, annotation_id):
 def update_annotation(request: HttpRequest, annotation_id: int):
     if request.method != 'PUT':
         return response.not_supported()
-
+    profile = request.get_user().profile
     face_annotation_update_request = FaceAnnotationUpdateRequest(
         QueryDict(request.body),
         annotation_id,
-        request.user.id
+        profile.id
     )
 
     is_successful = face_annotation_edit_service.update_face_annotation(face_annotation_update_request, request)
@@ -180,7 +184,8 @@ def remove_annotation(request: HttpRequest, annotation_id: int) -> HttpResponse:
     if request.method != 'DELETE':
         return response.not_supported()
 
-    face_annotation_remove_request = FaceAnnotationRemoveRequest(annotation_id, request.user.id)
+    profile = request.get_user().profile
+    face_annotation_remove_request = FaceAnnotationRemoveRequest(annotation_id, profile.id)
     has_removed_successfully = face_annotation_delete_service.remove_annotation(face_annotation_remove_request)
 
     if has_removed_successfully:
@@ -275,14 +280,14 @@ def get_subject_data(request, rectangle_id=None):
     subject_id = None
     if rectangle and rectangle.subject_consensus:
         has_consensus = True
-        subject_id = rectangle.subject_consensus.id
+        subject_id = rectangle.subject_consensus_id
     elif rectangle and rectangle.subject_ai_suggestion:
         has_consensus = True
-        subject_id = rectangle.subject_ai_suggestion.id
+        subject_id = rectangle.subject_ai_suggestion_id
 
     context = {
         'rectangle': rectangle,
-        'photo': rectangle.photo,
+        'photo': PhotoFaceCategorizationSerializer(rectangle.photo).data,
         'coordinates': rectangle.coordinates,
         'next_action': next_action,
         'has_consensus': has_consensus,

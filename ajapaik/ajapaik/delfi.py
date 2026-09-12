@@ -96,10 +96,10 @@ def photo_info(request):
             'longitude': location.x,
             'source': source_str,
             'url': request.build_absolute_uri(
-                reverse('photo', args=(photo.id, photo.get_pseudo_slug()))
+                reverse('photo', args=(photo.id, photo.get_pseudo_slug))
             ),
             'thumbUrl': request.build_absolute_uri(
-                reverse('image_thumb', args=(photo.id, 400, photo.get_pseudo_slug()))
+                reverse('image_thumb', args=(photo.id, 400, photo.get_pseudo_slug))
             )
         })
 

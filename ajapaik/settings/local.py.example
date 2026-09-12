@@ -73,3 +73,6 @@ RECAPTCHA_PUBLIC_KEY = 'not-so-seekrit'
 RECAPTCHA_PRIVATE_KEY = 'seekrit'
 
 GOOGLE_MAPS_API_KEY = ''
+
+# Fake e-mail backend - so that we can register accounts locally.
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"

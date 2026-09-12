@@ -14,20 +14,16 @@
     {% if photo.video %}
         <a href="{% url 'frontpage' %}?album={{ photo.albums.all.0.id }}&video={{ photo.video.id }}&t={{ seconds }}">{{ photo.get_display_text }}</a>
     {% else %}
-        {% if photo.get_display_text %}
+        {% if photo.display_text %}
             <div id="ajp-photo-description" class="w-100">
-                {{ photo.get_display_text }}
+                {{ photo.display_text }}
                  {% if photo.title and photo.description %}
                      <br> {{ photo.description }}
                  {% endif %}
             </div>
         {% endif %}
     {% endif %}
-    {% if photo.date %}
-        <div class="w-100">
-                {{ photo.date }}
-        </div>
-    {% elif photo.date_text %}
+    {% if photo.date_text %}
         <div class="w-100">
                 {{ photo.date_text }}
         </div>

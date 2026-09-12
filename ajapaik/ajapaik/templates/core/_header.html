@@ -14,7 +14,7 @@
             {% endif %}
             <input type="search" id="ajp-photo-filter-box" class="form-control mx-2 pr-1{% if not show_photos or is_game %} d-none{% endif %}" style="height:35px;"
                     placeholder="{% trans "Search photos" %}"/>
-            <div class="px-2 pt-2" {% if is_frontpage and not album %} style="min-width: 354px;" {% elif not is_mapview %} style="min-width: 320px;" {% elif is_mapview %} style="min-width: 235px;"{% endif %}  354px>
+            <div class="px-2 pt-2" {% if is_frontpage and not album %} style="min-width: 354px;" {% elif not is_mapview %} style="min-width: 320px;" {% elif is_mapview %} style="min-width: 235px;"{% endif %}>
                 {% include "filtering/_filtering_dropdown.html" %}
                 <a role="button" title="{% trans 'Show in grid' %}"
                     href="{% if album %}/?album={{ album.0 }}{% else %}#{% endif %}" class="ajp-header-button" id="ajp-header-grid-button">
@@ -118,7 +118,7 @@
 {% endif %}
 {% block specific_js %}
 <script>
-        let albumDataUrl = "{% if album %}{% url 'face_recognition_api_album_data' album.0 %}{% else %} {% endif%}";
+        let albumDataUrl = "{% if album %}{% url 'face_recognition_api_album_data' album.id %}{% else %} {% endif%}";
         function handleFaceCategorizationClick() {
             let album = "{{ album.0 }}";
             if (album !== '') {

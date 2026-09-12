@@ -9,8 +9,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         photos = Photo.objects.filter(latest_comment__isnull=False)
-        query_string = 'https://graph.facebook.com/?id=%s&scrape=true'
-        url_template = 'https://ajapaik.ee/foto/%d/'
+
         for p in photos:
-            url = url_template % p.id
-            requests.post(query_string % url)
+            url = f'https://ajapaik.ee/photo/{p.id}'
+            requests.post(f'https://graph.facebook.com/?id={url}&scrape=true')

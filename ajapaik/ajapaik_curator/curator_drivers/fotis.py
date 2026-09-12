@@ -1,11 +1,11 @@
-import math
 from datetime import datetime, timedelta
 from json import dumps, loads
 
+from django.conf import settings
 from requests import get
 
-from ajapaik.ajapaik.fotis_utils import transform_fotis_persons_response
 from ajapaik.ajapaik.models import Photo, AlbumPhoto, Album
+from ajapaik.ajapaik_curator.utils import transform_fotis_persons_response
 
 
 class FotisDriver(object):
@@ -17,9 +17,11 @@ class FotisDriver(object):
                                 '&filter[or][][author][like]=%s' \
                                 '&filter[or][][location][like]=%s' \
                                 '&filter[or][][person][like]=%s' \
+                                '&per-page=100' \
                                 '&page=%s'
         self.ref_search_url = 'https://www.ra.ee/fotis/api/index.php/v1/photo' \
                               '?filter[reference_code][like]=%s' \
+                              '&per-page=100' \
                               '&page=%s'
 
     def search(self, cleaned_data, max_results=20):
@@ -33,19 +35,23 @@ class FotisDriver(object):
         else:
             url = self.broad_search_url % (query, query, query, query, query, page)
 
-        response = get(url)
+        headers = {'User-Agent': settings.UA}
+        response = get(url, headers=headers, timeout=15)
         response_headers = response.headers
-        results = loads(response.text)
+        if response.status_code == 200:
+            results = loads(response.text)
+        else:
+            results = []
 
         # Ensure we always return a dictionary consistent with expected structure
         return {
             'records': results,
-            'pageSize': 20,
+            'pageSize': 100,
             'page': int(response_headers.get('X-Pagination-Current-Page', page)),
             'pageCount': int(response_headers.get('X-Pagination-Page-Count', 1))
         }
 
-    def transform_response(self, response, remove_existing=False, fotis_page=1):
+    def transform_response(self, response, remove_existing=False):
         ids = [p['id'] for p in response['records']]
         transformed = {
             'result': {
@@ -78,9 +84,8 @@ class FotisDriver(object):
                     'title': title,
                     'institution': 'Fotis',
                     'cachedThumbnailUrl': p['_links']['image']['href'],
-                    # HACK: new image url for image files without the black strip below
-                    'imageUrl': f'https://www.meediateek.ee/photo/full?id={p["id"]}',
-                    'urlToRecord': p['_links']['view']['href'],
+                    'imageUrl': p['_links']['image']['href'],
+                    'urlToRecord': f'https://www.meediateek.ee/photo/view?id={p["id"]}',
                     'creators': p['author'],
                     'persons': transform_fotis_persons_response(persons_str) if persons_str else [],
                     'start_date': start_date.isoformat() if start_date else None,

@@ -1210,3 +1210,6 @@ msgstr "Automaatselt tuvastatud objekt"
 msgid "View object on Wikidata"
 msgstr "Vaata Wikidata objekti"
 
+msgid "Rephotograph nearby"
+msgstr "Ülepildistamine minu lähedal"
+

@@ -54,15 +54,16 @@
             leaderboardFullURL = "{% url "top50" %}",
             difficultyFeedbackURL = "{% url "difficulty_feedback" %}",
             mapDataURL = "{% url "map_objects_by_bounding_box" %}";
-        {% if query_string %}
-            window.photoQuery = "{{ query_string | safe }}";
+        {% if request.GET.q %}
+            window.photoQuery = "{{ request.GET.q }}";
         {% endif %}
         {% if album %}
-            window.albumId = "{{ album.0 | safe }}";
-            {% if album.1 and album.2 %}
-                window.albumLatLng = new window.google.maps.LatLng({{ album.2 | safe }}, {{ album.3 | safe }});
+            window.albumId = "{{ album.id }}";
+            {% if album.lat and album.lon %}
+                window.albumLatLng = new window.google.maps.LatLng({{ album.lat }}, {{ album.lon }});
             {% endif %}
         {% endif %}
+        window.currentlySelectedPhotoId = "{{ photo.id }}";
         let photoModalCurrentImageUrl;
         window.linkToMap = false;
         window.linkToGame = true;

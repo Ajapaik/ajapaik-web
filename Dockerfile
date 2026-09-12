@@ -1,5 +1,4 @@
-FROM ubuntu:20.04 AS builder
-#FROM laurielias/python-3.8.10-dlib:latest AS builder
+FROM python:3.12-slim-bookworm AS builder
 
 ENV DEBIAN_FRONTEND noninteractive
 
@@ -18,16 +17,17 @@ WORKDIR /home/docker/ajapaik
 COPY requirements.txt .
 
 RUN pip3 install --upgrade pip && \
+    pip3 wheel --wheel-dir=./wheels/ setuptools wheel && \
     pip3 wheel --wheel-dir=./wheels/ uwsgi && \
     pip3 wheel --wheel-dir=./wheels/ -r requirements.txt
 
 # Lightweight deployment image this time
-FROM python:3.8.10-slim AS deployer
+FROM python:3.12-slim-bookworm AS deployer
 
 ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends netcat ffmpeg libxext6 uwsgi python3-opencv binutils libproj-dev gdal-bin libglib2.0-0 libsm6 \
+    apt-get install -y --no-install-recommends netcat-openbsd ffmpeg libxext6 uwsgi python3-opencv binutils libproj-dev gdal-bin libglib2.0-0 libsm6 \
     libxrender-dev gettext procps libgdal-dev && \
     rm -rf /var/lib/apt/lists/*
 
@@ -37,7 +37,8 @@ COPY --from=builder /home/docker/ajapaik/wheels ./wheels
 
 COPY requirements.txt wsgi.py manage.py ./
 
-RUN pip3 install --no-index --find-links=./wheels uwsgi -r requirements.txt && rm -rf ./wheels \
+RUN pip3 install --no-index --find-links=./wheels setuptools wheel && \
+    pip3 install --no-index --find-links=./wheels uwsgi -r requirements.txt && rm -rf ./wheels \
     && rm -rf requirements.txt && rm -rf ajapaik/tests && rm -rf ajapaik/ajapaik/tests
 
 COPY ajapaik ./ajapaik

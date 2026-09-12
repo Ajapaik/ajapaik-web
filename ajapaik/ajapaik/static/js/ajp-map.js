@@ -8,6 +8,18 @@
     /*global google*/
     /*global commonVgmapi*/
 
+    const MAP_FILTERS = ['mapType',
+        'album',
+        'lat',
+        'lng',
+        'zoom',
+        'maps-city',
+        'maps-index',
+        'photoModalOpen',
+        'limitToAlbum',
+        'straightToSpecify',
+        'q'];
+
     var markerClustererSettings = {
         minimumClusterSize: 2,
         maxZoom: 17,
@@ -65,7 +77,7 @@
         return markers.find(function(marker) {
             return marker.photoData.id === photoId;
         });
-    };
+    }
 
     window.loadPhoto = function(id) {
         photoId = id;
@@ -92,7 +104,7 @@
                     similarPhotoColumn.hide();
                     $('#ajp-photo-modal-similar-photo-info-column').hide();
                 }
-                if (window.photoModalRephotoArray && window.photoModalRephotoArray[0] && window.photoModalRephotoArray[0][2] != 'None' && window.photoModalRephotoArray[0][2] != '') {
+                if (window.photoModalRephotoArray && window.photoModalRephotoArray[0] && window.photoModalRephotoArray[0][2] !== 'None' && window.photoModalRephotoArray[0][2] !== '') {
                     $('#ajp-photo-modal-date-row').show();
                 }
                 mainPhotoContainer.hover(function() {
@@ -194,50 +206,48 @@
 
     window.syncMapStateToURL = function() {
         // FIXME: Do this more elegantly
-        var historyReplacementString = '/map/';
+        let uriPath = '/map/';
         if (currentlySelectedMarker) {
-            historyReplacementString += 'photo/' + currentlySelectedMarker.photoData.id + '/';
+            uriPath += 'photo/' + currentlySelectedMarker.photoData.id + '/';
+        } else if (window.currentlySelectedRephotoId) {
+            uriPath += 'rephoto/' + window.currentlySelectedRephotoId + '/';
         }
-        if (window.currentlySelectedRephotoId) {
-            historyReplacementString += 'rephoto/' + window.currentlySelectedRephotoId + '/';
-        }
-        if (window.albumId) {
-            historyReplacementString += '?album=' + window.albumId;
-        }
+        let uri = URI(window.location);
+        uri.path = uriPath;
 
+        MAP_FILTERS.forEach(filter => uri.removeQuery(filter));
+
+        if (window.albumId) {
+            uri.addQuery('album', window.albumId);
+        }
         if (window.map) {
             var typeId = window.map.getMapTypeId();
-            historyReplacementString += '&mapType=' + typeId;
-            historyReplacementString += '&lat=' + window.map.getCenter().lat();
-            historyReplacementString += '&lng=' + window.map.getCenter().lng();
-            historyReplacementString += '&zoom=' + window.map.zoom;
+            uri.addQuery('mapType', typeId);
+            uri.addQuery('lat', window.map.getCenter().lat());
+            uri.addQuery('lng', window.map.getCenter().lng());
+            uri.addQuery('zoom', window.map.zoom);
+
             if (typeId === 'old-maps') {
-                historyReplacementString += '&maps-city=' + commonVgmapi.vars.site;
-                historyReplacementString += '&maps-index=' + commonVgmapi.vars.layerIndex;
+                uri.addQuery('maps-city', commonVgmapi.vars.site);
+                uri.addQuery('maps-city', commonVgmapi.vars.layerIndex);
             }
         }
+
         if (photoDrawerOpen || window.suggestionLocationStarted) {
-            historyReplacementString += '&photoModalOpen=1';
+            uri.addQuery('photoModalOpen', 1);
         }
-        if (limitByAlbum) {
-            historyReplacementString += '&limitToAlbum=1';
-        } else {
-            historyReplacementString += '&limitToAlbum=0';
-        }
+
+        uri.addQuery('limitToAlbum', limitByAlbum ? 1 : 0);
+
         if (window.suggestionLocationStarted) {
-            historyReplacementString += '&straightToSpecify=1';
+            uri.addQuery('straightToSpecify', 1);
         }
         if (window.photoQuery) {
-            historyReplacementString += '&q=' + window.photoQuery;
+            uri.addQuery('q', window.photoQuery);
             $('#ajp-photo-filter-box').val(decodeURIComponent(window.photoQuery).replace('%2C', ',').replace('%3A', ':').replace('%2F', '/').replace('+', ' '));
         }
-        if (historyReplacementString.startsWith('/map/&')) {
-            historyReplacementString = historyReplacementString.replace('&', '?');
-        }
-        if (historyReplacementString.indexOf('?') === -1 && historyReplacementString.indexOf('&') !== -1) {
-            historyReplacementString = historyReplacementString.replace('&', '?');
-        }
-        window.history.replaceState(null, window.title, historyReplacementString);
+
+        window.history.replaceState(null, window.title, uri);
     };
 
 
@@ -290,10 +300,10 @@
         $('#close-btn').show();
         $('#open-btn').show();
         $('#ajp-photo-modal').show(0, function() {
-            if ($('#ajp-photo-modal-original-photo-column').height()) {
-                let b = $('#ajp-photo-modal-original-photo-column').height();
+            let photoHeight = $('#ajp-photo-modal-original-photo-column').height();
+            if (photoHeight) {
                 if (document.getElementById('ajp-photo-modal-map-container')) {
-                    document.getElementById('ajp-photo-modal-map-container').style.height = b + 'px';
+                    document.getElementById('ajp-photo-modal-map-container').style.height = photoHeight + 'px';
                 }
             }
         });
@@ -341,6 +351,8 @@
                 currentMapDataRequest.abort();
             }
             sw = updateBoundingEdge(sw);
+
+            let searchParams = new URLSearchParams(document.location.search);
             var payload = {
                 album: window.albumId,
                 limit_by_album: limitByAlbum,
@@ -348,7 +360,28 @@
                 sw_lon: sw.lng(),
                 ne_lat: ne.lat(),
                 ne_lon: ne.lng(),
-                query_string: window.photoQuery,
+                q: window.photoQuery,
+                // Shared query params (gallery/album/map)
+                portrait: searchParams.get('portrait'),
+                square: searchParams.get('square'),
+                landscape: searchParams.get('landscape'),
+                panoramic: searchParams.get('panoramic'),
+                backsides: searchParams.get('backsides'),
+                people: searchParams.get('people'),
+                ground_viewpoint_elevation: searchParams.get('ground_viewpoint_elevation'),
+                raised_viewpoint_elevation: searchParams.get('raised_viewpoint_elevation'),
+                aerial_viewpoint_elevation: searchParams.get('aerial_viewpoint_elevation'),
+                interiors: searchParams.get('interiors'),
+                exteriors: searchParams.get('exteriors'),
+                no_geotags: searchParams.get('no_geotags'),
+                high_quality: searchParams.get('high_quality'),
+                date_from: searchParams.get('date_from'),
+                date_to: searchParams.get('date_to'),
+                // Shared sorting parameters
+                order1: searchParams.get('order1'),
+                order2: searchParams.get('order2'),
+                order3: searchParams.get('order3'),
+                // CSRF token
                 csrfmiddlewaretoken: docCookies.getItem('csrftoken'),
             };
             if (window.map.zoom <= markerClustererSettings.maxZoom) {
@@ -430,7 +463,7 @@
                     ),
                 );
                 google.maps.event.addListener(mc, 'clusteringend', function() {
-                    if (photosOnSidePanel.length != 0) {
+                    if (photosOnSidePanel.length !== 0) {
                         return;
                     }
                     if (map.zoom > markerClustererSettings.maxZoom) {
@@ -471,29 +504,19 @@
             (current_bunch + 1) * sidePanelPhotosBunchSize,
         ));
         current_bunch++;
-    };
+    }
 
-    window.checkLoadedSidePanelPhotos = function(element) {
+    window.checkLoadedSidePanelPhotos = function() {
         var photos_count = $('#img-wrapper .side-panel-photo').length;
-        if (photos_count <= ++loadedPhotosCount) {
-            if (photos_count >= photosOnSidePanel.length) {
-                window.morePhotosCanBeLoaded = false;
-            } else {
-                window.morePhotosCanBeLoaded = true;
-            }
-        }
+        window.morePhotosCanBeLoaded = photos_count <= ++loadedPhotosCount && photos_count < photosOnSidePanel.length;
     };
 
     function refreshPane(photosToAdd) {
         $('#img-wrapper').append(
             tmpl('ajp-map-view-side-panel-element-template', photosToAdd),
         );
-        if (photosToAdd.length == 0) {
-            window.morePhotosCanBeLoaded = false;
-        } else {
-            window.morePhotosCanBeLoaded = true;
-        }
-    };
+        window.morePhotosCanBeLoaded = photosToAdd.length !== 0;
+    }
 
 
     window.deselectMarker = function() {
@@ -525,7 +548,8 @@
         }
         currentlySelectedMarker = marker;
         window.syncMapStateToURL();
-        $('#img-wrapper').find('img').removeClass('highlighted-image');
+        const imageWrapper = $('#img-wrapper');
+        imageWrapper.find('img').removeClass('highlighted-image');
         targetPaneElement.find('img').addClass('highlighted-image');
         if (!fromMarker) {
             window.gtag('event', 'photo_pane_click', { 'category': 'Map' });
@@ -535,7 +559,7 @@
         }
         lastSelectedMarkerId = marker.photoData.id;
         for (var i = 0; i < markers.length; i += 1) {
-            if (markers[i].photoData.id == marker.photoData.id) {
+            if (markers[i].photoData.id === marker.photoData.id) {
                 targetPaneElement.find('img').attr('src', markers[i].thumb);
                 markers[i].setZIndex(maxIndex);
                 maxIndex += 1;
@@ -560,25 +584,21 @@
         }
         lastHighlightedMarker = marker;
         if (targetPaneElement.length) {
-            var scrollElement = $('#img-wrapper');
-
             if (window.innerWidth > 768) {
-                var currentScrollValue = scrollElement.scrollTop();
                 // Calculating scroll value to place photo in middle of screen.
-                var scrollValue = currentScrollValue + (
+                let scrollValue = imageWrapper.scrollTop() + (
                     targetPaneElement.position().top - (
-                        scrollElement.height() / 2 - targetPaneElement.height() / 2
+                        imageWrapper.height() / 2 - targetPaneElement.height() / 2
                     )
                 );
-                scrollElement.animate({ scrollTop: scrollValue }, 800);
+                imageWrapper.animate({ scrollTop: scrollValue }, 800);
             } else {
-                var currentScrollValue = scrollElement.scrollLeft();
-                var scrollValue = currentScrollValue + (
+                let scrollValue = imageWrapper.scrollLeft() + (
                     targetPaneElement.position().left - (
-                        scrollElement.width() / 2 - targetPaneElement.width() / 2
+                        imageWrapper.width() / 2 - targetPaneElement.width() / 2
                     )
                 );
-                scrollElement.animate({ scrollLeft: scrollValue }, 800);
+                imageWrapper.animate({ scrollLeft: scrollValue }, 800);
             }
             window.gtag('event', 'marker_click', { 'category': 'Map' });
         }
@@ -586,10 +606,9 @@
     };
 
 
-    window.handleAlbumChange = function() {
-        if (window.albumId) {
-            window.location.href = '/map?album=' + window.albumId;
-        }
+    window.handleAlbumChange = function(id) {
+        window.albumId = id;
+        window.location.href = '/map?album=' + id;
     };
 
     var setCorrectMarkerIcon = function(marker) {
@@ -667,8 +686,6 @@
             } else if (window.albumLatLng) {
                 // There's nothing preselected, but we do know the album the photo's in
                 window.getMap(this.albumLatLng, 16, false, urlMapType);
-            } else if (window.areaLatLng) {
-                window.getMap(window.areaLatLng, 16, false, urlMapType);
             } else {
                 // No idea
                 window.getMap(null, 16, false, urlMapType);

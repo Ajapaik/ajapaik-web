@@ -42,10 +42,10 @@
                                class="float-left" rel="noopener">{{ video.source.description }} {{ video.source_key }}</a>
                         </div>
                     {% endif %}
-                    {% if video.albums.all|length > 0 %}
+                    {% if video.albums|length > 0 %}
                         <span class="material-icons notranslate">movie</span>
                     {% endif %}
-                    {% for a in video.albums.all %}
+                    {% for a in video.albums %}
                         <div class="row" id="ajp-video-album-list">
                                 <div class=col-auto">
                                     <a class="ajp-video-album-link"

@@ -1,0 +1,393 @@
+from math import ceil
+from time import time
+from typing import Union
+
+from django.conf import settings
+from django.contrib.gis.db.models.functions import GeometryDistance
+from django.contrib.gis.geos import Point
+from django.db.models import Case, Count, F, Exists, OuterRef, When, IntegerField
+from haystack.inputs import AutoQuery
+from haystack.query import SearchQuerySet
+
+from ajapaik.ajapaik.models import Photo, Album, AlbumPhoto, PhotoLike
+from ajapaik.ajapaik.types import GalleryResults, UserMini, PaginationParameters
+from ajapaik.ajapaik.utils import get_pagination_parameters
+from ajapaik.ajapaik_face_recognition.models import FaceRecognitionRectangle
+
+
+def _is_default_ordering(order1: str, order2: str, order3: Union[str, None]) -> bool:
+    if order1 == 'time' and order2 == 'added' and not order3:
+        return True
+    else:
+        return False
+
+
+def get_filtered_data_for_gallery(
+        profile,
+        cleaned_data: dict,
+        photo_filters: dict | None = None,
+        page_size=None
+) -> GalleryResults:
+    start_time = time()
+    photos = Photo.objects.filter(rephoto_of__isnull=True, **photo_filters if photo_filters else {})
+    page_size_or_default = page_size or settings.FRONTPAGE_DEFAULT_PAGE_SIZE
+
+    album = cleaned_data['album']
+    requested_photo = cleaned_data.get('photo')
+    order1 = cleaned_data['order1'] or "time"
+    order2 = cleaned_data['order2'] or "added"
+    order3 = cleaned_data['order3']
+    default_ordering = _is_default_ordering(order1, order2, order3)
+    lat = cleaned_data.get('lat')
+    lon = cleaned_data.get('lon')
+    my_likes_only = cleaned_data.get('myLikes')
+    date_from = cleaned_data["date_from"]
+    date_to = cleaned_data["date_to"]
+    page = cleaned_data.get('page')
+    q = cleaned_data['q']
+
+    if rephotos_by := cleaned_data.get('rephotosBy'):
+        rephoto_album_author = UserMini(id=rephotos_by.id, name=rephotos_by.get_display_name) if rephotos_by else None
+    else:
+        rephoto_album_author = None
+
+    # Do not show hidden photos
+    if not album or album.id != 38516:
+        blacklist_exists = Album.objects.filter(id=38516).exists()
+        if blacklist_exists:
+            photos = photos.exclude(albums__in=[38516])
+
+    # FILTERING BELOW THIS LINE
+    if album:
+        sa_ids = [album.id, *album.subalbums.exclude(atype=Album.AUTO).values_list('id', flat=True)]
+        photos = photos.annotate(
+            in_album=Exists(AlbumPhoto.objects.filter(photo_id=OuterRef("pk"), album_id__in=sa_ids))).filter(
+            in_album=True
+        )
+
+    if cleaned_data['people']:
+        rects = FaceRecognitionRectangle.objects.filter(photo_id=OuterRef("pk"), deleted__isnull=True)
+        photos = photos.annotate(has_people=Exists(rects)).filter(has_people=True)
+
+    if cleaned_data['backsides']:
+        photos = photos.exclude(front_of_id=None)
+
+    if cleaned_data['interiors']:
+        photos = photos.filter(scene=0)
+    elif cleaned_data['exteriors']:
+        photos = photos.exclude(scene=0)
+
+    if cleaned_data['ground_viewpoint_elevation']:
+        photos = photos.exclude(viewpoint_elevation__in=[1, 2])
+    elif cleaned_data['raised_viewpoint_elevation']:
+        photos = photos.filter(viewpoint_elevation=1)
+    elif cleaned_data['aerial_viewpoint_elevation']:
+        photos = photos.filter(viewpoint_elevation=2)
+
+    if cleaned_data['no_geotags']:
+        photos = photos.filter(geotag_count=0)
+    if cleaned_data['high_quality']:
+        photos = photos.filter(height__gte=1080)
+
+    if cleaned_data['portrait']:
+        photos = photos.filter(aspect_ratio__lt=0.95)
+    elif cleaned_data['square']:
+        photos = photos.filter(aspect_ratio__gte=0.95, aspect_ratio__lt=1.05)
+    elif cleaned_data['landscape']:
+        photos = photos.filter(aspect_ratio__gte=1.05, aspect_ratio__lt=2.0)
+    elif cleaned_data['panoramic']:
+        photos = photos.filter(aspect_ratio__gte=2.0)
+
+    if my_likes_only:
+        photos = photos.prefetch_related("likes").filter(likes__profile=profile)
+
+    if rephoto_album_author:
+        photos = photos.prefetch_related("rephotos").filter(rephotos__user_id=rephoto_album_author.id)
+
+    if date_from:
+        photos = photos.prefetch_related("datings").filter(datings__start__gte=date_from)
+
+    if date_to:
+        photos = photos.prefetch_related("datings").filter(datings__end__lte=date_to)
+
+    if q:
+        sqs_ids = SearchQuerySet().models(Photo).filter(content=AutoQuery(q)).values_list("pk", flat=True)
+        photos = photos.filter(pk__in=sqs_ids, rephoto_of__isnull=True)
+
+    if order1 == 'closest':
+        photos = photos.filter(geography__isnull=False)
+
+    # In some cases it is faster to get the number of photos before we annotate new columns to it
+    album_size_before_sorting = None
+    if not album:
+        album_size_before_sorting = photos.cached_count(str(cleaned_data))
+
+    photos_with_comments = Photo.objects.none()
+    photos_with_rephotos = Photo.objects.none()
+    wants_comments_list = False
+    wants_rephotos_list = False
+
+    # SORTING BELOW THIS LINE
+    if order1 == 'closest':
+        if lat and lon:
+            ref_location = Point(x=lon, y=lat, srid=4326)
+            if order3 == 'reverse':
+                photos = photos.annotate(distance=GeometryDistance(('geography'), ref_location)).order_by('-distance')
+            else:
+                photos = photos.annotate(distance=GeometryDistance(('geography'), ref_location)).order_by('distance')
+        else:
+            photos = photos.order_by(F('latest_geotag').desc(nulls_last=True), '-id')
+    elif order1 == 'amount':
+        if order2 == 'comments':
+            if order3 == 'reverse':
+                photos = photos.order_by('comment_count')
+            else:
+                photos = photos.order_by('-comment_count')
+            wants_comments_list = True
+        elif order2 == 'rephotos':
+            if order3 == 'reverse':
+                photos = photos.order_by('rephoto_count')
+            else:
+                photos = photos.order_by('-rephoto_count')
+            wants_rephotos_list = True
+        elif order2 == 'geotags':
+            if order3 == 'reverse':
+                photos = photos.order_by('geotag_count')
+            else:
+                photos = photos.order_by('-geotag_count')
+        elif order2 == 'likes':
+            if order3 == 'reverse':
+                photos = photos.order_by('like_count')
+            else:
+                photos = photos.order_by('-like_count')
+        elif order2 == 'views':
+            if order3 == 'reverse':
+                photos = photos.order_by('view_count')
+            else:
+                photos = photos.order_by('-view_count')
+        elif order2 == 'datings':
+            if order3 == 'reverse':
+                photos = photos.order_by('dating_count')
+            else:
+                photos = photos.order_by('-dating_count')
+        elif order2 == 'transcriptions':
+            if order3 == 'reverse':
+                photos = photos.order_by('transcription_count')
+            else:
+                photos = photos.order_by('-transcription_count')
+        elif order2 == 'annotations':
+            if order3 == 'reverse':
+                photos = photos.order_by('annotation_count')
+            else:
+                photos = photos.order_by('-annotation_count')
+        elif order2 == 'similar_photos':
+            photos = photos.annotate(similar_photo_count=Count('similar_photos', distinct=True))
+            if order3 == 'reverse':
+                photos = photos.order_by('similar_photo_count')
+            else:
+                photos = photos.order_by('-similar_photo_count')
+    elif order1 == 'time':
+        if order2 == 'rephotos':
+            if order3 == 'reverse':
+                photos = photos.order_by(F('first_rephoto').asc(nulls_last=True))
+            else:
+                photos = photos.order_by(F('latest_rephoto').desc(nulls_last=True))
+            wants_rephotos_list = True
+        elif order2 == 'comments':
+            if order3 == 'reverse':
+                photos = photos.order_by(F('first_comment').asc(nulls_last=True))
+            else:
+                photos = photos.order_by(F('latest_comment').desc(nulls_last=True))
+            wants_comments_list = True
+        elif order2 == 'geotags':
+            if order3 == 'reverse':
+                photos = photos.order_by(F('first_geotag').asc(nulls_last=True))
+            else:
+                photos = photos.order_by(F('latest_geotag').desc(nulls_last=True))
+        elif order2 == 'likes':
+            if order3 == 'reverse':
+                photos = photos.order_by(F('first_like').asc(nulls_last=True))
+            else:
+                photos = photos.order_by(F('latest_like').desc(nulls_last=True))
+        elif order2 == 'views':
+            if order3 == 'reverse':
+                photos = photos.order_by(F('first_view').asc(nulls_last=True))
+            else:
+                photos = photos.order_by(F('latest_view').desc(nulls_last=True))
+        elif order2 == 'datings':
+            if order3 == 'reverse':
+                photos = photos.order_by(F('first_dating').asc(nulls_last=True))
+            else:
+                photos = photos.order_by(F('latest_dating').desc(nulls_last=True))
+        elif order2 == 'transcriptions':
+            if order3 == 'reverse':
+                photos = photos.order_by(F('first_transcription').asc(nulls_last=True))
+            else:
+                photos = photos.order_by(F('latest_transcription').desc(nulls_last=True))
+        elif order2 == 'annotations':
+            if order3 == 'reverse':
+                photos = photos.order_by(F('first_annotation').asc(nulls_last=True))
+            else:
+                photos = photos.order_by(F('latest_annotation').desc(nulls_last=True))
+        elif order2 == 'stills':
+            if order3 == 'reverse':
+                photos = photos.order_by('-video_timestamp')
+            else:
+                photos = photos.order_by('video_timestamp')
+        elif order2 == 'added':
+            if order3 == 'reverse':
+                photos = photos.order_by('id')
+            else:
+                photos = photos.order_by('-id')
+            if order1 == 'time':
+                default_ordering = True
+        elif order2 == 'similar_photos':
+            photos = photos.annotate(similar_photo_count=Count('similar_photos', distinct=True))
+            if order3 == 'reverse':
+                photos = photos.order_by('similar_photo_count')
+            else:
+                photos = photos.order_by('-similar_photo_count')
+    else:
+        if order3 == 'reverse':
+            photos = photos.order_by('id')
+        else:
+            photos = photos.order_by('-id')
+    if not cleaned_data['backsides'] and not order2 == 'transcriptions':
+        photos = photos.filter(back_of__isnull=True)
+
+    # Remove duplicates caused by JOINs (e.g., filtering by rephotos, datings, etc.)
+    # Do this BEFORE pagination/slicing to avoid Django's error about distinct after slicing.
+    photos = photos.distinct()
+
+    photo_ids = None
+    if requested_photo and requested_photo.id:
+        exists = photos.filter(id=requested_photo.id).exists()
+        if exists:
+            photo_ids = list(photos.values_list("id", flat=True))
+            try:
+                photo_count_before_requested = photo_ids.index(requested_photo.id)
+                page = ceil(float(photo_count_before_requested) / float(page_size_or_default))
+            except ValueError:
+                pass
+    elif page_size:
+        page = 1
+
+    if page:
+        # When a specific photo is requested and exists in the queryset,
+        # we computed photo_ids above to find its index. Otherwise, avoid
+        # materializing the full id list and use efficient slicing.
+        if photo_ids is not None:
+            total = album_size_before_sorting or len(photo_ids)
+            start, end, max_page, page = get_pagination_parameters(page, total, page_size_or_default)
+            pagination_parameters = PaginationParameters(
+                start=start,
+                end=end,
+                page=page,
+                total=total,
+                max_page=max_page,
+            )
+            # Preserve ordering as in original photo_ids list
+            page_ids_ordered = photo_ids[start:end]
+            order_case = Case(
+                *[When(id=pid, then=pos) for pos, pid in enumerate(page_ids_ordered)],
+                output_field=IntegerField(),
+            )
+            photos = Photo.objects.filter(id__in=page_ids_ordered).annotate(_order=order_case).order_by('_order')
+        else:
+            total = album_size_before_sorting or photos.count()
+            start, end, max_page, page = get_pagination_parameters(page, total, page_size_or_default)
+            pagination_parameters = PaginationParameters(
+                start=start,
+                end=end,
+                page=page,
+                total=total,
+                max_page=max_page,
+            )
+            # Apply slicing directly to the queryset to avoid loading all ids
+            photos = photos[start:end]
+    else:
+        pagination_parameters = None
+
+    # Limit auxiliary lists to the current page to avoid materializing huge querysets
+    if page:
+        # Important: 'photos' may be a sliced queryset here. Django forbids filtering a
+        # queryset after slicing. Materialize current page IDs, then rebuild a fresh
+        # unsliced queryset preserving the original order so we can safely annotate/select_related.
+        page_ids = [p.id for p in list(photos)]
+        if page_ids:
+            order_case_page = Case(
+                *[When(id=pid, then=pos) for pos, pid in enumerate(page_ids)],
+                output_field=IntegerField(),
+            )
+            photos = Photo.objects.filter(id__in=page_ids).annotate(_order=order_case_page).order_by('_order')
+            if lat and lon:
+                ref_location = Point(x=lon, y=lat, srid=4326)
+                photos = photos.annotate(distance=GeometryDistance(('geography'), ref_location))
+        if wants_comments_list:
+            photos_with_comments = Photo.objects.filter(id__in=page_ids, comment_count__gt=0)
+        if wants_rephotos_list:
+            if order1 == 'time' and order2 == 'rephotos':
+                photos_with_rephotos = Photo.objects.filter(id__in=page_ids, first_rephoto__isnull=False)
+            else:
+                photos_with_rephotos = Photo.objects.filter(id__in=page_ids, rephoto_count__gt=0)
+    else:
+        # Preserve original behavior for non-paginated use cases
+        if wants_comments_list:
+            photos_with_comments = photos.filter(comment_count__gt=0)
+        if wants_rephotos_list:
+            if order1 == 'time' and order2 == 'rephotos':
+                photos_with_rephotos = photos.filter(first_rephoto__isnull=False)
+            else:
+                photos_with_rephotos = photos.filter(rephoto_count__gt=0)
+
+    if default_ordering and album and album.ordered:
+        album_photos_links_order = AlbumPhoto.objects.filter(album=album).order_by('pk').values_list('photo_id',
+                                                                                                     flat=True)
+        for each in album_photos_links_order:
+            photos = sorted(photos, key=lambda x: x[0] == each)
+
+    def _optimize_photos_qs(qs):
+        # If it's not a QuerySet (e.g., already evaluated/sorted list), return as is
+        if not hasattr(qs, 'select_related'):
+            return qs
+        qs = qs.select_related('source').prefetch_related('likes')
+        try:
+            if profile:
+                qs = qs.annotate(
+                    favorited=Exists(
+                        PhotoLike.objects.filter(
+                            photo_id=OuterRef("pk"),
+                            profile=profile,
+                        )
+                    )
+                )
+        except Exception:
+            # Fallback safely if annotation fails for any reason
+            pass
+        return qs
+
+    optimized_photos = _optimize_photos_qs(photos)
+    optimized_photos_with_comments = _optimize_photos_qs(
+        photos_with_comments) if photos_with_comments is not None else None
+    optimized_photos_with_rephotos = _optimize_photos_qs(
+        photos_with_rephotos) if photos_with_rephotos is not None else None
+
+    return GalleryResults(
+        rephoto_album_author=rephoto_album_author,
+        execution_time=str(time() - start_time),
+        album=album,
+        videos=[],
+        photo=requested_photo,
+        photos=optimized_photos,
+        photos_with_comments=optimized_photos_with_comments,
+        photos_with_rephotos=optimized_photos_with_rephotos,
+        my_likes_only=my_likes_only,
+        start=pagination_parameters.start if pagination_parameters else None,
+        end=pagination_parameters.end if pagination_parameters else None,
+        page=pagination_parameters.page if pagination_parameters else None,
+        total=pagination_parameters.total if pagination_parameters else None,
+        max_page=pagination_parameters.max_page if pagination_parameters else None,
+        order1=order1,
+        order2=order2,
+        order3=order3,
+    )

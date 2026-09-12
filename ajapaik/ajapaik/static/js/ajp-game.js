@@ -164,8 +164,10 @@
                     window.hideDescriptionButtons();
                 }
                 $('#ajp-game-photo-description').text(currentPhoto.description);
-                $('#ajp-game-source-link').attr('href', currentPhoto.sourceURL)
-                    .text(currentPhoto.sourceName + ' ' + currentPhoto.sourceKey);
+                if (currentPhoto.sourceURL && (currentPhoto.sourceURL || currentPhoto.sourceKey)) {
+                    $('#ajp-game-source-link').attr('href', currentPhoto.sourceURL)
+                        .text(currentPhoto.sourceName + ' ' + currentPhoto.sourceKey);
+                }
                 if (descStatus) {
                     window.showDescriptions();
                     window.hideDescriptionButtons();
@@ -235,8 +237,9 @@
                     locationIndicator.hide();
                     noLocationIndicator.show();
                 }
-                if (currentPhoto.lat && currentPhoto.lon) {
-                    window.map.setCenter(new google.maps.LatLng(currentPhoto.lat, currentPhoto.lon));
+                var _cLat = Number(currentPhoto.lat), _cLon = Number(currentPhoto.lon);
+                if (Number.isFinite(_cLat) && Number.isFinite(_cLon)) {
+                    window.map.setCenter(new google.maps.LatLng(_cLat, _cLon));
                 }
                 nextPhotoLoading = false;
                 window.syncStateToUrl();
@@ -289,10 +292,9 @@
             window.getMap(undefined, undefined, true);
         }
         window.nextPhoto();
-        window.handleAlbumChange = function() {
-            if (window.albumId) {
-                window.location.href = gameURL + '?album=' + window.albumId;
-            }
+        window.handleAlbumChange = function(id) {
+            window.albumId = id;
+            window.location.href = gameURL + '?album=' + id;
         };
         $('#logout-button').click(function() {
             gtag('event', 'logout', { 'category': 'Game' });
