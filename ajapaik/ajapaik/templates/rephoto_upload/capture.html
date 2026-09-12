@@ -166,19 +166,30 @@
     
     .preview-controls { 
       position: absolute; 
-      bottom: 20px; 
+      bottom: 24px;
+      bottom: max(24px, env(safe-area-inset-bottom, 24px)); 
+      left: 0;
       width: 100%; 
       display: flex; 
       justify-content: center; 
-      gap: 20px; 
+      align-items: center;
+      gap: 12px; 
+      padding: 0 16px;
+      box-sizing: border-box;
+      z-index: 30;
     }
     .btn-action { 
-      padding: 16px 36px; 
-      font-size: 16px; 
+      padding: 14px 20px; 
+      font-size: 15px; 
       border-radius: 30px; 
       border: none; 
       font-weight: bold; 
       cursor: pointer; 
+      white-space: nowrap;
+      flex: 1;
+      max-width: 130px;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
     }
     .btn-cancel { 
       background: rgba(255,255,255,0.2); 
@@ -300,18 +311,7 @@
       window.visualViewport.addEventListener('resize', setViewportHeightUnit);
     }
 
-    // Best-effort fullscreen request on user gesture
-    function isInFullscreen() {
-      return document.fullscreenElement || document.webkitFullscreenElement || document.msFullscreenElement;
-    }
-    function requestFullscreenIfPossible() {
-      if (isInFullscreen()) return;
-      const el = document.documentElement; // or container
-      const req = el.requestFullscreen || el.webkitRequestFullscreen || el.msRequestFullscreen || el.mozRequestFullScreen;
-      if (req) {
-        try { req.call(el); } catch (e) { /* ignore */ }
-      }
-    }
+
 
     // Recompute vh when fullscreen changes
     ['fullscreenchange','webkitfullscreenchange','msfullscreenchange'].forEach(evt => {
@@ -506,7 +506,6 @@
     container.addEventListener('mousedown', (e) => {
       if(e.target.closest('button') || e.target.closest('a')) return;
       requestOrientationPermission();
-      requestFullscreenIfPossible();
       isDragging = true;
       startX = e.clientX;
       startY = e.clientY;
@@ -543,7 +542,6 @@
     container.addEventListener('touchstart', (e) => {
       if(e.target.closest('button') || e.target.closest('a')) return;
       requestOrientationPermission();
-      requestFullscreenIfPossible();
       
       if (e.touches.length === 1) {
         isDragging = true;
@@ -646,7 +644,6 @@
     });
 
     function capturePhoto() {
-      requestFullscreenIfPossible();
       if (!video.videoWidth) return;
 
       const vw = (window.visualViewport ? window.visualViewport.width : window.innerWidth);
@@ -718,6 +715,10 @@
       previewOldImg.src = overlay.src;
       document.getElementById('camera-container').style.display = 'none';
       previewContainer.style.display = 'block';
+      // Exit fullscreen if active so system toasts do not obscure controls
+      if (document.fullscreenElement && document.exitFullscreen) {
+        document.exitFullscreen().catch(() => {});
+      }
       // Show upload button now that we have an image to upload
       uploadBtn.style.display = 'inline-block';
     }
