@@ -45,6 +45,45 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="ajp-curator-failed-items-modal">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title text-danger">
+                        <span style="font-size: 1.2rem;">⚠</span> {% trans "Failed imports (last 24h)" %}
+                    </h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p class="text-muted small">{% trans "The following photos failed to download or import:" %}</p>
+                    <div class="table-responsive">
+                        <table class="table table-sm table-striped">
+                            <thead>
+                                <tr>
+                                    <th style="width: 80px;">{% trans "Time" %}</th>
+                                    <th>{% trans "Photo" %}</th>
+                                    <th>{% trans "Source" %}</th>
+                                    <th>{% trans "Error" %}</th>
+                                </tr>
+                            </thead>
+                            <tbody id="ajp-curator-failed-items-list">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-danger btn-sm" id="ajp-curator-clear-failed-button">
+                        {% trans "Clear error list" %}
+                    </button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                        {% trans "Close" %}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
     <div id="ajp-curator-search-results">
         <div id="ajp-curator-search-results-list"></div>
         <button type="button" class="btn btn-primary btn-block mt-2 ajp-curator-load-more">
@@ -774,90 +813,174 @@
                 }
             });
         });
+        let currentAutoAlbumId = null;
+        let bgImportPollTimer = null;
+        let wasActiveImport = false;
+
+        const renderFailedItems = function (items) {
+            const tbody = $('#ajp-curator-failed-items-list');
+            tbody.empty();
+            if (!items || items.length === 0) {
+                tbody.append('<tr><td colspan="4" class="text-center text-muted py-3">' + window.gettext('No failed imports') + '</td></tr>');
+                return;
+            }
+            items.forEach(function (item) {
+                let refHtml = item.reference_code || item.external_id;
+                if (item.url_to_record) {
+                    refHtml = '<a href="' + item.url_to_record + '" target="_blank" rel="noopener">' + refHtml + '</a>';
+                }
+                if (item.title) {
+                    refHtml += '<br><small class="text-muted">' + item.title.substring(0, 80) + '</small>';
+                }
+                const tr = $('<tr>' +
+                    '<td class="text-nowrap small text-muted">' + item.time + '</td>' +
+                    '<td>' + refHtml + '</td>' +
+                    '<td><span class="badge badge-light border">' + item.source + '</span></td>' +
+                    '<td class="text-danger small">' + item.error + '</td>' +
+                    '</tr>');
+                tbody.append(tr);
+            });
+        };
+
+        const checkBackgroundImportStatus = function () {
+            $.ajax({
+                type: "GET",
+                url: "{% url 'curator_import_status' %}",
+                success: function (response) {
+                    if (response.pending > 0 || response.active) {
+                        wasActiveImport = true;
+                        $('#ajp-curator-bg-import-tab').show();
+                        $('#ajp-curator-bg-import-pending-count').html(response.pending);
+                        if (!bgImportPollTimer) {
+                            bgImportPollTimer = setInterval(checkBackgroundImportStatus, 4000);
+                        }
+                    } else {
+                        $('#ajp-curator-bg-import-tab').hide();
+                        if (bgImportPollTimer) {
+                            clearInterval(bgImportPollTimer);
+                            bgImportPollTimer = null;
+                            loadMyImports();
+                            window.updateLeaderboard();
+                        }
+                        if (wasActiveImport) {
+                            wasActiveImport = false;
+                            loadMyImports();
+                            window.updateLeaderboard();
+                        }
+                    }
+
+                    if (response.failed && response.failed > 0) {
+                        $('#ajp-curator-bg-failed-tab').show();
+                        $('#ajp-curator-bg-failed-count').html(response.failed);
+                        renderFailedItems(response.failed_items);
+                    } else {
+                        $('#ajp-curator-bg-failed-tab').hide();
+                        renderFailedItems([]);
+                    }
+                },
+                error: function () {}
+            });
+        };
+
+        const startBackgroundImportPolling = function () {
+            wasActiveImport = true;
+            checkBackgroundImportStatus();
+            if (!bgImportPollTimer) {
+                bgImportPollTimer = setInterval(checkBackgroundImportStatus, 4000);
+            }
+        };
+
+        $(document).on('click', '#ajp-curator-view-failed-button', function (e) {
+            e.preventDefault();
+            $('#ajp-curator-failed-items-modal').modal('show');
+        });
+
+        $(document).on('click', '#ajp-curator-clear-failed-button', function () {
+            $.ajax({
+                type: "POST",
+                url: "{% url 'curator_import_status' %}",
+                data: {
+                    action: 'clear_failed',
+                    csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
+                },
+                success: function () {
+                    $('#ajp-curator-bg-failed-tab').hide();
+                    $('#ajp-curator-failed-items-modal').modal('hide');
+                    renderFailedItems([]);
+                }
+            });
+        });
+
+        checkBackgroundImportStatus();
+
         $(document).on('click', '#ajp-curator-confirm-album-selection-button', function () {
             const albums = $('#id-albums').val();
             let selection = window.selectedResults;
+            let isSingle = false;
+            let singleKey = null;
             if (window.singleSelection) {
                 selection = window.singleSelection;
                 window.singleSelection = false;
+                isSingle = true;
+                singleKey = Object.keys(selection)[0];
             }
             $('#ajp-loading-overlay').show();
 
-            const keys = Object.keys(selection);
-            let currentAutoAlbumId = null;
-            let pointsAwarded = 0;
-
-            const processOne = function (index) {
-                if (index >= keys.length) {
+            $.ajax({
+                type: "POST",
+                url: "{% url 'curator_photo_upload_handler' %}",
+                data: {
+                    selection: JSON.stringify(selection),
+                    albums: albums,
+                    eteraToken: ETERASession,
+                    autoAlbumId: currentAutoAlbumId,
+                    csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
+                },
+                success: function (response) {
                     $('#ajp-loading-overlay').hide();
-                    window.updateLeaderboard();
-                    $('#ajp-choose-albums-modal').modal('hide');
-                    const albumPlayLink = gameUrl + '?album=' + currentAutoAlbumId,
-                        feedbackModalDiv = $('#ajp-curator-feedback-modal');
-                    $('#ajp-curator-album-play-link').html(albumPlayLink).prop('href', albumPlayLink);
-                    $('#ajp-curator-points-awarded').html(pointsAwarded);
-                    $('#ajp-curator-add-album-name').val(null);
-                    $('#ajp-curator-add-album-description').val(null);
-                    $('#ajp-curator-add-area-name-d-none').val(null);
-                    $('#ajp-curator-create-new-album-checkbox').val(false);
-                    feedbackModalDiv.modal('show').on('shown.bs.modal', function () {
-                        $($(this).find('#ajp-curator-share-button-container')).empty().append(tmpl('ajp-curator-share-set-button', { gameLink: albumPlayLink }));
-                        window.FB.XFBML.parse();
-                    });
-                    window.gtag('event', 'photo_upload_batch_success', { 'category': 'Curator' });
-                    return;
-                }
-
-                const key = keys[index];
-                const singlePhotoSelection = {};
-                singlePhotoSelection[key] = selection[key];
-
-                $.ajax({
-                    type: "POST",
-                    url: "{% url 'curator_photo_upload_handler' %}",
-                    data: {
-                        selection: JSON.stringify(singlePhotoSelection),
-                        albums: albums,
-                        eteraToken: ETERASession,
-                        autoAlbumId: currentAutoAlbumId,
-                        csrfmiddlewaretoken: window.docCookies.getItem('csrftoken')
-                    },
-                    success: function (response) {
-                        if (response.error) {
-                            $('#ajp-curator-upload-error').show();
-                            $('#ajp-curator-upload-error-message').html(response.error);
-                        } else {
-                            if (response.auto_album_id) {
-                                currentAutoAlbumId = response.auto_album_id;
-                            }
-                            pointsAwarded += (response.total_points_for_curating || 0);
-
-                            for (const k in response.photos) {
-                                if (response.photos.hasOwnProperty(k)) {
-                                    const targetDiv = $($('#ajp-curator-selection-item-' + window.escapeSlash(window.formatId(k))).find('.ajp-curator-selection-feedback-row')[0]),
-                                        item = response.photos[k];
-                                    if (item.error) {
-                                        $(targetDiv.find('.alert-danger')[0]).html(item.error).show();
-                                    } else {
-                                        $(targetDiv.find('.alert-success')[0]).html(item.message).show();
-                                    }
-                                    if (item.message === 'OK') {
-                                        window.gtag('event', 'photo_upload_success', { 'category': 'Curator', 'key': k });
-                                    }
-                                }
-                            }
+                    if (response.error) {
+                        $('#ajp-curator-upload-error').show();
+                        $('#ajp-curator-upload-error-message').html(response.error);
+                    } else {
+                        $('#ajp-choose-albums-modal').modal('hide');
+                        if (response.auto_album_id) {
+                            currentAutoAlbumId = response.auto_album_id;
                         }
-                        processOne(index + 1);
-                    },
-                    error: function () {
-                        const targetDiv = $($('#ajp-curator-selection-item-' + window.escapeSlash(window.formatId(key))).find('.ajp-curator-selection-feedback-row')[0]);
-                        $(targetDiv.find('.alert-danger')[0]).html(window.gettext('System error')).show();
-                        processOne(index + 1);
-                    }
-                });
-            };
 
-            processOne(0);
+                        if (isSingle && singleKey) {
+                            delete window.selectedResults[singleKey];
+                            $('#ajp-curator-selection-item-' + window.escapeSlash(window.formatId(singleKey))).remove();
+                            $('.ajp-result-item[data-id="' + singleKey + '"]').removeClass('ajp-curator-selected-image');
+                        } else {
+                            window.selectedResults = {};
+                            $('.ajp-result-item').removeClass('ajp-curator-selected-image');
+                        }
+                        buildSelectionDiv();
+                        $('#ajp-curator-selection-size').html(Object.keys(window.selectedResults).length);
+
+                        startBackgroundImportPolling();
+
+                        const albumPlayLink = gameUrl + '?album=' + currentAutoAlbumId,
+                            feedbackModalDiv = $('#ajp-curator-feedback-modal');
+                        $('#ajp-curator-album-play-link').html(albumPlayLink).prop('href', albumPlayLink);
+                        $('#ajp-curator-points-awarded').html(response.queued ? (response.queued + ' ' + window.gettext('photos queued for background import')) : 0);
+                        $('#ajp-curator-add-album-name').val(null);
+                        $('#ajp-curator-add-album-description').val(null);
+                        $('#ajp-curator-add-area-name-d-none').val(null);
+                        $('#ajp-curator-create-new-album-checkbox').val(false);
+                        feedbackModalDiv.modal('show').on('shown.bs.modal', function () {
+                            $($(this).find('#ajp-curator-share-button-container')).empty().append(tmpl('ajp-curator-share-set-button', { gameLink: albumPlayLink }));
+                            window.FB.XFBML.parse();
+                        });
+                        window.gtag('event', 'photo_upload_batch_queued', { 'category': 'Curator', 'count': response.queued });
+                    }
+                },
+                error: function () {
+                    $('#ajp-loading-overlay').hide();
+                    $('#ajp-curator-upload-error').show();
+                    $('#ajp-curator-upload-error-message').html(window.gettext('System error'));
+                }
+            });
         });
         $(document).on('click', '#ajp-curator-fetch-all', function () {
             automateFetch = true;

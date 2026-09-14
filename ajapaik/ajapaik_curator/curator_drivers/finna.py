@@ -9,6 +9,7 @@ from django.core.files.base import ContentFile
 from requests import get
 
 from ajapaik.ajapaik.models import Photo, AlbumPhoto, Album, GeoTag, Licence, Source
+from ajapaik.ajapaik_curator.utils import get_pending_curator_import_ids
 
 
 def finna_cut_title(title, short_title):
@@ -251,9 +252,11 @@ class FinnaDriver(object):
         if not ids:
             return dumps(transformed)
         existing_photos = Photo.objects.filter(source__description='Finna', external_id__in=ids).all()
+        pending_ids = get_pending_curator_import_ids('Finna', ids)
         for p in response['records']:
             existing_photo = existing_photos.filter(external_id=p['id']).first()
-            if remove_existing and existing_photo or 'images' not in p or not p['images']:
+            is_pending = str(p['id']) in pending_ids
+            if (remove_existing and (existing_photo or is_pending)) or 'images' not in p or not p['images']:
                 continue
             else:
                 institution = 'Finna'
@@ -323,6 +326,8 @@ class FinnaDriver(object):
                     album_ids = AlbumPhoto.objects.filter(photo=existing_photo).values_list('album_id', flat=True)
                     transformed_item['albums'] = list(Album.objects.filter(pk__in=album_ids, atype=Album.CURATED)
                                                       .values_list('id', 'name').distinct())
+                elif is_pending:
+                    transformed_item['isPending'] = True
                 transformed['result']['firstRecordViews'].append(transformed_item)
 
         transformed = dumps(transformed)

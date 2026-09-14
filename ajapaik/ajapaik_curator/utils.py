@@ -37,3 +37,17 @@ def transform_fotis_persons_response(persons_str: str) -> List[str]:
             result.append(person)
 
     return list(set(result))
+
+
+def get_pending_curator_import_ids(source_description: str, ids: list) -> set:
+    if not ids:
+        return set()
+    from ajapaik.ajapaik.models import CuratorImportItem
+    str_ids = [str(x) for x in ids]
+    return set(
+        CuratorImportItem.objects.filter(
+            source_description=source_description,
+            external_id__in=str_ids,
+            status__in=[CuratorImportItem.PENDING, CuratorImportItem.PROCESSING]
+        ).values_list('external_id', flat=True)
+    )
