@@ -2037,19 +2037,22 @@ class Profile(Model):
             return self.preferred_language
 
 
+AJAPAIK_PROFILE = 'ajapaik.Profile'
+
+
 class ProfileMergeToken(Model):
     token = CharField(max_length=36)
     created = DateTimeField(auto_now_add=True)
     used = DateTimeField(null=True, blank=True)
-    profile = ForeignKey('ajapaik.Profile', related_name='profile_merge_tokens', on_delete=CASCADE)
-    source_profile = ForeignKey('ajapaik.Profile', blank=True, null=True,
+    profile = ForeignKey(AJAPAIK_PROFILE, related_name='profile_merge_tokens', on_delete=CASCADE)
+    source_profile = ForeignKey(AJAPAIK_PROFILE, blank=True, null=True,
                                 related_name='merged_from_profile', on_delete=CASCADE)
-    target_profile = ForeignKey('ajapaik.Profile', blank=True, null=True,
+    target_profile = ForeignKey(AJAPAIK_PROFILE, blank=True, null=True,
                                 related_name='merged_into_profile', on_delete=CASCADE)
 
 
 class ProfileDisplayNameChange(Model):
-    profile = ForeignKey('ajapaik.Profile', related_name='display_name_changes',
+    profile = ForeignKey(AJAPAIK_PROFILE, related_name='display_name_changes',
                          on_delete=CASCADE)
     display_name = CharField(max_length=255, null=True, blank=True)
     created = DateTimeField(auto_now_add=True, db_index=True)
@@ -2082,7 +2085,7 @@ class CuratorImportItem(Model):
         (FAILED, 'Failed'),
     )
 
-    user = ForeignKey('ajapaik.Profile', on_delete=CASCADE, related_name='curator_imports')
+    user = ForeignKey(AJAPAIK_PROFILE, on_delete=CASCADE, related_name='curator_imports')
     source_description = CharField(max_length=100, db_index=True)
     external_id = CharField(max_length=255, db_index=True)
     identifying_number = CharField(max_length=255, null=True, blank=True)
