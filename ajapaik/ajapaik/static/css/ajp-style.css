@@ -957,7 +957,6 @@ a.fullscreen {
 .ajp-show-rephotos-photoview-overlay-button,
 #ajp-reverse-side-button {
     color: white !important;
-    background-color: transparent !important;
     background: transparent !important;
     border: none !important;
     box-shadow: none !important;
@@ -990,7 +989,6 @@ a.fullscreen {
 .ajp-invert-rephoto-overlay-button,
 .ajp-invert-similar-photo-overlay-button {
     color: white !important;
-    background-color: transparent !important;
     background: transparent !important;
     border: none !important;
     filter: drop-shadow(0px 0px 4px rgba(0, 0, 0, 0.9));
@@ -1181,7 +1179,6 @@ a.fullscreen {
     width: 48px;
     height: 48px;
     cursor: pointer;
-    background-color: transparent !important;
     background: transparent !important;
     color: white !important;
     filter: drop-shadow(0px 0px 4px rgba(0, 0, 0, 0.9));

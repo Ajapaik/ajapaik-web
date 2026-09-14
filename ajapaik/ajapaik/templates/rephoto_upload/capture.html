@@ -832,21 +832,21 @@
 
         if (statusEl) statusEl.innerText = 'Valmis! Suunan edasi...';
 
-        await AjpRephotoUploader.enqueue(
-          currentUserId,
-          {{ photo.id }},
-          '{{ photo.get_pseudo_slug }}',
-          fullWithMeta,
-          croppedWithMeta,
-          scaleFactor,
-          '{% url "rephoto_upload" photo.id %}',
-          '{% url "photo" photo.id photo.get_pseudo_slug %}',
-          deviceLat,
-          deviceLon,
-          currentYaw,
-          currentPitch,
-          currentRoll
-        ).catch(error => {
+        await AjpRephotoUploader.enqueue({
+          authorId: currentUserId,
+          photoId: {{ photo.id }},
+          photoSlug: '{{ photo.get_pseudo_slug }}',
+          fullBlob: fullWithMeta,
+          croppedBlob: croppedWithMeta,
+          scaleFactor: scaleFactor,
+          uploadUrl: '{% url "rephoto_upload" photo.id %}',
+          redirectUrl: '{% url "photo" photo.id photo.get_pseudo_slug %}',
+          lat: deviceLat,
+          lon: deviceLon,
+          yaw: currentYaw,
+          pitch: currentPitch,
+          roll: currentRoll
+        }).catch(error => {
           console.error('Error queueing upload:', error);
           alert('Viga järjekorda lisamisel');
           loadingOverlay.style.display = 'none';

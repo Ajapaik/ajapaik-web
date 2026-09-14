@@ -13,10 +13,10 @@
     /*global interpolate*/
     $(document).ready(function () {
         if (!window.userLat && getQueryParameterByName('lat')) {
-            window.userLat = parseFloat(getQueryParameterByName('lat'));
+            window.userLat = Number.parseFloat(getQueryParameterByName('lat'));
         }
         if (!window.userLon && getQueryParameterByName('lon')) {
-            window.userLon = parseFloat(getQueryParameterByName('lon'));
+            window.userLon = Number.parseFloat(getQueryParameterByName('lon'));
         }
         if (getQueryParameterByName('mode') === 'rephoto') {
             window.order1 = 'closest';
@@ -908,7 +908,7 @@
         }
         if (getQueryParameterByName('order1') === 'closest') {
             try {
-                sessionStorage.setItem('lastRephotoListUrl', window.location.href);
+                sessionStorage.setItem('lastRephotoListUrl', window.location.pathname + window.location.search);
             } catch (e) {}
             if (!window.userLat || !window.userLon) {
                 window.useButtonLink = false;

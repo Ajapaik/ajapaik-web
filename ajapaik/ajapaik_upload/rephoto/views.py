@@ -11,7 +11,7 @@ from django.conf import settings
 from django.core.cache import cache
 from django.core.files.base import ContentFile
 from django.db.transaction import atomic
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404
 from django.utils import timezone
 from django.utils.translation import gettext as _
@@ -25,15 +25,14 @@ from ajapaik.ajapaik.photo_utils import _extract_and_save_data_from_exif
 @csrf_exempt
 def rephoto_upload(request, photo_id):
     if request.method != 'POST':
-        return HttpResponse(json.dumps({'message': 'Unsupported HTTP Method'}), status=405,
-                            content_type='application/json')
+        return JsonResponse({'message': 'Unsupported HTTP Method'}, status=405)
 
     photo = get_object_or_404(Photo, pk=photo_id)
     profile = request.get_user().profile
     django_user = request.get_user()
     social_account = SocialAccount.objects.filter(user=request.user).first()
     if not social_account and not django_user.email and not (django_user.is_superuser or django_user.is_staff):
-        return HttpResponse(json.dumps({'error': _('Non-authenticated user')}), content_type='application/json')
+        return JsonResponse({'error': _('Non-authenticated user')})
 
     client_upload_id = request.POST.get('client_upload_id')
     lock_key = f'rephoto_lock_{client_upload_id}' if client_upload_id else None
@@ -41,14 +40,14 @@ def rephoto_upload(request, photo_id):
     if client_upload_id:
         cached_id = cache.get(f'rephoto_upload_{client_upload_id}')
         if cached_id:
-            return HttpResponse(json.dumps({'new_id': cached_id}), content_type='application/json')
+            return JsonResponse({'new_id': cached_id})
 
         if cache.get(lock_key):
             for _ in range(30):
                 time.sleep(0.5)
                 cached_id = cache.get(f'rephoto_upload_{client_upload_id}')
                 if cached_id:
-                    return HttpResponse(json.dumps({'new_id': cached_id}), content_type='application/json')
+                    return JsonResponse({'new_id': cached_id})
                 if not cache.get(lock_key):
                     break
         cache.set(lock_key, True, 60)
@@ -85,7 +84,7 @@ def rephoto_upload(request, photo_id):
         if recent_duplicate:
             if client_upload_id:
                 cache.set(f'rephoto_upload_{client_upload_id}', recent_duplicate.pk, 3600)
-            return HttpResponse(json.dumps({'new_id': recent_duplicate.pk}), content_type='application/json')
+            return JsonResponse({'new_id': recent_duplicate.pk})
 
         new_id = None
         for f in request.FILES.getlist("user_file[]"):
@@ -205,7 +204,7 @@ def rephoto_upload(request, photo_id):
         if client_upload_id and new_id:
             cache.set(f'rephoto_upload_{client_upload_id}', new_id, 3600)
 
-        return HttpResponse(json.dumps({'new_id': new_id}), content_type='application/json')
+        return JsonResponse({'new_id': new_id})
     finally:
         if lock_key:
             cache.delete(lock_key)

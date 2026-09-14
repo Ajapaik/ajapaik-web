@@ -4,12 +4,10 @@
  */
 
 class AjpDb {
-  constructor() {
-    this.dbName = 'AjpRephotoUploads';
-    this.storeName = 'uploads';
-    this.version = 1;
-    this.db = null;
-  }
+  dbName = 'AjpRephotoUploads';
+  storeName = 'uploads';
+  version = 1;
+  db = null;
 
   open() {
     return new Promise((resolve, reject) => {
@@ -236,7 +234,7 @@ const AjpRephotoUploader = {
       
       document.body.appendChild(a);
       a.click();
-      document.body.removeChild(a);
+      a.remove();
       URL.revokeObjectURL(url);
     } catch (e) {
       console.error("Failed to download upload:", e);
@@ -244,8 +242,33 @@ const AjpRephotoUploader = {
     }
   },
 
-  async enqueue(authorId, photoId, photoSlug, fullBlob, croppedBlob, scaleFactor, uploadUrl, redirectUrl, lat, lon, yaw, pitch, roll) {
-    const uploadId = `${Date.now()}_${authorId || 'anon'}_${photoId}_${Math.random().toString(36).substring(2, 8)}`;
+  async enqueue(data) {
+    const authorId = data.authorId || 'anon';
+    const photoId = data.photoId;
+    const photoSlug = data.photoSlug;
+    const fullBlob = data.fullBlob;
+    const croppedBlob = data.croppedBlob;
+    const scaleFactor = data.scaleFactor;
+    const uploadUrl = data.uploadUrl;
+    const redirectUrl = data.redirectUrl;
+    const lat = data.lat;
+    const lon = data.lon;
+    const yaw = data.yaw;
+    const pitch = data.pitch;
+    const roll = data.roll;
+
+    let randomSuffix;
+    if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
+      randomSuffix = crypto.randomUUID().replace(/-/g, '').substring(0, 8);
+    } else if (typeof crypto !== 'undefined' && typeof crypto.getRandomValues === 'function') {
+      const randArr = new Uint32Array(1);
+      crypto.getRandomValues(randArr);
+      randomSuffix = randArr[0].toString(36);
+    } else {
+      randomSuffix = Date.now().toString(36);
+    }
+
+    const uploadId = `${Date.now()}_${authorId}_${photoId}_${randomSuffix}`;
     const upload = {
       uploadId,
       authorId,
@@ -364,7 +387,8 @@ const AjpRephotoUploader = {
             upload.newPhotoId = res.new_id;
             await this.handleSuccess(upload);
           }
-        } catch (e) {
+        } catch (err) {
+          console.warn('Failed to parse upload server response:', err);
           this.handleFailure(upload, 'Serveri vastuse viga');
         }
       } else {
@@ -482,13 +506,21 @@ const AjpRephotoUploader = {
       viewBtnHtml = `<button class="ajp-upload-btn ajp-upload-btn-primary" onclick="window.location.reload()">Värskenda lehte</button>`;
     }
 
-    let returnListBtnHtml = '';
-    let lastListUrl = null;
+    let validLastListUrl = null;
     try {
-      lastListUrl = sessionStorage.getItem('lastRephotoListUrl');
-    } catch (e) {}
-    if (lastListUrl) {
-      returnListBtnHtml = `<a class="ajp-upload-btn" href="${lastListUrl}" style="text-decoration:none; display:inline-flex; align-items:center; justify-content:center;">Tagasi lähimate fotode juurde</a>`;
+      const rawLastUrl = sessionStorage.getItem('lastRephotoListUrl');
+      if (rawLastUrl && typeof rawLastUrl === 'string') {
+        if (rawLastUrl.startsWith('/') && !rawLastUrl.startsWith('//')) {
+          validLastListUrl = rawLastUrl;
+        } else {
+          const parsed = new URL(rawLastUrl, window.location.origin);
+          if (parsed.origin === window.location.origin) {
+            validLastListUrl = parsed.pathname + parsed.search;
+          }
+        }
+      }
+    } catch (err) {
+      validLastListUrl = null;
     }
 
     widget.innerHTML = `
@@ -501,16 +533,30 @@ const AjpRephotoUploader = {
       <div class="ajp-upload-progress-container">
         <div class="ajp-upload-progress-bar" style="width: 100%; background: #4caf50;"></div>
       </div>
-      <div class="ajp-upload-actions">
+      <div class="ajp-upload-actions" id="ajp-upload-success-actions">
         ${viewBtnHtml}
-        ${returnListBtnHtml}
         <button class="ajp-upload-btn" onclick="AjpRephotoUploader.hideWidget()">Sulge</button>
       </div>
     `;
 
+    if (validLastListUrl) {
+      const actionsContainer = widget.querySelector('#ajp-upload-success-actions');
+      if (actionsContainer) {
+        const returnLink = document.createElement('a');
+        returnLink.className = 'ajp-upload-btn';
+        returnLink.setAttribute('href', validLastListUrl);
+        returnLink.style.textDecoration = 'none';
+        returnLink.style.display = 'inline-flex';
+        returnLink.style.alignItems = 'center';
+        returnLink.style.justifyContent = 'center';
+        returnLink.textContent = 'Tagasi lähimate fotode juurde';
+        actionsContainer.insertBefore(returnLink, actionsContainer.lastElementChild);
+      }
+    }
+
     // Auto-hide after 5 seconds if refresh button not clicked
     setTimeout(() => {
-      if (widget && widget.style.opacity === '1' && !isOnPhotoPage) {
+      if (widget?.style?.opacity === '1' && !isOnPhotoPage) {
         this.hideWidget();
       }
     }, 5000);
@@ -520,6 +566,7 @@ const AjpRephotoUploader = {
     const widget = document.getElementById('ajp-upload-widget');
     if (!widget) return;
 
+    const uploadIdSafe = Number(upload.id) || 0;
     widget.innerHTML = `
       <div class="ajp-upload-header" style="color: #f44336;">
         <div class="ajp-upload-title">
@@ -528,13 +575,17 @@ const AjpRephotoUploader = {
         </div>
         <div class="ajp-upload-status" style="color: #f44336;">Tõrge</div>
       </div>
-      <div style="font-size: 11px; color: #ccc;">${errorMessage}</div>
+      <div id="ajp-upload-error-msg" style="font-size: 11px; color: #ccc; margin: 4px 0;"></div>
       <div class="ajp-upload-actions">
-        <button class="ajp-upload-btn" onclick="AjpRephotoUploader.downloadUpload(${upload.id})">Salvesta seadmesse</button>
-        <button class="ajp-upload-btn" onclick="AjpRephotoUploader.cancelUpload(${upload.id})">Kustuta järjekorrast</button>
+        <button class="ajp-upload-btn" onclick="AjpRephotoUploader.downloadUpload(${uploadIdSafe})">Salvesta seadmesse</button>
+        <button class="ajp-upload-btn" onclick="AjpRephotoUploader.cancelUpload(${uploadIdSafe})">Kustuta järjekorrast</button>
         <button class="ajp-upload-btn ajp-upload-btn-primary" onclick="AjpRephotoUploader.processQueue()">Proovi uuesti</button>
       </div>
     `;
+    const msgEl = widget.querySelector('#ajp-upload-error-msg');
+    if (msgEl) {
+      msgEl.textContent = errorMessage || 'Tundmatu viga';
+    }
   },
 
   hideWidget() {
