@@ -908,8 +908,10 @@
         }
         if (getQueryParameterByName('order1') === 'closest') {
             try {
-                sessionStorage.setItem('lastRephotoListUrl', window.location.pathname + window.location.search);
-            } catch (e) {}
+                sessionStorage.setItem('cameFromRephotoList', 'true');
+            } catch (e) {
+                // Ignore storage restrictions
+            }
             if (!window.userLat || !window.userLon) {
                 window.useButtonLink = false;
                 window.getGeolocation(window.handleGeolocation);

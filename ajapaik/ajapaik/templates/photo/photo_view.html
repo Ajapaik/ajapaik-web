@@ -262,24 +262,21 @@
     window.isPhotoview = true;
     window.updateLeaderboard();
     $(document).ready(function () {
-        let returnUrl = null;
+        let isFromRephotos = false;
         try {
-            returnUrl = sessionStorage.getItem('lastRephotoListUrl');
-        } catch (e) {}
-
-        if (!returnUrl && document.referrer && (document.referrer.indexOf('order1=closest') > -1 || document.referrer.indexOf('mode=rephoto') > -1)) {
-            returnUrl = document.referrer;
+            isFromRephotos = sessionStorage.getItem('cameFromRephotoList') === 'true';
+        } catch (e) {
+            // Ignore storage restrictions
         }
 
-        {% if rephoto %}
-        if (!returnUrl) {
-            returnUrl = '/?order1=closest&mode=rephoto';
-        }
-        {% endif %}
-
-        if (returnUrl) {
-            $('#ajp-btn-return-to-rephotos').attr('href', returnUrl);
+        if (isFromRephotos || (document.referrer && (document.referrer.indexOf('order1=closest') > -1 || document.referrer.indexOf('mode=rephoto') > -1))) {
+            $('#ajp-btn-return-to-rephotos').attr('href', '/?order1=closest&mode=rephoto');
             $('#ajp-return-to-rephoto-container').removeClass('d-none');
+        } else {
+            {% if rephoto %}
+            $('#ajp-btn-return-to-rephotos').attr('href', '/?order1=closest&mode=rephoto');
+            $('#ajp-return-to-rephoto-container').removeClass('d-none');
+            {% endif %}
         }
 
         window.lastRotateWas90 = false;

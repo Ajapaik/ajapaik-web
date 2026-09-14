@@ -259,7 +259,7 @@ const AjpRephotoUploader = {
 
     let randomSuffix;
     if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
-      randomSuffix = crypto.randomUUID().replace(/-/g, '').substring(0, 8);
+      randomSuffix = crypto.randomUUID().replaceAll('-', '').substring(0, 8);
     } else if (typeof crypto !== 'undefined' && typeof crypto.getRandomValues === 'function') {
       const randArr = new Uint32Array(1);
       crypto.getRandomValues(randArr);
@@ -506,21 +506,16 @@ const AjpRephotoUploader = {
       viewBtnHtml = `<button class="ajp-upload-btn ajp-upload-btn-primary" onclick="window.location.reload()">Värskenda lehte</button>`;
     }
 
-    let validLastListUrl = null;
+    let showReturnList = false;
     try {
-      const rawLastUrl = sessionStorage.getItem('lastRephotoListUrl');
-      if (rawLastUrl && typeof rawLastUrl === 'string') {
-        if (rawLastUrl.startsWith('/') && !rawLastUrl.startsWith('//')) {
-          validLastListUrl = rawLastUrl;
-        } else {
-          const parsed = new URL(rawLastUrl, window.location.origin);
-          if (parsed.origin === window.location.origin) {
-            validLastListUrl = parsed.pathname + parsed.search;
-          }
-        }
-      }
+      showReturnList = sessionStorage.getItem('cameFromRephotoList') === 'true';
     } catch (err) {
-      validLastListUrl = null;
+      // Ignore sessionStorage access errors
+    }
+
+    let returnBtnHtml = '';
+    if (showReturnList) {
+      returnBtnHtml = `<a class="ajp-upload-btn" href="/?order1=closest&mode=rephoto" style="text-decoration:none; display:inline-flex; align-items:center; justify-content:center;">Tagasi lähimate fotode juurde</a>`;
     }
 
     widget.innerHTML = `
@@ -533,26 +528,12 @@ const AjpRephotoUploader = {
       <div class="ajp-upload-progress-container">
         <div class="ajp-upload-progress-bar" style="width: 100%; background: #4caf50;"></div>
       </div>
-      <div class="ajp-upload-actions" id="ajp-upload-success-actions">
+      <div class="ajp-upload-actions">
         ${viewBtnHtml}
+        ${returnBtnHtml}
         <button class="ajp-upload-btn" onclick="AjpRephotoUploader.hideWidget()">Sulge</button>
       </div>
     `;
-
-    if (validLastListUrl) {
-      const actionsContainer = widget.querySelector('#ajp-upload-success-actions');
-      if (actionsContainer) {
-        const returnLink = document.createElement('a');
-        returnLink.className = 'ajp-upload-btn';
-        returnLink.setAttribute('href', validLastListUrl);
-        returnLink.style.textDecoration = 'none';
-        returnLink.style.display = 'inline-flex';
-        returnLink.style.alignItems = 'center';
-        returnLink.style.justifyContent = 'center';
-        returnLink.textContent = 'Tagasi lähimate fotode juurde';
-        actionsContainer.insertBefore(returnLink, actionsContainer.lastElementChild);
-      }
-    }
 
     // Auto-hide after 5 seconds if refresh button not clicked
     setTimeout(() => {
