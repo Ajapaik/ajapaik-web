@@ -114,6 +114,9 @@ def get_filtered_data_for_gallery(
         sqs_ids = SearchQuerySet().models(Photo).filter(content=AutoQuery(q)).values_list("pk", flat=True)
         photos = photos.filter(pk__in=sqs_ids, rephoto_of__isnull=True)
 
+    if order1 == 'closest':
+        photos = photos.filter(geography__isnull=False)
+
     # In some cases it is faster to get the number of photos before we annotate new columns to it
     album_size_before_sorting = None
     if not album:
@@ -125,12 +128,15 @@ def get_filtered_data_for_gallery(
     wants_rephotos_list = False
 
     # SORTING BELOW THIS LINE
-    if order1 == 'closest' and lat and lon:
-        ref_location = Point(x=lon, y=lat, srid=4326)
-        if order3 == 'reverse':
-            photos = photos.annotate(distance=GeometryDistance(('geography'), ref_location)).order_by('-distance')
+    if order1 == 'closest':
+        if lat and lon:
+            ref_location = Point(x=lon, y=lat, srid=4326)
+            if order3 == 'reverse':
+                photos = photos.annotate(distance=GeometryDistance(('geography'), ref_location)).order_by('-distance')
+            else:
+                photos = photos.annotate(distance=GeometryDistance(('geography'), ref_location)).order_by('distance')
         else:
-            photos = photos.annotate(distance=GeometryDistance(('geography'), ref_location)).order_by('distance')
+            photos = photos.order_by(F('latest_geotag').desc(nulls_last=True), '-id')
     elif order1 == 'amount':
         if order2 == 'comments':
             if order3 == 'reverse':
@@ -314,6 +320,9 @@ def get_filtered_data_for_gallery(
                 output_field=IntegerField(),
             )
             photos = Photo.objects.filter(id__in=page_ids).annotate(_order=order_case_page).order_by('_order')
+            if lat and lon:
+                ref_location = Point(x=lon, y=lat, srid=4326)
+                photos = photos.annotate(distance=GeometryDistance(('geography'), ref_location))
         if wants_comments_list:
             photos_with_comments = Photo.objects.filter(id__in=page_ids, comment_count__gt=0)
         if wants_rephotos_list:

@@ -1099,9 +1099,9 @@ class Photo(Model):
         kwargs = {**kwargs, 'force_insert': False}
 
         if self.lat and self.lon and (
-                self.geography is None or self.geography.x != self.lon or self.geography.y != self.lat
+                self.geography is None or self.geography.x != float(self.lon) or self.geography.y != float(self.lat)
         ):
-            self.geography = Point(x=self.lon, y=self.lat, srid=4326)
+            self.geography = Point(x=float(self.lon), y=float(self.lat), srid=4326)
             self.reverse_geocode_location()
 
         if self.flip is None:
@@ -1948,7 +1948,7 @@ class Profile(Model):
         return self.user_id
 
     def is_legit(self):
-        if self.user.is_active and (self.user.email or self.user.socialaccount_set.all()):
+        if self.user.is_active and (self.user.email or self.user.socialaccount_set.all() or self.user.is_superuser or self.user.is_staff):
             return True
 
         return False

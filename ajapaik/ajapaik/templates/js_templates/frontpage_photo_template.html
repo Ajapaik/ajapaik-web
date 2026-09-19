@@ -13,6 +13,12 @@
                     <span id="favorite-icon" class="material-icons notranslate">{% if (o.favorited) { %}favorite{% } else { %}favorite_border{% } %}</span>
                 </button>
             {% } %}
+            {% if (o.distance_text || (o.distance !== null && o.distance !== undefined && !isNaN(o.distance))) { %}
+                <div class="ajp-frontpage-distance-badge" title="{%=gettext('Distance from your location')%}">
+                    <span class="material-icons notranslate">place</span>
+                    <span>{%=o.distance_text || (o.distance < 10 ? '< 10 m' : (o.distance < 1000 ? Math.round(o.distance) + ' m' : (o.distance < 10000 ? (o.distance / 1000).toFixed(1) + ' km' : Math.round(o.distance / 1000) + ' km')))%}</span>
+                </div>
+            {% } %}
             <div class="ajp-thumbnail-info-container">
                 {% if (o.azimuth) { %}
                     {% if (o.latitude && o.longitude) { %}

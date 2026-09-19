@@ -70,6 +70,14 @@
                                 {% endif %}
                             </div>
                         </div>
+                        {% if not request.user_agent.is_pc %}
+                        <div class="w-100 my-3 px-1 text-center ajp-quick-rephoto-wrapper">
+                            <a href="{% url 'rephoto_capture' photo.id %}" class="btn btn-block font-weight-bold d-flex align-items-center justify-content-center shadow-sm text-dark py-2 ajp-btn-quick-capture" style="background-color: #fca311; border: none; border-radius: 25px; font-size: 15px; max-width: 400px; margin: 0 auto;">
+                                <span class="material-icons mr-2 notranslate" style="font-size: 22px;">camera_alt</span>
+                                <span>{% trans "Take a rephoto" %}</span>
+                            </a>
+                        </div>
+                        {% endif %}
                     </div>
                     {% if similarities.0 %}
                         <div id="ajp-photo-modal-similar-photo-column" class="pl-0 col-lg-6 col-xl-6 col-12">
@@ -234,8 +242,8 @@
             fullscreen_url: "{% url 'image_full' rephoto.id rephoto.slug%}",
             fullscreen_width: "{{ rephoto.width }}",
             fullscreen_height: "{{ rephoto.height }}",
-            {% if rephoto.date_text %}
-                date: "{{ rephoto.date_text }}",
+            {% if rephoto.date %}
+                date: "{{ rephoto.date }}",
             {% endif %}
             {% if request.user.is_superuser %}
                 admin: "request.user.is_superuser",

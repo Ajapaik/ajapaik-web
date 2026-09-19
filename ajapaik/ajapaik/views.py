@@ -271,7 +271,11 @@ def frontpage(request):
     if not form.is_valid():
         return JsonResponse({'error': "Invalid query parameters"}, status=400)
 
-    show_photos = bool(request.GET.get("order1") or request.GET.get("album"))
+    is_rephoto_mode = request.GET.get("mode") == "rephoto"
+    if is_rephoto_mode and not form.cleaned_data.get("order1"):
+        form.cleaned_data["order1"] = "closest"
+
+    show_photos = bool(request.GET.get("order1") or request.GET.get("album") or is_rephoto_mode)
     last_geotagged_photo = Photo.objects.order_by(F('latest_geotag').desc(nulls_last=True)).first()
 
     base_context = {
@@ -549,6 +553,10 @@ def photo_slug(request, photo_id=None, pseudo_slug=None):
     if hasattr(photo_obj, 'rephoto_of') and photo_obj.rephoto_of is not None:
         rephoto = photo_obj
         photo_obj = photo_obj.rephoto_of
+    elif request.GET.get('rephoto'):
+        rephoto_cand = Photo.objects.filter(id=request.GET.get('rephoto'), rephoto_of=photo_obj).first()
+        if rephoto_cand:
+            rephoto = rephoto_cand
 
     geotag_count = 0
     azimuth_count = 0
