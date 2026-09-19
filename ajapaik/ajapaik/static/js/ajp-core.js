@@ -1898,7 +1898,7 @@ $('.ajp-navbar').autoHidingNavbar();
                 new google.maps.ImageMapType({
                     getTileUrl: function (coord, zoom) {
                         return (
-                            'https://tile.openstreetmap.de/' +
+                            (window.osmTileUrl || 'https://a.tile.openstreetmap.org/') +
                             zoom +
                             '/' +
                             coord.x +
@@ -2348,7 +2348,7 @@ $('.ajp-navbar').autoHidingNavbar();
                         new google.maps.ImageMapType({
                             getTileUrl: function (coord, zoom) {
                                 return (
-                                    'https://tile.openstreetmap.de/' +
+                                    (window.osmTileUrl || 'https://a.tile.openstreetmap.org/') +
                                     zoom +
                                     '/' +
                                     coord.x +

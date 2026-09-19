@@ -438,6 +438,8 @@
             objectAnnotationUrl = "{% url 'object_recognition_api_annotation' 0 %}",
             lastGeotaggedPhotoId = "{{ last_geotagged_photo_id }}",
             hotkeysActive = true;
+        window.osmTileUrl = "{{ osm_tile_url }}";
+        window.osmLeafletTileUrl = "{{ osm_leaflet_tile_url }}";
         {% if request.user.profile.is_legit %}
             const userIsSocialConnected = true;
         {% else %}
