@@ -378,6 +378,7 @@ BOT_USER_AGENTS = {
     "Googlebot-Image",
     "Googlebot-Video",
     "Jooblebot",
+    "LightPanda",
     "linkdexbot",
     "Mail.RU_Bot",
     "MJ12bot",
@@ -485,7 +486,7 @@ SOCIALACCOUNT_PROVIDERS = {
 UA = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.137 Safari/537.36"
 
 if os.getenv("GITHUB_WORKFLOW"):
-    from .test import *
+    pass
 
 DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
 INTERNAL_IPS = [
