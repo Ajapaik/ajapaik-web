@@ -24,6 +24,11 @@
             <span id="ajp-header-album-more" class="material-icons notranslate ajp-text-white"
                   title="{% trans 'Album details' %}">more</span>
             <div class="dropdown-menu with-album ajp-dropdown" id="ajp-mode-select">
+                <a href="#" class="dropdown-item" id="ajp-frontpage-show-nearby-rephotos-link"
+                   data-mode="nearby_rephotos" title="{% trans "Rephotograph nearby" %}">
+                    <span class="material-icons notranslate">camera_alt</span>
+                    <span class="ajp-bottom-4px">{% trans "Rephotograph nearby" %}</span>
+                </a>
                 <a href="#" class="dropdown-item" id="ajp-frontpage-show-albums-link"
                    data-mode="albums" title="{% trans "Show albums" %}">
                     <span class="material-icons notranslate">collections_bookmark</span>
@@ -66,18 +71,25 @@
         <!--FIXME: DRY-->
         <a href="#" class="dropdown ajp-no-background ajp-text-white" data-toggle="dropdown"
            id="ajp-header-selected-mode">
-            <span id="ajp-header-album-icon" class="material-icons notranslate">collections_bookmark</span>
-            <span id="ajp-header-pictures-icon" class="material-icons notranslate">collections</span>
-            <span id="ajp-header-image-icon" class="material-icons notranslate">insert_image</span>
-            <span id="ajp-header-likes-icon" class="material-icons notranslate">favorite</span>
-            <span id="ajp-header-rephotos-icon" class="material-icons notranslate">library_add</span>
-            <span class="material-icons notranslate float-left">photo_album</span>
+            <span id="ajp-header-album-icon" class="material-icons notranslate{% if show_photos %} d-none{% endif %}">collections_bookmark</span>
+            <span id="ajp-header-pictures-icon" class="material-icons notranslate{% if not show_photos or order1 == 'closest' %} d-none{% endif %}">collections</span>
+            <span id="ajp-header-image-icon" class="material-icons notranslate d-none">insert_image</span>
+            <span id="ajp-header-likes-icon" class="material-icons notranslate d-none">favorite</span>
+            <span id="ajp-header-rephotos-icon" class="material-icons notranslate d-none">library_add</span>
+            <span id="ajp-header-nearby-rephotos-icon" class="material-icons notranslate{% if order1 != 'closest' %} d-none{% endif %}">camera_alt</span>
             <span id="ajp-header-title" title="" class="d-block">
                 <span id="ajp-header-arrow-drop-down" class="material-icons notranslate"
                       title="{% trans 'Click to choose' %}">arrow_drop_down</span>
             </span>
         </a>
         <div class="dropdown-menu ajp-dropdown" id="ajp-mode-select">
+            {% if not request.user_agent.is_pc %}
+            <a href="#" class="dropdown-item" id="ajp-frontpage-show-nearby-rephotos-link" data-mode="nearby_rephotos"
+               title="{% trans "Rephotograph nearby" %}">
+                <span class="material-icons notranslate">camera_alt</span>
+                <span class="ajp-bottom-4px">{% trans "Rephotograph nearby" %}</span>
+            </a>
+            {% endif %}
             <a href="#" class="dropdown-item" id="ajp-frontpage-show-albums-link" data-mode="albums"
                title="{% trans "Show albums" %}">
                 <span class="material-icons notranslate">collections_bookmark</span>

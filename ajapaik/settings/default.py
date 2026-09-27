@@ -142,6 +142,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'ajapaik.ajapaik.context_processors.google_maps_api_key',
                 'ajapaik.ajapaik.context_processors.is_user_upload',
+                'ajapaik.ajapaik.context_processors.osm_tile_urls',
             ),
             'loaders': (
                 ('django.template.loaders.cached.Loader', (
@@ -316,6 +317,12 @@ LEAFLET_CONFIG = {
         }
     }
 }
+
+# OpenStreetMap tile server URLs
+# In local testing (DEBUG=True), tile.openstreetmap.de is used to prevent "Access denied" blocks.
+# In production (DEBUG=False), the standard tile.openstreetmap.org server is used.
+OSM_TILE_URL = 'https://tile.openstreetmap.de/' if DEBUG else 'https://a.tile.openstreetmap.org/'
+OSM_LEAFLET_TILE_URL = 'https://tile.openstreetmap.de/{z}/{x}/{y}.png' if DEBUG else 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
 
 BOT_USERNAME = 'search_engine_user'
 BOT_USER_AGENTS = {

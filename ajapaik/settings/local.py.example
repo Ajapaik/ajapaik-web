@@ -74,5 +74,9 @@ RECAPTCHA_PRIVATE_KEY = 'seekrit'
 
 GOOGLE_MAPS_API_KEY = ''
 
+# OpenStreetMap tile server URLs (defaults to tile.openstreetmap.de when DEBUG=True)
+# OSM_TILE_URL = 'https://tile.openstreetmap.de/'
+# OSM_LEAFLET_TILE_URL = 'https://tile.openstreetmap.de/{z}/{x}/{y}.png'
+
 # Fake e-mail backend - so that we can register accounts locally.
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"

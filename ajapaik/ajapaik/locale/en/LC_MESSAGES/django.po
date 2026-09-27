@@ -3014,3 +3014,10 @@ msgstr "You must specify a new value when making a suggestion"
 
 #~ msgid "Add location"
 #~ msgstr "Add location"
+
+msgid "Back to nearest images"
+msgstr "Back to nearest images"
+
+msgid "Take a rephoto"
+msgstr "Take a rephoto"
+

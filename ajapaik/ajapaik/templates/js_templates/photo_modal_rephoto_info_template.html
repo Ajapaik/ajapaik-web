@@ -2,7 +2,7 @@
     <script id="ajp-photo-modal-rephoto-info-template" type="text/x-tmpl">
         {% if (o.source && o.sourceKey && o.sourceURL) { %}
             {% if (o.author) { %}
-                <div class="w-100"><b>{%=o.author%}</b></div>
+                <div class="w-100"><b>{%=o.author%}{% if (o.date) { %}, {%=o.date%}{% } %}</b></div>
                 {% if (o.licence) { %}
                     <div class="w-100">
                             {% endverbatim %}{% include "photo/_licence.html" %}{% verbatim %}
@@ -13,11 +13,11 @@
                 <a id="ajp-rephoto-source" href='{%=o.sourceURL%}'
                    target="_blank" rel="noopener nofollow">
                     {%=o.source%} {%=o.sourceKey%}
-                </a>
+                </a>{% if (o.date) { %}, {%=o.date%}{% } %}
             </div>
         {% } else { %}
             {% if (o.author) { %}
-                <div class="w-100"><b>{%=o.author%}</b></div>
+                <div class="w-100"><b>{%=o.author%}{% if (o.date) { %}, {%=o.date%}{% } %}</b></div>
                 <div class="w-100">
                     {% endverbatim %}{% include "photo/_licence.html" %}{% verbatim %}
                 </div>
@@ -26,7 +26,7 @@
                     <div class="w-100">
                         <a target="_blank" href="/photos/?rephotosBy={%=o.user%}&order1=time&order2=rephotos" rel="noopener">
                             {%=o.FBUserName%}
-                        </a><br>
+                        </a>{% if (o.date) { %}, {%=o.date%}{% } %}<br>
                     </div>
                     <div class="w-100">
                         {% endverbatim %}{% include "photo/_licence.html" %}{% verbatim %}
@@ -36,7 +36,7 @@
                         <div class="w-100">
                             <a target="_blank" href="/photos/?rephotosBy={%=o.user%}&order1=time&order2=rephotos" rel="noopener">
                                 {%=o.GooglePlusName%}
-                            </a><br>
+                            </a>{% if (o.date) { %}, {%=o.date%}{% } %}<br>
                         </div>
                         <div class="w-100">
                             {% endverbatim %}{% include "photo/_licence.html" %}{% verbatim %}
@@ -46,7 +46,7 @@
                             <div class="w-100">
                                 <a target="_blank" href="/photos/?rephotosBy={%=o.user%}&order1=time&order2=rephotos"rel="noopener">
                                     {%=o.FullName%}
-                                </a><br>
+                                </a>{% if (o.date) { %}, {%=o.date%}{% } %}<br>
                             </div>
                             <div class="w-100">
                                 {% endverbatim %}{% include "photo/_licence.html" %}{% verbatim %}

@@ -45,6 +45,8 @@ from ajapaik.ajapaik_face_recognition import urls as fr_urls
 from ajapaik.ajapaik_object_recognition import urls as or_urls
 
 urlpatterns = [
+    path('manifest.json', TemplateView.as_view(template_name='manifest.json', content_type='application/manifest+json'), name='manifest'),
+    path('sw.js', TemplateView.as_view(template_name='sw.js', content_type='application/javascript'), name='service_worker'),
     path('stream/', views.fetch_stream, name='fetch_stream'),
     path('difficulty-feedback/', geotags_views.difficulty_feedback, name='difficulty_feedback'),
     path('geotag/add/', geotags_views.geotag_add, name='geotag_add'),

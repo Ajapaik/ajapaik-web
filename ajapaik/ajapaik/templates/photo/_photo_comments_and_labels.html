@@ -38,6 +38,13 @@
         </div>
     {% endif %}
     <!-- end of albums block -->
+    <!-- start of toolbox block -->
+    {% if not request.user_agent.is_pc %}
+        <div class="row ajp-dater-hide-when-dater-visible pt-2 w-100">
+            {% include '_toolbox.html' with photo=photo sidebar=False flexEnd=False %}
+        </div>
+    {% endif %}
+    <!-- end of toolbox block -->
     <!-- start of comment block -->
     <div class="row pt-3" id="ajp-comment-container">
         <div class="col-md-12" id="ajp-comment-list"></div>
@@ -46,13 +53,6 @@
         </div>
     </div>
     <!-- end of comment block -->
-    <!-- start of toolbox block -->
-        {% if not request.user_agent.is_pc %}
-        <div class="row ajp-dater-hide-when-dater-visible pt-2 w-100">
-            {% include '_toolbox.html' with photo=photo sidebar=False flexEnd=False %}
-        </div>
-    {% endif %}
-    <!-- end of toolbox block -->
     {% if request.user.is_superuser %}
         <a id="ajp-photo-modal-discuss" class="no-text-decoration float-right"
             target="_blank"

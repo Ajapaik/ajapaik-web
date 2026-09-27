@@ -17,3 +17,13 @@ def is_user_upload(request):
     return {
         'is_user_upload': ret
     }
+
+
+def osm_tile_urls(_):
+    is_debug = getattr(settings, 'DEBUG', False)
+    default_osm_url = 'https://tile.openstreetmap.de/' if is_debug else 'https://a.tile.openstreetmap.org/'
+    default_osm_leaflet_url = 'https://tile.openstreetmap.de/{z}/{x}/{y}.png' if is_debug else 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+    return {
+        'osm_tile_url': getattr(settings, 'OSM_TILE_URL', default_osm_url),
+        'osm_leaflet_tile_url': getattr(settings, 'OSM_LEAFLET_TILE_URL', default_osm_leaflet_url),
+    }
