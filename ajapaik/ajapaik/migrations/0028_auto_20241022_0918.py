@@ -4,20 +4,19 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('ajapaik', '0027_auto_20241021_1718'),
+        ("ajapaik", "0027_auto_20241021_1718"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='action',
-            name='params',
+            model_name="action",
+            name="params",
             field=models.JSONField(blank=True, null=True),
         ),
         migrations.AlterField(
-            model_name='googlemapsreversegeocode',
-            name='response',
+            model_name="googlemapsreversegeocode",
+            name="response",
             field=models.JSONField(),
         ),
     ]

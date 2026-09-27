@@ -1,12 +1,12 @@
 import os
 import sys
 
-TEST_RUNNER = 'django.test.runner.DiscoverRunner'
+TEST_RUNNER = "django.test.runner.DiscoverRunner"
 
-gettext = lambda s: s  # noqa
+gettext = lambda s: s
 
-MESSAGE_STORAGE = 'django.contrib.messages.storage.fallback.FallbackStorage'
-SILENCED_SYSTEM_CHECKS = ['django_recaptcha.recaptcha_test_key_error']
+MESSAGE_STORAGE = "django.contrib.messages.storage.fallback.FallbackStorage"
+SILENCED_SYSTEM_CHECKS = ["django_recaptcha.recaptcha_test_key_error"]
 DEBUG = False
 
 DEFER_JAVASCRIPT = False
@@ -20,73 +20,85 @@ DATING_CONFIRMATION_POINTS = 50
 CURATOR_FLICKR_ENABLED = False
 CURATOR_EUROPEANA_ENABLED = False
 
-AJAPAIK_FACEBOOK_LINK = 'https://www.facebook.com/ajapaik'
+AJAPAIK_FACEBOOK_LINK = "https://www.facebook.com/ajapaik"
 
-ABSOLUTE_PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '../..'))
-ABSOLUTE_TEMPLATES_PATH = f'{ABSOLUTE_PROJECT_ROOT}/templates'
+ABSOLUTE_PROJECT_ROOT = os.path.abspath(
+    os.path.join(os.path.dirname(__file__), "../..")
+)
+ABSOLUTE_TEMPLATES_PATH = f"{ABSOLUTE_PROJECT_ROOT}/templates"
 
 if ABSOLUTE_PROJECT_ROOT not in sys.path:
     sys.path.insert(0, ABSOLUTE_PROJECT_ROOT)
 
-STATIC_ROOT = f'{ABSOLUTE_PROJECT_ROOT}/static-collected'
-MEDIA_ROOT = f'{ABSOLUTE_PROJECT_ROOT}/media'
-VANALINNAD_ROOT = '/home/ajapaik/vanalinnad.mooo.com'
-STATIC_URL = 'static/'
-MEDIA_URL = 'media/'
+STATIC_ROOT = f"{ABSOLUTE_PROJECT_ROOT}/static-collected"
+MEDIA_ROOT = f"{ABSOLUTE_PROJECT_ROOT}/media"
+VANALINNAD_ROOT = "/home/ajapaik/vanalinnad.mooo.com"
+STATIC_URL = "static/"
+MEDIA_URL = "media/"
 
-ADMIN_MEDIA_PREFIX = f'{STATIC_URL}admin/'
+ADMIN_MEDIA_PREFIX = f"{STATIC_URL}admin/"
 
-STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
+STATICFILES_STORAGE = "django.contrib.staticfiles.storage.ManifestStaticFilesStorage"
 
-STATICFILES_DIRS = (
-    f'{ABSOLUTE_PROJECT_ROOT}/ajapaik/ajapaik/static',
-)
+STATICFILES_DIRS = (f"{ABSOLUTE_PROJECT_ROOT}/ajapaik/ajapaik/static",)
 
-LOCALE_PATHS = (
-    f'{ABSOLUTE_PROJECT_ROOT}/ajapaik/ajapaik/locale',
-)
+LOCALE_PATHS = (f"{ABSOLUTE_PROJECT_ROOT}/ajapaik/ajapaik/locale",)
 
-ADMINS = (
-    ('Name Surname', 'admin@example.com'),
-)
+ADMINS = (("Name Surname", "admin@example.com"),)
 
 MANAGERS = ADMINS
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
-        'HOST': 'db'
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": "postgres",
+        "USER": "postgres",
+        "PASSWORD": "postgres",
+        "HOST": "db",
     }
 }
 
-FACEBOOK_APP_KEY = ''
-FACEBOOK_APP_SECRET = ''
+FACEBOOK_APP_KEY = ""
+FACEBOOK_APP_SECRET = ""
 
-TIME_ZONE = 'Europe/Tallinn'
+TIME_ZONE = "Europe/Tallinn"
 
-LANGUAGE_CODE = 'en'
+LANGUAGE_CODE = "en"
 
 LANGUAGES = (
-    ('et', gettext('Estonian')),
-    ('lv', gettext('Latvian')),
-    ('lt', gettext('Lithuanian')),
-    ('en', gettext('English')),
-    ('fi', gettext('Finnish')),
-    ('sv', gettext('Swedish')),
-    ('ru', gettext('Russian')),
-    ('fr', gettext('French'))
+    ("et", gettext("Estonian")),
+    ("lv", gettext("Latvian")),
+    ("lt", gettext("Lithuanian")),
+    ("en", gettext("English")),
+    ("fi", gettext("Finnish")),
+    ("sv", gettext("Swedish")),
+    ("ru", gettext("Russian")),
+    ("fr", gettext("French")),
 )
 
-MODELTRANSLATION_LANGUAGES = ('et', 'lv', 'lt', 'en', 'ru', 'fi', 'sv', 'nl', 'de', 'no')
-MODELTRANSLATION_PREPOPULATE_LANGUAGE = 'et'
-MODELTRANSLATION_FALLBACK_LANGUAGES = {'default': ('en', 'et'), 'en': ('et',), 'et': ('en',), 'sv': ('no', 'en', 'et'),
-                                       'no': ('sv', 'en', 'et')}
+MODELTRANSLATION_LANGUAGES = (
+    "et",
+    "lv",
+    "lt",
+    "en",
+    "ru",
+    "fi",
+    "sv",
+    "nl",
+    "de",
+    "no",
+)
+MODELTRANSLATION_PREPOPULATE_LANGUAGE = "et"
+MODELTRANSLATION_FALLBACK_LANGUAGES = {
+    "default": ("en", "et"),
+    "en": ("et",),
+    "et": ("en",),
+    "sv": ("no", "en", "et"),
+    "no": ("sv", "en", "et"),
+}
 
-TARTUNLP_LANGUAGES = ('et', 'lv', 'lt', 'en', 'ru', 'de', 'fi')
-TARTUNLP_API_URL = 'https://api.tartunlp.ai/translation/v2'
+TARTUNLP_LANGUAGES = ("et", "lv", "lt", "en", "ru", "de", "fi")
+TARTUNLP_API_URL = "https://api.tartunlp.ai/translation/v2"
 
 SITE_ID = 2
 
@@ -97,132 +109,134 @@ USE_L10N = False
 USE_TZ = True
 
 STATICFILES_FINDERS = (
-    'django.contrib.staticfiles.finders.FileSystemFinder',
-    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    'compressor.finders.CompressorFinder',
+    "django.contrib.staticfiles.finders.FileSystemFinder",
+    "django.contrib.staticfiles.finders.AppDirectoriesFinder",
+    "compressor.finders.CompressorFinder",
 )
 
-SECRET_KEY = '!!! paste your own secret key here !!!'
+SECRET_KEY = "!!! paste your own secret key here !!!"
 
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',
-    'django_hosts.middleware.HostsRequestMiddleware',
-    'django.middleware.gzip.GZipMiddleware',
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.locale.LocaleMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'ajapaik.ajapaik.user_middleware.UserMiddleware',
-    'django_user_agents.middleware.UserAgentMiddleware',
-    'django_hosts.middleware.HostsResponseMiddleware',
+    "corsheaders.middleware.CorsMiddleware",
+    "django_hosts.middleware.HostsRequestMiddleware",
+    "django.middleware.gzip.GZipMiddleware",
+    "django.middleware.security.SecurityMiddleware",
+    "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.locale.LocaleMiddleware",
+    "django.middleware.common.CommonMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
+    "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "ajapaik.ajapaik.user_middleware.UserMiddleware",
+    "django_user_agents.middleware.UserAgentMiddleware",
+    "django_hosts.middleware.HostsResponseMiddleware",
 ]
 
-DEFAULT_HOST = 'www'
-ROOT_HOSTCONF = 'ajapaik.hosts'
-ROOT_URLCONF = 'ajapaik.ajapaik.urls'
+DEFAULT_HOST = "www"
+ROOT_HOSTCONF = "ajapaik.hosts"
+ROOT_URLCONF = "ajapaik.ajapaik.urls"
 
-WSGI_APPLICATION = 'wsgi.application'
+WSGI_APPLICATION = "wsgi.application"
 
 TEMPLATES = [
     {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'OPTIONS': {
-            'context_processors': (
-                'django.contrib.auth.context_processors.auth',
-                'django.template.context_processors.debug',
-                'django.template.context_processors.i18n',
-                'django.template.context_processors.media',
-                'django.template.context_processors.static',
-                'django.template.context_processors.tz',
-                'django.template.context_processors.request',
-                'django.contrib.messages.context_processors.messages',
-                'ajapaik.ajapaik.context_processors.google_maps_api_key',
-                'ajapaik.ajapaik.context_processors.is_user_upload',
-                'ajapaik.ajapaik.context_processors.osm_tile_urls',
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "OPTIONS": {
+            "context_processors": (
+                "django.contrib.auth.context_processors.auth",
+                "django.template.context_processors.debug",
+                "django.template.context_processors.i18n",
+                "django.template.context_processors.media",
+                "django.template.context_processors.static",
+                "django.template.context_processors.tz",
+                "django.template.context_processors.request",
+                "django.contrib.messages.context_processors.messages",
+                "ajapaik.ajapaik.context_processors.google_maps_api_key",
+                "ajapaik.ajapaik.context_processors.is_user_upload",
+                "ajapaik.ajapaik.context_processors.osm_tile_urls",
             ),
-            'loaders': (
-                ('django.template.loaders.cached.Loader', (
-                    'django.template.loaders.filesystem.Loader',
-                    'django.template.loaders.app_directories.Loader',
-                    'admin_tools.template_loaders.Loader',
-                )),
-            )
+            "loaders": (
+                (
+                    "django.template.loaders.cached.Loader",
+                    (
+                        "django.template.loaders.filesystem.Loader",
+                        "django.template.loaders.app_directories.Loader",
+                        "admin_tools.template_loaders.Loader",
+                    ),
+                ),
+            ),
         },
-        'DIRS': (
+        "DIRS": (
             ABSOLUTE_TEMPLATES_PATH,
-            '%s/ajapaik/ajapaik/templates' % ABSOLUTE_PROJECT_ROOT
-        )
+            "%s/ajapaik/ajapaik/templates" % ABSOLUTE_PROJECT_ROOT,
+        ),
     },
 ]
 
 ACCOUNT_ACTIVATION_DAYS = 7
 REGISTRATION_AUTO_LOGIN = True
 REGISTRATION_EMAIL_HTML = False
-LOGIN_REDIRECT_URL = '/'
-REGISTRATION_FORM = 'ajapaik.ajapaik.forms.UserRegistrationForm'
+LOGIN_REDIRECT_URL = "/"
+REGISTRATION_FORM = "ajapaik.ajapaik.forms.UserRegistrationForm"
 
 INSTALLED_APPS = [
-    'admin_tools',
-    'admin_tools.theming',
-    'admin_tools.menu',
-    'admin_tools.dashboard',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.sites',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'django.contrib.admin',
-    'django.contrib.sitemaps',
-    'django.contrib.admindocs',
-    'django.contrib.gis',
-    'django_markdown2',
-    'django_comments_xtd',
-    'django_comments',
-    'ajapaik.ajapaik',
-    'django_extensions',
-    'django_hosts',
-    'dal',
-    'dal_select2',
-    'sorl.thumbnail',
-    'rest_framework',
-    'compressor',
-    'modeltranslation',
-    'haystack',
-    'registration',
-    'bootstrap4',
-    'leaflet',
-    'ajapaik.ajapaik_auth',
-    'ajapaik.ajapaik_comments',
-    'ajapaik.ajapaik_curator',
-    'ajapaik.ajapaik_datings',
-    'ajapaik.ajapaik_face_recognition',
-    'ajapaik.ajapaik_geotags',
-    'ajapaik.ajapaik_leaderboard',
-    'ajapaik.ajapaik_misc',
-    'ajapaik.ajapaik_object_recognition',
-    'ajapaik.ajapaik_profile',
-    'ajapaik.ajapaik_similar_photos',
-    'ajapaik.ajapaik_upload',
-    'django_user_agents',
-    'corsheaders',
-
+    "admin_tools",
+    "admin_tools.theming",
+    "admin_tools.menu",
+    "admin_tools.dashboard",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.sites",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
+    "django.contrib.admin",
+    "django.contrib.sitemaps",
+    "django.contrib.admindocs",
+    "django.contrib.gis",
+    "django_markdown2",
+    "django_comments_xtd",
+    "django_comments",
+    "ajapaik.ajapaik",
+    "django_extensions",
+    "django_hosts",
+    "dal",
+    "dal_select2",
+    "sorl.thumbnail",
+    "rest_framework",
+    "compressor",
+    "modeltranslation",
+    "haystack",
+    "registration",
+    "bootstrap4",
+    "leaflet",
+    "ajapaik.ajapaik_auth",
+    "ajapaik.ajapaik_comments",
+    "ajapaik.ajapaik_curator",
+    "ajapaik.ajapaik_datings",
+    "ajapaik.ajapaik_face_recognition",
+    "ajapaik.ajapaik_geotags",
+    "ajapaik.ajapaik_leaderboard",
+    "ajapaik.ajapaik_misc",
+    "ajapaik.ajapaik_object_recognition",
+    "ajapaik.ajapaik_profile",
+    "ajapaik.ajapaik_similar_photos",
+    "ajapaik.ajapaik_upload",
+    "django_user_agents",
+    "corsheaders",
     # Django allauth and related applications.
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
-    'allauth.socialaccount.providers.facebook',
-    'allauth.socialaccount.providers.google',
-    'ajapaik.ajapaik.socialaccount.providers.wikimedia_commons',
-    'django_recaptcha',
+    "allauth",
+    "allauth.account",
+    "allauth.socialaccount",
+    "allauth.socialaccount.providers.facebook",
+    "allauth.socialaccount.providers.google",
+    "ajapaik.ajapaik.socialaccount.providers.wikimedia_commons",
+    "django_recaptcha",
 ]
 
 # Note: Allauth login's next-parameter redirection doesn't understand wildcards in ALLOWED_HOSTS.
-ALLOWED_HOSTS = ['.ajapaik.ee', '127.0.0.1']
+ALLOWED_HOSTS = [".ajapaik.ee", "127.0.0.1"]
 
 # Allow CORS from localhost for developing
 CORS_ALLOWED_ORIGIN_REGEXES = [
@@ -234,10 +248,10 @@ CORS_ALLOWED_ORIGIN_REGEXES = [
 ]
 
 HAYSTACK_CONNECTIONS = {
-    'default': {
-        'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
-        'URL': 'http://127.0.0.1:8983/solr/collection1',
-        'ADMIN_URL': 'http://127.0.0.1:8983/solr/admin/cores'
+    "default": {
+        "ENGINE": "haystack.backends.solr_backend.SolrEngine",
+        "URL": "http://127.0.0.1:8983/solr/collection1",
+        "ADMIN_URL": "http://127.0.0.1:8983/solr/admin/cores",
     },
 }
 
@@ -245,48 +259,52 @@ HAYSTACK_ITERATOR_LOAD_PER_QUERY = 1000
 HAYSTACK_LIMIT_TO_REGISTERED_MODELS = True
 
 AUTHENTICATION_BACKENDS = (
-    'ajapaik.ajapaik.user_middleware.AuthBackend',
-    'allauth.account.auth_backends.AuthenticationBackend',
+    "ajapaik.ajapaik.user_middleware.AuthBackend",
+    "allauth.account.auth_backends.AuthenticationBackend",
 )
 
-LOGIN_URL = '/accounts/login/'
+LOGIN_URL = "/accounts/login/"
 
 REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': ['rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'],
-    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.BasicAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly"
+    ],
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.LimitOffsetPagination",
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework.authentication.BasicAuthentication",
+        "rest_framework.authentication.SessionAuthentication",
     ),
-    'EXCEPTION_HANDLER': 'ajapaik.ajapaik.api.custom_exception_handler',
-    'PAGE_SIZE': 100
+    "EXCEPTION_HANDLER": "ajapaik.ajapaik.api.custom_exception_handler",
+    "PAGE_SIZE": 100,
 }
 
-DEFAULT_FROM_EMAIL = 'info@ajapaik.ee'
+DEFAULT_FROM_EMAIL = "info@ajapaik.ee"
 # This will actually forward to errors@ajapaik.ee as per sendmail config in etc/mail/aliases
-SERVER_EMAIL = 'err@ajapaik.ee'
+SERVER_EMAIL = "err@ajapaik.ee"
 # TODO: Use django-mailgun
 
-AJAPAIK_VALIMIMOODUL_URL = 'https://valimimoodul.ajapaik.ee/ajapaik-service/AjapaikService.json'
+AJAPAIK_VALIMIMOODUL_URL = (
+    "https://valimimoodul.ajapaik.ee/ajapaik-service/AjapaikService.json"
+)
 
 API_DEFAULT_NEARBY_PHOTOS_RANGE = 50000
 API_DEFAULT_NEARBY_MAX_PHOTOS = 50
 
-AJAPAIK_BENEFICIARY_NAME = 'MTÜ EESTI FOTOPÄRAND'
-AJAPAIK_BENEFICIARY_ACCT_SWEDBANK = 'EE592200221064820403'
-AJAPAIK_BENEFICIARY_ACCT_LHV = 'EE217700771004367890'
+AJAPAIK_BENEFICIARY_NAME = "MTÜ EESTI FOTOPÄRAND"
+AJAPAIK_BENEFICIARY_ACCT_SWEDBANK = "EE592200221064820403"
+AJAPAIK_BENEFICIARY_ACCT_LHV = "EE217700771004367890"
 
-COMMENTS_APP = 'django_comments_xtd'
+COMMENTS_APP = "django_comments_xtd"
 COMMENTS_XTD_MAX_THREAD_LEVEL = 1
 COMMENTS_XTD_CONFIRM_EMAIL = False
-COMMENTS_XTD_FORM_CLASS = 'ajapaik.ajapaik.forms.CommentForm'
-COMMENTS_XTD_MODEL = 'ajapaik.ajapaik.models.MyXtdComment'
-COMMENTS_XTD_MARKUP_FALLBACK_FILTER = 'markdown'
+COMMENTS_XTD_FORM_CLASS = "ajapaik.ajapaik.forms.CommentForm"
+COMMENTS_XTD_MODEL = "ajapaik.ajapaik.models.MyXtdComment"
+COMMENTS_XTD_MARKUP_FALLBACK_FILTER = "markdown"
 COMMENTS_XTD_APP_MODEL_OPTIONS = {
-    'ajapaik.photo': {
-        'allow_flagging': True,
-        'allow_feedback': True,
-        'show_feedback': True,
+    "ajapaik.photo": {
+        "allow_flagging": True,
+        "allow_feedback": True,
+        "show_feedback": True,
     }
 }
 # FIXME: These break static images
@@ -297,96 +315,102 @@ SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
 
 LEAFLET_CONFIG = {
-    'PLUGINS': {
-        'leaflet-fullscreen': {
-            'css': 'https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/leaflet.fullscreen.css',
-            'js': 'https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/Leaflet.fullscreen.min.js',
-            'auto-include': True,
+    "PLUGINS": {
+        "leaflet-fullscreen": {
+            "css": "https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/leaflet.fullscreen.css",
+            "js": "https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/Leaflet.fullscreen.min.js",
+            "auto-include": True,
         },
-        'leaflet-rotatedMarker': {
-            'js': '/static/js/leaflet.rotatedMarker.js',
-            'auto-include': True,
+        "leaflet-rotatedMarker": {
+            "js": "/static/js/leaflet.rotatedMarker.js",
+            "auto-include": True,
         },
-        'leaflet-geometryutil': {
-            'js': '/static/js/leaflet.geometryutil.js',
-            'auto-include': True,
+        "leaflet-geometryutil": {
+            "js": "/static/js/leaflet.geometryutil.js",
+            "auto-include": True,
         },
-        'easy-button': {
-            'js': '/static/js/leaflet.easy-button.js',
-            'auto-include': True,
-        }
+        "easy-button": {
+            "js": "/static/js/leaflet.easy-button.js",
+            "auto-include": True,
+        },
     }
 }
 
 # OpenStreetMap tile server URLs
 # In local testing (DEBUG=True), tile.openstreetmap.de is used to prevent "Access denied" blocks.
 # In production (DEBUG=False), the standard tile.openstreetmap.org server is used.
-OSM_TILE_URL = 'https://tile.openstreetmap.de/' if DEBUG else 'https://a.tile.openstreetmap.org/'
-OSM_LEAFLET_TILE_URL = 'https://tile.openstreetmap.de/{z}/{x}/{y}.png' if DEBUG else 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+OSM_TILE_URL = (
+    "https://tile.openstreetmap.de/" if DEBUG else "https://a.tile.openstreetmap.org/"
+)
+OSM_LEAFLET_TILE_URL = (
+    "https://tile.openstreetmap.de/{z}/{x}/{y}.png"
+    if DEBUG
+    else "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+)
 
-BOT_USERNAME = 'search_engine_user'
+BOT_USERNAME = "search_engine_user"
 BOT_USER_AGENTS = {
-    'AhrefsBot',
-    'AlphaBot',
-    'Applebot',
-    'archive.org_bot',
-    'Baiduspider',
-    'bingbot',
-    'BingPreview',
-    'BLEXBot',
-    'bot@linkfluence.com',
-    'Cliqzbot',
-    'DataForSeoBot',
-    'datagnionbot',
-    'Discordbot',
-    'DomainStatsBot',
-    'DotBot',
-    'DuckDuckBot-Https',
-    'DuckDuckGo-Favicons-Bot',
-    'EarwigBot',
-    'ExtLinksBot',
-    'Facebot',
-    'facebookexternalhit',
-    'Gigabot',
-    'Gluten Free Crawler',
-    'Gogolbot',
-    'Googlebot',
-    'Googlebot-Image',
-    'Googlebot-Video',
-    'Jooblebot',
-    'linkdexbot',
-    'Mail.RU_Bot',
-    'MJ12bot',
-    'moatbot',
-    'MojeekBot',
-    'nsrbot',
-    'OutclicksBot',
-    'Pinterestbot',
-    'PetalBot',
-    'pustkibot',
-    'rogerbot',
-    'SafeDNSBot',
-    'ScoutJet',
-    'SemrushBot',
-    'SemrushBot-BA',
-    'SEOkicks',
-    'SeznamBot',
-    'Slackbot',
-    'Slackbot-LinkExpanding',
-    'Slack-ImgProxy',
-    'SMTBot',
-    'spbot',
-    'SurdotlyBot',
-    'trendictionbot0.5.0',
-    'TweetmemeBot',
-    'Twitterbot',
-    'Uptimebot',
-    'yacybot',
-    'YandexBot',
-    'YandexMobileBot',
-    'YandexImages',
-    'YandexImageResizer',
-    'Wget'
+    "AhrefsBot",
+    "AlphaBot",
+    "Applebot",
+    "archive.org_bot",
+    "Baiduspider",
+    "bingbot",
+    "BingPreview",
+    "BLEXBot",
+    "bot@linkfluence.com",
+    "Cliqzbot",
+    "DataForSeoBot",
+    "datagnionbot",
+    "Discordbot",
+    "DomainStatsBot",
+    "DotBot",
+    "DuckDuckBot-Https",
+    "DuckDuckGo-Favicons-Bot",
+    "EarwigBot",
+    "ExtLinksBot",
+    "Facebot",
+    "facebookexternalhit",
+    "Gigabot",
+    "Gluten Free Crawler",
+    "Gogolbot",
+    "Googlebot",
+    "Googlebot-Image",
+    "Googlebot-Video",
+    "Jooblebot",
+    "linkdexbot",
+    "Mail.RU_Bot",
+    "MJ12bot",
+    "moatbot",
+    "MojeekBot",
+    "nsrbot",
+    "OutclicksBot",
+    "Pinterestbot",
+    "PetalBot",
+    "pustkibot",
+    "rogerbot",
+    "SafeDNSBot",
+    "ScoutJet",
+    "SemrushBot",
+    "SemrushBot-BA",
+    "SEOkicks",
+    "SeznamBot",
+    "Slackbot",
+    "Slackbot-LinkExpanding",
+    "Slack-ImgProxy",
+    "SMTBot",
+    "spbot",
+    "SurdotlyBot",
+    "trendictionbot0.5.0",
+    "TweetmemeBot",
+    "Twitterbot",
+    "Uptimebot",
+    "yacybot",
+    "YandexBot",
+    "YandexMobileBot",
+    "YandexImages",
+    "YandexImageResizer",
+    "Wget",
 }
 
 # CACHES = {
@@ -405,66 +429,65 @@ BOT_USER_AGENTS = {
 GENERAL_INFO_MODAL_CACHE_TTL = 86400  # 60 * 60 * 24
 
 # allauth configuration
-ACCOUNT_DEFAULT_HTTP_PROTOCOL = 'https'
-ACCOUNT_ADAPTER = 'ajapaik.ajapaik.account_adapter.safeUrlAdapter'
+ACCOUNT_DEFAULT_HTTP_PROTOCOL = "https"
+ACCOUNT_ADAPTER = "ajapaik.ajapaik.account_adapter.safeUrlAdapter"
 
 # Email login/registration settings.
 # This group of settings configured email confirmation obligatory for email
 # registered users and optional for user registered with some social account.
-ACCOUNT_USER_DISPLAY = lambda user: user.profile.display_name if (  # noqa
-        user.profile and user.profile.display_name) else user.get_full_name()
-ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_USER_DISPLAY = lambda user: (
+    user.profile.display_name
+    if (user.profile and user.profile.display_name)
+    else user.get_full_name()
+)
+ACCOUNT_AUTHENTICATION_METHOD = "email"
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True
-ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+ACCOUNT_EMAIL_VERIFICATION = "mandatory"
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_AUTHENTICATED_LOGIN_REDIRECTS = False
-SOCIALACCOUNT_EMAIL_VERIFICATION = 'none'
+SOCIALACCOUNT_EMAIL_VERIFICATION = "none"
 SOCIALACCOUNT_EMAIL_REQUIRED = False
 SOCIALACCOUNT_QUERY_EMAIL = True
-SOCIALACCOUNT_ADAPTER = 'ajapaik.ajapaik.social_account_adapter.MySocialAccountAdapter'
+SOCIALACCOUNT_ADAPTER = "ajapaik.ajapaik.social_account_adapter.MySocialAccountAdapter"
 # Autologin, after email confirmation, only works when confirming the email
 # address immediately after signing up, assuming users didn’t close their
 # browser or used some sort of private browsing mode.
 ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
 
 ACCOUNT_FORMS = {
-    'signup': 'ajapaik.ajapaik.forms.SignupForm',
+    "signup": "ajapaik.ajapaik.forms.SignupForm",
 }
 
 SOCIALACCOUNT_PROVIDERS = {
-    'facebook': {
-        'METHOD': 'oauth2',
-        'SCOPE': [
-            'email',
-            'public_profile',
+    "facebook": {
+        "METHOD": "oauth2",
+        "SCOPE": [
+            "email",
+            "public_profile",
         ],
     },
-    'google': {
-        'SCOPE': [
-            'profile',
-            'email',
+    "google": {
+        "SCOPE": [
+            "profile",
+            "email",
         ],
-        'AUTH_PARAMS': {
-            'access_type': 'offline',
-        }
+        "AUTH_PARAMS": {
+            "access_type": "offline",
+        },
     },
-    'wikimedia-commons': {
-        'METHOD': 'oauth2',
-        'SCOPE': [
-            'basic',
-            'editpage',
-            'uploadfile'
-        ]
+    "wikimedia-commons": {
+        "METHOD": "oauth2",
+        "SCOPE": ["basic", "editpage", "uploadfile"],
     },
 }
 
-UA = 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.137 Safari/537.36'
+UA = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.137 Safari/537.36"
 
-if os.getenv('GITHUB_WORKFLOW'):
-    from .test import *  # noqa - Needed so that PyCharm won't replace it with pass
+if os.getenv("GITHUB_WORKFLOW"):
+    from .test import *
 
-DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
 INTERNAL_IPS = [
     # ...
     "127.0.0.1",

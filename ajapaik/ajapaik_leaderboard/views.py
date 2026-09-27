@@ -22,14 +22,18 @@ def leaderboard(request, album_id=None):
         album_photos_qs = album.photos.all()
         for sa in album.subalbums.exclude(atype=Album.AUTO):
             album_photos_qs = album_photos_qs | sa.photos.all()
-        album_photo_ids = set(album_photos_qs.values_list('id', flat=True))
-        album_rephoto_ids = frozenset(album_photos_qs.filter(rephoto_of__isnull=False)
-                                      .values_list('rephoto_of_id', flat=True))
+        album_photo_ids = set(album_photos_qs.values_list("id", flat=True))
+        album_rephoto_ids = frozenset(
+            album_photos_qs.filter(rephoto_of__isnull=False).values_list(
+                "rephoto_of_id", flat=True
+            )
+        )
         photo_points = Points.objects.filter(
-            Q(photo_id__in=album_photo_ids) | Q(photo_id__in=album_rephoto_ids)).exclude(
-            action=Points.PHOTO_RECURATION)
-        photo_points = photo_points | Points.objects.filter(photo_id__in=album_photo_ids, album=album,
-                                                            action=Points.PHOTO_RECURATION)
+            Q(photo_id__in=album_photo_ids) | Q(photo_id__in=album_rephoto_ids)
+        ).exclude(action=Points.PHOTO_RECURATION)
+        photo_points = photo_points | Points.objects.filter(
+            photo_id__in=album_photo_ids, album=album, action=Points.PHOTO_RECURATION
+        )
         user_score_map = {}
         for each in photo_points:
             if each.user_id in user_score_map:
@@ -38,21 +42,25 @@ def leaderboard(request, album_id=None):
                 user_score_map[each.user_id] = each.points
         if profile.id not in user_score_map:
             user_score_map[profile.id] = 0
-        sorted_scores = sorted(user_score_map.items(), key=operator.itemgetter(1), reverse=True)
+        sorted_scores = sorted(
+            user_score_map.items(), key=operator.itemgetter(1), reverse=True
+        )
         pk_list = [x[0] for x in sorted_scores]
         current_user_rank = pk_list.index(profile.id)
         if current_user_rank == -1:
             current_user_rank = len(sorted_scores)
         current_user_rank += 1
         # Works on Postgres, we don't really need to worry about this I guess...maybe only if it gets slow
-        clauses = ' '.join(['WHEN user_id=%s THEN %s' % (pk, i) for i, pk in enumerate(pk_list)])
-        ordering = 'CASE %s END' % clauses
-        top_users = Profile.objects.filter(Q(user_id__in=pk_list) | Q(user_id=profile.id)) \
-            .extra(select={'ordering': ordering}, order_by=('ordering',))
+        clauses = " ".join(
+            ["WHEN user_id=%s THEN %s" % (pk, i) for i, pk in enumerate(pk_list)]
+        )
+        ordering = "CASE %s END" % clauses
+        top_users = Profile.objects.filter(
+            Q(user_id__in=pk_list) | Q(user_id=profile.id)
+        ).extra(select={"ordering": ordering}, order_by=("ordering",))
         start = current_user_rank - 2
-        if start < 0:
-            start = 0
-        top_users = top_users[start:current_user_rank + 1]
+        start = max(start, 0)
+        top_users = top_users[start : current_user_rank + 1]
         n = current_user_rank
         for each in top_users:
             if each.user_id == profile.id:
@@ -63,15 +71,25 @@ def leaderboard(request, album_id=None):
         album_leaderboard = top_users
     else:
         _calculate_recent_activity_scores()
-        profile_rank = Profile.objects.filter(score_recent_activity__gt=profile.score_recent_activity,
-                                              first_name__isnull=False, last_name__isnull=False).count() + 1
+        profile_rank = (
+            Profile.objects.filter(
+                score_recent_activity__gt=profile.score_recent_activity,
+                first_name__isnull=False,
+                last_name__isnull=False,
+            ).count()
+            + 1
+        )
         leaderboard_queryset = Profile.objects.filter(
-            Q(first_name__isnull=False, last_name__isnull=False, score_recent_activity__gt=0) |
-            Q(pk=profile.id)).order_by('-score_recent_activity')
+            Q(
+                first_name__isnull=False,
+                last_name__isnull=False,
+                score_recent_activity__gt=0,
+            )
+            | Q(pk=profile.id)
+        ).order_by("-score_recent_activity")
         start = profile_rank - 2
-        if start < 0:
-            start = 0
-        nearby_users = leaderboard_queryset[start:profile_rank + 1]
+        start = max(start, 0)
+        nearby_users = leaderboard_queryset[start : profile_rank + 1]
         n = start + 1
         for each in nearby_users:
             if each.user_id == profile.id:
@@ -80,17 +98,17 @@ def leaderboard(request, album_id=None):
             n += 1
         general_leaderboard = nearby_users
     if is_ajax(request):
-        template = 'leaderboard/_block_leaderboard.html'
+        template = "leaderboard/_block_leaderboard.html"
     else:
-        template = 'leaderboard/leaderboard.html'
+        template = "leaderboard/leaderboard.html"
     # FIXME: this shouldn't be necessary, there are easier ways to construct URLs
     context = {
-        'is_top_50': False,
-        'title': _('Leaderboard'),
-        'hostname': f"{request.scheme}://{request.get_host()}",
-        'leaderboard': general_leaderboard,
-        'album_leaderboard': album_leaderboard,
-        'ajapaik_facebook_link': settings.AJAPAIK_FACEBOOK_LINK
+        "is_top_50": False,
+        "title": _("Leaderboard"),
+        "hostname": f"{request.scheme}://{request.get_host()}",
+        "leaderboard": general_leaderboard,
+        "album_leaderboard": album_leaderboard,
+        "ajapaik_facebook_link": settings.AJAPAIK_FACEBOOK_LINK,
     }
     return render(request, template, context)
 
@@ -98,12 +116,16 @@ def leaderboard(request, album_id=None):
 def all_time_leaderboard(request):
     _calculate_recent_activity_scores()
     atl = _get_all_time_leaderboard50(request.get_user().profile.pk)
-    template = ['', 'leaderboard/_block_leaderboard.html', 'leaderboard/leaderboard.html'][is_ajax(request) and 1 or 2]
+    template = [
+        "",
+        "leaderboard/_block_leaderboard.html",
+        "leaderboard/leaderboard.html",
+    ][is_ajax(request) and 1 or 2]
     context = {
-        'hostname': f"{request.scheme}://{request.get_host()}",
-        'all_time_leaderboard': atl,
-        'title': _('Leaderboard'),
-        'is_top_50': True
+        "hostname": f"{request.scheme}://{request.get_host()}",
+        "all_time_leaderboard": atl,
+        "title": _("Leaderboard"),
+        "is_top_50": True,
     }
     return render(request, template, context)
 
@@ -118,9 +140,18 @@ def top50(request, album_id=None):
         album_leaderboard, album_name = _get_album_leaderboard50(profile.pk, album_id)
     else:
         general_leaderboard = _get_all_time_leaderboard50(profile.pk)
-    activity_leaderboard = Profile.objects.filter(
-        Q(first_name__isnull=False, last_name__isnull=False, score_recent_activity__gt=0) |
-        Q(pk=profile.id)).order_by('-score_recent_activity').prefetch_related('user')[:50]
+    activity_leaderboard = (
+        Profile.objects.filter(
+            Q(
+                first_name__isnull=False,
+                last_name__isnull=False,
+                score_recent_activity__gt=0,
+            )
+            | Q(pk=profile.id)
+        )
+        .order_by("-score_recent_activity")
+        .prefetch_related("user")[:50]
+    )
     n = 1
     for each in activity_leaderboard:
         if each.user_id == profile.id:
@@ -128,18 +159,18 @@ def top50(request, album_id=None):
         each.position = n
         n += 1
     if is_ajax(request):
-        template = 'leaderboard/_block_leaderboard.html'
+        template = "leaderboard/_block_leaderboard.html"
     else:
-        template = 'leaderboard/leaderboard.html'
+        template = "leaderboard/leaderboard.html"
     context = {
-        'activity_leaderboard': activity_leaderboard,
-        'album_name': album_name,
-        'album_leaderboard': album_leaderboard,
-        'all_time_leaderboard': general_leaderboard,
-        'hostname': f"{request.scheme}://{request.get_host()}",
-        'title': _('Leaderboard'),
-        'is_top_50': True,
-        'ajapaik_facebook_link': settings.AJAPAIK_FACEBOOK_LINK
+        "activity_leaderboard": activity_leaderboard,
+        "album_name": album_name,
+        "album_leaderboard": album_leaderboard,
+        "all_time_leaderboard": general_leaderboard,
+        "hostname": f"{request.scheme}://{request.get_host()}",
+        "title": _("Leaderboard"),
+        "is_top_50": True,
+        "ajapaik_facebook_link": settings.AJAPAIK_FACEBOOK_LINK,
     }
     return render(request, template, context)
 
@@ -147,15 +178,25 @@ def top50(request, album_id=None):
 def _get_leaderboard(profile):
     # General small leaderboard doesn't have anonymous users, displays recent activity score
     # TODO: Should also show first place, where did that code go?
-    profile_rank = Profile.objects.filter(score_recent_activity__gt=profile.score_recent_activity,
-                                          first_name__isnull=False, last_name__isnull=False).count() + 1
+    profile_rank = (
+        Profile.objects.filter(
+            score_recent_activity__gt=profile.score_recent_activity,
+            first_name__isnull=False,
+            last_name__isnull=False,
+        ).count()
+        + 1
+    )
     leaderboard_queryset = Profile.objects.filter(
-        Q(first_name__isnull=False, last_name__isnull=False, score_recent_activity__gt=0) |
-        Q(pk=profile.id)).order_by('-score_recent_activity')
+        Q(
+            first_name__isnull=False,
+            last_name__isnull=False,
+            score_recent_activity__gt=0,
+        )
+        | Q(pk=profile.id)
+    ).order_by("-score_recent_activity")
     start = profile_rank - 2
-    if start < 0:
-        start = 0
-    nearby_users = leaderboard_queryset[start:profile_rank + 1]
+    start = max(start, 0)
+    nearby_users = leaderboard_queryset[start : profile_rank + 1]
     n = start + 1
     for each in nearby_users:
         if each == profile:
@@ -169,18 +210,23 @@ def _get_leaderboard(profile):
 def _get_album_leaderboard50(profile_id, album_id=None):
     album = Album.objects.get(pk=album_id)
     album_photos_qs = album.get_historic_photos_queryset_with_subalbums()
-    album_photo_ids = frozenset(album_photos_qs.values_list('id', flat=True))
-    album_photos_with_rephotos = album_photos_qs.filter(rephotos__isnull=False).prefetch_related('rephotos')
+    album_photo_ids = frozenset(album_photos_qs.values_list("id", flat=True))
+    album_photos_with_rephotos = album_photos_qs.filter(
+        rephotos__isnull=False
+    ).prefetch_related("rephotos")
     album_rephoto_ids = []
     for each in album_photos_with_rephotos:
         for rp in each.rephotos.all():
             album_rephoto_ids.append(rp.id)
-    photo_points = Points.objects.prefetch_related('user') \
-        .filter(photo_id__in=album_photo_ids, points__gt=0)
-    photo_points = photo_points | Points.objects.prefetch_related('user') \
-        .filter(photo_id__in=album_rephoto_ids, points__gt=0).exclude(action=Points.PHOTO_RECURATION)
-    photo_points = photo_points | Points.objects.filter(photo_id__in=album_photo_ids, album=album,
-                                                        action=Points.PHOTO_RECURATION).prefetch_related('user')
+    photo_points = Points.objects.prefetch_related("user").filter(
+        photo_id__in=album_photo_ids, points__gt=0
+    )
+    photo_points = photo_points | Points.objects.prefetch_related("user").filter(
+        photo_id__in=album_rephoto_ids, points__gt=0
+    ).exclude(action=Points.PHOTO_RECURATION)
+    photo_points = photo_points | Points.objects.filter(
+        photo_id__in=album_photo_ids, album=album, action=Points.PHOTO_RECURATION
+    ).prefetch_related("user")
     # TODO: This should not be done in Python memory, but with a query
     user_score_map = {}
     for each in photo_points:
@@ -190,7 +236,9 @@ def _get_album_leaderboard50(profile_id, album_id=None):
             user_score_map[each.user_id] = each.points
     if profile_id not in user_score_map:
         user_score_map[profile_id] = 0
-    sorted_scores = sorted(user_score_map.items(), key=operator.itemgetter(1), reverse=True)[:50]
+    sorted_scores = sorted(
+        user_score_map.items(), key=operator.itemgetter(1), reverse=True
+    )[:50]
     pk_list = [x[0] for x in sorted_scores]
     try:
         current_user_rank = pk_list.index(profile_id)
@@ -198,10 +246,15 @@ def _get_album_leaderboard50(profile_id, album_id=None):
         current_user_rank = len(sorted_scores)
     current_user_rank += 1
     # Works on Postgres, we don't really need to worry about this I guess...maybe only if it gets slow
-    clauses = ' '.join(['WHEN user_id=%s THEN %s' % (pk, i) for i, pk in enumerate(pk_list)])
-    ordering = 'CASE %s END' % clauses
-    top_users = Profile.objects.filter(Q(user_id__in=pk_list) | Q(user_id=profile_id)) \
-        .extra(select={'ordering': ordering}, order_by=('ordering',)).prefetch_related('user')
+    clauses = " ".join(
+        ["WHEN user_id=%s THEN %s" % (pk, i) for i, pk in enumerate(pk_list)]
+    )
+    ordering = "CASE %s END" % clauses
+    top_users = (
+        Profile.objects.filter(Q(user_id__in=pk_list) | Q(user_id=profile_id))
+        .extra(select={"ordering": ordering}, order_by=("ordering",))
+        .prefetch_related("user")
+    )
     n = 1
     for each in top_users:
         if each.user_id == profile_id:
@@ -214,9 +267,13 @@ def _get_album_leaderboard50(profile_id, album_id=None):
 
 
 def _get_all_time_leaderboard50(profile_id):
-    lb = Profile.objects.filter(
-        Q(first_name__isnull=False, last_name__isnull=False) |
-        Q(pk=profile_id)).order_by('-score').prefetch_related('user')[:50]
+    lb = (
+        Profile.objects.filter(
+            Q(first_name__isnull=False, last_name__isnull=False) | Q(pk=profile_id)
+        )
+        .order_by("-score")
+        .prefetch_related("user")[:50]
+    )
     n = 1
     for each in lb:
         if each.user_id == profile_id:
@@ -231,17 +288,22 @@ def _calculate_recent_activity_scores():
     c = min(5000, Points.objects.all().count())
     recent_actions = []
     if c > 0:
-        five_thousand_actions_ago = Points.objects.order_by('-created')[c - 1].created
-        recent_actions = Points.objects.filter(created__gt=five_thousand_actions_ago).values('user_id') \
-            .annotate(total_points=Sum('points'))
+        five_thousand_actions_ago = Points.objects.order_by("-created")[c - 1].created
+        recent_actions = (
+            Points.objects.filter(created__gt=five_thousand_actions_ago)
+            .values("user_id")
+            .annotate(total_points=Sum("points"))
+        )
     recent_action_dict = {}
     for each in recent_actions:
-        recent_action_dict[each['user_id']] = each['total_points']
+        recent_action_dict[each["user_id"]] = each["total_points"]
     recent_actors = Profile.objects.filter(pk__in=recent_action_dict.keys())
     for each in recent_actors:
         each.score_recent_activity = recent_action_dict[each.pk]
         each.save()
     # Profile.objects.bulk_update(recent_actors, update_fields=['score_recent_activity'])
     # Check for people who somehow no longer have actions among the last 5000
-    orphan_profiles = Profile.objects.filter(score_recent_activity__gt=0).exclude(pk__in=[x.pk for x in recent_actors])
+    orphan_profiles = Profile.objects.filter(score_recent_activity__gt=0).exclude(
+        pk__in=[x.pk for x in recent_actors]
+    )
     orphan_profiles.update(score_recent_activity=0)

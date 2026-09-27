@@ -2,69 +2,78 @@ import logging
 
 from django.contrib.sites.models import Site
 from django.db import models
-from django.db.models import Count, Case, When, Value, Q, BooleanField
+from django.db.models import BooleanField, Case, Count, Q, Value, When
 from django.urls import reverse
 from django.utils import timezone
 from rest_framework import serializers
 from rest_framework_dataclasses.serializers import DataclassSerializer
 
-from .models import Album, Dating, Video, Photo, ImageSimilarity, Source, Licence, Profile
+from .models import (
+    Album,
+    Dating,
+    ImageSimilarity,
+    Licence,
+    Photo,
+    Profile,
+    Source,
+    Video,
+)
 from .types import GalleryResults
 
 log = logging.getLogger(__name__)
 
 
 def get_base_uri(obj) -> str:
-    'https://%s%s' % (Site.objects.get_current().domain, obj.get_absolute_url())
+    "https://%s%s" % (Site.objects.get_current().domain, obj.get_absolute_url())
 
 
 class AlbumDetailsSerializer(serializers.ModelSerializer):
-    title = serializers.CharField(source='name')
+    title = serializers.CharField(source="name")
     image = serializers.SerializerMethodField()
     stats = serializers.SerializerMethodField()
 
     def get_image(self, instance):
-        request = self.context['request']
+        request = self.context["request"]
         return request.build_absolute_uri(
-            reverse('api_album_thumb', args=(instance.id,))
+            reverse("api_album_thumb", args=(instance.id,))
         )
 
     def get_stats(self, instance):
         return {
-            'rephotos': instance.rephotos_count,
+            "rephotos": instance.rephotos_count,
             # Currently rephotos don't belong to original photo album.
-            'total': instance.photos_count + instance.rephotos_count
+            "total": instance.photos_count + instance.rephotos_count,
         }
 
     @classmethod
     def annotate_albums(cls, albums_queryset):
-        return albums_queryset \
-            .annotate(rephotos_count=Count('photos__rephotos')) \
-            .annotate(photos_count=Count('photos'))
+        return albums_queryset.annotate(
+            rephotos_count=Count("photos__rephotos")
+        ).annotate(photos_count=Count("photos"))
 
-    class Meta(object):
+    class Meta:
         model = Album
-        fields = ('id', 'title', 'image', 'stats')
+        fields = ("id", "title", "image", "stats")
 
 
 class AlbumSerializer(serializers.ModelSerializer):
-    title = serializers.CharField(source='name')
+    title = serializers.CharField(source="name")
     photos = serializers.SerializerMethodField()
 
     def get_photos(self, instance: Album):
-        request = self.context['request']
+        request = self.context["request"]
 
         return PhotoSerializer(
             instance=instance.photos.all(),
             many=True,
             context={
-                'request': request,
-            }
+                "request": request,
+            },
         ).data
 
-    class Meta(object):
+    class Meta:
         model = Album
-        fields = ('title', 'photos')
+        fields = ("title", "photos")
 
 
 class PhotoMiniSerializer(serializers.ModelSerializer):
@@ -73,32 +82,32 @@ class PhotoMiniSerializer(serializers.ModelSerializer):
     def get_slug(self, instance: Photo) -> str:
         return instance.get_pseudo_slug
 
-    class Meta(object):
+    class Meta:
         model = Photo
-        fields = ['id', 'slug']
+        fields = ["id", "slug"]
 
 
 class PhotoFaceCategorizationSerializer(PhotoMiniSerializer):
     class Meta(PhotoMiniSerializer.Meta):
         model = Photo
-        fields = [*PhotoMiniSerializer.Meta.fields, 'width', 'height']
+        fields = [*PhotoMiniSerializer.Meta.fields, "width", "height"]
 
 
 class PhotoRepresentationSerializer(PhotoMiniSerializer):
-    display_text = serializers.SerializerMethodField('get_display_text')
+    display_text = serializers.SerializerMethodField("get_display_text")
 
     def get_display_text(self, instance: Photo):
         return instance.get_display_text
 
     class Meta(PhotoMiniSerializer.Meta):
         model = Photo
-        fields = [*PhotoMiniSerializer.Meta.fields, 'title', 'display_text']
+        fields = [*PhotoMiniSerializer.Meta.fields, "title", "display_text"]
 
 
 class AlbumMiniSerializer(serializers.ModelSerializer):
-    class Meta(object):
+    class Meta:
         model = Album
-        fields = ['name']
+        fields = ["name"]
 
 
 class AlbumPreviewSerializer(AlbumMiniSerializer):
@@ -125,38 +134,54 @@ class CuratorAlbumInfoSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Album
-        fields = ('id', 'name', 'description', 'open', 'is_public', 'parent_album_id', 'parent_album_name')
+        fields = (
+            "id",
+            "name",
+            "description",
+            "open",
+            "is_public",
+            "parent_album_id",
+            "parent_album_name",
+        )
 
 
 class CuratorAlbumSelectionAlbumSerializer(serializers.ModelSerializer):
     class Meta:
         model = Album
-        fields = ('id', 'name', 'open')
+        fields = ("id", "name", "open")
 
 
 class CuratorMyAlbumListAlbumSerializer(serializers.ModelSerializer):
-    photo_count = serializers.IntegerField(source='photos.count')
+    photo_count = serializers.IntegerField(source="photos.count")
 
     class Meta:
         model = Album
-        fields = ('id', 'name', 'photo_count')
+        fields = ("id", "name", "photo_count")
 
 
 class DatingSerializer(serializers.ModelSerializer):
-    profile_id = serializers.IntegerField(source='profile.id', required=False)
-    full_name = serializers.CharField(source='profile.get_display_name', required=False)
-    confirmation_count = serializers.IntegerField(source='confirmations.count')
+    profile_id = serializers.IntegerField(source="profile.id", required=False)
+    full_name = serializers.CharField(source="profile.get_display_name", required=False)
+    confirmation_count = serializers.IntegerField(source="confirmations.count")
     this_user_has_confirmed = serializers.BooleanField()
 
     class Meta:
         model = Dating
-        fields = ('id', 'profile_id', 'comment', 'full_name', 'confirmation_count', 'raw', 'this_user_has_confirmed')
+        fields = (
+            "id",
+            "profile_id",
+            "comment",
+            "full_name",
+            "confirmation_count",
+            "raw",
+            "this_user_has_confirmed",
+        )
 
 
 class DateTimeTzAwareField(serializers.DateTimeField):
     def to_representation(self, value):
         value = timezone.localtime(value)
-        return super(DateTimeTzAwareField, self).to_representation(value)
+        return super().to_representation(value)
 
 
 class FrontpageAlbumSerializer(serializers.ModelSerializer):
@@ -166,18 +191,28 @@ class FrontpageAlbumSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Album
-        fields = ('id', 'name', 'cover_photo_height', 'cover_photo_width', 'cover_photo_flipped',
-                  'photo_count_with_subalbums', 'cover_photo', 'geotagged_photo_count_with_subalbums',
-                  'comments_count_with_subalbums', 'rephoto_count_with_subalbums', 'is_film_still_album',
-                  'album_type')
+        fields = (
+            "id",
+            "name",
+            "cover_photo_height",
+            "cover_photo_width",
+            "cover_photo_flipped",
+            "photo_count_with_subalbums",
+            "cover_photo",
+            "geotagged_photo_count_with_subalbums",
+            "comments_count_with_subalbums",
+            "rephoto_count_with_subalbums",
+            "is_film_still_album",
+            "album_type",
+        )
 
     def get_album_type(self, instance):
         return instance.get_album_type
 
 
 class PhotoSerializer(PhotoRepresentationSerializer):
-    longitude = serializers.FloatField(source='lon')
-    latitude = serializers.FloatField(source='lat')
+    longitude = serializers.FloatField(source="lon")
+    latitude = serializers.FloatField(source="lat")
     image = serializers.SerializerMethodField()
     full_image = serializers.SerializerMethodField()
     source = serializers.SerializerMethodField()
@@ -190,9 +225,9 @@ class PhotoSerializer(PhotoRepresentationSerializer):
     distance_text = serializers.SerializerMethodField()
 
     def get_distance(self, instance: Photo):
-        if hasattr(instance, 'distance') and instance.distance is not None:
+        if hasattr(instance, "distance") and instance.distance is not None:
             dist = instance.distance
-            if hasattr(dist, 'm'):
+            if hasattr(dist, "m"):
                 dist = dist.m
             try:
                 return round(float(dist), 1)
@@ -205,32 +240,32 @@ class PhotoSerializer(PhotoRepresentationSerializer):
         if dist is None:
             return None
         if dist < 10:
-            return '< 10 m'
+            return "< 10 m"
         if dist < 1000:
-            return f'{int(round(dist))} m'
+            return f"{int(round(dist))} m"
         if dist < 10000:
-            return f'{dist / 1000:.1f} km'
-        return f'{int(round(dist / 1000))} km'
+            return f"{dist / 1000:.1f} km"
+        return f"{int(round(dist / 1000))} km"
 
     def get_date_text(self, instance: Photo) -> str:
         if instance.date:
-            return instance.date.strftime('%d.%m.%Y')
+            return instance.date.strftime("%d.%m.%Y")
         else:
             return instance.date_text
 
     def get_in_selection(self, instance: Photo):
-        request = self.context.get('request')
-        if request and 'photo_selection' in request.session:
+        request = self.context.get("request")
+        if request and "photo_selection" in request.session:
             # photo_selection contains sets of integer IDs or string IDs
-            selection = request.session['photo_selection']
+            selection = request.session["photo_selection"]
             return instance.id in selection or str(instance.id) in selection
         return False
 
     def get_favorited(self, instance: Photo):
-        if hasattr(instance, 'favorited'):
+        if hasattr(instance, "favorited"):
             return instance.favorited
 
-        request = self.context.get('request')
+        request = self.context.get("request")
         user = request.user if request else None
         if user and user.is_authenticated:
             return instance.likes.filter(profile=user.profile).exists()
@@ -244,77 +279,99 @@ class PhotoSerializer(PhotoRepresentationSerializer):
         return False
 
     def get_full_image(self, instance):
-        request = self.context['request']
+        request = self.context["request"]
         image_name = str(instance.image)
-        prefix = 'uploads/'
+        prefix = "uploads/"
 
-        if image_name.startswith(prefix):
-            image_name = image_name[len(prefix):]
+        image_name = image_name.removeprefix(prefix)
 
-        iiif_jpeg = request.build_absolute_uri(f'/iiif/work/iiif/ajapaik/{image_name}.tif/full/max/0/default.jpg')
+        iiif_jpeg = request.build_absolute_uri(
+            f"/iiif/work/iiif/ajapaik/{image_name}.tif/full/max/0/default.jpg"
+        )
         return iiif_jpeg
 
     def get_image(self, instance):
-        request = self.context['request']
-        relative_url = reverse('image_thumb', args=(instance.id,))
+        request = self.context["request"]
+        relative_url = reverse("image_thumb", args=(instance.id,))
 
-        return '{}[DIM]/'.format(request.build_absolute_uri(relative_url))
+        return f"{request.build_absolute_uri(relative_url)}[DIM]/"
 
     def get_source(self, instance):
         if instance.source:
-            source_key = instance.source_key or ''
+            source_key = instance.source_key or ""
             return {
-                'url': instance.source_url,
-                'name': f'{instance.source.description} {source_key}'.strip(),
+                "url": instance.source_url,
+                "name": f"{instance.source.description} {source_key}".strip(),
             }
         else:
             return {
-                'url': instance.source_url,
+                "url": instance.source_url,
             }
 
     class Meta(PhotoRepresentationSerializer.Meta):
         model = Photo
         fields = (
             *PhotoRepresentationSerializer.Meta.fields,
-            'image', 'full_image', 'width', 'height', 'title',
-            'author', 'source', 'latitude', 'longitude', 'azimuth',
-            'favorited', 'high_quality', 'slug', 'comment_count',
-            'rephoto_count', 'date_text', 'in_selection',
-            'distance', 'distance_text',
+            "image",
+            "full_image",
+            "width",
+            "height",
+            "title",
+            "author",
+            "source",
+            "latitude",
+            "longitude",
+            "azimuth",
+            "favorited",
+            "high_quality",
+            "slug",
+            "comment_count",
+            "rephoto_count",
+            "date_text",
+            "in_selection",
+            "distance",
+            "distance_text",
         )
 
 
 class RephotoDetailsSerializer(PhotoRepresentationSerializer):
-    user_id = serializers.IntegerField(source='user.id', required=False)
-    user_name = serializers.CharField(source='user.get_display_name', required=False)
+    user_id = serializers.IntegerField(source="user.id", required=False)
+    user_name = serializers.CharField(source="user.get_display_name", required=False)
     date = serializers.SerializerMethodField()
 
     def get_date(self, instance: Photo) -> str:
         if instance.date:
-            return instance.date.strftime('%d.%m.%Y')
+            return instance.date.strftime("%d.%m.%Y")
         if instance.created:
-            return instance.created.strftime('%d.%m.%Y')
+            return instance.created.strftime("%d.%m.%Y")
         return ""
 
     class Meta(PhotoRepresentationSerializer.Meta):
         model = Photo
         fields = (
             *PhotoRepresentationSerializer.Meta.fields,
-            'author', 'date_text', 'licence', 'slug', 'source_key', 'source_url', 'user_id', 'user_name',
-            'date',
+            "author",
+            "date_text",
+            "licence",
+            "slug",
+            "source_key",
+            "source_url",
+            "user_id",
+            "user_name",
+            "date",
         )
 
 
 class SourceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Source
-        fields = ('description',)
+        fields = ("description",)
 
 
 class LicenceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Licence
-        fields = ('url', 'name', 'image_url')
+        fields = ("url", "name", "image_url")
 
 
 class PhotoDetailsSerializer(PhotoRepresentationSerializer):
@@ -335,48 +392,51 @@ class PhotoDetailsSerializer(PhotoRepresentationSerializer):
 
     def get_date_text(self, instance: Photo) -> str:
         if instance.date:
-            return instance.date.strftime('%d.%m.%Y')
+            return instance.date.strftime("%d.%m.%Y")
         else:
             return instance.date_text
 
     def get_full_image(self, instance: Photo):
-        request = self.context['request']
+        request = self.context["request"]
         image_name = str(instance.image)
-        prefix = 'uploads/'
+        prefix = "uploads/"
 
-        if image_name.startswith(prefix):
-            image_name = image_name[len(prefix):]
+        image_name = image_name.removeprefix(prefix)
 
-        iiif_jpeg = request.build_absolute_uri(f'/iiif/work/iiif/ajapaik/{image_name}.tif/full/max/0/default.jpg')
+        iiif_jpeg = request.build_absolute_uri(
+            f"/iiif/work/iiif/ajapaik/{image_name}.tif/full/max/0/default.jpg"
+        )
         return iiif_jpeg
 
     def get_thumb_url(self, instance: Photo):
-        request = self.context['request']
-        relative_url = reverse('image_thumb', args=(instance.id, 1024, instance.get_pseudo_slug))
+        request = self.context["request"]
+        relative_url = reverse(
+            "image_thumb", args=(instance.id, 1024, instance.get_pseudo_slug)
+        )
 
         return request.build_absolute_uri(relative_url)
 
     def get_source(self, instance: Photo):
         if instance.source:
-            source_key = instance.source_key or ''
+            source_key = instance.source_key or ""
             return {
-                'url': instance.source_url,
-                'name': f'{instance.source.description} {source_key}'.strip(),
+                "url": instance.source_url,
+                "name": f"{instance.source.description} {source_key}".strip(),
             }
         else:
             return {
-                'url': instance.source_url,
+                "url": instance.source_url,
             }
 
     def get_rephotos(self, instance: Photo):
         return RephotoSerializer(
             instance=instance.rephotos.all(),
             many=True,
-            context={'request': self.context['request']},
+            context={"request": self.context["request"]},
         ).data
 
     def get_in_selection(self, instance: Photo) -> bool:
-        selection = self.context['request'].session.get('photo_selection', [])
+        selection = self.context["request"].session.get("photo_selection", [])
         return instance.id in selection or str(instance.id) in selection
 
     def get_like_count(self, instance: Photo) -> int:
@@ -401,17 +461,34 @@ class PhotoDetailsSerializer(PhotoRepresentationSerializer):
     class Meta(PhotoRepresentationSerializer.Meta):
         model = Photo
         fields = (
-            *PhotoRepresentationSerializer.Meta.fields, 'image', 'full_image', 'width', 'height', 'title',
-            'author', 'source', 'azimuth', 'rephotos',
-            'lat', 'lon', 'description',
-            'slug', 'comment_count',
-            'title',
-            'address',
-            'source_key',
-            'source_url',
-            'source',
-            'licence',
-            'in_selection', 'like_count', 'user_likes', 'user_loves', 'absolute_url', 'date_text', 'thumb_url'
+            *PhotoRepresentationSerializer.Meta.fields,
+            "image",
+            "full_image",
+            "width",
+            "height",
+            "title",
+            "author",
+            "source",
+            "azimuth",
+            "rephotos",
+            "lat",
+            "lon",
+            "description",
+            "slug",
+            "comment_count",
+            "title",
+            "address",
+            "source_key",
+            "source_url",
+            "source",
+            "licence",
+            "in_selection",
+            "like_count",
+            "user_likes",
+            "user_loves",
+            "absolute_url",
+            "date_text",
+            "thumb_url",
         )
 
 
@@ -434,13 +511,24 @@ def get_profile_from_context(context) -> Profile | None:
 
 
 class PhotoWithDistanceSerializer(PhotoSerializer):
-    distance = serializers.IntegerField(source='distance.m', read_only=True)
+    distance = serializers.IntegerField(source="distance.m", read_only=True)
 
     class Meta(PhotoSerializer.Meta):
         fields = (
-            'id', 'distance', 'image', 'width', 'height', 'title', 'date',
-            'author', 'source', 'latitude', 'longitude', 'azimuth', 'rephotos',
-            'favorited',
+            "id",
+            "distance",
+            "image",
+            "width",
+            "height",
+            "title",
+            "date",
+            "author",
+            "source",
+            "latitude",
+            "longitude",
+            "azimuth",
+            "rephotos",
+            "favorited",
         )
 
 
@@ -448,51 +536,56 @@ class RephotoSerializer(serializers.ModelSerializer):
     image = serializers.SerializerMethodField()
     date_text = serializers.SerializerMethodField()
     source = serializers.SerializerMethodField()
-    user_name = serializers.CharField(source='user.user.get_full_name', default='Anonymous user')
+    user_name = serializers.CharField(
+        source="user.user.get_full_name", default="Anonymous user"
+    )
     is_uploaded_by_current_user = serializers.SerializerMethodField()
 
     def get_image(self, instance):
-        request = self.context['request']
-        relative_url = reverse('image_thumb', args=(instance.id,))
-        return '{}[DIM]/'.format(request.build_absolute_uri(relative_url))
+        request = self.context["request"]
+        relative_url = reverse("image_thumb", args=(instance.id,))
+        return f"{request.build_absolute_uri(relative_url)}[DIM]/"
 
     def get_date_text(self, instance):
         if instance.date:
-            return instance.date.strftime('%d.%m.%Y')
+            return instance.date.strftime("%d.%m.%Y")
         else:
             return instance.date_text
 
     def get_source(self, instance):
         if instance.source:
-            source_key = instance.source_key or ''
+            source_key = instance.source_key or ""
             return {
-                'url': instance.source_url,
-                'name': f'{instance.source.description} {source_key}'.strip(),
+                "url": instance.source_url,
+                "name": f"{instance.source.description} {source_key}".strip(),
             }
         else:
             return {
-                'url': instance.source_url,
+                "url": instance.source_url,
             }
 
     def get_is_uploaded_by_current_user(self, instance):
-        user = self.context['request'].user
+        user = self.context["request"].user
         if user.is_authenticated:
-            return instance.user == self.context['request'].user.profile
+            return instance.user == self.context["request"].user.profile
         else:
             return False
 
     class Meta:
         model = Photo
         fields = (
-            'image', 'date_text', 'source', 'user_name',
-            'is_uploaded_by_current_user',
+            "image",
+            "date_text",
+            "source",
+            "user_name",
+            "is_uploaded_by_current_user",
         )
 
 
 class VideoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Video
-        exclude = ('created', 'modified')
+        exclude = ("created", "modified")
 
 
 class GalleryResultsSerializer(DataclassSerializer):
@@ -512,99 +605,128 @@ class ImageSimilaritySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ImageSimilarity
-        fields = ('id', 'from_photo', 'to_photo', 'similarity_type', 'confirmed')
+        fields = ("id", "from_photo", "to_photo", "similarity_type", "confirmed")
 
 
 class APIPhotoSerializer(serializers.ModelSerializer):
     image = serializers.SerializerMethodField()
     full_image = serializers.SerializerMethodField()
-    title = serializers.SerializerMethodField('get_display_text')
+    title = serializers.SerializerMethodField("get_display_text")
     date = serializers.SerializerMethodField()
     source = serializers.SerializerMethodField()
-    longitude = serializers.FloatField(source='lon')
-    latitude = serializers.FloatField(source='lat')
+    longitude = serializers.FloatField(source="lon")
+    latitude = serializers.FloatField(source="lat")
     azimuth = serializers.FloatField()
     rephotos = serializers.SerializerMethodField()
     favorited = serializers.BooleanField()
     in_selection = serializers.SerializerMethodField()
 
     def get_in_selection(self, instance: Photo):
-        request = self.context.get('request')
-        if request and 'photo_selection' in request.session:
-            selection = request.session['photo_selection']
+        request = self.context.get("request")
+        if request and "photo_selection" in request.session:
+            selection = request.session["photo_selection"]
             return instance.id in selection or str(instance.id) in selection
         return False
 
     @classmethod
     def annotate_photos(cls, photos_queryset, user_profile):
-        '''
+        """
         Helper function to annotate photo with special fields required by this
         serializer.
         Adds "rephotos_count", "uploads_count", "favorited". Field "likes_count"
         added to determine is photo liked(favorited) by user.
-        '''
+        """
         # There is bug in Django about irrelevant selection returned when
         # annotating on multiple tables. https://code.djangoproject.com/ticket/10060
         # So if faced some incorrect data check what have been assigned to
         # "instance" variable.
-        return photos_queryset \
-            .prefetch_related('source', 'rephotos') \
-            .annotate(rephotos_count=Count('rephotos')) \
-            .annotate(uploads_count=Count(Case(When(rephotos__user=user_profile, then=1),
-                                               output_field=models.IntegerField()))) \
-            .annotate(likes_count=Count('likes')) \
-            .annotate(favorited=Case(When(Q(likes__profile=user_profile) & Q(likes__profile__isnull=False),
-                                          then=Value(True)), default=Value(False), output_field=BooleanField()))
+        return (
+            photos_queryset.prefetch_related("source", "rephotos")
+            .annotate(rephotos_count=Count("rephotos"))
+            .annotate(
+                uploads_count=Count(
+                    Case(
+                        When(rephotos__user=user_profile, then=1),
+                        output_field=models.IntegerField(),
+                    )
+                )
+            )
+            .annotate(likes_count=Count("likes"))
+            .annotate(
+                favorited=Case(
+                    When(
+                        Q(likes__profile=user_profile)
+                        & Q(likes__profile__isnull=False),
+                        then=Value(True),
+                    ),
+                    default=Value(False),
+                    output_field=BooleanField(),
+                )
+            )
+        )
 
     def get_display_text(self, instance):
         return instance.get_display_text
 
     def get_full_image(self, instance):
-        request = self.context['request']
+        request = self.context["request"]
         image_name = str(instance.image)
-        prefix = 'uploads/'
+        prefix = "uploads/"
 
-        if image_name.startswith(prefix):
-            image_name = image_name[len(prefix):]
+        image_name = image_name.removeprefix(prefix)
 
-        iiif_jpeg = request.build_absolute_uri(f'/iiif/work/iiif/ajapaik/{image_name}.tif/full/max/0/default.jpg')
+        iiif_jpeg = request.build_absolute_uri(
+            f"/iiif/work/iiif/ajapaik/{image_name}.tif/full/max/0/default.jpg"
+        )
         return iiif_jpeg
 
     def get_image(self, instance):
-        request = self.context['request']
-        relative_url = reverse('image_thumb', args=(instance.id,))
+        request = self.context["request"]
+        relative_url = reverse("image_thumb", args=(instance.id,))
 
-        return '{}[DIM]/'.format(request.build_absolute_uri(relative_url))
+        return f"{request.build_absolute_uri(relative_url)}[DIM]/"
 
     def get_date(self, instance):
         if instance.date:
-            return instance.date.strftime('%d-%m-%Y')
+            return instance.date.strftime("%d-%m-%Y")
         else:
             return instance.date_text
 
     def get_source(self, instance):
         if instance.source:
-            source_key = instance.source_key or ''
+            source_key = instance.source_key or ""
             return {
-                'url': instance.source_url,
-                'name': f'{instance.source.description} {source_key}'.strip(),
+                "url": instance.source_url,
+                "name": f"{instance.source.description} {source_key}".strip(),
             }
         else:
             return {
-                'url': instance.source_url,
+                "url": instance.source_url,
             }
 
     def get_rephotos(self, instance):
         return RephotoSerializer(
             instance=instance.rephotos.all(),
             many=True,
-            context={'request': self.context['request']},
+            context={"request": self.context["request"]},
         ).data
 
     class Meta:
         model = Photo
         fields = (
-            'id', 'image', 'full_image', 'width', 'height', 'title', 'date',
-            'author', 'source', 'latitude', 'longitude', 'azimuth', 'rephotos',
-            'favorited', 'in_selection',
+            "id",
+            "image",
+            "full_image",
+            "width",
+            "height",
+            "title",
+            "date",
+            "author",
+            "source",
+            "latitude",
+            "longitude",
+            "azimuth",
+            "rephotos",
+            "favorited",
+            "in_selection",
         )

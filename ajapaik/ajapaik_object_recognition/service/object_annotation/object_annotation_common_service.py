@@ -1,6 +1,11 @@
 from ajapaik.ajapaik_curator.curator_drivers import wikidata
-from ajapaik.ajapaik_object_recognition.models import ObjectAnnotationClass, ObjectDetectionModel
-from ajapaik.ajapaik_object_recognition.service.object_annotation import detection_models
+from ajapaik.ajapaik_object_recognition.models import (
+    ObjectAnnotationClass,
+    ObjectDetectionModel,
+)
+from ajapaik.ajapaik_object_recognition.service.object_annotation import (
+    detection_models,
+)
 
 
 def get_saved_label(label_wikidata_id):
@@ -10,9 +15,12 @@ def get_saved_label(label_wikidata_id):
         new_annotation_class = ObjectAnnotationClass()
 
         new_annotation_class.wikidata_id = label_wikidata_id
-        new_annotation_class.translations = wikidata.get_label_translation(label_wikidata_id)
-        new_annotation_class.detection_model = ObjectDetectionModel.objects \
-            .get(model_file_name=detection_models.OBJECT_DETECTION_MODEL_NAME)
+        new_annotation_class.translations = wikidata.get_label_translation(
+            label_wikidata_id
+        )
+        new_annotation_class.detection_model = ObjectDetectionModel.objects.get(
+            model_file_name=detection_models.OBJECT_DETECTION_MODEL_NAME
+        )
 
         new_annotation_class.save()
 

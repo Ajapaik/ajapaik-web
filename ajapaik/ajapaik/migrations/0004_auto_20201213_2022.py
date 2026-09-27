@@ -5,18 +5,28 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
     dependencies = [
-        ('ajapaik', '0003_auto_20201213_1907'),
+        ("ajapaik", "0003_auto_20201213_1907"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='album',
-            name='name_original_language',
-            field=models.CharField(blank=True, max_length=255, null=True, verbose_name='Name original language'),
+            model_name="album",
+            name="name_original_language",
+            field=models.CharField(
+                blank=True,
+                max_length=255,
+                null=True,
+                verbose_name="Name original language",
+            ),
         ),
         migrations.AlterField(
-            model_name='photo',
-            name='description_original_language',
-            field=models.CharField(blank=True, max_length=255, null=True, verbose_name='Description original language'),
+            model_name="photo",
+            name="description_original_language",
+            field=models.CharField(
+                blank=True,
+                max_length=255,
+                null=True,
+                verbose_name="Description original language",
+            ),
         ),
     ]

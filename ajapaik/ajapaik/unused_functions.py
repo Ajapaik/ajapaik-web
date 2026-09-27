@@ -6,7 +6,9 @@ def upload_photo_to_wikimedia_commons(request, path):
     social_token = None
     if request.user and request.get_user().profile:
         social_account = SocialAccount.objects.filter(user=request.user).first()
-        social_token = SocialToken.objects.filter(account=social_account, expires_at__gt=datetime.date.today()).last()
+        social_token = SocialToken.objects.filter(
+            account=social_account, expires_at__gt=datetime.date.today()
+        ).last()
     if social_token:
         S = requests.Session()
         URL = "https://commons.wikimedia.org/w/api.php"
@@ -17,12 +19,10 @@ def upload_photo_to_wikimedia_commons(request, path):
             "action": "query",
             "meta": "tokens",
             "type": "login",
-            "format": "json"
+            "format": "json",
         }
 
-        headers = {
-            "Authentication": "Bearer " + social_token.token
-        }
+        headers = {"Authentication": "Bearer " + social_token.token}
 
         R = S.get(url=URL, params=PARAMS_1, headers=headers)
         DATA = R.json()
@@ -33,22 +33,14 @@ def upload_photo_to_wikimedia_commons(request, path):
         # Step 2: Send a post request to login. Use of main account for login is not
         # supported. Obtain credentials via Special:BotPasswords
         # (https://www.mediawiki.org/wiki/Special:BotPasswords) for lgname & lgpassword
-        PARAMS_2 = {
-            "action": "login",
-            "format": "json",
-            "lgtoken": LOGIN_TOKEN
-        }
+        PARAMS_2 = {"action": "login", "format": "json", "lgtoken": LOGIN_TOKEN}
 
         R = S.post(URL, data=PARAMS_2, headers=headers)
         DATA = R.json()
         print(DATA)
 
         # Step 3: Obtain a CSRF token
-        PARAMS_3 = {
-            "action": "query",
-            "meta": "tokens",
-            "format": "json"
-        }
+        PARAMS_3 = {"action": "query", "meta": "tokens", "format": "json"}
 
         R = S.get(url=URL, params=PARAMS_3, headers=headers)
 
@@ -63,10 +55,10 @@ def upload_photo_to_wikimedia_commons(request, path):
             "filename": "file_1.jpg",
             "format": "json",
             "token": CSRF_TOKEN,
-            "ignorewarnings": 1
+            "ignorewarnings": 1,
         }
 
-        FILE = {'file': ('file_1.jpg', open(FILE_PATH, 'rb'), 'multipart/form-data')}
+        FILE = {"file": ("file_1.jpg", open(FILE_PATH, "rb"), "multipart/form-data")}
 
         R = S.post(URL, files=FILE, data=PARAMS_4)
         DATA = R.json()

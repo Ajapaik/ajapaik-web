@@ -1,5 +1,5 @@
 from django.http import JsonResponse
-from django.shortcuts import redirect, get_object_or_404
+from django.shortcuts import get_object_or_404, redirect
 
 from ajapaik.ajapaik.models import Photo
 from ajapaik.utils import calculate_thumbnail_size
@@ -7,14 +7,15 @@ from ajapaik.utils import calculate_thumbnail_size
 
 def remove_prefix(text, prefix):
     if text.startswith(prefix):
-        return text[len(prefix):]
+        return text[len(prefix) :]
     return text
 
 
 def photo_info(request, photo_id=None, pseudo_slug=None):
     p = get_object_or_404(Photo, id=photo_id)
     iiif_image_url = request.build_absolute_uri(
-        f'/iiif/work/iiif/ajapaik/{remove_prefix(str(p.image), "uploads/")}.tif/info.json')
+        f"/iiif/work/iiif/ajapaik/{remove_prefix(str(p.image), 'uploads/')}.tif/info.json"
+    )
     return redirect(iiif_image_url)
 
 
@@ -27,7 +28,7 @@ def photo_manifest_v2(request, photo_id=None, pseudo_slug=None):
     elif p.description:
         title = p.description
     else:
-        title = request.build_absolute_uri(f'/photo/{str(photo_id)}')
+        title = request.build_absolute_uri(f"/photo/{photo_id!s}")
 
     # Render licence text
     licence_text = _render_licence_text(p.licence)
@@ -36,77 +37,117 @@ def photo_manifest_v2(request, photo_id=None, pseudo_slug=None):
 
     thumb_width, thumb_height = calculate_thumbnail_size(p.width, p.height, 400)
     iiif_image_url = request.build_absolute_uri(
-        f'/iiif/work/iiif/ajapaik/{remove_prefix(str(p.image), "uploads/")}.tif')
+        f"/iiif/work/iiif/ajapaik/{remove_prefix(str(p.image), 'uploads/')}.tif"
+    )
 
     content = {
-        '@context': 'http://iiif.io/api/presentation/2/context.json',
-        '@id': request.build_absolute_uri(f'/photo/{str(photo_id)}/v2/manifest.json'),
-        '@type': 'sc:Manifest',
-        'label': multilang_string_v2(title, lang_code),
-        'description': multilang_string_v2(title, lang_code),
-        'attribution': source_text,
-        'rendering': {
-            '@id': request.build_absolute_uri(f'/photo/{str(photo_id)}'),
-            'format': 'text/html',
-            'label': 'Full record view'
+        "@context": "http://iiif.io/api/presentation/2/context.json",
+        "@id": request.build_absolute_uri(f"/photo/{photo_id!s}/v2/manifest.json"),
+        "@type": "sc:Manifest",
+        "label": multilang_string_v2(title, lang_code),
+        "description": multilang_string_v2(title, lang_code),
+        "attribution": source_text,
+        "rendering": {
+            "@id": request.build_absolute_uri(f"/photo/{photo_id!s}"),
+            "format": "text/html",
+            "label": "Full record view",
         },
-        'thumbnail': {
-            '@id': request.build_absolute_uri(f'/photo-thumb/{str(photo_id)}/400/'),
-            '@type': 'dctypes:Image',
-            'format': 'image/jpeg',
-            'width': thumb_width,
-            'height': thumb_height,
-        }
+        "thumbnail": {
+            "@id": request.build_absolute_uri(f"/photo-thumb/{photo_id!s}/400/"),
+            "@type": "dctypes:Image",
+            "format": "image/jpeg",
+            "width": thumb_width,
+            "height": thumb_height,
+        },
     }
 
     metadata = []
     canvases = []
     if p.date_text:
-        metadata.append({'label': multilang_string_v2('Date', 'en'), 'value': p.date_text})
+        metadata.append(
+            {"label": multilang_string_v2("Date", "en"), "value": p.date_text}
+        )
 
     if p.source:
-        metadata.append({'label': multilang_string_v2('Source', 'en'), 'value': source_text})
+        metadata.append(
+            {"label": multilang_string_v2("Source", "en"), "value": source_text}
+        )
 
     if p.source_key:
-        metadata.append({'label': multilang_string_v2('Identifier', 'en'), 'value': p.source_key})
+        metadata.append(
+            {"label": multilang_string_v2("Identifier", "en"), "value": p.source_key}
+        )
 
     if p.author:
-        metadata.append({'label': multilang_string_v2('Author', 'en'), 'value': p.author})
+        metadata.append(
+            {"label": multilang_string_v2("Author", "en"), "value": p.author}
+        )
 
     if p.licence:
-        metadata.append({'label': multilang_string_v2('Licence', 'en'), 'value': licence_text, 'id': rights_url})
+        metadata.append(
+            {
+                "label": multilang_string_v2("Licence", "en"),
+                "value": licence_text,
+                "id": rights_url,
+            }
+        )
 
     if p.lat and p.lon:
-        location = f'Latitude: {str(p.lat)}, Longitude: {str(p.lon)}'
-        metadata.append({'label': multilang_string_v2('Coordinates', 'en'), 'value': location})
+        location = f"Latitude: {p.lat!s}, Longitude: {p.lon!s}"
+        metadata.append(
+            {"label": multilang_string_v2("Coordinates", "en"), "value": location}
+        )
 
     if p.perceptual_hash:
         # signed int to unsigned int conversion
         if p.perceptual_hash < 0:
-            phash = str(p.perceptual_hash & 0xffffffffffffffff)
+            phash = str(p.perceptual_hash & 0xFFFFFFFFFFFFFFFF)
         else:
             phash = str(p.perceptual_hash)
-        metadata.append({
-            'label': multilang_string_v2('Perceptual hash', 'en'),
-            'value': str(phash),
-            'description': 'Perceptual hash (phash) checksum calculated using ImageHash library \
-                            https://pypi.org/project/ImageHash/'
-        })
+        metadata.append(
+            {
+                "label": multilang_string_v2("Perceptual hash", "en"),
+                "value": str(phash),
+                "description": "Perceptual hash (phash) checksum calculated using ImageHash library \
+                            https://pypi.org/project/ImageHash/",
+            }
+        )
 
-    attribution_text = _render_attribution(source_text, p.author, p.date_text, licence_text)
-    canvases.append(_get_v2_canvas(request, photo_id, title, lang_code, iiif_image_url, p.width, p.height,
-                                   f'photo_{str(photo_id)}', attribution_text, rights_url, p, metadata))
+    attribution_text = _render_attribution(
+        source_text, p.author, p.date_text, licence_text
+    )
+    canvases.append(
+        _get_v2_canvas(
+            request,
+            photo_id,
+            title,
+            lang_code,
+            iiif_image_url,
+            p.width,
+            p.height,
+            f"photo_{photo_id!s}",
+            attribution_text,
+            rights_url,
+            p,
+            metadata,
+        )
+    )
 
     rephotos = Photo.objects.filter(rephoto_of=photo_id)
     for rephoto in rephotos:
         rephoto_iiif_image_url = request.build_absolute_uri(
-            f'/iiif/work/iiif/ajapaik/{remove_prefix(str(rephoto.image), "uploads/")}.tif')
+            f"/iiif/work/iiif/ajapaik/{remove_prefix(str(rephoto.image), 'uploads/')}.tif"
+        )
         rephoto_licence_text = _render_licence_text(rephoto.licence)
         rephoto_rights_url = _render_rights_url(rephoto.licence)
-        rephoto_source_text = _render_source_text(rephoto.source, rephoto.source_url, rephoto.source_key)
+        rephoto_source_text = _render_source_text(
+            rephoto.source, rephoto.source_url, rephoto.source_key
+        )
         if not rephoto_source_text:
-            rephoto_uri = request.build_absolute_uri(f'/photo/{str(rephoto.id)}')
-            rephoto_source_text = f'Ajapaik.ee: <a href="{rephoto_uri}">{str(rephoto.id)}</a>'
+            rephoto_uri = request.build_absolute_uri(f"/photo/{rephoto.id!s}")
+            rephoto_source_text = (
+                f'Ajapaik.ee: <a href="{rephoto_uri}">{rephoto.id!s}</a>'
+            )
 
         # Some author name for the rephotos
         if rephoto.author:
@@ -114,20 +155,17 @@ def photo_manifest_v2(request, photo_id=None, pseudo_slug=None):
         elif rephoto.user:
             rephoto_author = rephoto.user.get_display_name
         else:
-            rephoto_author = 'Unknown'
+            rephoto_author = "Unknown"
 
         if rephoto.date_text:
             rephoto_date_text = rephoto.date_text
         elif rephoto.date:
-            rephoto_date_text = rephoto.date.strftime('%Y-%m-%d')
+            rephoto_date_text = rephoto.date.strftime("%Y-%m-%d")
         else:
             rephoto_date_text = ""
 
         rephoto_attribution_text = _render_attribution(
-            rephoto_source_text,
-            rephoto_author,
-            rephoto_date_text,
-            rephoto_licence_text
+            rephoto_source_text, rephoto_author, rephoto_date_text, rephoto_licence_text
         )
 
         if rephoto.title:
@@ -135,58 +173,93 @@ def photo_manifest_v2(request, photo_id=None, pseudo_slug=None):
         elif rephoto.description:
             rephoto_title = rephoto.description
         else:
-            rephoto_title = f'Rephoto of {request.build_absolute_uri(f"/photo/{str(photo_id)}")} with title "{title}"'
+            rephoto_title = f'Rephoto of {request.build_absolute_uri(f"/photo/{photo_id!s}")} with title "{title}"'
 
         rephoto_metadata = []
         if rephoto_date_text:
-            rephoto_metadata.append({'label': multilang_string_v2('Date', 'en'), 'value': rephoto_date_text})
+            rephoto_metadata.append(
+                {"label": multilang_string_v2("Date", "en"), "value": rephoto_date_text}
+            )
 
         if rephoto_source_text:
-            rephoto_metadata.append({'label': multilang_string_v2('Source', 'en'), 'value': rephoto_source_text})
+            rephoto_metadata.append(
+                {
+                    "label": multilang_string_v2("Source", "en"),
+                    "value": rephoto_source_text,
+                }
+            )
 
         if rephoto.source_key:
-            rephoto_metadata.append({'label': multilang_string_v2('Identifier', 'en'), 'value': rephoto.source_key})
+            rephoto_metadata.append(
+                {
+                    "label": multilang_string_v2("Identifier", "en"),
+                    "value": rephoto.source_key,
+                }
+            )
         elif not rephoto.source:
-            rephoto_metadata.append({'label': multilang_string_v2('Identifier', 'en'), 'value': str(rephoto.id)})
+            rephoto_metadata.append(
+                {
+                    "label": multilang_string_v2("Identifier", "en"),
+                    "value": str(rephoto.id),
+                }
+            )
 
         if rephoto_author:
-            rephoto_metadata.append({'label': multilang_string_v2('Author', 'en'), 'value': rephoto_author})
+            rephoto_metadata.append(
+                {"label": multilang_string_v2("Author", "en"), "value": rephoto_author}
+            )
 
         if rephoto.licence:
-            rephoto_metadata.append({'label': multilang_string_v2('Licence', 'en'), 'value': rephoto_licence_text,
-                                     'id': rephoto_rights_url})
+            rephoto_metadata.append(
+                {
+                    "label": multilang_string_v2("Licence", "en"),
+                    "value": rephoto_licence_text,
+                    "id": rephoto_rights_url,
+                }
+            )
 
         if rephoto.lat and rephoto.lon:
-            rephoto_location = f'Latitude: {str(rephoto.lat)}, Longitude: {str(rephoto.lon)}'
-            rephoto_metadata.append({'label': multilang_string_v2('Coordinates', 'en'), 'value': rephoto_location})
+            rephoto_location = f"Latitude: {rephoto.lat!s}, Longitude: {rephoto.lon!s}"
+            rephoto_metadata.append(
+                {
+                    "label": multilang_string_v2("Coordinates", "en"),
+                    "value": rephoto_location,
+                }
+            )
 
-        canvases.append(_get_v2_canvas(
-            request,
-            photo_id,
-            rephoto_title,
-            lang_code,
-            rephoto_iiif_image_url,
-            rephoto.width,
-            rephoto.height,
-            f'rephoto_{str(rephoto.id)}',
-            rephoto_attribution_text,
-            rephoto_rights_url,
-            rephoto,
-            rephoto_metadata
-        ))
+        canvases.append(
+            _get_v2_canvas(
+                request,
+                photo_id,
+                rephoto_title,
+                lang_code,
+                rephoto_iiif_image_url,
+                rephoto.width,
+                rephoto.height,
+                f"rephoto_{rephoto.id!s}",
+                rephoto_attribution_text,
+                rephoto_rights_url,
+                rephoto,
+                rephoto_metadata,
+            )
+        )
 
-    content['metadata'] = metadata
-    content['sequences'] = [{
-        '@id': request.build_absolute_uri(f'/photo/{photo_id}/sequence/normal.json'),
-        '@type': 'sc:Sequence',
-        'canvases': canvases
-    }]
+    content["metadata"] = metadata
+    content["sequences"] = [
+        {
+            "@id": request.build_absolute_uri(
+                f"/photo/{photo_id}/sequence/normal.json"
+            ),
+            "@type": "sc:Sequence",
+            "canvases": canvases,
+        }
+    ]
 
-    response = JsonResponse(content, content_type='application/json')
-    response['Access-Control-Allow-Origin'] = '*'
-    response['Access-Control-Allow-Methods'] = 'GET, OPTIONS'
-    response['Access-Control-Max-Age'] = '1000'
-    response['Access-Control-Allow-Headers'] = 'X-Requested-With, Content-Type'
+    response = JsonResponse(content, content_type="application/json")
+    response["Access-Control-Allow-Origin"] = "*"
+    response["Access-Control-Allow-Methods"] = "GET, OPTIONS"
+    response["Access-Control-Max-Age"] = "1000"
+    response["Access-Control-Allow-Headers"] = "X-Requested-With, Content-Type"
 
     return response
 
@@ -196,65 +269,79 @@ def photo_manifest_v2(request, photo_id=None, pseudo_slug=None):
 #
 
 
-def _get_v2_canvas(request, photo_id, label, lang_code, iiif_image_url, width, height,
-                   canvas_name, source_text, licence_url, thumbnail, metadata):
-    thumb_width, thumb_height = calculate_thumbnail_size(thumbnail.width, thumbnail.height, 400)
+def _get_v2_canvas(
+    request,
+    photo_id,
+    label,
+    lang_code,
+    iiif_image_url,
+    width,
+    height,
+    canvas_name,
+    source_text,
+    licence_url,
+    thumbnail,
+    metadata,
+):
+    thumb_width, thumb_height = calculate_thumbnail_size(
+        thumbnail.width, thumbnail.height, 400
+    )
 
     photo_id = str(photo_id)
-    canvas_id = request.build_absolute_uri(f'/photo/{photo_id}/canvas/{canvas_name}')
+    canvas_id = request.build_absolute_uri(f"/photo/{photo_id}/canvas/{canvas_name}")
     canvas = {
-        '@id': canvas_id,
-        '@type': 'sc:Canvas',
-        'label': multilang_string_v2(label, lang_code),
-        'width': width,
-        'height': height,
-        'thumbnail': {
-            '@id': request.build_absolute_uri(f'/photo-thumb/{str(thumbnail.id)}/400/'),
-            '@type': 'dctypes:Image',
-            'format': 'image/jpeg',
-            'width': thumb_width,
-            'height': thumb_height,
+        "@id": canvas_id,
+        "@type": "sc:Canvas",
+        "label": multilang_string_v2(label, lang_code),
+        "width": width,
+        "height": height,
+        "thumbnail": {
+            "@id": request.build_absolute_uri(f"/photo-thumb/{thumbnail.id!s}/400/"),
+            "@type": "dctypes:Image",
+            "format": "image/jpeg",
+            "width": thumb_width,
+            "height": thumb_height,
         },
-        'images': [
+        "images": [
             {
-                '@id': request.build_absolute_uri(f'/photo/{photo_id}/annotation/{canvas_name}'),
-                '@type': 'oa:Annotation',
-                'motivation': 'sc:painting',
-                'on': canvas_id,
-                'resource':
-                    {
-                        '@id': f'{iiif_image_url}/full/max/0/default.jpg',
-                        '@type': 'dctypes:Image',
-                        'format': 'image/jpeg',
-                        'service':
-                            {
-                                '@id': iiif_image_url,
-                                '@context': 'http://iiif.io/api/image/2/context.json',
-                                'profile': 'http://iiif.io/api/image/2/level1.json'
-                            },
-                        'height': width,
-                        'width': height
-                    }
+                "@id": request.build_absolute_uri(
+                    f"/photo/{photo_id}/annotation/{canvas_name}"
+                ),
+                "@type": "oa:Annotation",
+                "motivation": "sc:painting",
+                "on": canvas_id,
+                "resource": {
+                    "@id": f"{iiif_image_url}/full/max/0/default.jpg",
+                    "@type": "dctypes:Image",
+                    "format": "image/jpeg",
+                    "service": {
+                        "@id": iiif_image_url,
+                        "@context": "http://iiif.io/api/image/2/context.json",
+                        "profile": "http://iiif.io/api/image/2/level1.json",
+                    },
+                    "height": width,
+                    "width": height,
+                },
             }
-        ]
+        ],
     }
     if source_text:
-        canvas['attribution'] = source_text
+        canvas["attribution"] = source_text
 
     if licence_url:
-        canvas['licence'] = licence_url
+        canvas["licence"] = licence_url
 
     if metadata:
-        canvas['metadata'] = metadata
+        canvas["metadata"] = metadata
 
     return canvas
 
 
 def _render_licence_text(licence):
-    licence_text = ''
+    licence_text = ""
     if licence:
         if licence.url and licence.name:
-            licence_text = f' <a href={licence.url}>{licence.name}</a>'
+            licence_text = f" <a href={licence.url}>{licence.name}</a>"
         elif licence.url:
             licence_text = licence.url
         elif licence.name:
@@ -264,26 +351,28 @@ def _render_licence_text(licence):
 
 # canonical link to licence
 def _render_rights_url(licence):
-    rights_url = ''
+    rights_url = ""
     if licence:
         rights_url = str(licence.url)
     # Canonical url to creative commons licence uses http://
-    rights_url = rights_url.replace('https://creativecommons.org', 'http://creativecommons.org')
+    rights_url = rights_url.replace(
+        "https://creativecommons.org", "http://creativecommons.org"
+    )
     return rights_url
 
 
 def _render_source_text(source, source_url, identifier):
-    source_text = ''
+    source_text = ""
 
     # Render source text
     if source_url and source and source.name and identifier:
-        source_text = f'{source.name}: <a href={source_url}>{identifier}</a>'
+        source_text = f"{source.name}: <a href={source_url}>{identifier}</a>"
     elif source_url and identifier:
-        source_text = f'<a href={source_url}>{identifier}</a>'
+        source_text = f"<a href={source_url}>{identifier}</a>"
     elif source_url and source and source.name:
-        source_text = f'<a href={source_url}>{source.name}</a>'
+        source_text = f"<a href={source_url}>{source.name}</a>"
     elif source and source.name and identifier:
-        source_text = f'{source.name}:{identifier}'
+        source_text = f"{source.name}:{identifier}"
     elif source and source.name:
         source_text = source.name
     elif identifier:
@@ -303,8 +392,8 @@ def _render_attribution(source, author, date, licence):
     if licence:
         attribution.append(licence)
 
-    return ', '.join(attribution)
+    return ", ".join(attribution)
 
 
 def multilang_string_v2(value, language):
-    return {'@value': value, '@language': language}
+    return {"@value": value, "@language": language}

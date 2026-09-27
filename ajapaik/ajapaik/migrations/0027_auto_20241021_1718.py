@@ -4,20 +4,19 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('ajapaik', '0026_photo_soft_deleted'),
+        ("ajapaik", "0026_photo_soft_deleted"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='wikimediacommonsupload',
-            name='photo',
+            model_name="wikimediacommonsupload",
+            name="photo",
         ),
         migrations.DeleteModel(
-            name='PhotoMetadataUpdate',
+            name="PhotoMetadataUpdate",
         ),
         migrations.DeleteModel(
-            name='WikimediaCommonsUpload',
+            name="WikimediaCommonsUpload",
         ),
     ]

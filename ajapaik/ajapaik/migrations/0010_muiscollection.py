@@ -4,20 +4,27 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('ajapaik', '0009_supporter'),
+        ("ajapaik", "0009_supporter"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='MuisCollection',
+            name="MuisCollection",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('spec', models.CharField(blank=True, max_length=255, null=True)),
-                ('name', models.CharField(blank=True, max_length=255, null=True)),
-                ('imported', models.BooleanField(default=False)),
-                ('blacklisted', models.BooleanField(default=False)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("spec", models.CharField(blank=True, max_length=255, null=True)),
+                ("name", models.CharField(blank=True, max_length=255, null=True)),
+                ("imported", models.BooleanField(default=False)),
+                ("blacklisted", models.BooleanField(default=False)),
             ],
         ),
     ]

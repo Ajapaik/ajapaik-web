@@ -24,20 +24,20 @@ class Command(BaseCommand):
 
     def _delete_thumbnails(self):
         if os.path.exists(self.ssd_cache_location):
-            logger.info('Move folder to temporary location')
+            logger.info("Move folder to temporary location")
             if os.path.exists(self.ssd_cache_location_for_deletion):
                 shutil.rmtree(self.ssd_cache_location_for_deletion)
             shutil.move(self.ssd_cache_location, self.ssd_cache_location_for_deletion)
         if os.path.islink(self.symlink_location):
-            logger.info('Remove symlink')
+            logger.info("Remove symlink")
             os.remove(self.symlink_location)
-        logger.info('Create replacement folder')
+        logger.info("Create replacement folder")
         os.makedirs(self.ssd_cache_location)
-        logger.info('Create symlink')
+        logger.info("Create symlink")
         os.symlink(self.ssd_cache_location, self.symlink_location)
         logger.info("You can restart ajapaik application now")
         logger.info("---------------------------------------")
-        logger.info('Remove original folder and contents')
+        logger.info("Remove original folder and contents")
         if os.path.exists(self.ssd_cache_location_for_deletion):
             shutil.rmtree(self.ssd_cache_location_for_deletion)
 

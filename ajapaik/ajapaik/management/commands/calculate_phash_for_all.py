@@ -4,7 +4,7 @@ from ajapaik.ajapaik.models import Photo
 
 
 class Command(BaseCommand):
-    help = 'Calculate perceptual hash for all images'
+    help = "Calculate perceptual hash for all images"
 
     def handle(self, *args, **options):
         photos = Photo.objects.all().filter(perceptual_hash__isnull=True)

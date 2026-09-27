@@ -8,63 +8,130 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('ajapaik', '0001_initial'),
+        ("ajapaik", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='ObjectAnnotationClass',
+            name="ObjectAnnotationClass",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('alias', models.TextField(max_length=200, null=True)),
-                ('wiki_data_id', models.TextField(max_length=30)),
-                ('translations', models.TextField()),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("alias", models.TextField(max_length=200, null=True)),
+                ("wiki_data_id", models.TextField(max_length=30)),
+                ("translations", models.TextField()),
             ],
         ),
         migrations.CreateModel(
-            name='ObjectDetectionModel',
+            name="ObjectDetectionModel",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('model_file_name', models.TextField(max_length=200)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("model_file_name", models.TextField(max_length=200)),
             ],
         ),
         migrations.CreateModel(
-            name='ObjectDetectionAnnotation',
+            name="ObjectDetectionAnnotation",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('x1', models.FloatField()),
-                ('x2', models.FloatField()),
-                ('y1', models.FloatField()),
-                ('y2', models.FloatField()),
-                ('is_manual_detection', models.BooleanField()),
-                ('created_on', models.DateTimeField(auto_now_add=True)),
-                ('modified_on', models.DateTimeField(auto_now=True)),
-                ('deleted_on', models.DateTimeField(null=True)),
-                ('detected_object', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE,
-                                                      to='ajapaik_object_recognition.ObjectAnnotationClass')),
-                ('photo', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='ajapaik.Photo')),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='ajapaik.Profile')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("x1", models.FloatField()),
+                ("x2", models.FloatField()),
+                ("y1", models.FloatField()),
+                ("y2", models.FloatField()),
+                ("is_manual_detection", models.BooleanField()),
+                ("created_on", models.DateTimeField(auto_now_add=True)),
+                ("modified_on", models.DateTimeField(auto_now=True)),
+                ("deleted_on", models.DateTimeField(null=True)),
+                (
+                    "detected_object",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="ajapaik_object_recognition.ObjectAnnotationClass",
+                    ),
+                ),
+                (
+                    "photo",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to="ajapaik.Photo"
+                    ),
+                ),
+                (
+                    "user",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="ajapaik.Profile",
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='ObjectAnnotationFeedback',
+            name="ObjectAnnotationFeedback",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('confirmation', models.BooleanField(default=True)),
-                ('created_on', models.DateTimeField(auto_now_add=True)),
-                ('modified_on', models.DateTimeField(auto_now=True)),
-                ('alternative_object', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE,
-                                                         to='ajapaik_object_recognition.ObjectAnnotationClass')),
-                ('object_detection_annotation',
-                 models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='feedback',
-                                   to='ajapaik_object_recognition.ObjectDetectionAnnotation')),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='ajapaik.Profile')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("confirmation", models.BooleanField(default=True)),
+                ("created_on", models.DateTimeField(auto_now_add=True)),
+                ("modified_on", models.DateTimeField(auto_now=True)),
+                (
+                    "alternative_object",
+                    models.ForeignKey(
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="ajapaik_object_recognition.ObjectAnnotationClass",
+                    ),
+                ),
+                (
+                    "object_detection_annotation",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="feedback",
+                        to="ajapaik_object_recognition.ObjectDetectionAnnotation",
+                    ),
+                ),
+                (
+                    "user",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="ajapaik.Profile",
+                    ),
+                ),
             ],
         ),
         migrations.AddField(
-            model_name='objectannotationclass',
-            name='detection_model',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE,
-                                    to='ajapaik_object_recognition.ObjectDetectionModel'),
+            model_name="objectannotationclass",
+            name="detection_model",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                to="ajapaik_object_recognition.ObjectDetectionModel",
+            ),
         ),
     ]

@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand
 
-from ajapaik.ajapaik.models import Photo, MyXtdComment
+from ajapaik.ajapaik.models import MyXtdComment, Photo
 
 
 class Command(BaseCommand):
@@ -9,11 +9,9 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         photos = Photo.objects.all()
         for p in photos:
-            comments = MyXtdComment.objects.filter(
-                object_pk=p.pk, is_removed=False
-            )
-            first_comment = comments.order_by('-submit_date').first()
-            latest_comment = comments.order_by('submit_date').first()
+            comments = MyXtdComment.objects.filter(object_pk=p.pk, is_removed=False)
+            first_comment = comments.order_by("-submit_date").first()
+            latest_comment = comments.order_by("submit_date").first()
             p.first_comment = None
             p.latest_comment = None
             if first_comment:

@@ -5,19 +5,16 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('ajapaik', '0005_auto_20201217_1358'),
+        ("ajapaik", "0005_auto_20201217_1358"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='album',
-            name='muis_person_ids',
+            model_name="album",
+            name="muis_person_ids",
             field=django.contrib.postgres.fields.ArrayField(
-                base_field=models.IntegerField(blank=True),
-                default=list,
-                size=None
+                base_field=models.IntegerField(blank=True), default=list, size=None
             ),
         ),
     ]

@@ -31,7 +31,9 @@ def _is_registered_user(user):
     # the username happens to start with an underscore for historical reasons.
     if SocialAccount is not None:
         try:
-            return SocialAccount.objects.filter(user_id=getattr(user, "id", None)).exists()
+            return SocialAccount.objects.filter(
+                user_id=getattr(user, "id", None)
+            ).exists()
         except Exception:
             # If DB is not reachable for some reason, fall back to the strict rule
             return False
@@ -39,7 +41,9 @@ def _is_registered_user(user):
     return False
 
 
-def registered_login_required(function=None, redirect_field_name="next", login_url=None):
+def registered_login_required(
+    function=None, redirect_field_name="next", login_url=None
+):
     """Decorator like django.contrib.auth.decorators.login_required but
     requiring a truly registered user, not just an auto-authenticated session.
 

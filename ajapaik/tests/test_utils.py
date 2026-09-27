@@ -1,38 +1,58 @@
-import os
 import hashlib
-import pytest
+import os
 from datetime import datetime
+
+import pytest
 from django.contrib.auth.models import User
 from PIL import Image
-from ajapaik import settings
-from ajapaik.utils import average_angle, angle_diff, convert_to_degrees, get_etag, can_action_be_done, \
-    calculate_thumbnail_size, calculate_thumbnail_size_max_height, distance_in_meters, last_modified, \
-    least_frequent, most_frequent, suggest_photo_edit
 
-from ajapaik.ajapaik.models import Photo, PhotoFlipSuggestion, PhotoRotationSuggestion, Points, Profile
+from ajapaik import settings
+from ajapaik.ajapaik.models import (
+    Photo,
+    PhotoFlipSuggestion,
+    PhotoRotationSuggestion,
+    Points,
+    Profile,
+)
+from ajapaik.utils import (
+    angle_diff,
+    average_angle,
+    calculate_thumbnail_size,
+    calculate_thumbnail_size_max_height,
+    can_action_be_done,
+    convert_to_degrees,
+    distance_in_meters,
+    get_etag,
+    last_modified,
+    least_frequent,
+    most_frequent,
+    suggest_photo_edit,
+)
 
 
 def test_get_etag():
-    source = 'test_image.png'
-    white = Image.new('RGBA', (32, 32), (255, 255, 255, 0))
+    source = "test_image.png"
+    white = Image.new("RGBA", (32, 32), (255, 255, 255, 0))
     white.save("test_image.png", "PNG")
 
     m = hashlib.md5()
-    with open(source, 'rb') as f:
+    with open(source, "rb") as f:
         m.update(f.read())
     result = m.hexdigest()
-    assert get_etag(None, 'test_image.png', None) == result
+    assert get_etag(None, "test_image.png", None) == result
 
     os.remove(source)
-    assert get_etag(None, 'test_image.png', None) is None
+    assert get_etag(None, "test_image.png", None) is None
 
 
 def test_last_modified():
-    source = 'test_image.png'
-    white = Image.new('RGBA', (32, 32), (255, 255, 255, 0))
+    source = "test_image.png"
+    white = Image.new("RGBA", (32, 32), (255, 255, 255, 0))
     white.save("test_image.png", "PNG")
 
-    assert last_modified(None, source, None) == datetime.fromtimestamp(os.path.getmtime(source))
+    assert last_modified(None, source, None) == datetime.fromtimestamp(
+        os.path.getmtime(source)
+    )
 
     os.remove(source)
     assert last_modified(None, source, None) is None
@@ -77,42 +97,57 @@ def test_angle_diff():
 
 def test_average_angle():
     assert average_angle([50, 90, 20, 10]) == 0.7265724896134059
-    assert average_angle([15.2523562, 90.643643, -20.532, 10.5235325318]) == 0.364089736050786
+    assert (
+        average_angle([15.2523562, 90.643643, -20.532, 10.5235325318])
+        == 0.364089736050786
+    )
 
 
 def test_distance_in_meters():
-    assert distance_in_meters(58.3749359, 26.7294631, 58.3724787, 26.7317836) == 353.96440996564905
-    assert distance_in_meters(48.980555, 153.4701513, -54.6574534, -64.1463372) == 25463443.24517036
-    assert distance_in_meters(59.4366888, 24.7530732, 58.37782, 26.7288786) == 243147.66265268778
+    assert (
+        distance_in_meters(58.3749359, 26.7294631, 58.3724787, 26.7317836)
+        == 353.96440996564905
+    )
+    assert (
+        distance_in_meters(48.980555, 153.4701513, -54.6574534, -64.1463372)
+        == 25463443.24517036
+    )
+    assert (
+        distance_in_meters(59.4366888, 24.7530732, 58.37782, 26.7288786)
+        == 243147.66265268778
+    )
 
 
 @pytest.mark.django_db
 def test_can_action_be_done():
-    source = f'{settings.MEDIA_ROOT}/uploads/test_image.png'
-    previous = ''
-    for source_split in source.split('/'):
-        previous += f'/{source_split}'
-        if '.png' not in source_split and not os.path.exists(previous):
+    source = f"{settings.MEDIA_ROOT}/uploads/test_image.png"
+    previous = ""
+    for source_split in source.split("/"):
+        previous += f"/{source_split}"
+        if ".png" not in source_split and not os.path.exists(previous):
             os.mkdir(previous)
-    white = Image.new('RGBA', (32, 32), (255, 255, 255, 0))
+    white = Image.new("RGBA", (32, 32), (255, 255, 255, 0))
     white.save(source, "PNG")
-    photo = Photo(image=source, title='Title', description='Description')
+    photo = Photo(image=source, title="Title", description="Description")
     photo.save()
     photo = Photo.objects.get(id=photo.id)
-    photo.image.name = 'uploads/test_image.png'
+    photo.image.name = "uploads/test_image.png"
     photo.light_save()
 
-    user = User.objects.create_user('user', 'user@user.com', 'user')
+    user = User.objects.create_user("user", "user@user.com", "user")
     profile = Profile(user=user)
     profile.save()
     profile = Profile.objects.filter(pk=profile.id).first()
 
-    assert can_action_be_done(PhotoFlipSuggestion, photo, profile, 'flip', True) is True
-    assert can_action_be_done(PhotoRotationSuggestion, photo, profile, 'rotated', 90) is True
+    assert can_action_be_done(PhotoFlipSuggestion, photo, profile, "flip", True) is True
+    assert (
+        can_action_be_done(PhotoRotationSuggestion, photo, profile, "rotated", 90)
+        is True
+    )
 
     _, flip_suggestions, _, _ = suggest_photo_edit(
         [],
-        'flip',
+        "flip",
         True,
         Points,
         40,
@@ -120,14 +155,14 @@ def test_can_action_be_done():
         PhotoFlipSuggestion,
         photo,
         profile,
-        '',
-        'do_flip'
+        "",
+        "do_flip",
     )
     PhotoFlipSuggestion.objects.bulk_create(flip_suggestions)
 
     _, rotation_suggestions, _, _ = suggest_photo_edit(
         [],
-        'rotated',
+        "rotated",
         90,
         Points,
         20,
@@ -135,23 +170,28 @@ def test_can_action_be_done():
         PhotoRotationSuggestion,
         photo,
         profile,
-        '',
-        'do_rotate'
+        "",
+        "do_rotate",
     )
     photo = Photo.objects.filter(id=photo.id).first()
     PhotoRotationSuggestion.objects.bulk_create(rotation_suggestions)
 
-    assert can_action_be_done(PhotoFlipSuggestion, photo, profile, 'flip', False) is True
-    assert can_action_be_done(PhotoRotationSuggestion, photo, profile, 'rotated', 180) is True
+    assert (
+        can_action_be_done(PhotoFlipSuggestion, photo, profile, "flip", False) is True
+    )
+    assert (
+        can_action_be_done(PhotoRotationSuggestion, photo, profile, "rotated", 180)
+        is True
+    )
 
-    user_2 = User.objects.create_user('user2', 'user2@user2.com', 'user2')
+    user_2 = User.objects.create_user("user2", "user2@user2.com", "user2")
     profile_2 = Profile(user=user_2)
     profile_2.save()
     profile_2 = Profile.objects.filter(pk=profile_2.id).first()
 
     _, flip_suggestions, _, _ = suggest_photo_edit(
         [],
-        'flip',
+        "flip",
         True,
         Points,
         40,
@@ -159,13 +199,13 @@ def test_can_action_be_done():
         PhotoFlipSuggestion,
         photo,
         profile_2,
-        '',
-        'do_flip'
+        "",
+        "do_flip",
     )
     PhotoFlipSuggestion.objects.bulk_create(flip_suggestions)
     _, rotation_suggestions, _, _ = suggest_photo_edit(
         [],
-        'rotated',
+        "rotated",
         90,
         Points,
         20,
@@ -173,17 +213,23 @@ def test_can_action_be_done():
         PhotoRotationSuggestion,
         photo,
         profile_2,
-        '',
-        'do_rotate'
+        "",
+        "do_rotate",
     )
     PhotoRotationSuggestion.objects.bulk_create(rotation_suggestions)
 
-    user_3 = User.objects.create_user('user3', 'user3@user3.com', 'user3')
+    user_3 = User.objects.create_user("user3", "user3@user3.com", "user3")
     profile_3 = Profile(user=user_3)
     profile_3.save()
     profile_3 = Profile.objects.filter(pk=profile_3.id).first()
 
-    assert can_action_be_done(PhotoFlipSuggestion, photo, profile_3, 'flip', False) is False
-    assert can_action_be_done(PhotoRotationSuggestion, photo, profile_3, 'rotated', 180) is False
+    assert (
+        can_action_be_done(PhotoFlipSuggestion, photo, profile_3, "flip", False)
+        is False
+    )
+    assert (
+        can_action_be_done(PhotoRotationSuggestion, photo, profile_3, "rotated", 180)
+        is False
+    )
 
     os.remove(source)

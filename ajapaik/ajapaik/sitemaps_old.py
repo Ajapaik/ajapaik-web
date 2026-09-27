@@ -10,7 +10,7 @@ class PhotoSitemap(Sitemap):
 
     def items(self):
         # Fetch only 'id' and 'modified' fields to optimize the query
-        return Photo.objects.only('id', 'modified')
+        return Photo.objects.only("id", "modified")
 
     def lastmod(self, obj):
         return obj.modified
@@ -24,7 +24,7 @@ class StaticViewSitemap(Sitemap):
     priority = 1
 
     def items(self):
-        return ['map', 'game', 'leaderboard', 'top50', 'frontpage', 'feed', 'donate']
+        return ["map", "game", "leaderboard", "top50", "frontpage", "feed", "donate"]
 
     def location(self, item):
         return reverse(item)

@@ -1,9 +1,8 @@
 from dataclasses import dataclass, field
-from typing import List, Union
 
 from django.db.models import QuerySet
 
-from ajapaik.ajapaik.models import Photo, Video, Album
+from ajapaik.ajapaik.models import Album, Photo, Video
 
 
 @dataclass
@@ -24,13 +23,13 @@ class PaginationParameters:
 @dataclass
 class GalleryResults:
     my_likes_only: bool
-    rephoto_album_author: Union[UserMini, None]
+    rephoto_album_author: UserMini | None
 
-    photo: Union[Photo, None]
-    photos: Union[QuerySet[Photo], None]
-    photos_with_comments: Union[QuerySet[Photo], None]
-    photos_with_rephotos: Union[QuerySet[Photo], None]
-    videos: Union[QuerySet[Video], None]
+    photo: Photo | None
+    photos: QuerySet[Photo] | None
+    photos_with_comments: QuerySet[Photo] | None
+    photos_with_rephotos: QuerySet[Photo] | None
+    videos: QuerySet[Video] | None
 
     # Pages and pagination
     start: int
@@ -42,9 +41,9 @@ class GalleryResults:
     # Debugging
     execution_time: str
 
-    album: Union[Album, None]
+    album: Album | None
 
     # Sort orders
-    order1: str = field(default='time')
-    order2: str = field(default='added')
-    order3: str = field(default='')
+    order1: str = field(default="time")
+    order2: str = field(default="added")
+    order3: str = field(default="")

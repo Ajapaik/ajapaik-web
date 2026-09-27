@@ -1,4 +1,10 @@
-from django.forms import Form, CharField, BooleanField, IntegerField, TypedMultipleChoiceField
+from django.forms import (
+    BooleanField,
+    CharField,
+    Form,
+    IntegerField,
+    TypedMultipleChoiceField,
+)
 
 
 class NotValidatedMultipleChoiceField(TypedMultipleChoiceField):

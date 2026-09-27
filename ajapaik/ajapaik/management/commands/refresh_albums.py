@@ -8,7 +8,7 @@ from ajapaik.ajapaik.models import Album
 
 
 class Command(BaseCommand):
-    help = 'Refresh albums'
+    help = "Refresh albums"
 
     def handle(self, *args, **options):
         albums = Album.objects.exclude(atype__in=[Album.AUTO, Album.FAVORITES])
@@ -18,13 +18,21 @@ class Command(BaseCommand):
             if not historic_photo_qs:
                 continue
 
-            geotagged_photo_qs = a.get_geotagged_historic_photo_queryset_with_subalbums()
+            geotagged_photo_qs = (
+                a.get_geotagged_historic_photo_queryset_with_subalbums()
+            )
             a.photo_count_with_subalbums = historic_photo_qs.count()
             a.geotagged_photo_count_with_subalbums = geotagged_photo_qs.count()
-            a.rephoto_count_with_subalbums = a.get_rephotos_queryset_with_subalbums().count()
+            a.rephoto_count_with_subalbums = (
+                a.get_rephotos_queryset_with_subalbums().count()
+            )
             a.comments_count_with_subalbums = a.get_comment_count_with_subalbums()
-            a.similar_photo_count_with_subalbums = a.get_similar_photo_count_with_subalbums()
-            a.confirmed_similar_photo_count_with_subalbums = a.get_confirmed_similar_photo_count_with_subalbums()
+            a.similar_photo_count_with_subalbums = (
+                a.get_similar_photo_count_with_subalbums()
+            )
+            a.confirmed_similar_photo_count_with_subalbums = (
+                a.get_confirmed_similar_photo_count_with_subalbums()
+            )
 
             if not a.lat and not a.lon and a.geotagged_photo_count_with_subalbums:
                 random_index = randint(0, a.geotagged_photo_count_with_subalbums - 1)

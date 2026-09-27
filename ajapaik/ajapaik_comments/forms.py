@@ -10,9 +10,9 @@ class EditCommentForm(forms.Form):
 
     def clean_comment_id(self):
         self.comment = get_object_or_404(
-            get_model(), pk=self.cleaned_data['comment_id']
+            get_model(), pk=self.cleaned_data["comment_id"]
         )
 
     def clean(self):
-        if self.comment.comment == self.cleaned_data['text']:
-            forms.ValidationError(_('Nothing to change.'), code='same_text')
+        if self.comment.comment == self.cleaned_data["text"]:
+            forms.ValidationError(_("Nothing to change."), code="same_text")

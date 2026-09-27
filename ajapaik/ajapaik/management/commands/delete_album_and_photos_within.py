@@ -6,8 +6,8 @@ from ajapaik.ajapaik.models import Album
 
 
 class Command(BaseCommand):
-    help = 'Will delete all photos within specified album, then the album itself'
-    args = 'album_id'
+    help = "Will delete all photos within specified album, then the album itself"
+    args = "album_id"
 
     def handle(self, *args, **options):
         try:

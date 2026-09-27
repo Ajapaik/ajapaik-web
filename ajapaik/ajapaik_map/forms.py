@@ -6,7 +6,9 @@ from ajapaik.ajapaik.models import Album
 
 
 class MapDataRequestForm(BaseFilteringForm):
-    album = forms.ModelChoiceField(queryset=Album.objects.all(), label=_('Choose album'), required=False)
+    album = forms.ModelChoiceField(
+        queryset=Album.objects.all(), label=_("Choose album"), required=False
+    )
     limit_by_album = forms.BooleanField(initial=False, required=False)
     sw_lat = forms.FloatField(min_value=-85.05115, max_value=85, required=False)
     sw_lon = forms.FloatField(min_value=-180, max_value=180, required=False)

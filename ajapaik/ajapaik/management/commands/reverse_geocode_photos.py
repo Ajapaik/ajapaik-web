@@ -1,11 +1,10 @@
-# -*- coding: utf-8 -*-
 from django.core.management.base import BaseCommand
 
 from ajapaik.ajapaik.models import Photo
 
 
 class Command(BaseCommand):
-    help = 'Will try to reverse geocode all photos'
+    help = "Will try to reverse geocode all photos"
 
     def handle(self, *args, **options):
         start = 0

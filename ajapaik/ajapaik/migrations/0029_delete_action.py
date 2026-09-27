@@ -4,13 +4,12 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('ajapaik', '0028_auto_20241022_0918'),
+        ("ajapaik", "0028_auto_20241022_0918"),
     ]
 
     operations = [
         migrations.DeleteModel(
-            name='Action',
+            name="Action",
         ),
     ]

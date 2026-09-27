@@ -4,15 +4,14 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('ajapaik', '0013_auto_20210207_1907'),
+        ("ajapaik", "0013_auto_20210207_1907"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='photo',
-            name='muis_update_time',
+            model_name="photo",
+            name="muis_update_time",
             field=models.DateTimeField(blank=True, null=True),
         ),
     ]

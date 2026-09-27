@@ -19,7 +19,7 @@ class ObjectAnnotationClass(models.Model):
 
     def __str__(self):
         english_translation = self.translations
-        return f'{self.wikidata_id}: {english_translation}'
+        return f"{self.wikidata_id}: {english_translation}"
 
 
 class ObjectDetectionAnnotation(models.Model):
@@ -40,16 +40,21 @@ class ObjectDetectionAnnotation(models.Model):
     deleted_on = models.DateTimeField(null=True)
 
     def __str__(self):
-        return f'Detected {self.detected_object.__str__()} on photo {self.photo_id} at ' \
-               f'x1: {self.x1}, y1: {self.y1}, x2: {self.x2}, y2: {self.y2}'
+        return (
+            f"Detected {self.detected_object.__str__()} on photo {self.photo_id} at "
+            f"x1: {self.x1}, y1: {self.y1}, x2: {self.x2}, y2: {self.y2}"
+        )
 
 
 class ObjectAnnotationFeedback(models.Model):
-    object_detection_annotation = models.ForeignKey(ObjectDetectionAnnotation, related_name='feedback',
-                                                    on_delete=CASCADE)
+    object_detection_annotation = models.ForeignKey(
+        ObjectDetectionAnnotation, related_name="feedback", on_delete=CASCADE
+    )
 
     confirmation = models.BooleanField(default=True)
-    alternative_object = models.ForeignKey(ObjectAnnotationClass, null=True, on_delete=CASCADE)
+    alternative_object = models.ForeignKey(
+        ObjectAnnotationClass, null=True, on_delete=CASCADE
+    )
 
     user = models.ForeignKey(Profile, on_delete=CASCADE)
 
@@ -57,14 +62,18 @@ class ObjectAnnotationFeedback(models.Model):
     modified_on = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        string_label = ''
+        string_label = ""
 
         if self.confirmation:
-            string_label += f'Confirmed annotation {self.object_detection_annotation_id}'
+            string_label += (
+                f"Confirmed annotation {self.object_detection_annotation_id}"
+            )
         else:
-            string_label += f'Rejected annotation {self.object_detection_annotation_id}'
+            string_label += f"Rejected annotation {self.object_detection_annotation_id}"
 
         if self.alternative_object is not None:
-            string_label += f', alternative object suggested: {self.alternative_object.__str__()}'
+            string_label += (
+                f", alternative object suggested: {self.alternative_object.__str__()}"
+            )
 
         return string_label

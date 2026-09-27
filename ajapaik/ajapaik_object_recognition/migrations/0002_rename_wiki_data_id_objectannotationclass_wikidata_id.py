@@ -4,15 +4,14 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('ajapaik_object_recognition', '0001_initial'),
+        ("ajapaik_object_recognition", "0001_initial"),
     ]
 
     operations = [
         migrations.RenameField(
-            model_name='objectannotationclass',
-            old_name='wiki_data_id',
-            new_name='wikidata_id',
+            model_name="objectannotationclass",
+            old_name="wiki_data_id",
+            new_name="wikidata_id",
         ),
     ]

@@ -9,11 +9,15 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         profiles = Profile.objects.exclude(
-            Q(first_name__isnull=True) & Q(last_name__isnull=True) & Q(google_plus_name__isnull=True) & Q(
-                fb_name__isnull=True) & Q(google_plus_email__isnull=True))
+            Q(first_name__isnull=True)
+            & Q(last_name__isnull=True)
+            & Q(google_plus_name__isnull=True)
+            & Q(fb_name__isnull=True)
+            & Q(google_plus_email__isnull=True)
+        )
         for profile in profiles:
             if profile.first_name and profile.last_name:
-                profile.display_name = '%s %s' % (profile.first_name, profile.last_name)
+                profile.display_name = "%s %s" % (profile.first_name, profile.last_name)
 
             elif profile.google_plus_name:
                 profile.display_name = profile.google_plus_name
@@ -23,7 +27,7 @@ class Command(BaseCommand):
 
             elif profile.google_plus_email:
                 try:
-                    profile.display_name = profile.google_plus_email.split('@')[0]
+                    profile.display_name = profile.google_plus_email.split("@")[0]
                 except:  # noqa
                     pass
 

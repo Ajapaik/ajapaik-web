@@ -1,6 +1,5 @@
 import re
 from html import unescape
-from typing import List
 
 import requests
 
@@ -8,8 +7,8 @@ import requests
 def _get_licence_name_from_url(url):
     title = url
     try:
-        html = requests.get(url, {}).text.replace('\n', '')
-        title_search = re.search('<title>(.*)</title>', html, re.IGNORECASE)
+        html = requests.get(url, {}).text.replace("\n", "")
+        title_search = re.search("<title>(.*)</title>", html, re.IGNORECASE)
 
         if title_search:
             title = title_search.group(1)
@@ -19,7 +18,7 @@ def _get_licence_name_from_url(url):
         return title
 
 
-def transform_fotis_persons_response(persons_str: str) -> List[str]:
+def transform_fotis_persons_response(persons_str: str) -> list[str]:
     persons_str = persons_str.strip().strip(";")
 
     if ";" in persons_str:
@@ -30,7 +29,7 @@ def transform_fotis_persons_response(persons_str: str) -> List[str]:
     result = []
     for person in persons:
         person = person.strip()
-        match = re.match(r'\b(\w+(?:\s*\w*))\s+\1\b', person)
+        match = re.match(r"\b(\w+(?:\s*\w*))\s+\1\b", person)
         if match:
             result.append(match.groups()[0])
         elif person:

@@ -7,32 +7,41 @@ from django.core.management.base import BaseCommand
 from ajapaik.ajapaik.models import Album
 from ajapaik.ajapaik_face_recognition.models import FaceRecognitionRectangle
 
-all_the_people_we_have_faces_for = Album.objects.filter(face_encodings__isnull=False).all()
+all_the_people_we_have_faces_for = Album.objects.filter(
+    face_encodings__isnull=False
+).all()
 for each in all_the_people_we_have_faces_for:
     each.loaded_faces = np.array(loads(each.face_encodings))
 
 
-def recognize_single_rectangle(unrecognized_rectangle: FaceRecognitionRectangle) -> None:
+def recognize_single_rectangle(
+    unrecognized_rectangle: FaceRecognitionRectangle,
+) -> None:
     for person in all_the_people_we_have_faces_for:
         assert isinstance(person, Album)
-        comparison_results = face_recognition.compare_faces(person.loaded_faces,
-                                                            np.array(loads(unrecognized_rectangle.face_encoding)))
+        comparison_results = face_recognition.compare_faces(
+            person.loaded_faces, np.array(loads(unrecognized_rectangle.face_encoding))
+        )
         if comparison_results[0]:
             unrecognized_rectangle.subject_ai_suggestion = person
             unrecognized_rectangle.save()
 
 
 class Command(BaseCommand):
-    help = 'Will run face recognition on all rectangles in our database'
+    help = "Will run face recognition on all rectangles in our database"
 
     def handle(self, *args, **options):
         # TODO: What if people propose wrong and the computer knows better?
-        rectangles_without_known_subjects = FaceRecognitionRectangle.objects.filter(deleted__isnull=True,
-                                                                                    subject_consensus__isnull=True,
-                                                                                    subject_ai_suggestion__isnull=True)
+        rectangles_without_known_subjects = FaceRecognitionRectangle.objects.filter(
+            deleted__isnull=True,
+            subject_consensus__isnull=True,
+            subject_ai_suggestion__isnull=True,
+        )
         # TODO: This double loop is going to mean a world of pain
         for rectangle in rectangles_without_known_subjects:
             recognize_single_rectangle(rectangle)
+
+
 # with multiprocessing.Pool() as pool:
 #     pool.map(recognize_single_rectangle, rectangles_without_known_subjects)
 #

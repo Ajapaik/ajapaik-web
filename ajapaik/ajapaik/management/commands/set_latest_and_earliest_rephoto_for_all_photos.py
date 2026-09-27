@@ -8,18 +8,23 @@ class Command(BaseCommand):
     help = "Set latest and earliest rephoto for all photos"
 
     def handle(self, *args, **options):
-        photos = Photo.objects.filter(rephoto_of__isnull=True).prefetch_related('rephotos').annotate(
-            rp_count=Count('rephotos')).filter(rp_count__gt=0)
+        photos = (
+            Photo.objects.filter(rephoto_of__isnull=True)
+            .prefetch_related("rephotos")
+            .annotate(rp_count=Count("rephotos"))
+            .filter(rp_count__gt=0)
+        )
         for p in photos:
             earliest = None
             latest = None
-            for rp in p.rephotos.order_by('created'):
+            for rp in p.rephotos.order_by("created"):
                 if not earliest:
                     earliest = rp.created
                 if not latest:
                     latest = rp.created
-                if rp.created > latest:
-                    latest = rp.created
+                latest = max(latest, rp.created)
             p.first_rephoto = earliest
             p.latest_rephoto = latest
-        Photo.bulk.bulk_update(photos, update_fields=['first_rephoto', 'latest_rephoto'])
+        Photo.bulk.bulk_update(
+            photos, update_fields=["first_rephoto", "latest_rephoto"]
+        )
