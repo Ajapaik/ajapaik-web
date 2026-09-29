@@ -802,7 +802,6 @@
                     $('#ajp-curator-create-new-album-checkbox').val(false);
                     feedbackModalDiv.modal('show').on('shown.bs.modal', function () {
                         $($(this).find('#ajp-curator-share-button-container')).empty().append(tmpl('ajp-curator-share-set-button', { gameLink: albumPlayLink }));
-                        window.FB.XFBML.parse();
                     });
                     window.gtag('event', 'photo_upload_batch_success', { 'category': 'Curator' });
                     return;

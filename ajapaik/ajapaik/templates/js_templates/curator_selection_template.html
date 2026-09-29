@@ -83,6 +83,8 @@
         </div>
     </script>
     <script id="ajp-curator-share-set-button" type="text/x-tmpl">
-        <div id="ajp-curator-share-button" class="fb-share-button" data-href="{%=o.link%}" data-layout="button"></div>
+        <a id="ajp-curator-share-button" class="btn btn-sm btn-primary" href="https://www.facebook.com/sharer/sharer.php?u={%=encodeURIComponent(o.gameLink || o.link)%}" target="_blank" rel="noopener noreferrer">
+            {%=gettext('Share on Facebook')%}
+        </a>
     </script>
 {% endverbatim %}

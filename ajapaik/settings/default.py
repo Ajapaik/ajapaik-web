@@ -229,7 +229,6 @@ INSTALLED_APPS = [
     "allauth",
     "allauth.account",
     "allauth.socialaccount",
-    "allauth.socialaccount.providers.facebook",
     "allauth.socialaccount.providers.google",
     "ajapaik.ajapaik.socialaccount.providers.wikimedia_commons",
     "django_recaptcha",
@@ -461,13 +460,6 @@ ACCOUNT_FORMS = {
 }
 
 SOCIALACCOUNT_PROVIDERS = {
-    "facebook": {
-        "METHOD": "oauth2",
-        "SCOPE": [
-            "email",
-            "public_profile",
-        ],
-    },
     "google": {
         "SCOPE": [
             "profile",

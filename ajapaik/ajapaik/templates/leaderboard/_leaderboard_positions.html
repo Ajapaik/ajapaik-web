@@ -4,10 +4,7 @@
     <li class="clearfix{% if p.is_current_user %} you{% endif %}">
         <span class="position">{{ p.position }}.</span>
         <span class="photo">
-            {% if p.fb_id %}
-                <img src="https://graph.facebook.com/v7.0/{{ p.fb_id }}/picture?type=square"
-                     alt="{% trans "User Facebook photo" %}" />
-                {% elif p.google_plus_picture %}
+            {% if p.google_plus_picture %}
                 <img src="{{ p.google_plus_picture }}" alt="{% trans "User Google photo" %}" />
             {% endif %}
         </span>

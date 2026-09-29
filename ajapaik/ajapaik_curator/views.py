@@ -793,13 +793,6 @@ def curator_photo_upload_handler(request):
 
                     raise e
 
-    if general_albums:
-        game_reverse = request.build_absolute_uri(reverse("game"))
-        for ga in general_albums:
-            requests.post(
-                f"https://graph.facebook.com/v7.0/?id={game_reverse}?album={ga.id!s}&scrape=true"
-            )
-
     for cp in all_curating_points:
         total_points_for_curating += cp.points
 

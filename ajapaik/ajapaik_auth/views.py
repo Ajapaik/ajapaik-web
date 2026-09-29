@@ -32,7 +32,7 @@ def oauthdone(request):
             return HttpResponse("No user found", status=404)
 
         provider = form.cleaned_data["provider"]
-        allowed_providers = ["facebook", "google", "wikimedia-commons"]
+        allowed_providers = ["google", "wikimedia-commons"]
         if provider not in allowed_providers:
             return HttpResponse(
                 "Provider not in allowed providers." + provider, status=404

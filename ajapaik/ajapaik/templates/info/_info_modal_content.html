@@ -109,16 +109,19 @@
                     </div>
                 </li>
                 <li role="presentation">
-                    <div id="ajp-info-modal-like" role="menuitem" tabindex="-1">
+                    <div id="ajp-info-modal-like" role="menuitem" tabindex="-1" class="mt-2">
                         {% if fb_share_gallery %}
-                            <div class="fb-like" data-href="{{ share_gallery_link }}" data-layout="standard"
-                                 data-action="like" data-show-faces="true" data-share="true"></div>
+                            <a class="btn btn-sm btn-outline-primary" target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/sharer/sharer.php?u={{ share_gallery_link|urlencode }}">
+                                {% trans "Share on Facebook" %}
+                            </a>
                         {% elif fb_share_map %}
-                            <div class="fb-like" data-href="{{ share_map_link }}" data-layout="standard"
-                                 data-action="like" data-show-faces="true" data-share="true"></div>
+                            <a class="btn btn-sm btn-outline-primary" target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/sharer/sharer.php?u={{ share_map_link|urlencode }}">
+                                {% trans "Share on Facebook" %}
+                            </a>
                         {% else %}
-                            <div class="fb-like" data-href="{{ share_game_link }}" data-layout="standard"
-                                 data-action="like" data-show-faces="true" data-share="true"></div>
+                            <a class="btn btn-sm btn-outline-primary" target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/sharer/sharer.php?u={{ share_game_link|urlencode }}">
+                                {% trans "Share on Facebook" %}
+                            </a>
                         {% endif %}
                     </div>
                 </li>

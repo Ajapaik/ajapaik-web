@@ -14,7 +14,6 @@ from allauth.account.adapter import get_adapter
 from allauth.account.forms import SignupForm
 from allauth.account.utils import complete_signup
 from allauth.socialaccount.helpers import complete_social_login
-from allauth.socialaccount.providers.facebook.views import FacebookOAuth2Adapter
 from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
 from django.conf import settings
 from django.contrib.auth import authenticate, logout
@@ -212,12 +211,9 @@ class Login(APIView):
 
     def _authenticate_with_facebook(self, request, access_token):
         """
-        Returns user by facebook access_token.
+        Facebook login is disabled.
         """
-        adapter = FacebookOAuth2Adapter(request)
-        return self._authenticate_with_oauth2_access_token(
-            adapter, request, access_token
-        )
+        return None
 
     def _authenticate_with_wikimedia_commons(self, request, access_token):
         """
