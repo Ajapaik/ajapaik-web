@@ -1,0 +1,10 @@
+# Cursor Rules for Ajapaik Web
+
+Please adhere strictly to the instructions and guidelines defined in `AGENTS.md`.
+
+Key requirements:
+1. Do NOT emulate legacy conventions. Write modern Python 3.10+ and Django 4.2+ code.
+2. Explicit type hints are mandatory on all functions, methods, and return types (`-> None`, `-> Response`, etc.).
+3. Format and lint code with Ruff (line length: 120).
+4. Keep views thin; encapsulate domain logic in dedicated service or domain modules.
+5. Never execute heavy operations synchronously in request-response views.
