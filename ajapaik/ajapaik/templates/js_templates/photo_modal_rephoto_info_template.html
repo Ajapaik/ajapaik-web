@@ -42,10 +42,10 @@
                             {% endverbatim %}{% include "photo/_licence.html" %}{% verbatim %}
                         </div>
                     {% } else { %}
-                        {% if (o.FullName) { %}
+                        {% if (o.FullName || o.user_name) { %}
                             <div class="w-100">
                                 <a target="_blank" href="/photos/?rephotosBy={%=o.user%}&order1=time&order2=rephotos"rel="noopener">
-                                    {%=o.FullName%}
+                                    {%=o.FullName || o.user_name%}
                                 </a>{% if (o.date) { %}, {%=o.date%}{% } %}<br>
                             </div>
                             <div class="w-100">

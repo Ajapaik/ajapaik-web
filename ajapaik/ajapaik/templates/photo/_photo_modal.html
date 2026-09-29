@@ -248,13 +248,13 @@
             {% if request.user.is_superuser %}
                 admin: "request.user.is_superuser",
             {% endif %}
-            {% if rephoto.user %}
-                user: "{{ rephoto.user.id }}",
+            {% if rephoto.user_id or rephoto.user %}
+                user: "{{ rephoto.user_id|default:rephoto.user.id }}",
                 FBUserName: "{% if rephoto.user.fb_name %}{{ rephoto.user.fb_name }}{% endif %}",
                 FBUserLink: "{% if rephoto.user.fb_link %}{{ rephoto.user.fb_link }}{% endif %}",
                 GooglePlusName: "{% if rephoto.user.google_plus_name %}{{ rephoto.user.google_plus_name }}{% endif %}",
                 GooglePlusLink: "{% if rephoto.user.google_plus_link %}{{ rephoto.user.google_plus_link }}{% endif %}",
-                FullName: "{{ rephoto.user.get_display_name }}",
+                FullName: "{{ rephoto.user_name|default:rephoto.user.get_display_name }}",
             {% endif %}
             {% if rephoto.author %}
                 author: "{{ rephoto.author }}",

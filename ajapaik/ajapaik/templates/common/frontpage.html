@@ -6,6 +6,10 @@
         <link rel="stylesheet" href="{% static "css/ajp-video.css" %}"/>
         <link rel="stylesheet" href="{% static "libs/justifiedGallery/css/justifiedGallery-3.6.1.min.css" %}"/>
     {% endcompress %}
+    <style>
+        @keyframes ajp-spin { 100% { transform: rotate(360deg); } }
+        .ajp-spin-icon { animation: ajp-spin 0.8s linear infinite; display: inline-block; }
+    </style>
 {% endblock %}
 
 {% block header %}
@@ -20,6 +24,21 @@
                     <span class="material-icons mr-2 notranslate" style="font-size: 22px;">camera_alt</span>
                     <span>{% trans "Rephotograph nearby" %}</span>
                 </a>
+            </div>
+        </div>
+        <div id="ajp-rephoto-location-bar" class="row px-2 pt-2 pb-1{% if order1 != 'closest' %} d-none{% endif %}">
+            <div class="col-12">
+                <div class="d-flex align-items-center justify-content-between p-2 rounded shadow-sm" style="background: rgba(255, 255, 255, 0.95); border: 1px solid #e0e0e0; min-height: 44px;">
+                    <div id="ajp-location-status" class="d-flex align-items-center flex-grow-1 mr-2" style="font-size: 14px; min-width: 0;">
+                        <span id="ajp-location-spinner" class="spinner-border spinner-border-sm text-warning mr-2" role="status" aria-hidden="true"></span>
+                        <span id="ajp-location-status-icon" class="material-icons mr-1 text-success notranslate d-none" style="font-size: 20px;">place</span>
+                        <span id="ajp-location-status-text" class="text-truncate" style="font-weight: 500;">{% trans "Detecting location..." %}</span>
+                    </div>
+                    <button id="ajp-btn-refresh-location" type="button" class="btn btn-sm btn-outline-dark d-inline-flex align-items-center shadow-none flex-shrink-0" style="border-radius: 20px; font-weight: 600; padding: 4px 12px; font-size: 13px;">
+                        <span class="material-icons mr-1 notranslate" style="font-size: 18px;" id="ajp-refresh-icon">my_location</span>
+                        <span>{% trans "Refresh location" %}</span>
+                    </button>
+                </div>
             </div>
         </div>
         <div class="row">

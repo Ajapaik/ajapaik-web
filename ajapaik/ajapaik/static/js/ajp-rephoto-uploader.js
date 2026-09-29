@@ -256,6 +256,22 @@ const AjpRephotoUploader = {
         const pitch = data.pitch;
         const roll = data.roll;
 
+        try {
+            const existingUploads = await this.db.getUploads();
+            const recentDuplicate = existingUploads.find(u =>
+                u.photoId === photoId &&
+                (u.status === 'pending' || u.status === 'uploading') &&
+                (Date.now() - u.createdAt < 60000)
+            );
+            if (recentDuplicate) {
+                console.log('Skipping duplicate enqueue, upload already in progress');
+                window.location.replace(redirectUrl);
+                return;
+            }
+        } catch (e) {
+            console.warn('Failed to check existing uploads before enqueueing:', e);
+        }
+
         let randomSuffix;
         if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
             randomSuffix = crypto.randomUUID().replaceAll('-', '').substring(0, 8);

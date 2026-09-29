@@ -334,16 +334,27 @@ $('.ajp-navbar').autoHidingNavbar();
         handleFullScreenLinkClick('similar');
     });
 
-    getGeolocation = function getLocation(callback, errorCallback) {
+    getGeolocation = function getLocation(callback, errorCallback, options) {
         if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(callback, function (error) {
-                $('#ajp-loading-overlay').hide();
-                if (typeof errorCallback === 'function') {
-                    errorCallback(error);
-                } else {
-                    geolocationError(error);
-                }
-            });
+            const geoOptions = options || {
+                enableHighAccuracy: true,
+                timeout: 15000,
+                maximumAge: 0,
+            };
+            navigator.geolocation.getCurrentPosition(
+                callback,
+                function (error) {
+                    $('#ajp-loading-overlay').hide();
+                    if (typeof errorCallback === 'function') {
+                        errorCallback(error);
+                    } else {
+                        geolocationError(error);
+                    }
+                },
+                geoOptions,
+            );
+        } else if (typeof errorCallback === 'function') {
+            errorCallback({ code: 0, message: 'Geolocation not supported' });
         }
     };
 

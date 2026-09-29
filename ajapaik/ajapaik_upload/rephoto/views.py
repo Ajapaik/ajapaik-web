@@ -9,7 +9,7 @@ from django.conf import settings
 from django.core.cache import cache
 from django.core.files.base import ContentFile
 from django.db.transaction import atomic
-from django.http import JsonResponse
+from django.http import HttpRequest, JsonResponse
 from django.shortcuts import get_object_or_404
 from django.utils import timezone
 from django.utils.translation import gettext as _
@@ -22,7 +22,7 @@ from ajapaik.ajapaik.photo_utils import _extract_and_save_data_from_exif
 
 @atomic
 @csrf_exempt
-def rephoto_upload(request, photo_id):
+def rephoto_upload(request: HttpRequest, photo_id: int) -> JsonResponse:
     if request.method != "POST":
         return JsonResponse({"message": "Unsupported HTTP Method"}, status=405)
 
@@ -72,19 +72,16 @@ def rephoto_upload(request, photo_id):
         rephoto_lon = parse_float(data.get("lon"))
         rephoto_yaw = parse_float(data.get("yaw"))
 
-        # Check for recent duplicate (within 2 minutes by same user for same parent photo)
-        recent_dup_qs = Photo.objects.filter(
-            rephoto_of=photo,
-            user=profile,
-            created__gte=timezone.now() - timedelta(minutes=2),
-            cam_scale_factor=cam_scale_factor,
-            lat=rephoto_lat,
-            lon=rephoto_lon,
+        # Check for recent duplicate (within 90 seconds by same user for same parent photo)
+        recent_duplicate = (
+            Photo.objects.filter(
+                rephoto_of=photo,
+                user=profile,
+                created__gte=timezone.now() - timedelta(seconds=90),
+            )
+            .order_by("-created")
+            .first()
         )
-        if rephoto_yaw is not None:
-            recent_dup_qs = recent_dup_qs.filter(cam_yaw=rephoto_yaw)
-
-        recent_duplicate = recent_dup_qs.order_by("-created").first()
         if recent_duplicate:
             if client_upload_id:
                 cache.set(

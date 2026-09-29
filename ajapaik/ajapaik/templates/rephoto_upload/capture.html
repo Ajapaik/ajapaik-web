@@ -781,9 +781,20 @@
       }
     });
 
+    let isSaving = false;
     uploadBtn.addEventListener('click', () => {
+      if (isSaving) return;
+      isSaving = true;
+      uploadBtn.disabled = true;
+      uploadBtn.style.pointerEvents = 'none';
+      uploadBtn.style.opacity = '0.5';
+
       // Require login before uploading
       if (!userIsAuthenticated || !userIsSocialConnected) {
+        isSaving = false;
+        uploadBtn.disabled = false;
+        uploadBtn.style.pointerEvents = '';
+        uploadBtn.style.opacity = '1';
         try {
           if (typeof window.openLoginModal === 'function') {
             window.openLoginModal('rephoto');
@@ -850,6 +861,10 @@
           console.error('Error queueing upload:', error);
           alert('Viga järjekorda lisamisel');
           loadingOverlay.style.display = 'none';
+          isSaving = false;
+          uploadBtn.disabled = false;
+          uploadBtn.style.pointerEvents = '';
+          uploadBtn.style.opacity = '1';
         });
       });
     });
