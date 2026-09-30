@@ -1,8 +1,7 @@
 # Ajapaik API Keys Architecture & Implementation Plan
 
 **Date:** September 30, 2026  
-**Document Status:** Proposal / For Discussion  
-**Target Audience:** Vahur Puik, Märt Põder, Kimmo Virtanen  
+**Document Status:** Proposal / For Discussion
 
 ---
 
