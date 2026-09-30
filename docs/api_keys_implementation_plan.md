@@ -1,72 +1,72 @@
-# Ajapaik API Võtmete (API Keys) Arhitektuur ja Rakendusplaan
+# Ajapaik API Keys Architecture & Implementation Plan
 
-**Kuupäev:** 30. september 2026  
-**Dokumendi staatus:** Aruteluks / Kavand  
-**Sihtgrupp:** Vahur Puik, Märt Põder, Kimmo Virtanen  
-
----
-
-## 1. Kontekst ja Eesmärk
-
-Ajapaiga platvorm pakub ulatuslikku REST API-t, mida on ajalooliselt kasutanud mobiilirakendused (Androidi äpp), partnerid (Delfi, Wikidocumentaries, Finna) ning mitmesugused teadus- ja kultuuripärandi projektid.
-
-### Hetkeolukord ja vajadus muutuseks
-- **Päringute kontrollimatus ja kraapimine:** Praegu on enamik Ajapaiga API otspunkte avalikult ja autentimata kättesaadavad. See tekitab riske serveri ülekoormusele (DDoS / agressiivsed andmekorjed / tehisintellekti treeningkraapijad) ning ei võimalda eristada heatahtlikke partnereid pahatahtlikest päringutest.
-- **Vananenud kliendid:**
-  - **Ajapaik Androidi äpp:** Äpp on amortiseerunud ja kasutusest maas. Selle tagasiühilduvuse hoidmine pole enam prioriteet.
-  - **Delfi kaardikiht:** Eemaldatud Delfi poolt, eraldi partner-API tuge pole vaja säilitada endisel kujul.
-- **Eesmärk:**
-  - Muuta Ajapaiga välised API-d ligipääsetavaks **ainult kehtiva API võtmega**.
-  - Luua selge, standardne ja turvaline võtmete väljastamise ja haldamise süsteem (Django adminis).
-  - Välispartneritele ja huvilistele anda selge veateade ja juhis: **API kasutamiseks tuleb võtta ühendust `info@ajapaik.ee`**.
-  - Tagada, et **Ajapaiga enda veebileht (brauser, PWA jms)** jätkaks veatult tööd tavaliste veebisessioonide ja CSRF-märkide baasil.
+**Date:** September 30, 2026  
+**Document Status:** Proposal / For Discussion  
+**Target Audience:** Vahur Puik, Märt Põder, Kimmo Virtanen  
 
 ---
 
-## 2. API-de Inventuur ja Mõjuala
+## 1. Context & Motivation
 
-Ajapaiga koodibaas toetub valdavas osas **Django REST Frameworkile (DRF)**, mis teeb globaalse autentimise jõustamise tehniliselt väga puhtaks.
+Ajapaik provides a wide array of REST APIs that have historically served mobile applications (Android app), integration partners (e.g., Delfi, Wikidocumentaries, Finna), as well as research and cultural heritage projects.
 
-### A. Põhiline REST API (`/api/v1/...`) — ~30 otspunkti
-*Asukoht:* `ajapaik/ajapaik/api.py` ja `ajapaik/ajapaik/urls.py`
-- **Fotod:**
-  - Otsing ja nimekirjad: `/api/v1/photos/search/`, `/api/v1/photos/search/user-rephotos/`, `/api/v1/photos/similar/`
-  - Seisund ja metaandmed: `/api/v1/photo/state/`, `/api/v1/photo/applied-operations/`
-  - Rephotod ja üleslaadimine: `/api/v1/photo/upload/`, `/api/v1/photo/upload/settings`
-  - Lemmikud ja soovitused: `/api/v1/photo/favorite/set/`, `/api/v1/photo/suggestion/`
-- **Albumid:**
+### Current Situation & Why We Need API Keys
+- **Unrestricted Access & Scraping:** Currently, most of Ajapaik's API endpoints are publicly accessible without authentication. This creates significant risks of server overload (DDoS, aggressive scraping, automated AI training crawlers) and prevents us from distinguishing between legitimate community partners and abusive traffic.
+- **Decommissioned / Deprecated Clients:**
+  - **Ajapaik Android App:** The Android application is deprecated and no longer maintained or actively used. Maintaining backward compatibility for it is no longer required.
+  - **Delfi Map Layer:** Delfi has removed the Ajapaik map layer; dedicated legacy partner endpoints are no longer needed in their original unrestricted form.
+- **Objectives:**
+  - Restrict Ajapaik's external APIs so that access requires a valid **API key**.
+  - Provide a clean, secure, and easily manageable API key issuance system within the **Django Admin**.
+  - Provide clear, user-friendly error messages and actionable guidance: **to access or request an API key, users must contact `info@ajapaik.ee`**.
+  - Ensure that **Ajapaik's own web applications (browser frontend, PWA, in-page annotation tools)** continue operating smoothly using standard web sessions and CSRF protection without requiring external API keys.
+
+---
+
+## 2. API Inventory & Scope
+
+Ajapaik's API architecture relies heavily on **Django REST Framework (DRF)**. This makes implementing global authorization straightforward and consistent.
+
+### A. Primary REST API (`/api/v1/...`) — ~30 endpoints
+*Defined in:* `ajapaik/ajapaik/api.py` and `ajapaik/ajapaik/urls.py`
+- **Photos:**
+  - Search & listings: `/api/v1/photos/search/`, `/api/v1/photos/search/user-rephotos/`, `/api/v1/photos/similar/`
+  - Details & state: `/api/v1/photo/state/`, `/api/v1/photo/applied-operations/`
+  - Rephotography & uploads: `/api/v1/photo/upload/`, `/api/v1/photo/upload/settings`
+  - Favorites & suggestions: `/api/v1/photo/favorite/set/`, `/api/v1/photo/suggestion/`
+- **Albums:**
   - `/api/v1/albums/`, `/api/v1/albums/search/`, `/api/v1/album/<id>/`, `/api/v1/album/nearest/`, `/api/v1/album/photos/search/`
-- **Transkriptsioonid:**
+- **Transcriptions:**
   - `/api/v1/transcriptions/`, `/api/v1/transcriptions/<photo_id>/`, `/api/v1/transcription-feedback/`
-- **Partner-/integratsiooniliidesed:**
+- **Partner / External Integrations:**
   - `/api/v1/finna/nearest/`, `/api/v1/photo/fetch-hkm-finna/`
   - `/api/v1/wikidocumentaries/`, `/api/v1/wikidocumentaries/photos/`
-- **Kasutajad ja seaded:**
+- **User Settings & Profiles:**
   - `/api/v1/user/me/`, `/api/v1/user-settings/`, `/api/v1/merge-profiles/`, `/api/v1/change-profile-display-name`
 
-### B. Tuvastusmoodulite API-d
-*Asukoht:* `ajapaik/ajapaik_face_recognition/` ja `ajapaik/ajapaik_object_recognition/`
+### B. Machine Recognition APIs
+*Defined in:* `ajapaik/ajapaik_face_recognition/` and `ajapaik/ajapaik_object_recognition/`
 - `/face-recognition/api/v1/annotation/<id>/`
-- `/face-recognition/api/v1/subject-data/` *(Märkus: kasutatakse ka veebis näotuvastuse sildistaja poolt)*
+- `/face-recognition/api/v1/subject-data/` *(Note: also called by the in-browser face annotation UI)*
 - `/face-recognition/api/v1/album-has-annotations/<id>/`
 - `/object-recognition/api/v1/annotation/<id>/`
 
-### C. Teised otsad ja erandid
-- **Delfi ja Bbox:** `/delfi-api/v1/...`, `/bbox/v1/` — suunata kas samuti API võtme alla või sulgeda/deprecate'ida.
-- **IIIF protokoll:** `/photo/<id>/info.json/`, `/photo/<id>/manifest.json/` — *soovitus:* jätta avalikuks, kuna IIIF on kultuuripärandi avatud pildistandard ja selle sulgemine rikuks integreeritud pildivaaturid.
-- **Veebirakenduse sisesed AJAX-vaated:** `/map-data/`, `/frontpage-async/`, `/autocomplete/...` — need ei kuulu `/api/v1/` alla, vaid töötavad tavalise veebiliikluse ja sessioonidega.
+### C. Partner Endpoints & Exceptions
+- **Delfi & Bbox:** `/delfi-api/v1/...`, `/bbox/v1/` — protect with API keys or formally deprecate/retire.
+- **IIIF Protocol:** `/photo/<id>/info.json/`, `/photo/<id>/manifest.json/` — *Recommendation:* Keep public. IIIF is an open cultural heritage image delivery standard; restricting it would break embedded open viewers.
+- **Internal Web AJAX Views:** `/map-data/`, `/frontpage-async/`, `/autocomplete/...` — These are frontend view endpoints rather than external public APIs and will continue to work via standard web sessions.
 
 ---
 
-## 3. Tehniline Arhitektuur
+## 3. Technical Architecture
 
-### 3.1. Andmemudel: `ApiKey`
-Luua uus mudel `ApiKey` (rakenduses `ajapaik_auth` või eraldi `ajapaik_api_auth`):
+### 3.1. Database Model: `ApiKey`
+Create an `ApiKey` model (in `ajapaik_auth` or a dedicated lightweight app `ajapaik_api_auth`):
 
 ```python
 class ApiKey(models.Model):
-    name = models.CharField(max_length=255, help_text="Kliendi või projekti nimi (nt 'Tartu Ülikooli uurimisrühm')")
-    contact_email = models.EmailField(help_text="Vastutava isiku e-posti aadress")
+    name = models.CharField(max_length=255, help_text="Client or project name (e.g. 'University of Tartu Research Lab')")
+    contact_email = models.EmailField(help_text="Contact email of the key owner")
     prefix = models.CharField(max_length=8, unique=True, db_index=True)
     hashed_key = models.CharField(max_length=128)
     
@@ -80,30 +80,34 @@ class ApiKey(models.Model):
     description = models.TextField(blank=True)
 ```
 
-- **Turvalisus:** API võtit ennast (nt formaadis `ajp_live_xxxxxxxxxxxxxxxxxxxxxxxxxxxx`) kuvatakse administraatorile **ainult üks kord** selle loomisel. Andmebaasis säilitatakse vaid SHA-256 räsi ja 8-kohalist prefiksit identifitseerimiseks.
+- **Security & Key Format:**
+  - Keys will follow a recognizable format such as `ajp_live_xxxxxxxxxxxxxxxxxxxxxxxxxxxx`.
+  - For maximum security, the raw key is displayed **only once** to the admin upon creation.
+  - The database stores only a secure SHA-256 hash and the 8-character prefix for lookup.
 
-### 3.2. Päringu Autoriseerimine
-Klient saab saata võtit:
-1. **HTTP päises (Soovituslik standard):**
+### 3.2. Key Transmission Methods
+Clients will be able to provide the API key via:
+1. **HTTP Authorization Header (Standard):**
    ```http
    Authorization: Api-Key ajp_live_xxxxxxxxxxxxxxxxxxxxxxxxxxxx
    ```
-   või
+2. **Custom HTTP Header:**
    ```http
    X-API-KEY: ajp_live_xxxxxxxxxxxxxxxxxxxxxxxxxxxx
    ```
-2. **URL päringuparameetrina (mugav GET päringutel):**
+3. **Query Parameter (Convenient for simple GET requests):**
    ```http
    https://ajapaik.ee/api/v1/photos/search/?query=Tallinn&api_key=ajp_live_xxxxxxxxxxxxxxxxxxxxxxxxxxxx
    ```
 
-### 3.3. DRF Permission Klass: `HasApiKeyOrWebSession`
-Kuna Ajapaiga veebiliides (nt näotuvastuse frontend) teeb kohati päringuid samadesse API otstesse, peab reegel olema hübriidne:
-- **LUBATUD**, kui päringuga tuleb kaasa kehtiv ja aktiivne `ApiKey`.
-- **LUBATUD**, kui päring tuleb Ajapaiga veebisessioonist (autenditud kasutaja või kehtiv veebisessioon CSRF kaitsega).
-- **KEELATUD (401/403)**, kui puuduvad mõlemad.
+### 3.3. DRF Permission Class: `HasApiKeyOrWebSession`
+Because certain parts of Ajapaik's web frontend (e.g., the face annotation tool) make client-side requests to API endpoints, the permission class must handle both external consumers and first-party web sessions:
 
-Konfigureeritakse globaalselt failis `ajapaik/settings/default.py`:
+- **ALLOWED** if the request contains a valid, active `ApiKey`.
+- **ALLOWED** if the request comes from an authenticated Django web session (or valid session cookie with CSRF check).
+- **DENIED (401 Unauthorized)** if neither is present.
+
+Configured globally in `ajapaik/settings/default.py`:
 ```python
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
@@ -115,9 +119,9 @@ REST_FRAMEWORK = {
 
 ---
 
-## 4. Veateade (Error Response) ja Teavitamine
+## 4. Error Response & Guidance
 
-Kui päringul puudub võti või see on kehtetu, tagastab API HTTP staatuse **401 Unauthorized** selge JSON struktuuriga:
+When an unauthenticated request is received without a valid API key, the API returns an **HTTP 401 Unauthorized** with clear JSON guidance:
 
 ```json
 {
@@ -128,59 +132,57 @@ Kui päringul puudub võti või see on kehtetu, tagastab API HTTP staatuse **401
 }
 ```
 
-See tagab, et iga väline skript või arendaja saab kohe selge ja ühese suunise kontakteerumiseks.
+This guarantees that external script authors and researchers immediately know who to contact and how to gain access.
 
 ---
 
-## 5. Administraatori Liides (Django Admin)
+## 5. Administration Interface (Django Admin)
 
-Admin-paneelis (`/admin/`):
-- Võtmete nimekiri: näha omanik, e-post, staatus (aktiivne/peatatud), viimane kasutusaeg, päringulimiidid.
-- Võtme loomise vorm:
-  - Sisestatakse kliendi nimi ja kontaktmeil.
-  - Salvestamisel genereeritakse krüptograafiliselt turvaline võti ja kuvatakse hüpikaknas kopeerimiseks.
-- Võtme kohene deaktiveerimine (revocation ühe nupuvajutusega kuritarvituse korral).
+In the standard Django admin (`/admin/`):
+- **Key Overview:** List view showing owner name, contact email, active/revoked status, last used timestamp, and rate limits.
+- **Key Generation:** Admin fills in the client name and contact email; upon saving, the generated key is shown in a modal/banner for one-time copying.
+- **Immediate Revocation:** Ability to deactivate or revoke keys immediately if abuse is detected.
 
 ---
 
-## 6. Päringute Piiramine (Rate Limiting)
+## 6. Rate Limiting & Throttling
 
-Lihtsalt võtme nõudmine ei kaitse serverit, kui üks lubatud partner teeb sekundis 500 rasket päringut.
-- Integreerida DRF `Throttling` mehhanism võtmepõhiselt.
-- Vaikimisi profiil:
-  - Tavavõti: 60 päringut minutis, 10 000 päringut ööpäevas.
-  - Partner / teadustöö: vajadusel erikokkuleppega suuremad limiidid.
-- Limiidi ületamisel vastatakse HTTP **429 Too Many Requests**.
-
----
-
-## 7. Juurutamise ja Ülemineku Plaan (Rollout Strategy)
-
-Muudatuse sujuvaks elluviimiseks on soovitatav 3-etapiline plaan:
-
-### Etapp 1: Koodibaasi ettevalmistus ja Admin-tugi (1–2 päeva)
-1. Luua `ApiKey` mudel ja migratsioonid.
-2. Luua Django admin vaated võtmete genereerimiseks ja haldamiseks.
-3. Luua `HasApiKeyOrWebSession` autentimis- ja õiguste klass.
-
-### Etapp 2: Testimine ja "Shadow Mode" / Telemeetria (3–7 päeva)
-1. Paigaldada `staging` serverisse ja testida kõiki veebilehe funktsioone (et brauseri liides ei tõrguks).
-2. Toodangus käivitada esmalt "Shadow Mode" (pehme režiim):
-   - Päringuid ei blokeerita veel, kuid iga võtmeta `/api/v1/` päring logitakse (IP, User-Agent, otspunkt).
-   - See annab Märtile, Kimmole ja Vahurile täpse ülevaate: kas kuskil tiksub veel mõni oluline teenus, mida me ei teadnud?
-
-### Etapp 3: Täielik jõustamine (Enforcement)
-1. Väljastada vajadusel võtmed teadaolevatele elulistele partneritele (kui neid on).
-2. Lülitada sisse range režiim: ilma võtmeta päringud saavad `401 Unauthorized` koos teavitusega võtta ühendust `info@ajapaik.ee`.
-3. Lisada Ajapaiga kodulehele/jalusesse lühike leht või viide API võtme taotlemise kohta.
+To prevent resource exhaustion from approved clients:
+- Integrate with DRF's built-in throttling mechanism per API key.
+- **Default Profile:**
+  - Standard key: 60 requests/minute, 10,000 requests/day.
+  - Custom partner tier: Configurable higher thresholds for verified research or institutional partners.
+- When limits are exceeded, return an HTTP **429 Too Many Requests** response.
 
 ---
 
-## 8. Küsimused ja Otsustuspunktid Aruteluks (Märt & Kimmo)
+## 7. Phased Rollout Plan
 
-1. **Kas on teadaolevaid aktiivseid välispartnereid?**
-   - Kas Wikidocumentaries või mõni Soome muuseum teeb praegu regulaarseid päringuid otse tootmisserveri vastu?
-2. **Kuidas suhtuda IIIF-i ja avaandmete otsadesse?**
-   - Kas hoiame IIIF manifestid täielikult avalikud (soovitus: jah, sest see on standardne pildiprotokoll)?
-3. **Kas iseteenindus on vajalik või piisab esialgu ainult administraatori väljastatud võtmetest?**
-   - Soovitus: hoida esialgu lihtne – võtmeid väljastab administraator `info@ajapaik.ee` pöördumise peale. Iseteeninduse (kasutajaprofiili alt võtme genereerimine) saab lisada hiljem, kui selleks tekib reaalne vajadus.
+To ensure a smooth transition without breaking legitimate use cases, a 3-phase rollout is recommended:
+
+### Phase 1: Implementation & Admin Setup (1–2 days)
+1. Add the `ApiKey` model and migrations.
+2. Build the Django Admin interface for key generation, listing, and revocation.
+3. Implement the `HasApiKeyOrWebSession` permission class and throttling logic.
+
+### Phase 2: Staging Testing & Production "Shadow Mode" (3–7 days)
+1. Deploy to the `staging` server to verify that all web and PWA frontend workflows function without disruption.
+2. Deploy to production in **Shadow Mode (Telemetry)**:
+   - Requests without an API key are logged (recording IP, User-Agent, and endpoint), but not yet blocked.
+   - This provides the team with full visibility into whether any critical external integration is still running that we were not aware of.
+
+### Phase 3: Full Enforcement
+1. Issue keys to any verified active partners identified during Phase 2.
+2. Switch from logging to full enforcement (returning HTTP 401 with the `info@ajapaik.ee` message).
+3. Update Ajapaik footer/documentation with brief instructions on requesting an API key.
+
+---
+
+## 8. Discussion Points for Märt & Kimmo
+
+1. **Known Active Partners:**
+   - Are there specific partners (e.g. Wikidocumentaries, Wikimedia Commons bots, Finna, universities) whose workflows we should proactively reach out to and provide keys for?
+2. **IIIF Protocol:**
+   - Do you agree that IIIF endpoints (`/photo/<id>/info.json/`, `/photo/<id>/manifest.json/`) should remain open as standard cultural heritage protocols?
+3. **Admin-only Issuance vs Self-service:**
+   - Recommendation: Keep it admin-only initially (keys issued manually upon emailing `info@ajapaik.ee`). Self-service (generating keys from the user profile page) can be added later if demand justifies it.
