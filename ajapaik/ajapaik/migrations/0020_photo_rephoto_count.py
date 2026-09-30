@@ -4,15 +4,14 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('ajapaik', '0019_alter_albumphoto_photo'),
+        ("ajapaik", "0019_alter_albumphoto_photo"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='photo',
-            name='rephoto_count',
+            model_name="photo",
+            name="rephoto_count",
             field=models.IntegerField(db_index=True, default=0),
         ),
     ]

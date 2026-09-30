@@ -1,6 +1,5 @@
 import json
 
-from django.http import QueryDict
 from django.utils import timezone
 
 from ajapaik.ajapaik_face_recognition.models import FaceRecognitionRectangle
@@ -12,19 +11,19 @@ GENDER_FEMALE = 0
 GENDER_MALE = 1
 GENDER_NOT_SURE = 2
 
-GENDER_STRING_FEMALE = 'FEMALE'
-GENDER_STRING_MALE = 'MALE'
-GENDER_STRING_UNSURE = 'UNSURE'
+GENDER_STRING_FEMALE = "FEMALE"
+GENDER_STRING_MALE = "MALE"
+GENDER_STRING_UNSURE = "UNSURE"
 
 AGE_CHILD = 0
 AGE_ADULT = 1
 AGE_ELDERLY = 2
 AGE_NOT_SURE = 3
 
-AGE_STRING_CHILD = 'CHILD'
-AGE_STRING_ADULT = 'ADULT'
-AGE_STRING_ELDERLY = 'ELDERLY'
-AGE_STRING_UNSURE = 'UNSURE'
+AGE_STRING_CHILD = "CHILD"
+AGE_STRING_ADULT = "ADULT"
+AGE_STRING_ELDERLY = "ELDERLY"
+AGE_STRING_UNSURE = "UNSURE"
 
 
 def is_value_present(val):
@@ -38,21 +37,21 @@ def parse_parameter(parameter):
     return 0
 
 
-def convert_to_query_dictionary(dictionary):
-    query_dictionary = QueryDict('', mutable=True)
-    query_dictionary.update(dictionary)
-    return query_dictionary
-
-
-def transform_annotation_queryset(user_id, query_set, transform_function, photo_id=None):
+def transform_annotation_queryset(
+    user_id, query_set, transform_function, photo_id=None
+):
     transformed_collection = []
 
     for entry in query_set:
-        transformed_collection.append(json.dumps(transform_function(entry, user_id).__dict__))
+        transformed_collection.append(
+            json.dumps(transform_function(entry, user_id).__dict__)
+        )
     return transformed_collection
 
 
-def is_object_annotation_editable(user_id: int, object_annotation: ObjectDetectionAnnotation):
+def is_object_annotation_editable(
+    user_id: int, object_annotation: ObjectDetectionAnnotation
+):
     created_on = object_annotation.created_on
     created_by_id = object_annotation.user_id
 
@@ -66,8 +65,12 @@ def is_face_annotation_editable(user_id: int, annotation: FaceRecognitionRectang
     is_without_name = annotation.get_subject_name() is None
     is_created_by_system = created_by is None
 
-    return is_without_name or is_created_by_system and is_annotation_editable_time_wise(
-        created_on) or is_annotation_editable_for_user(user_id, created_on, annotation.user_id)
+    return (
+        is_without_name
+        or is_created_by_system
+        and is_annotation_editable_time_wise(created_on)
+        or is_annotation_editable_for_user(user_id, created_on, annotation.user_id)
+    )
 
 
 def is_annotation_editable_for_user(user_id: int, created_on, created_by_id):
@@ -86,7 +89,7 @@ def is_annotation_editable_time_wise(created_on):
 
 def parse_boolean(value):
     if is_value_present(value):
-        return value in ['True', 'true']
+        return value in ["True", "true"]
 
     return None
 

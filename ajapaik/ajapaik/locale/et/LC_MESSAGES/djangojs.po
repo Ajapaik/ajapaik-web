@@ -1210,3 +1210,25 @@ msgstr "Automaatselt tuvastatud objekt"
 msgid "View object on Wikidata"
 msgstr "Vaata Wikidata objekti"
 
+msgid "Rephotograph nearby"
+msgstr "Ülepildistamine minu lähedal"
+
+msgid "Detecting location..."
+msgstr "Tuvastan asukohta..."
+
+msgid "Refreshing location..."
+msgstr "Uuendan asukohta..."
+
+msgid "Refresh location"
+msgstr "Uuenda asukohta"
+
+msgid "Showing nearest photos to your location"
+msgstr "Lähimad fotod Sinu asukohale"
+
+msgid "Could not determine location. Check GPS permissions."
+msgstr "Asukohta ei leitud. Kontrolli GPS-luba."
+
+msgid "Location updated!"
+msgstr "Asukoht uuendatud!"
+
+

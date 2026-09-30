@@ -1,15 +1,19 @@
 from django.contrib.contenttypes.models import ContentType
 from django.core.management.base import BaseCommand
 
-from ajapaik.ajapaik.models import PhotoComment, MyXtdComment, Profile
+from ajapaik.ajapaik.models import MyXtdComment, PhotoComment, Profile
 
 
 class Command(BaseCommand):
     help = "Get all the FB comments, create django-comments-xtd comments"
 
     def handle(self, *args, **options):
-        fb_first_level_comments = PhotoComment.objects.filter(fb_comment_parent_id=0).order_by('-created')
-        content_type_id = ContentType.objects.filter(app_label='ajapaik', model='photo').first().pk
+        fb_first_level_comments = PhotoComment.objects.filter(
+            fb_comment_parent_id=0
+        ).order_by("-created")
+        content_type_id = (
+            ContentType.objects.filter(app_label="ajapaik", model="photo").first().pk
+        )
         for each in fb_first_level_comments:
             ajapaik_user = Profile.objects.filter(fb_id=each.fb_user_id).first()
             if ajapaik_user:
@@ -24,12 +28,16 @@ class Command(BaseCommand):
                     submit_date=each.created,
                     facebook_comment_id=each.fb_comment_id,
                     content_type_id=content_type_id,
-                    site_id=1
+                    site_id=1,
                 ).save()
-        fb_non_first_level_comments = PhotoComment.objects.exclude(fb_comment_parent_id=0).order_by('-created')
+        fb_non_first_level_comments = PhotoComment.objects.exclude(
+            fb_comment_parent_id=0
+        ).order_by("-created")
         for each in fb_non_first_level_comments:
             ajapaik_user = Profile.objects.filter(fb_id=each.fb_user_id).first()
-            parent_comment = MyXtdComment.objects.filter(facebook_comment_id=each.fb_comment_parent_id).first()
+            parent_comment = MyXtdComment.objects.filter(
+                facebook_comment_id=each.fb_comment_parent_id
+            ).first()
             if ajapaik_user and parent_comment:
                 MyXtdComment(
                     user=ajapaik_user.user,
@@ -44,5 +52,5 @@ class Command(BaseCommand):
                     facebook_comment_id=each.fb_comment_id,
                     # 1 is ajapaik.ee
                     site_id=1,
-                    parent_id=parent_comment.pk
+                    parent_id=parent_comment.pk,
                 ).save()

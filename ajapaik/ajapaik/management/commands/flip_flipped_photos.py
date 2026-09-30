@@ -1,5 +1,5 @@
-from PIL import Image
 from django.core.management.base import BaseCommand
+from PIL import Image
 from sorl.thumbnail import delete
 
 from ajapaik import settings
@@ -7,12 +7,12 @@ from ajapaik.ajapaik.models import Photo
 
 
 class Command(BaseCommand):
-    help = 'Flip all photos that have flip == true'
+    help = "Flip all photos that have flip == true"
 
     def handle(self, *args, **options):
         photos = Photo.objects.filter(flip=True, rephoto_of__isnull=True)
         for p in photos:
-            photo_path = f'{settings.MEDIA_ROOT}/{str(p.image)}'
+            photo_path = f"{settings.MEDIA_ROOT}/{p.image!s}"
             img = Image.open(photo_path)
             flipped_image = img.transpose(Image.FLIP_LEFT_RIGHT)
             flipped_image.save(photo_path)

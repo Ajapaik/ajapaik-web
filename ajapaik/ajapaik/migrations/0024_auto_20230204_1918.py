@@ -4,20 +4,39 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('ajapaik', '0023_alter_album_created'),
+        ("ajapaik", "0023_alter_album_created"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='dating',
-            name='end_accuracy',
-            field=models.PositiveSmallIntegerField(blank=True, choices=[(0, 'Day'), (1, 'Month'), (2, 'Year'), (3, 'Decade'), (4, 'Century')], null=True),
+            model_name="dating",
+            name="end_accuracy",
+            field=models.PositiveSmallIntegerField(
+                blank=True,
+                choices=[
+                    (0, "Day"),
+                    (1, "Month"),
+                    (2, "Year"),
+                    (3, "Decade"),
+                    (4, "Century"),
+                ],
+                null=True,
+            ),
         ),
         migrations.AlterField(
-            model_name='dating',
-            name='start_accuracy',
-            field=models.PositiveSmallIntegerField(blank=True, choices=[(0, 'Day'), (1, 'Month'), (2, 'Year'), (3, 'Decade'), (4, 'Century')], null=True),
+            model_name="dating",
+            name="start_accuracy",
+            field=models.PositiveSmallIntegerField(
+                blank=True,
+                choices=[
+                    (0, "Day"),
+                    (1, "Month"),
+                    (2, "Year"),
+                    (3, "Decade"),
+                    (4, "Century"),
+                ],
+                null=True,
+            ),
         ),
     ]

@@ -1,22 +1,25 @@
-from modeltranslation.translator import translator, TranslationOptions
+from modeltranslation.translator import TranslationOptions, translator
 
-from ajapaik.ajapaik.models import Photo, Area, Album, Licence
+from ajapaik.ajapaik.models import Album, Area, Licence, Photo
 
 
 class PhotoTranslationOptions(TranslationOptions):
-    fields = ('title', 'description',)
+    fields = (
+        "title",
+        "description",
+    )
 
 
 class AreaTranslationOptions(TranslationOptions):
-    fields = ('name',)
+    fields = ("name",)
 
 
 class AlbumTranslationOptions(TranslationOptions):
-    fields = ('name',)
+    fields = ("name",)
 
 
 class LicenceTranslationOptions(TranslationOptions):
-    fields = ('name',)
+    fields = ("name",)
 
 
 translator.register(Photo, PhotoTranslationOptions)

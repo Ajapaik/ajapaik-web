@@ -4,7 +4,7 @@ from ajapaik.ajapaik.models import Photo, Transcription
 
 
 class Command(BaseCommand):
-    help = 'Calculate transcription counts and add dates'
+    help = "Calculate transcription counts and add dates"
 
     def handle(self, *args, **options):
         photos = Photo.objects.all()
@@ -12,8 +12,8 @@ class Command(BaseCommand):
             try:
                 transcriptions = Transcription.objects.all().filter(photo__id=photo.id)
                 if transcriptions.exists():
-                    first_transcription = transcriptions.order_by('created').first()
-                    last_transcription = transcriptions.order_by('-modified').first()
+                    first_transcription = transcriptions.order_by("created").first()
+                    last_transcription = transcriptions.order_by("-modified").first()
                     if first_transcription:
                         photo.first_transcription = first_transcription.created
                     if last_transcription:

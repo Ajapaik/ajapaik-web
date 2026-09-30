@@ -4,7 +4,7 @@ from ajapaik.ajapaik.models import Photo
 
 
 class Command(BaseCommand):
-    help = 'Calculate perceptual hash for images and then find similar images from all added images'
+    help = "Calculate perceptual hash for images and then find similar images from all added images"
 
     def handle(self, *args, **options):
         photos = Photo.objects.filter(rephoto_of__isnull=True, back_of__isnull=True)

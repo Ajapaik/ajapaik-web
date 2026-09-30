@@ -1,5 +1,5 @@
-from PIL import Image
 from django.core.management.base import BaseCommand
+from PIL import Image
 
 from ajapaik import settings
 from ajapaik.ajapaik.models import Photo
@@ -13,7 +13,7 @@ class Command(BaseCommand):
         photo_id = args[0]
         degrees = int(args[1])
         photo = Photo.objects.filter(pk=photo_id).first()
-        photo_path = f'{settings.MEDIA_ROOT}/{str(photo.image)}'
+        photo_path = f"{settings.MEDIA_ROOT}/{photo.image!s}"
         img = Image.open(photo_path)
         rot = img.rotate(degrees, expand=1)
         rot.save(photo_path)

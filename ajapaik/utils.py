@@ -1,6 +1,7 @@
 import hashlib
 import os
-from math import cos, sin, radians, atan2, sqrt
+from math import atan2, cos, radians, sin, sqrt
+from typing import Any
 
 from django.utils import timezone
 from django.utils.translation import gettext as _
@@ -9,7 +10,7 @@ from django.utils.translation import gettext as _
 def get_etag(_request, image, _content):
     if os.path.isfile(image):
         m = hashlib.md5()
-        with open(image, 'rb') as f:
+        with open(image, "rb") as f:
             m.update(f.read())
         return m.hexdigest()
 
@@ -18,6 +19,7 @@ def get_etag(_request, image, _content):
 
 def last_modified(_request, image, _content):
     from datetime import datetime
+
     if os.path.isfile(image):
         return datetime.fromtimestamp(os.path.getmtime(image))
 
@@ -87,31 +89,39 @@ def average_angle(angles):
     return atan2(y, x)
 
 
-def distance_in_meters(lon1, lat1, lon2, lat2):
+def distance_in_meters(lon1: float, lat1: float, lon2: float, lat2: float) -> float:
     lat_coeff = cos(radians((lat1 + lat2) / 2.0))
-    return (2 * 6350e3 * 3.1415 / 360) * sqrt((lat1 - lat2) ** 2 + ((lon1 - lon2) * lat_coeff) ** 2)
+    return (2 * 6350e3 * 3.1415 / 360) * sqrt(
+        (lat1 - lat2) ** 2 + ((lon1 - lon2) * lat_coeff) ** 2
+    )
 
 
-def most_frequent(List):
+def most_frequent(lst: list[Any]) -> Any | None:
+    if lst == []:
+        return None
+
     counter = 0
-    num = List[0]
-    uniques = list(set(List))
+    num = lst[0]
+    uniques = list(set(lst))
 
     for i in uniques:
-        current_frequency = List.count(i)
-        if (current_frequency >= counter):
+        current_frequency = lst.count(i)
+        if current_frequency >= counter:
             counter = current_frequency
             num = i
     return num
 
 
-def least_frequent(List):
+def least_frequent(lst: list[Any]) -> Any | None:
+    if lst == []:
+        return None
+
     counter = None
-    num = List[0]
-    uniques = list(set(List))
+    num = lst[0]
+    uniques = list(set(lst))
 
     for i in uniques:
-        current_frequency = List.count(i)
+        current_frequency = lst.count(i)
         if not counter or current_frequency < counter:
             counter = current_frequency
             num = i
@@ -123,16 +133,13 @@ def can_action_be_done(model, photo, profile, key, new_value):
     new_suggestion = model(proposer=profile, photo=photo)
     setattr(new_suggestion, key, new_value)
 
-    all_suggestions = model.objects.filter(
-            photo=photo
-        ).exclude(
-            proposer=profile
-        ).order_by(
-            'proposer_id',
-            '-created'
-        ).all().distinct(
-            'proposer_id'
-        )
+    all_suggestions = (
+        model.objects.filter(photo=photo)
+        .exclude(proposer=profile)
+        .order_by("proposer_id", "-created")
+        .all()
+        .distinct("proposer_id")
+    )
 
     if all_suggestions is not None:
         suggestions = [new_value]
@@ -146,33 +153,60 @@ def can_action_be_done(model, photo, profile, key, new_value):
         return True
 
 
-def suggest_photo_edit(photo_suggestions, key, new_value, Points, score, action_type, model, photo, profile,
-                       response, function_name):
+def suggest_photo_edit(
+    photo_suggestions,
+    key,
+    new_value,
+    Points,
+    score,
+    action_type,
+    model,
+    photo,
+    profile,
+    response,
+    function_name,
+):
     was_action_successful = True
     points = 0
-    SUGGESTION_ALREADY_SUGGESTED = _('You have already submitted this suggestion')
-    SUGGESTION_CHANGED = _('Your suggestion has been changed')
-    SUGGESTION_SAVED = _('Your suggestion has been saved')
-    SUGGESTION_SAVED_BUT_CONSENSUS_NOT_AFFECTED = _('Your suggestion has been saved, but previous consensus remains')
+    SUGGESTION_ALREADY_SUGGESTED = _("You have already submitted this suggestion")
+    SUGGESTION_CHANGED = _("Your suggestion has been changed")
+    SUGGESTION_SAVED = _("Your suggestion has been saved")
+    SUGGESTION_SAVED_BUT_CONSENSUS_NOT_AFFECTED = _(
+        "Your suggestion has been saved, but previous consensus remains"
+    )
 
     if new_value is None:
-        return _('You must specify a new value when making a suggestion'), \
-               photo_suggestions, was_action_successful, points
+        return (
+            _("You must specify a new value when making a suggestion"),
+            photo_suggestions,
+            was_action_successful,
+            points,
+        )
 
-    previous_suggestion = model.objects.filter(photo=photo, proposer=profile).order_by('-created').first()
+    previous_suggestion = (
+        model.objects.filter(photo=photo, proposer=profile).order_by("-created").first()
+    )
     if previous_suggestion and getattr(previous_suggestion, key) == new_value:
-        if response != SUGGESTION_CHANGED and response != SUGGESTION_SAVED \
-                and response != SUGGESTION_SAVED_BUT_CONSENSUS_NOT_AFFECTED:
+        if (
+            response != SUGGESTION_CHANGED
+            and response != SUGGESTION_SAVED
+            and response != SUGGESTION_SAVED_BUT_CONSENSUS_NOT_AFFECTED
+        ):
             response = SUGGESTION_ALREADY_SUGGESTED
             was_action_successful = False
     else:
         new_suggestion = model(proposer=profile, photo=photo)
         setattr(new_suggestion, key, new_value)
         photo_suggestions.append(new_suggestion)
-        all_suggestions = model.objects.filter(photo=photo).exclude(proposer=profile) \
-            .order_by('proposer_id', '-created').all().distinct('proposer_id')
+        all_suggestions = (
+            model.objects.filter(photo=photo)
+            .exclude(proposer=profile)
+            .order_by("proposer_id", "-created")
+            .all()
+            .distinct("proposer_id")
+        )
 
-        if all_suggestions is not None:
+        if all_suggestions:
             suggestions = [new_value]
 
             for suggestion in all_suggestions:
@@ -182,14 +216,19 @@ def suggest_photo_edit(photo_suggestions, key, new_value, Points, score, action_
             if new_value != most_common_choice:
                 response = SUGGESTION_SAVED_BUT_CONSENSUS_NOT_AFFECTED
                 was_action_successful = False
+
             new_value = most_common_choice
 
         if function_name is not None:
             old_value = getattr(photo, key)
-            if function_name == 'do_rotate' and (old_value is None or (new_value != old_value)):
+            if function_name == "do_rotate" and (
+                old_value is None or (new_value != old_value)
+            ):
                 getattr(photo, function_name)(new_value)
-            elif (function_name != 'do_rotate') and (
-                    (old_value or new_value is True) and old_value != new_value):
+
+            elif (function_name != "do_rotate") and (
+                (old_value or new_value is True) and old_value != new_value
+            ):
                 getattr(photo, function_name)()
         else:
             setattr(photo, key, new_value)
@@ -200,8 +239,17 @@ def suggest_photo_edit(photo_suggestions, key, new_value, Points, score, action_
                 response = SUGGESTION_CHANGED
                 was_action_successful = True
         else:
-            Points(user=profile, action=action_type, photo=photo, points=score, created=timezone.now()).save()
-            if response != SUGGESTION_CHANGED and response != SUGGESTION_SAVED_BUT_CONSENSUS_NOT_AFFECTED:
+            Points(
+                user=profile,
+                action=action_type,
+                photo=photo,
+                points=score,
+                created=timezone.now(),
+            ).save()
+            if (
+                response != SUGGESTION_CHANGED
+                and response != SUGGESTION_SAVED_BUT_CONSENSUS_NOT_AFFECTED
+            ):
                 response = SUGGESTION_SAVED
                 was_action_successful = True
                 points = score

@@ -5,12 +5,14 @@ from ajapaik.ajapaik_face_recognition.models import FaceRecognitionRectangle
 
 
 class Command(BaseCommand):
-    help = 'Resets gender of face annotations, that are shown as unsure'
+    help = "Resets gender of face annotations, that are shown as unsure"
 
     def handle(self, *args, **options):
-        rectangles = FaceRecognitionRectangle.objects.exclude(subject_consensus__isnull=True)
+        rectangles = FaceRecognitionRectangle.objects.exclude(
+            subject_consensus__isnull=True
+        )
         for rectangle in rectangles:
-            album = Album.objects.filter(id=rectangle.subject_consensus.id).first()
+            album = Album.objects.filter(id=rectangle.subject_consensus_id).first()
             if album.gender:
                 rectangle.gender = album.gender
                 rectangle.save()

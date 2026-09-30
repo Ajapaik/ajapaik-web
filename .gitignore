@@ -8,6 +8,7 @@
 /venv/
 /ajapaik/ajapaik/client_secrets.json
 /.pycharm_helpers/
+/juks.alkohol.ee/*
 
 *.pyc
 *.mo

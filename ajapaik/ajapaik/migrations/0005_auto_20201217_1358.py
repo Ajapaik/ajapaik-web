@@ -4,16 +4,15 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('ajapaik', '0004_auto_20201213_2022'),
+        ("ajapaik", "0004_auto_20201213_2022"),
     ]
 
     operations = [
         migrations.DeleteModel(
-            name='CSVPhoto',
+            name="CSVPhoto",
         ),
         migrations.DeleteModel(
-            name='NorwegianCSVPhoto',
+            name="NorwegianCSVPhoto",
         ),
     ]

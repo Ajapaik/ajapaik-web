@@ -9,9 +9,9 @@ from ajapaik.ajapaik_face_recognition.models import FaceRecognitionRectangle
 
 
 def analyse_single_photo(photo: Photo) -> None:
-    print('Processing photo %s' % photo.pk)
+    print("Processing photo %s" % photo.pk)
     if photo.width > 5000 or photo.height > 5000:
-        print('Skipping too big photo %s' % photo.pk)
+        print("Skipping too big photo %s" % photo.pk)
         return
     try:
         image = face_recognition.load_image_file(photo.image)
@@ -23,8 +23,7 @@ def analyse_single_photo(photo: Photo) -> None:
         return
     for detected_face in detected_faces:
         new_rectangle = FaceRecognitionRectangle(
-            photo=photo,
-            coordinates=dumps(detected_face)
+            photo=photo, coordinates=dumps(detected_face)
         )
         new_rectangle.save()
     photo.face_detection_attempted_at = datetime.datetime.now()
@@ -32,11 +31,18 @@ def analyse_single_photo(photo: Photo) -> None:
 
 
 class Command(BaseCommand):
-    help = 'Will run face detection on all photos in our database that haven\'t had it run yet'
+    help = "Will run face detection on all photos in our database that haven't had it run yet"
 
     def handle(self, *args, **options):
-        photos = Photo.objects.filter(rephoto_of__isnull=True, back_of__isnull=True,
-                                      face_detection_attempted_at__isnull=True).all()
-        print('Found %s photos to run on' % photos.count())
+        photo_qs = Photo.objects.filter(
+            rephoto_of__isnull=True,
+            back_of__isnull=True,
+            face_detection_attempted_at__isnull=True,
+            width__lte=5000,
+            height__lte=5000,
+        )
+        count = photo_qs.count()
+        photos = photo_qs.iterator(chunk_size=100)
+        print("Found %s photos to run on" % count)
         for photo in photos:
             analyse_single_photo(photo)

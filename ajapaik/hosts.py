@@ -1,7 +1,6 @@
-from django_hosts import patterns, host
+from django_hosts import host, patterns
 
 host_patterns = patterns(
-    '',
-    host(r'www', 'ajapaik.ajapaik.urls', name='www'),
-    host(r'opendata', 'ajapaik.ajapaik.urls_opendata', name='opendata'),
+    "",
+    host(r"www", "ajapaik.ajapaik.urls", name="www"),
 )

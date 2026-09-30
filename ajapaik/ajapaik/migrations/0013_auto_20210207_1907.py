@@ -4,20 +4,23 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('ajapaik', '0012_auto_20210203_0022'),
+        ("ajapaik", "0012_auto_20210203_0022"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='photo',
-            name='muis_legends_and_descriptions',
-            field=models.TextField(blank=True, null=True, verbose_name='MUIS legends and descriptions'),
+            model_name="photo",
+            name="muis_legends_and_descriptions",
+            field=models.TextField(
+                blank=True, null=True, verbose_name="MUIS legends and descriptions"
+            ),
         ),
         migrations.AddField(
-            model_name='photo',
-            name='muis_text_on_object',
-            field=models.TextField(blank=True, null=True, verbose_name='MUIS text on object'),
+            model_name="photo",
+            name="muis_text_on_object",
+            field=models.TextField(
+                blank=True, null=True, verbose_name="MUIS text on object"
+            ),
         ),
     ]

@@ -1,7 +1,8 @@
 import os
-from sorl.thumbnail.base import ThumbnailBackend, EXTENSIONS
+
+from sorl.thumbnail.base import EXTENSIONS, ThumbnailBackend
 from sorl.thumbnail.conf.defaults import THUMBNAIL_PREFIX
-from sorl.thumbnail.helpers import tokey, serialize
+from sorl.thumbnail.helpers import serialize, tokey
 
 
 class SEOThumbnailBackend(ThumbnailBackend):
@@ -10,6 +11,6 @@ class SEOThumbnailBackend(ThumbnailBackend):
 
         filename, _ext = os.path.splitext(os.path.basename(source.name))
 
-        path = '%s/%s' % (key, filename)
+        path = f"{key}/{filename}"
 
-        return '%s%s.%s' % (THUMBNAIL_PREFIX, path, EXTENSIONS[options['format']])
+        return f"{THUMBNAIL_PREFIX}{path}.{EXTENSIONS[options['format']]}"

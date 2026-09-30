@@ -5,13 +5,16 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
     dependencies = [
-        ('ajapaik', '0025_importblacklist'),
+        ("ajapaik", "0025_importblacklist"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='photo',
-            name='soft_deleted',
-            field=models.BooleanField(default=False, help_text='Hide image from being accessed, even in ADMIN!'),
+            model_name="photo",
+            name="soft_deleted",
+            field=models.BooleanField(
+                default=False,
+                help_text="Hide image from being accessed, even in ADMIN!",
+            ),
         ),
     ]

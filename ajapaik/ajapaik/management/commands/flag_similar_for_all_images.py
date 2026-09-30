@@ -10,8 +10,14 @@ class Command(BaseCommand):
         photos = Photo.objects.filter(similar_photos__isnull=False)
         for photo in photos:
             try:
-                if ImageSimilarity.objects.filter(from_photo_id=photo.id).exclude(similarity_type=0).exists() or \
-                   ImageSimilarity.objects.filter(to_photo_id=photo.id).exclude(similarity_type=0).exists():
+                if (
+                    ImageSimilarity.objects.filter(from_photo_id=photo.id)
+                    .exclude(similarity_type=0)
+                    .exists()
+                    or ImageSimilarity.objects.filter(to_photo_id=photo.id)
+                    .exclude(similarity_type=0)
+                    .exists()
+                ):
                     photo.has_similar = True
                 else:
                     photo.has_similar = False

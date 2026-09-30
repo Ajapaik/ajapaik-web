@@ -1,5 +1,5 @@
-from PIL import Image, ImageOps
 from django.core.management.base import BaseCommand
+from PIL import Image, ImageOps
 
 from ajapaik import settings
 from ajapaik.ajapaik.models import Photo
@@ -16,9 +16,9 @@ class Command(BaseCommand):
             return False
         if photo_id:
             photo = Photo.objects.get(pk=photo_id)
-            photo_path = f'{settings.MEDIA_ROOT}/{str(photo.image)}'
+            photo_path = f"{settings.MEDIA_ROOT}/{photo.image!s}"
             img = Image.open(photo_path)
-            inverted_grayscale_image = ImageOps.invert(img).convert('L')
+            inverted_grayscale_image = ImageOps.invert(img).convert("L")
             inverted_grayscale_image.save(photo_path)
             photo.invert = True
             photo.save()

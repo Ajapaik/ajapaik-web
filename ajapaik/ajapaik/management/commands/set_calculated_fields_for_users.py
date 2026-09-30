@@ -16,8 +16,6 @@ class Command(BaseCommand):
         if profile_id is not None:
             profile = Profile.objects.get(user_id=profile_id)
             profile.set_calculated_fields()
-            profile.save()
         else:
             for profile in Profile.objects.all():
                 profile.set_calculated_fields()
-                profile.save()

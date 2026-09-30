@@ -1,5 +1,5 @@
 {% verbatim %}
-    <script id="ajp-map-view-side-panel-element-template" type="text/x-tmpl">
+<script id="ajp-map-view-side-panel-element-template" type="text/x-tmpl">
         {% if (o.length >0) { %}
             {% for (var i = 0; i<o.length; i++) { %}
                 <a id="element{%=o[i].id%}" class="side-panel-photo mb-2" href="{%=o[i].permalink%}"
@@ -10,14 +10,14 @@
                         data-id="{%=o[i].id%}"
                         onmouseover="(function(e) {window.paneImageHoverIn(e)})(this)"
                         onmouseout="(function(e) {window.paneImageHoverOut(e)})(this)"
-                        onload="checkLoadedSidePanelPhotos(this)"/>
+                        onload="checkLoadedSidePanelPhotos()"/>
                     {% if (o[i].rephoto_count) { %}
                         <div class="ajp-rephoto-count ajp-rephoto-count-{%=o[i].rephoto_count%}" id="ajp-map-rephoto-count"
                             data-id="{%=o[i].id%}">
                         </div>
                     {% } %}
                     {% if (userIsSocialConnected) { %}
-                        <button class="ajp-thumbnail-selection-icon{% if (o[i].is_selected) { %} ajp-thumbnail-selection-icon-blue{% } %}" data-id="{%=o[i].id%}">
+                        <button class="ajp-thumbnail-selection-icon{% if (o[i].in_selection) { %} ajp-thumbnail-selection-icon-blue{% } %}" data-id="{%=o[i].id%}">
                             <span class="material-icons notranslate">check_circle</span>
                         </button>
                     {% } %}
