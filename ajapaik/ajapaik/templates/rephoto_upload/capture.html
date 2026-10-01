@@ -60,12 +60,18 @@
       -webkit-backdrop-filter: blur(10px);
       border: 1px solid rgba(255,255,255,0.2); 
       color: white; 
-      padding: 12px 20px; 
+      padding: 10px 16px; 
       border-radius: 20px; 
       cursor: pointer; 
-      font-size: 14px; 
+      font-size: 13px; 
       font-weight: 600;
       text-decoration: none;
+      transition: background 0.2s, border-color 0.2s, color 0.2s;
+    }
+    .btn-switch.active {
+      background: #fca311;
+      color: #000;
+      border-color: #fca311;
     }
 
     .hint-text {
@@ -234,17 +240,27 @@
       <span id="orientation-hint-text">Soovitus: pööra telefon külili paremaks ühtivuseks</span>
     </div>
 
+    <div id="hidden-overlay-indicator" style="display: none; position: absolute; top: 80px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.75); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.25); padding: 8px 16px; border-radius: 20px; font-size: 13px; color: #fff; z-index: 15; text-align: center; pointer-events: none; align-items: center; gap: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.5); white-space: nowrap;">
+      <span>👁</span> <span>Vana foto peidetud (toksa ekraanile kuvamiseks)</span>
+    </div>
+
     <div class="hint-text">
       <b>Läbipaistvus:</b> ekraani pikemal küljel<br>
-      <b>Zoom:</b> rulli / kaksikpuude<br>
-      <b>Pildista:</b> nupp või vajuta pikalt
+      <b>Peida/kuva:</b> toksa ekraanile<br>
+      <b>Zoom:</b> näpista / rulli<br>
+      <b>Pildista:</b> nupp või pikk vajutus
     </div>
 
     <div class="top-bar">
+      <div id="gps-badge" class="btn-switch" style="display: inline-flex; align-items: center; gap: 5px; padding: 10px 12px; font-size: 13px;" title="GPS asukoht">
+        <span id="gps-icon">📍</span>
+        <span id="gps-text">GPS...</span>
+      </div>
       <div id="compass-badge" class="btn-switch" style="display: inline-flex; align-items: center; gap: 6px; padding: 10px 14px; font-size: 13px;" title="Kompassi suund">
         <span id="compass-icon" style="display:inline-block; transition: transform 0.15s ease;">🧭</span>
         <span id="compass-text">--°</span>
       </div>
+      <button class="btn-switch" id="btn-flip" type="button" title="Peegelda vana fotot" aria-label="Peegelda vana fotot">⇄ Peegelda</button>
       <button class="btn-switch" id="switch-camera">↻ Vaheta kaamerat</button>
       <a href="{% url 'photo' photo.id photo.get_pseudo_slug %}" class="btn-close">Sulge</a>
     </div>
@@ -257,7 +273,7 @@
   <div id="preview-container">
     <div class="split-view">
       <div class="split-pane">
-        <div class="pane-label">Vana foto</div>
+        <div class="pane-label" id="preview-old-label">Vana foto</div>
         <img id="preview-old-img" src="" alt="Vana foto preview">
       </div>
       <div class="split-pane">
@@ -321,34 +337,75 @@
     let currentFacingMode = 'environment'; 
     let opacity = 0.5;
     let imgScale = 1;
+    let isFlipped = false;
+    let isOverlayHidden = false;
     let currentUploadScaleFactor = 1;
     let fullCanvas = null;
 
     // GPS & Orientation variables
     let deviceLat = null;
     let deviceLon = null;
+    let deviceAccuracy = null;
+    let deviceGpsTime = null;
+    let watchPositionId = null;
+
+    let capturedLat = null;
+    let capturedLon = null;
+    let capturedAccuracy = null;
+    let capturedYaw = null;
+    let capturedPitch = null;
+    let capturedRoll = null;
+
     let currentYaw = null;
     let currentPitch = null;
     let currentRoll = null;
     let deviceOrientationInitialized = false;
 
-    // Start geolocation immediately on load
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          deviceLat = position.coords.latitude;
-          deviceLon = position.coords.longitude;
-          console.log("GPS coordinates acquired:", deviceLat, deviceLon);
-        },
-        (error) => {
-          console.warn("Geolocation error:", error);
-        },
-        {
-          enableHighAccuracy: true,
-          timeout: 10000,
-          maximumAge: 0
+    function updateGpsUI() {
+      const badge = document.getElementById('gps-badge');
+      const text = document.getElementById('gps-text');
+      if (!badge || !text) return;
+
+      if (deviceLat !== null && deviceLon !== null) {
+        badge.style.borderColor = 'rgba(76, 175, 80, 0.8)';
+        badge.style.background = 'rgba(76, 175, 80, 0.25)';
+        if (deviceAccuracy !== null && !isNaN(deviceAccuracy)) {
+          text.innerText = `±${Math.round(deviceAccuracy)}m`;
+        } else {
+          text.innerText = 'OK';
         }
-      );
+      } else {
+        badge.style.borderColor = 'rgba(255, 152, 0, 0.8)';
+        badge.style.background = 'rgba(255, 152, 0, 0.2)';
+        text.innerText = 'GPS...';
+      }
+    }
+
+    // Start geolocation immediately with watchPosition for continuous live updates
+    if (navigator.geolocation) {
+      const onPosition = (position) => {
+        deviceLat = position.coords.latitude;
+        deviceLon = position.coords.longitude;
+        deviceAccuracy = position.coords.accuracy;
+        deviceGpsTime = Date.now();
+        console.log("GPS coordinates updated:", deviceLat, deviceLon, `±${deviceAccuracy}m`);
+        updateGpsUI();
+      };
+      const onPositionError = (error) => {
+        console.warn("Geolocation error:", error);
+      };
+      const geoOptions = {
+        enableHighAccuracy: true,
+        timeout: 15000,
+        maximumAge: 0
+      };
+
+      navigator.geolocation.getCurrentPosition(onPosition, onPositionError, geoOptions);
+      try {
+        watchPositionId = navigator.geolocation.watchPosition(onPosition, onPositionError, geoOptions);
+      } catch (e) {
+        console.warn("watchPosition failed:", e);
+      }
     }
 
     let orientationEventsCount = 0;
@@ -474,6 +531,9 @@
     let startX = 0;
     let startY = 0;
     let startOpacity = 0;
+    let hasMoved = false;
+    let startTime = 0;
+    let longTapTriggered = false;
     let isLandscape = window.innerWidth > window.innerHeight;
 
     window.addEventListener('resize', () => {
@@ -485,7 +545,9 @@
 
     function startLongTap() {
       cancelLongTap();
+      longTapTriggered = false;
       longTapTimer = setTimeout(() => {
+        longTapTriggered = true;
         capturePhoto();
       }, LONG_TAP_DURATION);
     }
@@ -498,15 +560,19 @@
     }
 
     function checkDragCancelLongTap(currentX, currentY) {
-      if (Math.abs(currentX - startX) > 10 || Math.abs(currentY - startY) > 10) {
+      if (Math.hypot(currentX - startX, currentY - startY) > 10) {
+        hasMoved = true;
         cancelLongTap();
       }
     }
 
     container.addEventListener('mousedown', (e) => {
-      if(e.target.closest('button') || e.target.closest('a')) return;
+      if(e.target.closest('button') || e.target.closest('a') || e.target.closest('.btn-switch')) return;
       requestOrientationPermission();
       isDragging = true;
+      hasMoved = false;
+      longTapTriggered = false;
+      startTime = Date.now();
       startX = e.clientX;
       startY = e.clientY;
       startOpacity = opacity;
@@ -516,16 +582,28 @@
     window.addEventListener('mousemove', (e) => {
       if (!isDragging) return;
       checkDragCancelLongTap(e.clientX, e.clientY);
-      
-      let delta = isLandscape ? (e.clientX - startX) : (e.clientY - startY);
-      let newOpacity = startOpacity + (delta / 300);
-      opacity = Math.max(0, Math.min(1, newOpacity));
-      updateOverlay();
+      if (hasMoved) {
+        if (isOverlayHidden) {
+          isOverlayHidden = false;
+        }
+        let delta = isLandscape ? (e.clientX - startX) : (e.clientY - startY);
+        let newOpacity = startOpacity + (delta / 300);
+        opacity = Math.max(0, Math.min(1, newOpacity));
+        updateOverlay();
+      }
     });
 
     window.addEventListener('mouseup', () => {
-      cancelLongTap();
-      isDragging = false;
+      if (isDragging) {
+        cancelLongTap();
+        const duration = Date.now() - startTime;
+        if (!hasMoved && !longTapTriggered && duration < 400) {
+          // Single tap / click: toggle overlay visibility
+          isOverlayHidden = !isOverlayHidden;
+          updateOverlay();
+        }
+        isDragging = false;
+      }
     });
 
     container.addEventListener('wheel', (e) => {
@@ -540,17 +618,21 @@
     let startScale = 1;
 
     container.addEventListener('touchstart', (e) => {
-      if(e.target.closest('button') || e.target.closest('a')) return;
+      if(e.target.closest('button') || e.target.closest('a') || e.target.closest('.btn-switch')) return;
       requestOrientationPermission();
       
       if (e.touches.length === 1) {
         isDragging = true;
+        hasMoved = false;
+        longTapTriggered = false;
+        startTime = Date.now();
         startX = e.touches[0].clientX;
         startY = e.touches[0].clientY;
         startOpacity = opacity;
         startLongTap();
       } else if (e.touches.length === 2) {
         isDragging = false;
+        hasMoved = true;
         cancelLongTap();
         initialPinchDistance = Math.hypot(
           e.touches[0].clientX - e.touches[1].clientX,
@@ -561,16 +643,20 @@
     });
 
     container.addEventListener('touchmove', (e) => {
-      if(e.target.closest('button') || e.target.closest('a')) return;
+      if(e.target.closest('button') || e.target.closest('a') || e.target.closest('.btn-switch')) return;
       e.preventDefault(); 
       
       if (e.touches.length === 1 && isDragging) {
         checkDragCancelLongTap(e.touches[0].clientX, e.touches[0].clientY);
-        
-        let delta = isLandscape ? (e.touches[0].clientX - startX) : (e.touches[0].clientY - startY);
-        let newOpacity = startOpacity + (delta / 300);
-        opacity = Math.max(0, Math.min(1, newOpacity));
-        updateOverlay();
+        if (hasMoved) {
+          if (isOverlayHidden) {
+            isOverlayHidden = false;
+          }
+          let delta = isLandscape ? (e.touches[0].clientX - startX) : (e.touches[0].clientY - startY);
+          let newOpacity = startOpacity + (delta / 300);
+          opacity = Math.max(0, Math.min(1, newOpacity));
+          updateOverlay();
+        }
       } else if (e.touches.length === 2 && initialPinchDistance) {
         const currentDistance = Math.hypot(
           e.touches[0].clientX - e.touches[1].clientX,
@@ -588,15 +674,47 @@
         initialPinchDistance = null;
       }
       if (e.touches.length === 0) {
-        isDragging = false;
+        if (isDragging) {
+          const duration = Date.now() - startTime;
+          if (!hasMoved && !longTapTriggered && duration < 400) {
+            // Single tap: toggle overlay visibility
+            isOverlayHidden = !isOverlayHidden;
+            updateOverlay();
+          }
+          isDragging = false;
+        }
       }
     });
 
     function updateOverlay() {
-      overlay.style.opacity = opacity;
-      overlay.style.transform = `scale(${imgScale})`;
+      const hiddenIndicator = document.getElementById('hidden-overlay-indicator');
+      if (isOverlayHidden) {
+        overlay.style.opacity = '0';
+        overlay.style.visibility = 'hidden';
+        if (hiddenIndicator) hiddenIndicator.style.display = 'inline-flex';
+      } else {
+        overlay.style.opacity = opacity;
+        overlay.style.visibility = 'visible';
+        if (hiddenIndicator) hiddenIndicator.style.display = 'none';
+      }
+      const scaleX = isFlipped ? -imgScale : imgScale;
+      overlay.style.transform = `scale(${scaleX}, ${imgScale})`;
     }
     updateOverlay();
+
+    const flipBtn = document.getElementById('btn-flip');
+    if (flipBtn) {
+      flipBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        isFlipped = !isFlipped;
+        if (isFlipped) {
+          flipBtn.classList.add('active');
+        } else {
+          flipBtn.classList.remove('active');
+        }
+        updateOverlay();
+      });
+    }
 
     async function initCamera() {
       if (!navigator.mediaDevices) {
@@ -712,7 +830,20 @@
       fullCanvas.height = tempCanvas.height;
       fullCanvas.getContext('2d').drawImage(tempCanvas, 0, 0);
 
+      // Lock exact position and compass at the moment of taking the photo
+      capturedLat = deviceLat;
+      capturedLon = deviceLon;
+      capturedAccuracy = deviceAccuracy;
+      capturedYaw = currentYaw;
+      capturedPitch = currentPitch;
+      capturedRoll = currentRoll;
+
       previewOldImg.src = overlay.src;
+      previewOldImg.style.transform = isFlipped ? 'scaleX(-1)' : 'none';
+      const previewOldLabel = document.getElementById('preview-old-label');
+      if (previewOldLabel) {
+        previewOldLabel.innerText = isFlipped ? 'Vana foto (peegeldatud)' : 'Vana foto';
+      }
       document.getElementById('camera-container').style.display = 'none';
       previewContainer.style.display = 'block';
       // Exit fullscreen if active so system toasts do not obscure controls
@@ -762,12 +893,38 @@
       });
     }
 
+    const gpsBadge = document.getElementById('gps-badge');
+    if (gpsBadge) {
+      gpsBadge.addEventListener('click', (e) => {
+        e.stopPropagation();
+        let details = `GPS andmed:\n` +
+          `• Laiuskraad: ${deviceLat !== null ? deviceLat.toFixed(6) : 'puudub'}\n` +
+          `• Pikkuskraad: ${deviceLon !== null ? deviceLon.toFixed(6) : 'puudub'}\n` +
+          `• Täpsus: ${deviceAccuracy !== null ? '±' + Math.round(deviceAccuracy) + ' m' : 'puudub'}\n` +
+          `• Viimane uuendus: ${deviceGpsTime ? Math.round((Date.now() - deviceGpsTime) / 1000) + ' s tagasi' : 'pole laekunud'}\n` +
+          `• Pildistamisel lukustatud: ${capturedLat !== null ? capturedLat.toFixed(6) + ', ' + capturedLon.toFixed(6) : 'pole veel pildistatud'}\n` +
+          `• Jälgimine: ${watchPositionId !== null ? 'aktiivne (watch)' : 'mitteaktiivne'}\n`;
+        if (deviceLat === null) {
+          details += `\n⚠️ GPS koordinaate pole veel laekunud.\n` +
+            `• Kontrolli, et brauseril on asukohale ligipääsu luba antud.\n` +
+            `• Vabas õhus olles võib esmane fix võtta mõne sekundi.`;
+        }
+        alert(details);
+      });
+    }
+
     function stopCamera() {
       if (video && video.srcObject) {
         try {
           video.srcObject.getTracks().forEach(track => track.stop());
         } catch (e) {}
         video.srcObject = null;
+      }
+      if (watchPositionId !== null && navigator.geolocation) {
+        try {
+          navigator.geolocation.clearWatch(watchPositionId);
+        } catch (e) {}
+        watchPositionId = null;
       }
     }
 
@@ -776,13 +933,28 @@
       document.getElementById('camera-container').style.display = 'block';
       // Hide upload button again until a new photo is captured
       uploadBtn.style.display = 'none';
+      isOverlayHidden = false;
+      updateOverlay();
       if (!video.srcObject || !video.srcObject.active) {
         initCamera();
+      }
+      if (watchPositionId === null && navigator.geolocation) {
+        const onPosition = (position) => {
+          deviceLat = position.coords.latitude;
+          deviceLon = position.coords.longitude;
+          deviceAccuracy = position.coords.accuracy;
+          deviceGpsTime = Date.now();
+          updateGpsUI();
+        };
+        const geoOptions = { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 };
+        try {
+          watchPositionId = navigator.geolocation.watchPosition(onPosition, () => {}, geoOptions);
+        } catch (e) {}
       }
     });
 
     let isSaving = false;
-    uploadBtn.addEventListener('click', () => {
+    uploadBtn.addEventListener('click', async () => {
       if (isSaving) return;
       isSaving = true;
       uploadBtn.disabled = true;
@@ -816,6 +988,39 @@
         </div>
       `;
       loadingOverlay.style.display = 'flex';
+
+      // Pick exact coordinates locked at the moment of capture, falling back to latest device reading
+      let finalLat = (capturedLat !== null && capturedLat !== undefined) ? capturedLat : deviceLat;
+      let finalLon = (capturedLon !== null && capturedLon !== undefined) ? capturedLon : deviceLon;
+      let finalYaw = (capturedYaw !== null && capturedYaw !== undefined) ? capturedYaw : currentYaw;
+      let finalPitch = (capturedPitch !== null && capturedPitch !== undefined) ? capturedPitch : currentPitch;
+      let finalRoll = (capturedRoll !== null && capturedRoll !== undefined) ? capturedRoll : currentRoll;
+      let finalAccuracy = (capturedAccuracy !== null && capturedAccuracy !== undefined) ? capturedAccuracy : deviceAccuracy;
+
+      // If coordinates were still not resolved (e.g. shot immediately after open), wait up to 3s for a quick fix
+      if ((finalLat === null || finalLon === null) && navigator.geolocation) {
+        const statusEl = document.getElementById('loading-overlay-status');
+        if (statusEl) statusEl.innerText = 'Ootan GPS asukohta...';
+        try {
+          await new Promise((resolve) => {
+            const timeout = setTimeout(resolve, 3000);
+            navigator.geolocation.getCurrentPosition(
+              (pos) => {
+                clearTimeout(timeout);
+                finalLat = pos.coords.latitude;
+                finalLon = pos.coords.longitude;
+                finalAccuracy = pos.coords.accuracy;
+                resolve();
+              },
+              () => {
+                clearTimeout(timeout);
+                resolve();
+              },
+              { enableHighAccuracy: true, timeout: 3000, maximumAge: 0 }
+            );
+          });
+        } catch (e) {}
+      }
       
       const scaleFactor = currentUploadScaleFactor;
       const metadata = JSON.stringify({
@@ -823,11 +1028,13 @@
         ajapaik_parent_photo_id: {{ photo.id }},
         scale_factor: scaleFactor,
         created_at: Date.now(),
-        lat: deviceLat,
-        lon: deviceLon,
-        yaw: currentYaw,
-        pitch: currentPitch,
-        roll: currentRoll
+        lat: finalLat,
+        lon: finalLon,
+        yaw: finalYaw,
+        pitch: finalPitch,
+        roll: finalRoll,
+        accuracy: finalAccuracy,
+        flip: isFlipped ? 1 : 0
       });
 
       Promise.all([
@@ -852,11 +1059,13 @@
           scaleFactor: scaleFactor,
           uploadUrl: '{% url "rephoto_upload" photo.id %}',
           redirectUrl: '{% url "photo" photo.id photo.get_pseudo_slug %}',
-          lat: deviceLat,
-          lon: deviceLon,
-          yaw: currentYaw,
-          pitch: currentPitch,
-          roll: currentRoll
+          lat: finalLat,
+          lon: finalLon,
+          yaw: finalYaw,
+          pitch: finalPitch,
+          roll: finalRoll,
+          accuracy: finalAccuracy,
+          flip: isFlipped ? 1 : 0
         }).catch(error => {
           console.error('Error queueing upload:', error);
           alert('Viga järjekorda lisamisel');

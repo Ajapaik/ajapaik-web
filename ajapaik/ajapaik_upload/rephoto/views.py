@@ -71,6 +71,9 @@ def rephoto_upload(request: HttpRequest, photo_id: int) -> JsonResponse:
         rephoto_lat = parse_float(data.get("lat"))
         rephoto_lon = parse_float(data.get("lon"))
         rephoto_yaw = parse_float(data.get("yaw"))
+        rephoto_accuracy = parse_float(data.get("accuracy"))
+        flip_param = data.get("flip")
+        is_flip = flip_param in (True, "true", "True", "1", 1)
 
         # Check for recent duplicate (within 90 seconds by same user for same parent photo)
         recent_duplicate = (
@@ -117,6 +120,8 @@ def rephoto_upload(request: HttpRequest, photo_id: int) -> JsonResponse:
                 cam_yaw=rephoto_yaw,
                 cam_pitch=parse_float(data.get("pitch")),
                 cam_roll=parse_float(data.get("roll")),
+                gps_accuracy=rephoto_accuracy,
+                flip=is_flip,
             )
             if parsed_date_taken:
                 photo.date = parsed_date_taken
@@ -150,6 +155,7 @@ def rephoto_upload(request: HttpRequest, photo_id: int) -> JsonResponse:
                     trustworthiness=trust,
                     is_correct=False,
                     user=profile,
+                    photo_flipped=is_flip,
                 )
                 rephoto_geotag.save()
                 if not photo.first_geotag:
@@ -206,6 +212,15 @@ def rephoto_upload(request: HttpRequest, photo_id: int) -> JsonResponse:
                 rephoto.image.save(
                     str(rephoto.image), ContentFile(output_file.getvalue())
                 )
+
+        if is_flip and profile and not photo.flip:
+            from ajapaik.ajapaik.models import PhotoFlipSuggestion
+
+            PhotoFlipSuggestion.objects.get_or_create(
+                photo=photo,
+                proposer=profile,
+                defaults={"flip": True},
+            )
 
         profile.update_rephoto_score()
         profile.set_calculated_fields()
