@@ -390,6 +390,14 @@
         deviceGpsTime = Date.now();
         console.log("GPS coordinates updated:", deviceLat, deviceLon, `±${deviceAccuracy}m`);
         updateGpsUI();
+        try {
+          localStorage.setItem('ajp_last_location', JSON.stringify({
+            lat: deviceLat,
+            lon: deviceLon,
+            time: Date.now()
+          }));
+          document.cookie = 'ajp_last_loc=' + encodeURIComponent(deviceLat.toFixed(6) + ',' + deviceLon.toFixed(6) + ',' + Date.now()) + '; path=/; max-age=' + (60 * 60 * 24 * 7) + '; SameSite=Lax';
+        } catch (e) {}
       };
       const onPositionError = (error) => {
         console.warn("Geolocation error:", error);
@@ -945,6 +953,14 @@
           deviceAccuracy = position.coords.accuracy;
           deviceGpsTime = Date.now();
           updateGpsUI();
+          try {
+            localStorage.setItem('ajp_last_location', JSON.stringify({
+              lat: deviceLat,
+              lon: deviceLon,
+              time: Date.now()
+            }));
+            document.cookie = 'ajp_last_loc=' + encodeURIComponent(deviceLat.toFixed(6) + ',' + deviceLon.toFixed(6) + ',' + Date.now()) + '; path=/; max-age=' + (60 * 60 * 24 * 7) + '; SameSite=Lax';
+          } catch (e) {}
         };
         const geoOptions = { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 };
         try {

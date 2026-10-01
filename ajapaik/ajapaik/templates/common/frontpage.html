@@ -111,9 +111,16 @@
         {% if request.GET.lat and request.GET.lon %}
         window.userLat = parseFloat("{{ request.GET.lat }}");
         window.userLon = parseFloat("{{ request.GET.lon }}");
+        window.userLocationIsCached = false;
+        {% elif cached_lat and cached_lon %}
+        window.userLat = parseFloat("{{ cached_lat }}");
+        window.userLon = parseFloat("{{ cached_lon }}");
+        window.userLocationIsCached = true;
+        window.cachedLocationAge = {{ cached_location_age|default:0 }};
         {% else %}
         window.userLat = null;
         window.userLon = null;
+        window.userLocationIsCached = false;
         {% endif %}
         window.order1 = "{{ order1 }}";
         window.order2 = "{{ order2 }}";
