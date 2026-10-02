@@ -7,9 +7,10 @@ from urllib.request import build_opener
 
 import requests
 from django.conf import settings
+from django.contrib.gis.geos import Point
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.files.base import ContentFile
-from django.db.models import F, Q
+from django.db.models import Count, F, Q
 from django.db.transaction import atomic
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
@@ -177,9 +178,13 @@ def curator_search(request):
 
 def curator_my_album_list(request):
     user_profile = request.get_user().profile
-    albums = Album.objects.filter(
-        Q(profile=user_profile, atype__in=[Album.CURATED, Album.PERSON])
-    ).order_by("-created")
+    albums = (
+        Album.objects.filter(
+            Q(profile=user_profile, atype__in=[Album.CURATED, Album.PERSON])
+        )
+        .only("id", "name", "photo_count_with_subalbums")
+        .order_by("-created")
+    )
 
     data = []
     for a in albums:
@@ -195,9 +200,12 @@ def curator_my_album_list(request):
 
 def curator_import_list(request):
     user_profile = request.get_user().profile
-    # Filter for AUTO albums created by this user
-    albums = Album.objects.filter(profile=user_profile, atype=Album.AUTO).order_by(
-        "-created"
+    # Filter for AUTO albums created by this user and annotate count to avoid N+1 queries
+    albums = (
+        Album.objects.filter(profile=user_profile, atype=Album.AUTO)
+        .annotate(photo_count_annotated=Count("albumphoto"))
+        .only("id", "name", "created")
+        .order_by("-created")
     )
 
     data = []
@@ -207,7 +215,7 @@ def curator_import_list(request):
                 "id": album.id,
                 "name": album.name,
                 "created": album.created.isoformat(),
-                "photo_count": album.photos.count(),
+                "photo_count": album.photo_count_annotated,
             }
         )
 
@@ -260,6 +268,7 @@ def curator_update_my_album(request):
         album.description = album_edit_form.cleaned_data["description"]
         album.open = album_edit_form.cleaned_data["open"]
         album.is_public = album_edit_form.cleaned_data["is_public"]
+        fields_to_update = ["name", "description", "open", "is_public"]
 
         if (
             album_edit_form.cleaned_data["areaLat"]
@@ -267,6 +276,10 @@ def curator_update_my_album(request):
         ):
             album.lat = album_edit_form.cleaned_data["areaLat"]
             album.lon = album_edit_form.cleaned_data["areaLng"]
+            album.geography = Point(
+                x=float(album.lon), y=float(album.lat), srid=4326
+            )
+            fields_to_update.extend(["lat", "lon", "geography"])
 
         parent_album_id = album_edit_form.cleaned_data["parent_album_id"]
         if parent_album_id:
@@ -280,10 +293,25 @@ def curator_update_my_album(request):
                 return HttpResponse("Invalid parent album", status=500)
         else:
             album.subalbum_of = None
+        fields_to_update.append("subalbum_of")
 
-        album.save()
+        # Use update_fields to avoid expensive set_calculated_fields() and recursive parent saves
+        album.save(update_fields=fields_to_update)
 
-        return HttpResponse("OK", status=200)
+        try:
+            from haystack import connections
+            connections["default"].get_unified_index().get_index(Album).update_object(album)
+        except Exception:
+            pass
+
+        return JsonResponse(
+            {
+                "status": "OK",
+                "id": album.id,
+                "name": album.name,
+                "photo_count": album.photo_count_with_subalbums,
+            }
+        )
 
     return HttpResponse("Faulty data", status=500)
 
