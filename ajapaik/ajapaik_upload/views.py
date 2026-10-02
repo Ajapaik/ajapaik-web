@@ -34,27 +34,21 @@ def user_upload(request):
             photo.set_aspect_ratio()
             photo.find_similar()
             albums = request.POST.getlist("albums")
-            album_photos = []
+            target_albums = list(Album.objects.filter(id__in=albums))
+            album_photos = [
+                AlbumPhoto(
+                    photo=photo,
+                    album=album,
+                    type=AlbumPhoto.UPLOADED,
+                    profile=profile,
+                )
+                for album in target_albums
+            ]
+            AlbumPhoto.objects.bulk_create(album_photos)
 
-            for album_id in albums:
-                album = Album.objects.filter(id=album_id).first()
-
-                if not album:
-                    continue
-
+            for album in target_albums:
                 album.set_calculated_fields()
                 album.light_save()
-
-                album_photos.append(
-                    AlbumPhoto(
-                        photo=photo,
-                        album=Album.objects.filter(id=album.id).first(),
-                        type=AlbumPhoto.UPLOADED,
-                        profile=profile,
-                    )
-                )
-
-            AlbumPhoto.objects.bulk_create(album_photos)
             photo.add_to_source_album()
 
             if request.POST.get("geotag") == "true":

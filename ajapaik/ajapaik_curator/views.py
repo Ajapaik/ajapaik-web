@@ -835,7 +835,5 @@ def curator_photo_upload_handler(request):
     if general_albums.exists():
         for album in general_albums:
             album.save()
-            if album.subalbum_of:
-                album.subalbum_of.save()
 
     return HttpResponse(json.dumps(context), content_type="application/json")

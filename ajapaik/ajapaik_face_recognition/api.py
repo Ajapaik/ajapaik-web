@@ -38,7 +38,7 @@ class AddSubjectData(AjapaikAPIView):
             )
             albumPhoto.save()
             person_album.set_calculated_fields()
-            person_album.save()
+            person_album.light_save()
 
         additional_subject_data = AddAdditionalSubjectData(
             subject_rectangle_id=annotation_id,

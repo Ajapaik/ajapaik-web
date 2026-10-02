@@ -281,7 +281,7 @@ def csv_import(request):
         if all_albums.exists():
             for album in all_albums:
                 album.set_calculated_fields()
-                album.save()
+                album.light_save()
         if len(existing_file_list) > 0:
             existing_file_error = "The following images already existed on the server, they were not replaced:"
             errors.append(
