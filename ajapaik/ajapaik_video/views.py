@@ -83,7 +83,7 @@ def generate_still_from_video(request):
                     created=still.created,
                 ).save()
                 a.set_calculated_fields()
-                a.save()
+                a.light_save()
                 still.add_to_source_album()
         context["stillId"] = still.id
 
