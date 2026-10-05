@@ -2196,6 +2196,15 @@ class MyXtdComment(XtdComment):
     facebook_comment_id = CharField(max_length=255, blank=True, null=True)
 
     def save(self, **kwargs):
+        if self.comment:
+            from ajapaik.ajapaik_comments.utils import convert_raw_urls_to_markdown
+
+            new_comment, is_mod = convert_raw_urls_to_markdown(self.comment)
+            if is_mod:
+                self.comment = new_comment
+                if "update_fields" in kwargs and kwargs["update_fields"] is not None:
+                    kwargs["update_fields"] = set(kwargs["update_fields"]) | {"comment"}
+
         super().save(**kwargs)
         photo = Photo.objects.filter(pk=self.object_pk).first()
         if photo:
