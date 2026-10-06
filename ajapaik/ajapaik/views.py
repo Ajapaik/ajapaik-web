@@ -741,7 +741,9 @@ def photo_slug(request, photo_id=None, pseudo_slug=None):
             photo_obj.first_view = now
 
         photo_obj.latest_view = now
-        photo_obj.light_save()
+        photo_obj.light_save(
+            update_fields=["view_count", "first_view", "latest_view"]
+        )
         request.session.modified = True
 
     is_frontpage = False

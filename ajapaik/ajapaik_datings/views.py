@@ -33,7 +33,9 @@ def submit_dating(request):
             for each in p.datings.all():
                 confirmation_count += each.confirmations.count()
             p.dating_count = p.datings.count() + confirmation_count
-            p.light_save()
+            p.light_save(
+                update_fields=["first_dating", "latest_dating", "dating_count"]
+            )
             Points(
                 user=profile,
                 action=Points.DATING,
@@ -60,7 +62,9 @@ def submit_dating(request):
             for each in p.datings.all():
                 confirmation_count += each.confirmations.count()
             p.dating_count = p.datings.count() + confirmation_count
-            p.light_save()
+            p.light_save(
+                update_fields=["latest_dating", "dating_count"]
+            )
             Points(
                 user=profile,
                 action=Points.DATING_CONFIRMATION,

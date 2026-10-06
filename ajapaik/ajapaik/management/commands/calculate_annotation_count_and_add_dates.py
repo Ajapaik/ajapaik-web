@@ -55,6 +55,12 @@ class Command(BaseCommand):
                 photo.annotation_count = (
                     faceRecognitionRectangles.count() + objectAnnotations.count()
                 )
-                photo.light_save()
+                photo.light_save(
+                    update_fields=[
+                        "first_annotation",
+                        "latest_annotation",
+                        "annotation_count",
+                    ]
+                )
             except Exception:
                 continue
