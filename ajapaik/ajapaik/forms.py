@@ -298,6 +298,8 @@ class CuratorPhotoUploadForm(forms.Form):
     licence = forms.CharField(max_length=255, required=False)
     licenceUrl = forms.CharField(max_length=255, required=False)
     persons = forms.JSONField(required=False)
+    fotis_persons = forms.JSONField(required=False)
+    faces = forms.JSONField(required=False)
     start_date = forms.CharField(max_length=27, required=False)
     end_date = forms.CharField(max_length=27, required=False)
     date_start_accuracy = forms.CharField(max_length=32, required=False)

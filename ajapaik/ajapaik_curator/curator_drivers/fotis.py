@@ -10,9 +10,9 @@ from ajapaik.ajapaik_curator.utils import transform_fotis_persons_response
 
 class FotisDriver:
     def __init__(self):
-        # Base URLs for broad search and specific reference code search
+        # Base URLs for broad search and specific reference code search (API v2)
         self.broad_search_url = (
-            "https://www.ra.ee/fotis/api/index.php/v1/photo"
+            "https://www.ra.ee/fotis/api/index.php/v2/photo"
             "?filter[or][][reference_code][like]=%s"
             "&filter[or][][content][like]=%s"
             "&filter[or][][author][like]=%s"
@@ -22,7 +22,7 @@ class FotisDriver:
             "&page=%s"
         )
         self.ref_search_url = (
-            "https://www.ra.ee/fotis/api/index.php/v1/photo"
+            "https://www.ra.ee/fotis/api/index.php/v2/photo"
             "?filter[reference_code][like]=%s"
             "&per-page=100"
             "&page=%s"
@@ -73,9 +73,21 @@ class FotisDriver:
             if remove_existing and existing_photo:
                 continue
             else:
-                persons_str = p.get(
-                    "person"
-                )  # Fotis API doesn't have a nice name for persons
+                raw_persons = p.get("person")
+                clean_names = []
+                fotis_persons = []
+                if isinstance(raw_persons, list):
+                    for per in raw_persons:
+                        fname = (per.get("name") or "").strip()
+                        sname = (per.get("surname") or "").strip()
+                        fullname = f"{fname} {sname}".strip()
+                        if fullname and fullname not in clean_names:
+                            clean_names.append(fullname)
+                        fotis_persons.append(per)
+                elif isinstance(raw_persons, str) and raw_persons.strip():
+                    clean_names = transform_fotis_persons_response(raw_persons)
+                    fotis_persons = []
+
                 dating = p.get("dating", {})
 
                 start_ts = dating.get("date_beginning_timestamp")
@@ -103,9 +115,9 @@ class FotisDriver:
                     "imageUrl": p["_links"]["image"]["href"],
                     "urlToRecord": f"https://www.meediateek.ee/photo/view?id={p['id']}",
                     "creators": p["author"],
-                    "persons": transform_fotis_persons_response(persons_str)
-                    if persons_str
-                    else [],
+                    "persons": clean_names,
+                    "fotis_persons": fotis_persons,
+                    "faces": p.get("faces", []),
                     "start_date": start_date.isoformat() if start_date else None,
                     "end_date": end_date.isoformat() if end_date else None,
                     "date_start_accuracy": dating.get("date_beginning_accuracy"),

@@ -27,11 +27,12 @@ GENDER = (
 
 
 class FaceRecognitionRectangle(models.Model):
-    USER, ALGORITHM, PICASA = range(3)
+    USER, ALGORITHM, PICASA, FOTIS = range(4)
     ORIGIN_CHOICES = (
         (USER, _("User")),
         (ALGORITHM, _("Algorithm")),
         (PICASA, _("Picasa")),
+        (FOTIS, _("Fotis")),
     )
 
     photo = models.ForeignKey(
@@ -46,6 +47,13 @@ class FaceRecognitionRectangle(models.Model):
         blank=True,
         on_delete=CASCADE,
         related_name="face_recognition_crowdsourced_rectangles",
+    )
+    subject_source_suggestion = models.ForeignKey(
+        Album,
+        null=True,
+        blank=True,
+        on_delete=CASCADE,
+        related_name="face_recognition_source_suggested_rectangles",
     )
     subject_ai_suggestion = models.ForeignKey(
         Album,
@@ -87,9 +95,11 @@ class FaceRecognitionRectangle(models.Model):
     def get_subject(self):
         subject_album = None
 
-        # Prefer what people think
+        # Prefer what people think, then source metadata, then AI visual suggestion
         if self.subject_consensus:
             subject_album: Album = self.subject_consensus
+        elif self.subject_source_suggestion:
+            subject_album: Album = self.subject_source_suggestion
         elif self.subject_ai_suggestion:
             subject_album: Album = self.subject_ai_suggestion
 
