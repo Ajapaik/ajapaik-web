@@ -128,4 +128,6 @@ def save_new_object_annotation(
         new_annotation.photo.first_annotation = new_annotation.created_on
     new_annotation.photo.latest_annotation = new_annotation.created_on
     new_annotation.photo.annotation_count += 1
-    new_annotation.photo.light_save()
+    new_annotation.photo.light_save(
+        update_fields=["first_annotation", "latest_annotation", "annotation_count"]
+    )

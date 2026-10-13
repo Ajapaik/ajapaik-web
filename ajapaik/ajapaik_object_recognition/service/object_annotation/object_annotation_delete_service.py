@@ -19,6 +19,8 @@ def remove_annotation(annotation_remove_request: AnnotationRemove) -> bool:
         if object_detection_annotation.photo.annotation_count == 0:
             object_detection_annotation.photo.latest_annotation = None
             object_detection_annotation.photo.first_annotation = None
-        object_detection_annotation.photo.light_save()
+        object_detection_annotation.photo.light_save(
+            update_fields=["annotation_count", "first_annotation", "latest_annotation"]
+        )
 
     return True

@@ -38,6 +38,8 @@ def remove_annotation(annotation_remove_request: FaceAnnotationRemoveRequest) ->
             photo.first_annotation = None
             photo.latest_annotation = None
 
-        photo.light_save()
+        photo.light_save(
+            update_fields=["annotation_count", "first_annotation", "latest_annotation"]
+        )
 
     return True

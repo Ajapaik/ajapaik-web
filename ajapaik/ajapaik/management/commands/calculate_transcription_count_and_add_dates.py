@@ -19,6 +19,12 @@ class Command(BaseCommand):
                     if last_transcription:
                         photo.latest_transcription = last_transcription.modified
                     photo.transcription_count = transcriptions.count()
-                    photo.light_save()
+                    photo.light_save(
+                        update_fields=[
+                            "first_transcription",
+                            "latest_transcription",
+                            "transcription_count",
+                        ]
+                    )
             except Exception:
                 continue

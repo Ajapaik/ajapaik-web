@@ -27,7 +27,7 @@ def analyse_single_photo(photo: Photo) -> None:
         )
         new_rectangle.save()
     photo.face_detection_attempted_at = datetime.datetime.now()
-    photo.light_save()
+    photo.light_save(update_fields=["face_detection_attempted_at"])
 
 
 class Command(BaseCommand):

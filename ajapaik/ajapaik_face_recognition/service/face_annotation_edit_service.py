@@ -51,8 +51,9 @@ def update_face_annotation(
 
         if annotation.photo.first_annotation is None:
             annotation.photo.first_annotation = annotation.modified
-        annotation.photo.latest_annotation = annotation.modified
-        annotation.photo.light_save()
+        annotation.photo.light_save(
+            update_fields=["first_annotation", "latest_annotation"]
+        )
 
         return True
 
