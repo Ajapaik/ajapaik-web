@@ -1323,14 +1323,24 @@ class Photo(Model):
                     break
 
         if lat and lon:
-            cached_response = GoogleMapsReverseGeocode.objects.filter(
-                lat=f"{lat:.5f}", lon=f"{lon:.5f}"
-            ).first()
-            if cached_response and cached_response.response.get("status") == "OK":
-                results = cached_response.response.get("results", [])
-                if len(results) > 0:
-                    most_accurate_result = results[0]
-                    self.address = most_accurate_result["formatted_address"]
+            try:
+                cached_response = GoogleMapsReverseGeocode.objects.filter(
+                    lat=f"{lat:.5f}", lon=f"{lon:.5f}"
+                ).first()
+                if cached_response and cached_response.response:
+                    resp = cached_response.response
+                    if isinstance(resp, str):
+                        try:
+                            resp = json.loads(resp)
+                        except Exception:
+                            resp = {}
+                    if isinstance(resp, dict) and resp.get("status") == "OK":
+                        results = resp.get("results", [])
+                        if len(results) > 0:
+                            most_accurate_result = results[0]
+                            self.address = most_accurate_result.get("formatted_address")
+            except Exception:
+                pass
 
     def set_backside(self, opposite):
         self.front_of = opposite
@@ -2091,8 +2101,14 @@ class GoogleMapsReverseGeocode(Model):
         db_table = "project_googlemapsreversegeocode"
 
     def __str__(self):
-        if self.response.get("results"):
-            location = self.response.get("results")[0].get("formatted_address")
+        resp = self.response
+        if isinstance(resp, str):
+            try:
+                resp = json.loads(resp)
+            except Exception:
+                resp = {}
+        if isinstance(resp, dict) and resp.get("results"):
+            location = resp.get("results")[0].get("formatted_address")
             return f"{location};{self.lat};{self.lon}"
         else:
             return f"{self.lat};{self.lon}"
