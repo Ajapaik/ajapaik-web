@@ -424,7 +424,7 @@ class ParentAlbumAutocomplete(APIView):
         )
         if qs.exists():
             result = ""
-            for q in qs:
+            for q in qs[:50]:
                 result += f"<span data-value={q.id!s}>{q.name}</span>"
         return HttpResponse(result, status=200)
 

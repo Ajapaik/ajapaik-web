@@ -108,7 +108,7 @@ def save_subject_object(subject_album, rectangle, user_profile):
             AlbumPhoto.objects.filter(
                 album=current_consensus_album, photo=rectangle.photo
             ).delete()
-        if rectangle.photo not in subject_album.photos.all():
+        if not subject_album.photos.filter(id=rectangle.photo_id).exists():
             AlbumPhoto(
                 photo=rectangle.photo,
                 album=subject_album,

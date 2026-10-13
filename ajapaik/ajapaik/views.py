@@ -657,7 +657,7 @@ def upload_photo_selection(request):
         if len(photo_ids) == 1:
             photo_obj = Photo.objects.get(pk=photo_ids[0])
             context["albums"] = []
-            for ap in photo_obj.albumphoto.all():
+            for ap in photo_obj.albumphoto.filter(album__atype=Album.CURATED):
                 context["albums"].append({"id": ap.album.id, "name": ap.album.name})
     else:
         context["error"] = _("Faulty data submitted")
