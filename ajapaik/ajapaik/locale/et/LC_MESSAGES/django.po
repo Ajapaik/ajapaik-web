@@ -2773,4 +2773,20 @@ msgstr "Tagasi lähimate fotode juurde"
 msgid "Take a rephoto"
 msgstr "Pildista üle"
 
+msgid "Detecting location..."
+msgstr "Tuvastan asukohta..."
+
+msgid "Refresh location"
+msgstr "Uuenda asukohta"
+
+msgid "Showing nearest photos to your location"
+msgstr "Lähimad fotod Sinu asukohale"
+
+msgid "Could not determine location. Check GPS permissions."
+msgstr "Asukohta ei leitud. Kontrolli GPS-luba."
+
+msgid "Location updated!"
+msgstr "Asukoht uuendatud!"
+
+
 

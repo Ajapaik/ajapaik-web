@@ -384,6 +384,32 @@ def frontpage(request):
     if is_rephoto_mode and not form.cleaned_data.get("order1"):
         form.cleaned_data["order1"] = "closest"
 
+    cached_lat = None
+    cached_lon = None
+    cached_location_age = None
+    if (form.cleaned_data.get("order1") == "closest" or is_rephoto_mode) and (
+        not form.cleaned_data.get("lat") or not form.cleaned_data.get("lon")
+    ):
+        loc_cookie = request.COOKIES.get("ajp_last_loc")
+        if loc_cookie:
+            try:
+                from urllib.parse import unquote
+                cookie_str = unquote(loc_cookie)
+                parts = cookie_str.split(",")
+                if len(parts) >= 2:
+                    c_lat = float(parts[0])
+                    c_lon = float(parts[1])
+                    c_time = float(parts[2]) if len(parts) >= 3 else 0
+                    age_seconds = (time() * 1000 - c_time) / 1000 if c_time > 0 else 0
+                    if -180 <= c_lon <= 180 and -90 <= c_lat <= 90:
+                        cached_lat = c_lat
+                        cached_lon = c_lon
+                        cached_location_age = age_seconds
+                        form.cleaned_data["lat"] = c_lat
+                        form.cleaned_data["lon"] = c_lon
+            except (ValueError, TypeError):
+                pass
+
     show_photos = bool(
         request.GET.get("order1") or request.GET.get("album") or is_rephoto_mode
     )
@@ -401,6 +427,9 @@ def frontpage(request):
         "last_geotagged_photo_id": last_geotagged_photo.id
         if last_geotagged_photo
         else None,
+        "cached_lat": cached_lat,
+        "cached_lon": cached_lon,
+        "cached_location_age": cached_location_age,
     }
 
     if not show_photos:
@@ -449,6 +478,24 @@ def frontpage_async_data(request):
 
     if not form.is_valid():
         return JsonResponse({"error": "Invalid query parameters"}, status=400)
+
+    if form.cleaned_data.get("order1") == "closest" and (
+        not form.cleaned_data.get("lat") or not form.cleaned_data.get("lon")
+    ):
+        loc_cookie = request.COOKIES.get("ajp_last_loc")
+        if loc_cookie:
+            try:
+                from urllib.parse import unquote
+                cookie_str = unquote(loc_cookie)
+                parts = cookie_str.split(",")
+                if len(parts) >= 2:
+                    c_lat = float(parts[0])
+                    c_lon = float(parts[1])
+                    if -180 <= c_lon <= 180 and -90 <= c_lat <= 90:
+                        form.cleaned_data["lat"] = c_lat
+                        form.cleaned_data["lon"] = c_lon
+            except (ValueError, TypeError):
+                pass
 
     data = get_filtered_data_for_gallery(profile, form.cleaned_data)
     output = GalleryResultsSerializer(data, context={"request": request}).data

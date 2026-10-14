@@ -18,6 +18,136 @@
         if (!window.userLon && getQueryParameterByName('lon')) {
             window.userLon = Number.parseFloat(getQueryParameterByName('lon'));
         }
+
+        const updateLocationStatus = function (status, customText) {
+            const bar = $('#ajp-rephoto-location-bar');
+            const spinner = $('#ajp-location-spinner');
+            const icon = $('#ajp-location-status-icon');
+            const textEl = $('#ajp-location-status-text');
+            const btn = $('#ajp-btn-refresh-location');
+            const refreshIcon = $('#ajp-refresh-icon');
+
+            if (!bar.length) return;
+
+            if (status === 'detecting') {
+                bar.removeClass('d-none');
+                spinner.removeClass('d-none');
+                icon.addClass('d-none');
+                textEl.text(customText || (typeof gettext === 'function' ? gettext('Detecting location...') : 'Tuvastan asukohta...'));
+                btn.prop('disabled', true).addClass('disabled');
+                refreshIcon.removeClass('ajp-spin-icon');
+            } else if (status === 'refreshing') {
+                bar.removeClass('d-none');
+                spinner.removeClass('d-none');
+                icon.addClass('d-none');
+                textEl.text(customText || (typeof gettext === 'function' ? gettext('Refreshing location...') : 'Uuendan asukohta...'));
+                btn.prop('disabled', true).addClass('disabled');
+                refreshIcon.addClass('ajp-spin-icon');
+            } else if (status === 'found') {
+                bar.removeClass('d-none');
+                spinner.addClass('d-none');
+                icon.removeClass('d-none');
+                textEl.text(customText || (typeof gettext === 'function' ? gettext('Showing nearest photos to your location') : 'Lähimad fotod Sinu asukohale'));
+                btn.prop('disabled', false).removeClass('disabled');
+                refreshIcon.removeClass('ajp-spin-icon');
+            } else if (status === 'error') {
+                bar.removeClass('d-none');
+                spinner.addClass('d-none');
+                icon.addClass('d-none');
+                textEl.text(customText || (typeof gettext === 'function' ? gettext('Could not determine location. Check GPS permissions.') : 'Asukohta ei leitud. Kontrolli GPS-luba.'));
+                btn.prop('disabled', false).removeClass('disabled');
+                refreshIcon.removeClass('ajp-spin-icon');
+            } else if (status === 'hide') {
+                bar.addClass('d-none');
+            }
+        };
+
+        window.saveUserLocationCache = function (lat, lon) {
+            if (lat === null || lon === null || isNaN(lat) || isNaN(lon)) return;
+            try {
+                localStorage.setItem(
+                    'ajp_last_location',
+                    JSON.stringify({
+                        lat: parseFloat(lat),
+                        lon: parseFloat(lon),
+                        time: Date.now(),
+                    }),
+                );
+            } catch (e) {}
+            try {
+                document.cookie =
+                    'ajp_last_loc=' +
+                    encodeURIComponent(
+                        parseFloat(lat).toFixed(6) +
+                            ',' +
+                            parseFloat(lon).toFixed(6) +
+                            ',' +
+                            Date.now(),
+                    ) +
+                    '; path=/; max-age=' +
+                    60 * 60 * 24 * 7 +
+                    '; SameSite=Lax';
+            } catch (e) {}
+        };
+
+        window.calculateDistanceMeters = function (lat1, lon1, lat2, lon2) {
+            const R = 6371e3;
+            const φ1 = (lat1 * Math.PI) / 180;
+            const φ2 = (lat2 * Math.PI) / 180;
+            const Δφ = ((lat2 - lat1) * Math.PI) / 180;
+            const Δλ = ((lon2 - lon1) * Math.PI) / 180;
+            const a =
+                Math.sin(Δφ / 2) * Math.sin(Δφ / 2) +
+                Math.cos(φ1) * Math.cos(φ2) * Math.sin(Δλ / 2) * Math.sin(Δλ / 2);
+            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+            return R * c;
+        };
+
+        window.refreshUserLocation = function () {
+            updateLocationStatus('refreshing');
+            if (typeof window.getGeolocation === 'function') {
+                window.getGeolocation(
+                    function (location) {
+                        $('#ajp-loading-overlay').hide();
+                        $('#ajp-geolocation-error').hide();
+                        window.userLat = location.coords.latitude;
+                        window.userLon = location.coords.longitude;
+                        window.userLocationIsCached = false;
+                        window.saveUserLocationCache(window.userLat, window.userLon);
+                        window.showPhotos = true;
+                        window.order1 = 'closest';
+                        updateLocationStatus(
+                            'found',
+                            typeof gettext === 'function'
+                                ? gettext('Location updated!')
+                                : 'Asukoht uuendatud!',
+                        );
+                        setTimeout(function () {
+                            if (window.order1 === 'closest' && window.userLat) {
+                                updateLocationStatus('found');
+                            }
+                        }, 2500);
+                        if (typeof syncStateToUrl === 'function') syncStateToUrl();
+                        if (typeof syncFilteringHighlights === 'function') syncFilteringHighlights();
+                        if (typeof window.updateFrontpagePhotosAsync === 'function') {
+                            window.updateFrontpagePhotosAsync();
+                        }
+                    },
+                    function (err) {
+                        $('#ajp-loading-overlay').hide();
+                        console.warn('Geolocation error:', err);
+                        updateLocationStatus('error');
+                    },
+                    { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 },
+                );
+            }
+        };
+
+        $(document).on('click', '#ajp-btn-refresh-location', function (e) {
+            e.preventDefault();
+            window.refreshUserLocation();
+        });
+
         if (getQueryParameterByName('mode') === 'rephoto') {
             window.order1 = 'closest';
             window.order2 = null;
@@ -26,35 +156,136 @@
             $('#ajp-album-selection').addClass('ajp-invisible d-none');
             $('#ajp-frontpage-historic-photos').removeClass('ajp-invisible d-none');
             $('#ajp-mobile-rephoto-banner').addClass('d-none');
+            $('#ajp-rephoto-location-bar').removeClass('d-none');
             $('#album-filters-div').addClass('d-none');
             $('#picture-filters-div').removeClass('d-none');
-            $('#ajp-header-selected-mode').find('i, span.material-icons').not('#ajp-header-arrow-drop-down').hide().addClass('d-none');
+            $('#ajp-header-selected-mode')
+                .find('i, span.material-icons')
+                .not('#ajp-header-arrow-drop-down')
+                .hide()
+                .addClass('d-none');
             $('#ajp-header-nearby-rephotos-icon').removeClass('d-none').show();
             if (typeof window.updateModeSelection === 'function') {
                 window.updateModeSelection(true);
             }
+
+            // Check if coordinates were missing from initial page render, try localStorage fallback
             if (!window.userLat || !window.userLon) {
+                try {
+                    const cachedLocStr = localStorage.getItem('ajp_last_location');
+                    if (cachedLocStr) {
+                        const cachedLoc = JSON.parse(cachedLocStr);
+                        if (cachedLoc && cachedLoc.lat && cachedLoc.lon) {
+                            window.userLat = cachedLoc.lat;
+                            window.userLon = cachedLoc.lon;
+                            window.userLocationIsCached = true;
+                            window.saveUserLocationCache(window.userLat, window.userLon);
+                            if (typeof window.updateFrontpagePhotosAsync === 'function') {
+                                window.updateFrontpagePhotosAsync();
+                            }
+                        }
+                    }
+                } catch (e) {}
+            }
+
+            if (window.userLocationIsCached) {
+                updateLocationStatus(
+                    'detecting',
+                    typeof gettext === 'function'
+                        ? gettext('Showing last known area · Refining...')
+                        : 'Viimane teadaolev piirkond · Täpsustan...',
+                );
+            } else if (!window.userLat || !window.userLon) {
                 window.useButtonLink = false;
-                if (typeof window.getGeolocation === 'function') {
-                    window.getGeolocation(function (location) {
-                        $('#ajp-loading-overlay').hide();
-                        $('#ajp-geolocation-error').hide();
-                        window.userLat = location.coords.latitude;
-                        window.userLon = location.coords.longitude;
-                        window.showPhotos = true;
-                        window.order1 = 'closest';
-                        if (typeof syncStateToUrl === 'function') syncStateToUrl();
-                        if (typeof syncFilteringHighlights === 'function') syncFilteringHighlights();
-                        if (typeof window.updateFrontpagePhotosAsync === 'function') window.updateFrontpagePhotosAsync();
-                    }, function (err) {
-                        $('#ajp-loading-overlay').hide();
-                        window.showPhotos = true;
-                        window.order1 = 'closest';
-                        if (typeof syncStateToUrl === 'function') syncStateToUrl();
-                        if (typeof syncFilteringHighlights === 'function') syncFilteringHighlights();
-                        if (typeof window.updateFrontpagePhotosAsync === 'function') window.updateFrontpagePhotosAsync();
-                    });
-                }
+                updateLocationStatus('detecting');
+            } else {
+                updateLocationStatus('found');
+            }
+
+            // Two-step geolocation: first fast cached fix if needed, then high-accuracy
+            if (typeof window.getGeolocation === 'function') {
+                const handleFreshLocation = function (location) {
+                    $('#ajp-loading-overlay').hide();
+                    $('#ajp-geolocation-error').hide();
+                    const newLat = location.coords.latitude;
+                    const newLon = location.coords.longitude;
+
+                    const prevLat = window.userLat;
+                    const prevLon = window.userLon;
+                    const wasCached = window.userLocationIsCached;
+
+                    window.userLat = newLat;
+                    window.userLon = newLon;
+                    window.userLocationIsCached = false;
+                    window.saveUserLocationCache(newLat, newLon);
+
+                    let movedSignificantDistance = true;
+                    if (wasCached && prevLat && prevLon) {
+                        const distMeters = window.calculateDistanceMeters(
+                            prevLat,
+                            prevLon,
+                            newLat,
+                            newLon,
+                        );
+                        if (distMeters < 30) {
+                            movedSignificantDistance = false;
+                        }
+                    }
+
+                    window.showPhotos = true;
+                    window.order1 = 'closest';
+                    updateLocationStatus(
+                        'found',
+                        typeof gettext === 'function'
+                            ? gettext('Location confirmed!')
+                            : 'Asukoht kinnitatud!',
+                    );
+                    setTimeout(function () {
+                        if (window.order1 === 'closest' && window.userLat) {
+                            updateLocationStatus('found');
+                        }
+                    }, 2500);
+
+                    if (typeof syncStateToUrl === 'function') syncStateToUrl();
+                    if (typeof syncFilteringHighlights === 'function') syncFilteringHighlights();
+
+                    // Only reload photo grid if location changed significantly (>30m) or wasn't previously loaded
+                    if (
+                        movedSignificantDistance &&
+                        typeof window.updateFrontpagePhotosAsync === 'function'
+                    ) {
+                        window.updateFrontpagePhotosAsync();
+                    }
+                };
+
+                const handleLocationError = function (err) {
+                    $('#ajp-loading-overlay').hide();
+                    console.warn('Geolocation error:', err);
+                    if (!window.userLat || !window.userLon) {
+                        updateLocationStatus('error');
+                    } else if (window.userLocationIsCached) {
+                        updateLocationStatus(
+                            'found',
+                            typeof gettext === 'function'
+                                ? gettext('Showing last known location')
+                                : 'Kuvatakse viimane teadaolev asukoht',
+                        );
+                    }
+                };
+
+                // Fast check with maximumAge to return immediately if OS has recent location
+                window.getGeolocation(
+                    handleFreshLocation,
+                    function () {
+                        // Fall back to high accuracy active GPS query
+                        window.getGeolocation(handleFreshLocation, handleLocationError, {
+                            enableHighAccuracy: true,
+                            timeout: 15000,
+                            maximumAge: 0,
+                        });
+                    },
+                    { enableHighAccuracy: false, timeout: 3000, maximumAge: 120000 },
+                );
             }
         }
         let pagingNextButton = $('#ajp-paging-next-button'),
@@ -208,6 +439,13 @@
                     } else {
                         orderingString = gettext('Pictures closest to you');
                     }
+                    if (!window.userLat || !window.userLon) {
+                        updateLocationStatus('detecting');
+                    } else {
+                        updateLocationStatus('found');
+                    }
+                } else {
+                    updateLocationStatus('hide');
                 }
                 if (window.order2 === 'comments') {
                     $('#ajp-comments-filter-icon').attr('class', 'ajp-white');
@@ -886,7 +1124,12 @@
                 $('#ajp-geolocation-error').hide();
                 window.userLat = location.coords.latitude;
                 window.userLon = location.coords.longitude;
+                window.userLocationIsCached = false;
+                if (typeof window.saveUserLocationCache === 'function') {
+                    window.saveUserLocationCache(window.userLat, window.userLon);
+                }
                 window.showPhotos = true;
+                updateLocationStatus('found');
                 if (typeof window.updateModeSelection === 'function') {
                     window.updateModeSelection(true);
                 }
@@ -914,7 +1157,16 @@
             }
             if (!window.userLat || !window.userLon) {
                 window.useButtonLink = false;
-                window.getGeolocation(window.handleGeolocation);
+                updateLocationStatus('detecting');
+                window.getGeolocation(
+                    window.handleGeolocation,
+                    function () {
+                        updateLocationStatus('error');
+                    },
+                    { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 }
+                );
+            } else {
+                updateLocationStatus('found');
             }
         }
         if (parseInt(getQueryParameterByName('locationToolsOpen'), 10) === 1) {
@@ -1033,23 +1285,27 @@
                         if (!window.userLat || !window.userLon) {
                             window.useButtonLink = false;
                             $('#ajp-loading-overlay').show();
+                            updateLocationStatus('detecting');
                             if (typeof window.getGeolocation === 'function') {
                                 window.getGeolocation(function (location) {
                                     $('#ajp-loading-overlay').hide();
                                     $('#ajp-geolocation-error').hide();
                                     window.userLat = location.coords.latitude;
                                     window.userLon = location.coords.longitude;
+                                    updateLocationStatus('found');
                                     syncStateToUrl();
                                     syncFilteringHighlights();
                                     updateModeSelection();
                                 }, function () {
                                     $('#ajp-loading-overlay').hide();
+                                    updateLocationStatus('error');
                                     syncStateToUrl();
                                     syncFilteringHighlights();
                                     updateModeSelection();
-                                });
+                                }, { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 });
                             }
                         } else {
+                            updateLocationStatus('found');
                             syncStateToUrl();
                             syncFilteringHighlights();
                             updateModeSelection();

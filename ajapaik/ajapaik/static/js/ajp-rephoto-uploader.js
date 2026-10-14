@@ -255,6 +255,24 @@ const AjpRephotoUploader = {
         const yaw = data.yaw;
         const pitch = data.pitch;
         const roll = data.roll;
+        const accuracy = data.accuracy !== undefined ? data.accuracy : null;
+        const flip = data.flip !== undefined ? data.flip : null;
+
+        try {
+            const existingUploads = await this.db.getUploads();
+            const recentDuplicate = existingUploads.find(u =>
+                u.photoId === photoId &&
+                (u.status === 'pending' || u.status === 'uploading') &&
+                (Date.now() - u.createdAt < 60000)
+            );
+            if (recentDuplicate) {
+                console.log('Skipping duplicate enqueue, upload already in progress');
+                window.location.replace(redirectUrl);
+                return;
+            }
+        } catch (e) {
+            console.warn('Failed to check existing uploads before enqueueing:', e);
+        }
 
         let randomSuffix;
         if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
@@ -283,6 +301,8 @@ const AjpRephotoUploader = {
             yaw,
             pitch,
             roll,
+            accuracy,
+            flip,
             status: 'pending',
             progress: 0,
             error: null,
@@ -362,6 +382,12 @@ const AjpRephotoUploader = {
         }
         if (upload.roll !== null && upload.roll !== undefined) {
             formData.append('roll', upload.roll);
+        }
+        if (upload.accuracy !== null && upload.accuracy !== undefined) {
+            formData.append('accuracy', upload.accuracy);
+        }
+        if (upload.flip !== null && upload.flip !== undefined) {
+            formData.append('flip', upload.flip ? '1' : '0');
         }
 
         xhr.open('POST', upload.uploadUrl, true);
