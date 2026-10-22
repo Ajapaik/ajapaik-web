@@ -313,6 +313,9 @@ COMMENTS_XTD_APP_MODEL_OPTIONS = {
 
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_AGE = 60 * 60 * 24 * 30  # 30 days
+SESSION_SAVE_EVERY_REQUEST = True
+SESSION_COOKIE_DOMAIN = ".ajapaik.ee"
 
 LEAFLET_CONFIG = {
     "PLUGINS": {
@@ -455,6 +458,7 @@ SOCIALACCOUNT_ADAPTER = "ajapaik.ajapaik.social_account_adapter.MySocialAccountA
 # address immediately after signing up, assuming users didn’t close their
 # browser or used some sort of private browsing mode.
 ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
+ACCOUNT_SESSION_REMEMBER = True
 
 ACCOUNT_FORMS = {
     "signup": "ajapaik.ajapaik.forms.SignupForm",

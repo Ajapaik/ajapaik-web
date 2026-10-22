@@ -1,8 +1,107 @@
 {% extends "admin/change_form.html" %}
+{% load i18n %}
 
 {% block submit_buttons_bottom %}
+    {% if original.pk and original.get_absolute_url %}
+        <a href="{{ original.get_absolute_url }}" target="_blank" class="button" style="background:#20639b;color:#ffffff;font-weight:bold;margin-right:8px;padding:10px 15px;display:inline-block;vertical-align:middle;text-decoration:none;border-radius:4px;">{% trans "Vaata Ajapaigas" %} ↗</a>
+    {% endif %}
     {% for button in extra_buttons %}
         <a href="./{{ button.url }}/">{{ button.textname }}</a>
     {% endfor %}
     {{ block.super }}
+{% endblock %}
+
+{% block after_field_sets %}
+    {{ block.super }}
+    <div id="ajp-draft-alert" style="display:none;margin:15px 0;padding:12px 16px;background:#fff3cd;border:1px solid #ffeeba;border-radius:4px;color:#664d03;font-size:13px;">
+        <strong>⚠️ {% trans "Hoiatus:" %}</strong> {% trans "Leiti varasem salvestamata mustand (nt ühenduse katkemise tõttu)." %}
+        <button type="button" id="ajp-restore-draft-btn" class="button" style="margin-left:12px;padding:4px 10px;background:#1b5e20;color:#ffffff;border:none;border-radius:3px;cursor:pointer;">{% trans "Taasta sisestatud andmed" %}</button>
+        <button type="button" id="ajp-discard-draft-btn" class="button" style="margin-left:6px;padding:4px 10px;background:#37474f;color:#ffffff;border:none;border-radius:3px;cursor:pointer;">{% trans "Kustuta mustand" %}</button>
+    </div>
+
+    <script>
+    (function() {
+        const photoId = '{{ original.pk|default:"new" }}';
+        const storageKey = 'ajp_photo_draft_' + photoId;
+        const form = document.getElementById('photo_form') || document.querySelector('form');
+        if (!form) return;
+
+        function getStoredDraft(key) {
+            try {
+                const raw = localStorage.getItem(key);
+                if (!raw) return null;
+                const draft = JSON.parse(raw);
+                if (!draft || !draft.timestamp || !draft.fields) return null;
+                const maxAgeMs = 7 * 24 * 3600 * 1000;
+                return (Date.now() - draft.timestamp < maxAgeMs) ? draft.fields : null;
+            } catch (err) {
+                console.debug('AJP draft read error:', err);
+                return null;
+            }
+        }
+
+        function hasFormDifference(targetForm, fields) {
+            for (const [name, val] of Object.entries(fields)) {
+                const field = targetForm.elements[name];
+                if (field && field.value !== undefined && field.value !== val) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        function applyDraft(targetForm, fields) {
+            for (const [name, val] of Object.entries(fields)) {
+                const field = targetForm.elements[name];
+                if (field && field.value !== undefined) {
+                    field.value = val;
+                }
+            }
+        }
+
+        function extractFormFields(targetForm) {
+            const fields = {};
+            for (const el of targetForm.elements) {
+                if (!el.name || el.type === 'password' || el.type === 'hidden' || el.type === 'submit') continue;
+                if (el.tagName === 'TEXTAREA' || (el.tagName === 'INPUT' && (el.type === 'text' || el.type === 'number'))) {
+                    fields[el.name] = el.value;
+                }
+            }
+            return fields;
+        }
+
+        const draftFields = getStoredDraft(storageKey);
+        const draftAlert = document.getElementById('ajp-draft-alert');
+        const restoreBtn = document.getElementById('ajp-restore-draft-btn');
+        const discardBtn = document.getElementById('ajp-discard-draft-btn');
+
+        if (draftFields && draftAlert && hasFormDifference(form, draftFields)) {
+            draftAlert.style.display = 'block';
+            restoreBtn.addEventListener('click', function() {
+                applyDraft(form, draftFields);
+                draftAlert.style.display = 'none';
+                alert('{% trans "Mustandi andmed taastatud!" %}');
+            });
+            discardBtn.addEventListener('click', function() {
+                localStorage.removeItem(storageKey);
+                draftAlert.style.display = 'none';
+            });
+        }
+
+        let saveTimer = null;
+        form.addEventListener('input', function() {
+            clearTimeout(saveTimer);
+            saveTimer = setTimeout(function() {
+                try {
+                    localStorage.setItem(storageKey, JSON.stringify({
+                        timestamp: Date.now(),
+                        fields: extractFormFields(form)
+                    }));
+                } catch (err) {
+                    console.debug('AJP draft write error:', err);
+                }
+            }, 500);
+        });
+    })();
+    </script>
 {% endblock %}

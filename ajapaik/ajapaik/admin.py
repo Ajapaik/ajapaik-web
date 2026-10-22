@@ -54,6 +54,8 @@ class DatingConfirmationAdmin(ModelAdmin):
 
 
 class PhotoAdmin(ModelAdmin):
+    view_on_site = True
+
     @staticmethod
     def _distance_between_two_points_on_sphere(lon_1, lat_1, lon_2, lat_2):
         import math
@@ -187,6 +189,7 @@ class PointsAdmin(ModelAdmin):
 
 
 class AlbumAdmin(ModelAdmin):
+    view_on_site = True
     form = autocomplete_form_factory(Album)
     search_fields = (
         "id",
