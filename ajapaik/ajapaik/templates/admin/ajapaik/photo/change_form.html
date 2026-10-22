@@ -35,7 +35,7 @@
                 const maxAgeMs = 7 * 24 * 3600 * 1000;
                 return (Date.now() - draft.timestamp < maxAgeMs) ? draft.fields : null;
             } catch (err) {
-                /* Storage parsing error, ignore */
+                console.debug('AJP draft read error:', err);
                 return null;
             }
         }
@@ -98,7 +98,7 @@
                         fields: extractFormFields(form)
                     }));
                 } catch (err) {
-                    /* Ignore quota exceeded or storage disabled */
+                    console.debug('AJP draft write error:', err);
                 }
             }, 500);
         });
