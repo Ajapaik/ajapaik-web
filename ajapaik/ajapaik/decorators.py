@@ -16,12 +16,15 @@ def _is_registered_user(user):
     start with an underscore (e.g., "_session_<...>") or with the pattern "_bot_".
 
     Consider the user registered when:
+    - user is staff, superuser, or has an email address, OR
     - user is authenticated AND username does not start with '_' (typical real users), OR
-    - user is authenticated AND has any linked SocialAccount (defensive: in case
-      some real users happen to have usernames starting with '_').
+    - user is authenticated AND has any linked SocialAccount.
     """
     if not user or not getattr(user, "is_authenticated", False):
         return False
+
+    if getattr(user, "is_staff", False) or getattr(user, "is_superuser", False) or getattr(user, "email", ""):
+        return True
 
     username = getattr(user, "username", "") or ""
     if username and not username.startswith("_"):
@@ -35,8 +38,8 @@ def _is_registered_user(user):
                 user_id=getattr(user, "id", None)
             ).exists()
         except Exception:
-            # If DB is not reachable for some reason, fall back to the strict rule
-            return False
+            # If DB is temporarily sluggish, do not kick out authenticated users
+            return True
 
     return False
 

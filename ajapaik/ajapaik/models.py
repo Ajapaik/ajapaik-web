@@ -364,6 +364,9 @@ class Album(Model):
 
         return self.name
 
+    def get_absolute_url(self):
+        return f"{reverse('frontpage')}?album={self.id}"
+
     def save(self, *args, update_fields=None, force_insert=False, **kwargs):
         # We should not have such complex logic in save methods, because currently we perform save multiple times
         # which results in objects.create not working, since we can only save with `force_insert=True` only once
@@ -1286,6 +1289,9 @@ class Photo(Model):
     @property
     def absolute_url(self):
         return reverse("photo", args=(self.id, self.get_pseudo_slug))
+
+    def get_absolute_url(self):
+        return self.absolute_url
 
     @cached_property
     def get_pseudo_slug(self):
